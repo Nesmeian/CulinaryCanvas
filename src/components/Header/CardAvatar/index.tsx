@@ -1,6 +1,8 @@
 import { Avatar, Box, Heading, HStack, Link } from '@chakra-ui/react';
 
-export default function CardAvatar({ userData }) {
+import { UserProps } from '~/types';
+
+export default function CardAvatar({ userData }: UserProps) {
     const { img, name, lastName, email } = userData;
     return (
         <HStack>
