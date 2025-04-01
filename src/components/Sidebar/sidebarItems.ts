@@ -17,6 +17,10 @@ export const sideBarItems = [
         imgUrl: sideBarIcons.secondCourses,
     },
     {
+        name: 'Десерты, выпечка',
+        imgUrl: sideBarIcons.dessertsPastries,
+    },
+    {
         name: 'Блюда на гриле',
         imgUrl: sideBarIcons.grilledDishes,
     },

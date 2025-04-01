@@ -1,8 +1,21 @@
-.sideBar {
-    width: 13.5%;
+.sidebar {
+    width: 12.4%;
+    padding: 43px 0 0 20px;
+    box-sizing: content-box;
     box-shadow:
         0 2px 1px -1px rgba(0, 0, 0, 0.2),
         0 1px 1px 0 rgba(0, 0, 0, 0.14),
         0 1px 3px 0 rgba(0, 0, 0, 0.12);
-    height: 90vh;
+}
+.sidebar__item {
+    justify-content: space-between;
+    width: 100%;
+}
+.sidebar__item_text {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 150%;
+}
+.sidebar__item_vector {
+    padding-right: 23px;
 }
