@@ -1,0 +1,34 @@
+.header {
+    width: 100%;
+    height: 80px;
+    background: #ffffd3;
+}
+.currentRoute {
+    font-size: 18px;
+    font-weight: 400;
+}
+.header__img {
+    width: 15%;
+    height: 32px;
+    padding-left: 20px;
+}
+.avatar__text-container {
+    padding-right: 70px;
+}
+.header__container {
+    width: 100%;
+    padding: 0 8px;
+}
+.avatar__full-name {
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 156%;
+    color: #000;
+}
+
+.avatar__email {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 143%;
+    color: rgba(0, 0, 0, 0.64);
+}
