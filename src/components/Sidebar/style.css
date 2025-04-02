@@ -1,6 +1,6 @@
 .sidebar {
     width: 12.4%;
-    padding: 43px 0 0 20px;
+    padding: 45px 0 0 20px;
     box-sizing: content-box;
     box-shadow:
         0 2px 1px -1px rgba(0, 0, 0, 0.2),
@@ -18,4 +18,27 @@
 }
 .sidebar__item_vector {
     padding-right: 23px;
+}
+
+.sidebar__footer {
+    padding-top: 224px;
+    padding-left: 7px;
+    font-size: 12.7px;
+}
+
+.sidebar__version {
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.24);
+}
+.sidebar__copyright {
+    line-height: 133%;
+    color: rgba(0, 0, 0, 0.64);
+}
+.sidebar__logout {
+    padding: 2px 0 30px;
+    font-weight: 600;
+    font-size: 12.3px;
+    border: 0;
+    background-color: white;
+    gap: 5px;
 }
