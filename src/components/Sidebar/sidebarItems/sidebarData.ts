@@ -1,5 +1,5 @@
-import * as sideBarIcons from '../../assets/sidebarsIcons';
-export const sideBarItems = [
+import * as sideBarIcons from '../../../assets/sidebarsIcons';
+export const sidebarData = [
     {
         name: 'Салаты',
         imgUrl: sideBarIcons.salads,
