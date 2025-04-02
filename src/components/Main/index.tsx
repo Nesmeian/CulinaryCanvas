@@ -2,12 +2,12 @@ import './style.css';
 
 import { HStack } from '@chakra-ui/react';
 
-import SideBar from '../Sidebar';
+import Search from '../Search';
 
 export default function Main() {
     return (
         <HStack className='main'>
-            <SideBar />;
+            <Search />
         </HStack>
     );
 }
