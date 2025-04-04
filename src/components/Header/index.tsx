@@ -1,6 +1,6 @@
 import './style.css';
 
-import { Box, Heading, HStack, Image } from '@chakra-ui/react';
+import { Box, HStack, Image, Text } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 
 import { ApplicationState } from '~/store/configure-store';
@@ -18,9 +18,9 @@ export default function Header() {
                 <Image src={logoUrl} />
             </Box>
             <HStack className='header__container' justify='space-between'>
-                <Heading className='currentRoute' as='h4'>
+                <Text className='currentRoute' as='h4' fontSize={{ base: 'medium', md: 'medium' }}>
                     {temporaryRout}
-                </Heading>
+                </Text>
                 <CardAvatar userData={userData} />
             </HStack>
         </HStack>

@@ -1,17 +1,13 @@
-import { Avatar, Heading, HStack, Stack } from '@chakra-ui/react';
+import { Avatar, HStack, Stack, Text } from '@chakra-ui/react';
 
-import { UserProps } from '~/types/userTypes';
-
-export default function CardAvatar({ userData }: UserProps) {
+export default function CardAvatar({ userData }) {
     const { img, name, lastName, email } = userData;
     return (
         <HStack gap='12px'>
             <Avatar name={`${name},${lastName}`} src={img} />
             <Stack className='avatar__text-container' gap='0'>
-                <Heading className='avatar__full-name'>{`${name} ${lastName}`}</Heading>
-                <Heading as='p' className='avatar__email'>
-                    {email}
-                </Heading>
+                <Text va>{`${name} ${lastName}`}</Text>
+                <Text className='avatar__email'>{email}</Text>
             </Stack>
         </HStack>
     );
