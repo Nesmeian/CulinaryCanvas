@@ -1,7 +1,7 @@
-import { Heading, HStack, Image, Stack, StackDirection } from '@chakra-ui/react';
+import { HStack, Image, Stack, StackDirection, Text } from '@chakra-ui/react';
 
 import * as socialImgs from '../../assets/socialIcons/index';
-
+type SocialType = keyof typeof socialImgs;
 type NotificationListProps = {
     direction: 'horizontal' | 'vertical';
 };
@@ -33,8 +33,8 @@ export default function NotificationList({ direction }: NotificationListProps) {
             >
                 {Object.entries(asideData).map(([type, value]) => (
                     <HStack key={type}>
-                        <Image src={socialImgs[type]} />
-                        <Heading as='p'>{value}</Heading>
+                        <Image src={socialImgs[type as SocialType]} />
+                        <Text as='p'>{value}</Text>
                     </HStack>
                 ))}
             </Stack>

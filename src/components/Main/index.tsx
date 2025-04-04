@@ -1,13 +1,16 @@
 import './style.css';
 
-import { HStack } from '@chakra-ui/react';
+import { Heading, VStack } from '@chakra-ui/react';
 
 import Search from '../Search';
 
 export default function Main() {
     return (
-        <HStack className='main'>
+        <VStack className='main'>
+            <Heading as='h1' className='greetings'>
+                Приятного аппетита!
+            </Heading>
             <Search />
-        </HStack>
+        </VStack>
     );
 }
