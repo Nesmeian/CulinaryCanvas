@@ -1,5 +1,8 @@
 import { extendTheme } from '@chakra-ui/react';
 
+import { headerFonts } from '~/components/Header/headerFonts';
+import { sideBarFonts } from '~/components/Sidebar/sidebarThemes';
+
 const breakpoints = {
     sm: '360px',
     md: '768px',
@@ -32,28 +35,8 @@ const theme = extendTheme({
                 },
             },
             variants: {
-                sidebarItems: {
-                    fontSize: {
-                        xl: '17px',
-                    },
-                },
-                sidebarFooter: {
-                    fontSize: {
-                        xl: '12px',
-                    },
-                },
-                medium: {
-                    fontSize: 'paragraphMd', // 18px
-                    fontWeight: '500',
-                },
-                large: {
-                    fontSize: 'paragraphLg', // 20px
-                    lineHeight: '1.8',
-                },
-                special: {
-                    fontSize: 'paragraphXl', // 17px
-                    fontStyle: 'italic',
-                },
+                ...headerFonts,
+                ...sideBarFonts,
             },
         },
     },
