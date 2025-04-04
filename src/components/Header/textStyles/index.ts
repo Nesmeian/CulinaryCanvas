@@ -1,4 +1,4 @@
-export const headerFonts = {
+export const headerTextStyles = {
     currentRoot: {
         fontSize: {
             xl: '18px',
@@ -16,5 +16,3 @@ export const headerFonts = {
         },
     },
 };
-// font-weight: 500;
-// font-size: 19px;

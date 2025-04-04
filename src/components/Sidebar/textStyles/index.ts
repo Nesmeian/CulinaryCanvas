@@ -1,4 +1,4 @@
-export const sideBarFonts = {
+export const sidebarTextStyles = {
     sidebarItems: {
         fontSize: {
             xl: '17px',

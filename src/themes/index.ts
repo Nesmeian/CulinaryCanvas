@@ -1,7 +1,9 @@
 import { extendTheme } from '@chakra-ui/react';
 
-import { headerFonts } from '~/components/Header/headerFonts';
-import { sideBarFonts } from '~/components/Sidebar/sidebarThemes';
+import { headerTextStyles } from '~/components/Header/textStyles';
+import { notificationTextStyles } from '~/components/Notification/textStyles';
+import { sidebarTextStyles } from '~/components/Sidebar/textStyles';
+import { writeRecipeTextStyle } from '~/components/WriteRecipe/textStyles';
 
 const breakpoints = {
     sm: '360px',
@@ -35,8 +37,10 @@ const theme = extendTheme({
                 },
             },
             variants: {
-                ...headerFonts,
-                ...sideBarFonts,
+                ...headerTextStyles,
+                ...sidebarTextStyles,
+                ...writeRecipeTextStyle,
+                ...notificationTextStyles,
             },
         },
     },
