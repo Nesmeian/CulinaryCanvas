@@ -18,7 +18,7 @@ export default function Header() {
                 <Image src={logoUrl} />
             </Box>
             <HStack className='header__container' justify='space-between'>
-                <Text className='currentRoute' as='h4' fontSize={{ base: 'medium', md: 'medium' }}>
+                <Text className='currentRoute' variant='currentRoute'>
                     {temporaryRout}
                 </Text>
                 <CardAvatar userData={userData} />
