@@ -3,9 +3,8 @@
     height: 80px;
     background: #ffffd3;
 }
-.currentRoute {
-    font-size: 18px;
-    font-weight: 400;
+.header__current-route {
+    padding-left: 14px;
 }
 .header__img {
     width: 15%;
@@ -18,14 +17,4 @@
 .header__container {
     width: 100%;
     padding: 0 8px;
-}
-.avatar__full-name {
-    line-height: 156%;
-}
-
-.avatar__email {
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 143%;
-    color: rgba(0, 0, 0, 0.64);
 }

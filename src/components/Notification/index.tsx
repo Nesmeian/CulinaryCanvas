@@ -32,9 +32,9 @@ export default function NotificationList({ direction }: NotificationListProps) {
                 mt={currentStyle.marginTop}
             >
                 {Object.entries(asideData).map(([type, value]) => (
-                    <HStack key={type}>
+                    <HStack key={type} paddingLeft='5px'>
                         <Image src={socialImgs[type as SocialType]} />
-                        <Text as='p'>{value}</Text>
+                        <Text variant='notificationTextStyles'>{value}</Text>
                     </HStack>
                 ))}
             </Stack>
