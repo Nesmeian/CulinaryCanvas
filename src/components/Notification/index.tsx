@@ -6,7 +6,7 @@ type NotificationListProps = {
     direction: 'horizontal' | 'vertical';
 };
 export default function NotificationList({ direction }: NotificationListProps) {
-    const asideData = {
+    const sidebarData = {
         shares: 185,
         views: 589,
         likes: 587,
@@ -31,7 +31,7 @@ export default function NotificationList({ direction }: NotificationListProps) {
                 gap={currentStyle.gap}
                 mt={currentStyle.marginTop}
             >
-                {Object.entries(asideData).map(([type, value]) => (
+                {Object.entries(sidebarData).map(([type, value]) => (
                     <HStack key={type} paddingLeft='5px'>
                         <Image src={socialImgs[type as SocialType]} />
                         <Text variant='notificationTextStyles'>{value}</Text>

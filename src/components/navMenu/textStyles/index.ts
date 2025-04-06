@@ -1,10 +1,10 @@
-export const sidebarTextStyles = {
-    sidebarItems: {
+export const navMenuTextStyles = {
+    navMenuItems: {
         fontSize: {
             xl: '17px',
         },
     },
-    sidebarFooter: {
+    navMenuFooter: {
         fontSize: {
             xl: '12px',
         },
