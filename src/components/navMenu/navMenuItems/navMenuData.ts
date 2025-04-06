@@ -1,55 +1,55 @@
-import * as sideBarIcons from '../../../assets/sidebarsIcons';
-export const sidebarData = [
+import * as navMenuIcons from '../../../assets/navMenuIcons';
+export const navMenuData = [
     {
         name: 'Салаты',
-        imgUrl: sideBarIcons.salads,
+        imgUrl: navMenuIcons.salads,
     },
     {
         name: 'Закуски',
-        imgUrl: sideBarIcons.snacks,
+        imgUrl: navMenuIcons.snacks,
     },
     {
         name: 'Первые блюда',
-        imgUrl: sideBarIcons.firstCourses,
+        imgUrl: navMenuIcons.firstCourses,
     },
     {
         name: 'Вторые Блюда',
-        imgUrl: sideBarIcons.secondCourses,
+        imgUrl: navMenuIcons.secondCourses,
     },
     {
         name: 'Десерты, выпечка',
-        imgUrl: sideBarIcons.dessertsPastries,
+        imgUrl: navMenuIcons.dessertsPastries,
     },
     {
         name: 'Блюда на гриле',
-        imgUrl: sideBarIcons.grilledDishes,
+        imgUrl: navMenuIcons.grilledDishes,
     },
     {
         name: 'Веганская кухня',
-        imgUrl: sideBarIcons.veganCuisine,
+        imgUrl: navMenuIcons.veganCuisine,
     },
     {
         name: 'Детские блюда',
-        imgUrl: sideBarIcons.childrenMeals,
+        imgUrl: navMenuIcons.childrenMeals,
     },
     {
         name: 'Лечебное питание',
-        imgUrl: sideBarIcons.therapeuticNutrition,
+        imgUrl: navMenuIcons.therapeuticNutrition,
     },
     {
         name: 'Национальные',
-        imgUrl: sideBarIcons.nationalNutrition,
+        imgUrl: navMenuIcons.nationalNutrition,
     },
     {
         name: 'Соусы',
-        imgUrl: sideBarIcons.sauces,
+        imgUrl: navMenuIcons.sauces,
     },
     {
         name: 'Напитки',
-        imgUrl: sideBarIcons.drinks,
+        imgUrl: navMenuIcons.drinks,
     },
     {
         name: 'Заготовки',
-        imgUrl: sideBarIcons.foodPreparation,
+        imgUrl: navMenuIcons.foodPreparation,
     },
 ];

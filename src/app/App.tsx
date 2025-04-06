@@ -1,9 +1,9 @@
 import { HStack, Stack } from '@chakra-ui/react';
 
-import Aside from '~/components/Aside';
 import Header from '~/components/Header';
 import Main from '~/components/Main';
-import SideBar from '~/components/Sidebar';
+import NavMenu from '~/components/navMenu';
+import Sidebar from '~/components/SideBar';
 
 function App() {
     return (
@@ -15,9 +15,9 @@ function App() {
                 height='100vh'
                 paddingTop='80px'
             >
-                <SideBar />;
+                <NavMenu />;
                 <Main />
-                <Aside />
+                <Sidebar />
             </HStack>
         </Stack>
     );
