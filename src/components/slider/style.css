@@ -1,0 +1,19 @@
+.slider {
+    padding: 5px 0 0 10px;
+    position: relative;
+}
+.slider__item {
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.slider__right-arrow,
+.slider__left-arrow {
+    position: absolute;
+    transform: translateY(-35px);
+}
+.slider__left-arrow {
+    left: 0;
+}
+.slider__right-arrow {
+    right: 0;
+}

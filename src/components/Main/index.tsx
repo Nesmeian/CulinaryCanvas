@@ -3,14 +3,16 @@ import './style.css';
 import { Heading, VStack } from '@chakra-ui/react';
 
 import Search from '../Search';
+import Slider from '../slider';
 
 export default function Main() {
     return (
         <VStack className='main' width='75%'>
-            <Heading as='h1' className='title'>
+            <Heading as='h1' size='h1' className='title'>
                 Приятного аппетита!
             </Heading>
             <Search />
+            <Slider />
         </VStack>
     );
 }
