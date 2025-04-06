@@ -6,8 +6,8 @@ import Search from '../Search';
 
 export default function Main() {
     return (
-        <VStack className='main'>
-            <Heading as='h1' className='greetings'>
+        <VStack className='main' width='75%'>
+            <Heading as='h1' className='title'>
                 Приятного аппетита!
             </Heading>
             <Search />

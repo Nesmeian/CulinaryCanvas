@@ -9,7 +9,12 @@ function App() {
     return (
         <Stack gap='0'>
             <Header />
-            <HStack justifyContent='space-between' alignItems='flex-start' height='92.8vh'>
+            <HStack
+                justifyContent='space-between'
+                alignItems='flex-start'
+                height='100vh'
+                paddingTop='80px'
+            >
                 <SideBar />;
                 <Main />
                 <Aside />
