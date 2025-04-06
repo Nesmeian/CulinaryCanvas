@@ -17,19 +17,10 @@ const theme = extendTheme({
     fonts: {
         body: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
     },
-    fontSizes: {
-        paragraphSm: '16px',
-        paragraphMd: '18px',
-        paragraphLg: '200px',
-        paragraphXl: '17px',
-    },
     components: {
         Text: {
             baseStyle: {
                 fontSize: {
-                    base: 'paragraphSm',
-                    md: 'paragraphMd',
-                    lg: 'paragraphLg',
                     xl: '17px',
                 },
                 letterSpacing: {
@@ -41,6 +32,22 @@ const theme = extendTheme({
                 ...sidebarTextStyles,
                 ...writeRecipeTextStyle,
                 ...notificationTextStyles,
+            },
+        },
+        Heading: {
+            baseStyle: {
+                fontFamily: 'inherit',
+            },
+            sizes: {
+                h1: {
+                    fontSize: {
+                        xl: '48px',
+                    },
+                },
+            },
+            defaultProps: {
+                size: 'h1',
+                as: 'h1',
             },
         },
     },

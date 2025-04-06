@@ -1,0 +1,21 @@
+.unknown-block {
+    width: 56px;
+    height: 48px;
+    border: 1px solid rgba(0, 0, 0, 0.48);
+    border-radius: 6px;
+}
+.first-line {
+    width: 18px;
+    height: 2px;
+    background-color: black;
+}
+.second-line {
+    width: 10px;
+    height: 2px;
+    background-color: black;
+}
+.third-line {
+    width: 5px;
+    height: 2px;
+    background-color: black;
+}
