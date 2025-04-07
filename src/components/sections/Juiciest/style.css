@@ -1,5 +1,6 @@
 .juiciest {
-    padding: 16px 10px 0;
+    padding: 19px 9px 0;
+    width: 100%;
 }
 .juiciest__list {
     display: grid;
@@ -9,7 +10,6 @@
     grid-row-gap: 0;
 }
 .juiciest__item {
-    width: '668px';
     overflow: hidden;
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.08);

@@ -3,8 +3,9 @@ import { extendTheme } from '@chakra-ui/react';
 import { headerTextStyles } from '~/components/Header/textStyles';
 import { navMenuTextStyles } from '~/components/navMenu/textStyles';
 import { notificationTextStyles } from '~/components/Notification/textStyles';
-import sliderTextStyles from '~/components/slider/sliderTextStyles';
+import sectionTextStyles from '~/components/sections/sectionTextStyles';
 import { writeRecipeTextStyle } from '~/components/WriteRecipe/textStyles';
+import utilsTextStyles from '~/utils/utilsTextStyles';
 
 const breakpoints = {
     sm: '360px',
@@ -33,7 +34,8 @@ const theme = extendTheme({
                 ...navMenuTextStyles,
                 ...writeRecipeTextStyle,
                 ...notificationTextStyles,
-                ...sliderTextStyles,
+                ...sectionTextStyles,
+                ...utilsTextStyles,
             },
         },
         Heading: {

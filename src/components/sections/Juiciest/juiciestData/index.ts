@@ -23,8 +23,8 @@ const juiciestData = [
             likes: '159',
         },
         userRecommendation: {
-            imgUrl: userRecommendationImg.ElenaVysotskaya,
             user: 'Елена Высоцкая',
+            imgUrl: userRecommendationImg.ElenaVysotskaya,
         },
     },
     {
