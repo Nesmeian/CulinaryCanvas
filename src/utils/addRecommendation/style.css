@@ -1,0 +1,8 @@
+.user-recommendation {
+    background-color: #d7ff94;
+    border-radius: 4px;
+    padding: 4px 8px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}

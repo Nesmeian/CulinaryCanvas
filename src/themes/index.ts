@@ -47,6 +47,11 @@ const theme = extendTheme({
                         xl: '48px',
                     },
                 },
+                h2: {
+                    fontSize: {
+                        xl: '48px',
+                    },
+                },
                 h4: {
                     fontSize: {
                         xl: '20px',

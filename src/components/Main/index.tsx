@@ -3,6 +3,7 @@ import './style.css';
 import { Heading, VStack } from '@chakra-ui/react';
 
 import Search from '../Search';
+import Juiciest from '../sections/Juiciest';
 import Slider from '../slider';
 
 export default function Main() {
@@ -13,6 +14,7 @@ export default function Main() {
             </Heading>
             <Search />
             <Slider />
+            <Juiciest />
         </VStack>
     );
 }
