@@ -3,8 +3,8 @@ import './style.css';
 import { Heading, VStack } from '@chakra-ui/react';
 
 import Search from '../Search';
+import CulinaryBlogs from '../sections/culinaryBlogs';
 import Juiciest from '../sections/Juiciest';
-import CulinaryBlogs from '../sections/СulinaryBlogs';
 import Slider from '../slider';
 
 export default function Main() {

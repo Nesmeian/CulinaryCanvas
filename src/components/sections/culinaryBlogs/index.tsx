@@ -21,7 +21,7 @@ export default function CulinaryBlogs() {
                     Все авторы
                 </Button>
             </HStack>
-            <HStack gap='20px'>
+            <HStack gap='18px'>
                 {culinaryBlogData.map(({ img, user, email, description }) => (
                     <VStack
                         key={user}
@@ -29,10 +29,12 @@ export default function CulinaryBlogs() {
                         alignItems='flex-start'
                         width='426px'
                         p='24px'
+                        gap='24px'
+                        mb='22.5px'
                         borderRadius='8px'
                     >
                         <CardAvatar userData={{ user, email, img }} />
-                        <Text fontSize='14px'>{description}</Text>
+                        <Text variant='culinaryTextStyles'>{description}</Text>
                     </VStack>
                 ))}
             </HStack>
