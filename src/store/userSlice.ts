@@ -6,8 +6,7 @@ import userImg from '../assets/userImg.png';
 
 const initialState: UserData = {
     img: userImg,
-    name: 'Екатерина',
-    lastName: 'Константинопольская',
+    user: 'Екатерина Константинопольская',
     email: '@bake_and_pie',
 };
 export const userSlice = createSlice({

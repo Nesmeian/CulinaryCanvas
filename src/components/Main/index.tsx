@@ -4,6 +4,7 @@ import { Heading, VStack } from '@chakra-ui/react';
 
 import Search from '../Search';
 import Juiciest from '../sections/Juiciest';
+import CulinaryBlogs from '../sections/СulinaryBlogs';
 import Slider from '../slider';
 
 export default function Main() {
@@ -15,6 +16,7 @@ export default function Main() {
             <Search />
             <Slider />
             <Juiciest />
+            <CulinaryBlogs />
         </VStack>
     );
 }

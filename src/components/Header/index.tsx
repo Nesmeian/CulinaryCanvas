@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { ApplicationState } from '~/store/configure-store';
 
 import logoUrl from '../../assets/logo.svg';
-import CardAvatar from './CardAvatar';
+import CardAvatar from '../CardAvatar';
 
 export default function Header() {
     const temporaryRout = 'Главная';
@@ -17,7 +17,7 @@ export default function Header() {
             <Box className='header__img'>
                 <Image src={logoUrl} />
             </Box>
-            <HStack className='header__container' justify='space-between'>
+            <HStack className='header__container' justify='space-between' pr='82px'>
                 <Text className='header__current-route' variant='currentRoute'>
                     {temporaryRout}
                 </Text>

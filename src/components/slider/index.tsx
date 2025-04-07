@@ -2,12 +2,13 @@ import './style.css';
 
 import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
+import sliderData from '~/data/slider';
 import { TagKey } from '~/types/utilsTypes';
 
 import * as sliderArrows from '../../assets/sliderArrows/index';
 import AddNotifications from '../../utils/addNotifications';
 import Tags from '../../utils/addTags';
-import sliderData from './sliderdata';
+
 export default function Slider() {
     return (
         <VStack width='100%' align='flex-start'>

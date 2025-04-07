@@ -1,0 +1,16 @@
+.culinary-blogs {
+    background: #c4ff61;
+    border-radius: 16px;
+    margin-top: 34px;
+    margin-left: 10px;
+    width: 94.3%;
+}
+.culinary-blogs__title {
+    padding: 15px 0 20px 23px;
+}
+.culinary-blogs__btn-all-authors {
+    margin-right: 21px;
+}
+.culinary-blogs__item {
+    background-color: white;
+}

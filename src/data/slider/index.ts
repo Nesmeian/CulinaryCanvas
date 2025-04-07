@@ -1,4 +1,4 @@
-import * as sliderImg from '../../../assets/sliderImg/index';
+import * as sliderImg from '../../assets/sliderImg/index';
 const sliderData = [
     {
         imgUrl: sliderImg.solyanka,

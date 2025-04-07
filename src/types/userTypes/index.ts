@@ -3,7 +3,6 @@ export interface UserProps {
 }
 export interface UserData {
     img: string;
-    name: string;
-    lastName: string;
+    user: string;
     email: string;
 }
