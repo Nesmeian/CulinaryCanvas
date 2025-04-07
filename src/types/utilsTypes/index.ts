@@ -13,3 +13,11 @@ interface Notifications {
 export interface addNotificationsProps {
     notifications?: Notifications;
 }
+interface UserRecommendation {
+    imgUrl: string;
+    user: string;
+}
+
+export interface AddRecommendationProps {
+    userRecommendation?: UserRecommendation | null;
+}

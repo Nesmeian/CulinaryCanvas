@@ -23,7 +23,7 @@ export default function Slider() {
                             <Heading as='h4' size='h4' noOfLines={1}>
                                 {title}
                             </Heading>
-                            <Text variant='sliderDescription'>{description}</Text>
+                            <Text variant='sectionDescription'>{description}</Text>
                             <HStack m='25px 0 20px 0' justify='space-between' width='100%'>
                                 <Tags tag={tag as TagKey} />
                                 <AddNotifications notifications={notifications} />

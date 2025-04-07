@@ -10,13 +10,13 @@ export default function AddNotifications({ notifications }: addNotificationsProp
             {notifications?.share && (
                 <HStack gap='5px'>
                     <Image src={socialIcons.shares} boxSize='12px' />
-                    <Text variant='sliderNotification'>{notifications.share}</Text>
+                    <Text variant='addNotification'>{notifications.share}</Text>
                 </HStack>
             )}
             {notifications?.likes && (
                 <HStack gap='5px'>
                     <Image src={socialIcons.likes} boxSize='12px' />
-                    <Text variant='sliderNotification'>{notifications.likes}</Text>
+                    <Text variant='addNotification'>{notifications.likes}</Text>
                 </HStack>
             )}
         </HStack>
