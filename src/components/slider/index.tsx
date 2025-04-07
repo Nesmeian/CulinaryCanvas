@@ -2,16 +2,18 @@ import './style.css';
 
 import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
-import { TagKey } from '~/types/sliderTypes';
+import { TagKey } from '~/types/utilsTypes';
 
 import * as sliderArrows from '../../assets/sliderArrows/index';
+import AddNotifications from '../../utils/addNotifications';
+import Tags from '../../utils/addTags';
 import sliderData from './sliderdata';
-import SliderNotifications from './sliderNotifications';
-import Tags from './tags';
 export default function Slider() {
     return (
         <VStack width='100%' align='flex-start'>
-            <Heading p='35px 0 0 10px'>Новые рецепты</Heading>
+            <Heading as='h2' size='h2' p='35px 0 0 10px'>
+                Новые рецепты
+            </Heading>
             <HStack className='slider' gap='23px' pr='10px'>
                 <Image src={sliderArrows.leftArrow} className='slider__left-arrow' />
                 {sliderData.map(({ imgUrl, title, description, tag, notifications }) => (
@@ -24,7 +26,7 @@ export default function Slider() {
                             <Text variant='sliderDescription'>{description}</Text>
                             <HStack m='25px 0 20px 0' justify='space-between' width='100%'>
                                 <Tags tag={tag as TagKey} />
-                                <SliderNotifications notifications={notifications} />
+                                <AddNotifications notifications={notifications} />
                             </HStack>
                         </VStack>
                     </VStack>

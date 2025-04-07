@@ -1,0 +1,19 @@
+.juiciest {
+    padding: 16px 10px 0;
+}
+.juiciest__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+}
+.juiciest__item {
+    width: '668px';
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.juiciest__item__image-container {
+    position: relative;
+}

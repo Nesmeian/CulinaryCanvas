@@ -1,4 +1,4 @@
-import * as imgTags from '../../../assets/navMenuIcons/index';
+import * as imgTags from '../../assets/navMenuIcons/index';
 
 const tagsKeys = {
     Салаты: imgTags.salads,
