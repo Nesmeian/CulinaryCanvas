@@ -1,5 +1,5 @@
-import * as JuiciestImg from '../../../../assets/sections/JuiciestImg/index';
-import * as userRecommendationImg from '../../../../assets/sections/JuiciestImg/userRecommendation/index';
+import * as JuiciestImg from '../../assets/sections/JuiciestImg/index';
+import * as userRecommendationImg from '../../assets/users/smallImg/index';
 const juiciestData = [
     {
         imgUrl: JuiciestImg.spaghettiDumplings,

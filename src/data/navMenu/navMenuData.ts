@@ -1,4 +1,4 @@
-import * as navMenuIcons from '../../../assets/navMenuIcons';
+import * as navMenuIcons from '../../assets/navMenuIcons';
 export const navMenuData = [
     {
         name: 'Салаты',

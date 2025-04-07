@@ -2,9 +2,9 @@ import './style.css';
 
 import { VStack } from '@chakra-ui/react';
 
+import { navMenuData } from '../../data/navMenu/navMenuData';
 import NavMenuFooter from './navMenuFooter';
 import NavMenuItems from './navMenuItems';
-import { navMenuData } from './navMenuItems/navMenuData';
 
 export default function navMenu() {
     return (
