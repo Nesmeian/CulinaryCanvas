@@ -6,7 +6,7 @@ import * as socialIcons from '../../assets/socialIcons/index';
 
 export default function AddNotifications({ notifications }: addNotificationsProps) {
     return (
-        <HStack pr='28px' gap='17px'>
+        <HStack gap='17px' pr='3px'>
             {notifications?.share && (
                 <HStack gap='5px'>
                     <Image src={socialIcons.shares} boxSize='12px' />

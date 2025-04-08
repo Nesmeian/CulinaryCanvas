@@ -6,6 +6,9 @@
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.08);
 }
+.slider__item-content {
+    padding: 7px 24px 0 22px;
+}
 .slider__right-arrow,
 .slider__left-arrow {
     position: absolute;
