@@ -16,6 +16,13 @@ const breakpoints = {
 
 const theme = extendTheme({
     breakpoints,
+    colors: {
+        customGreen: {
+            500: '#2db100',
+            600: '#259900',
+            700: '#1c8000',
+        },
+    },
     fonts: {
         body: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
     },
@@ -65,6 +72,7 @@ const theme = extendTheme({
                     fontSize: {
                         xl: '20px',
                     },
+                    letterSpacing: '0.4px',
                 },
             },
             defaultProps: {

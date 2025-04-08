@@ -26,7 +26,12 @@ export default function Slider() {
                             </Heading>
                             <Text variant='sectionDescription'>{description}</Text>
                             <HStack m='25px 0 20px 0' justify='space-between' width='100%'>
-                                <Tags tag={tag as TagKey} withText={true} />
+                                <Tags
+                                    tag={tag as TagKey}
+                                    withText={true}
+                                    color='#d7ff94'
+                                    size='16px'
+                                />
                                 <AddNotifications notifications={notifications} />
                             </HStack>
                         </VStack>

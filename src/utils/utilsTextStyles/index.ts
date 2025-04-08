@@ -4,6 +4,7 @@ const utilsTextStyles = {
     },
     addNotification: {
         fontSize: '12px',
+        fontWeight: '600',
         color: '#2db100',
     },
     addUserRecommendation: {

@@ -10,50 +10,57 @@ import AddTags from '~/utils/addTags';
 
 export default function VeganCuisine() {
     return (
-        <HStack
-            width='94.7%'
-            alignSelf='flex-start'
-            ml='8px'
-            pt='10px'
-            gap='10px'
-            borderTop='1px solid rgba(0, 0, 0, 0.08);'
-        >
+        <HStack alignSelf='flex-start' alignItems='flex-start' gap='10px' className='vegan-cuisine'>
             <VStack align='flex-start' width='50%'>
                 <Heading as='h2' size='h2' letterSpacing='0.8px' mb='4px'>
                     Веганская кухня
                 </Heading>
                 <HStack gap='24px'>
                     {veganCuisineCardData.map(({ title, tag, description, notifications }) => (
-                        <VStack className='vegan-cuisine__card-item'>
+                        <VStack key={title} className='vegan-cuisine__card-item'>
                             <Heading width='100%' noOfLines={1} as='h4' size='h4'>
                                 {title}
                             </Heading>
-                            <Text variant='culinaryTextStyles' mb='23px' noOfLines={3}>
+                            <Text variant='culinaryTextStyles' mb='18px' noOfLines={3}>
                                 {description}
                             </Text>
                             <HStack width='100%' justify='space-between'>
-                                <AddTags tag={tag as TagKey} withText />
+                                <AddTags
+                                    tag={tag as TagKey}
+                                    withText
+                                    size='14px'
+                                    color='#ffffd3;'
+                                />
                                 <AddNotifications notifications={notifications} />
                             </HStack>
                         </VStack>
                     ))}
                 </HStack>
             </VStack>
-            <VStack width='50%'>
-                <Text>
+            <VStack width='50%' height='100%' className='vegan-cuisine__recipe'>
+                <Text className='vegan-cuisine__recipe-title'>
                     Интересны не только убеждённым вегетарианцам, но и тем, кто хочет попробовать
                     вегетарианскую диету и готовить вкусные вегетарианские блюда.
                 </Text>
-                <VStack>
+                <VStack width='100%' gap='12px'>
                     {veganCuisineRecipesData.map(({ title, tag }) => (
-                        <HStack>
-                            <HStack>
-                                <AddTags tag={tag as TagKey} withText={false} />
+                        <HStack key={title} className='vegan-cuisine__recipe-item'>
+                            <HStack width='100%' gap='0px'>
+                                <AddTags tag={tag as TagKey} withText={false} size='24px' />
                                 <Heading as='h4' size='h4'>
                                     {title}
                                 </Heading>
                             </HStack>
-                            <Button variant='plain'>Готовить</Button>
+                            <Button
+                                width='95px'
+                                fontSize='15.5px'
+                                fontWeight='600'
+                                height='32px'
+                                variant='outline'
+                                colorScheme='customGreen'
+                            >
+                                Готовить
+                            </Button>
                         </HStack>
                     ))}
                 </VStack>

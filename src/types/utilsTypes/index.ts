@@ -3,6 +3,8 @@ import tagsKeys from '~/utils/addTags/tagsImgData';
 export type TagKey = keyof typeof tagsKeys;
 
 export default interface TagsProps {
+    color?: string;
+    size?: string;
     withText: boolean;
     tag: TagKey;
 }

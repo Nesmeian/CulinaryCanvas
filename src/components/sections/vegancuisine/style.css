@@ -1,7 +1,27 @@
+.vegan-cuisine {
+    width: 94.7%;
+    margin-left: 8px;
+    padding-top: 13px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
 .vegan-cuisine__card-item {
     width: 47.5%;
     padding: 24px 23px;
     gap: 5px;
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 8px;
+}
+
+.vegan-cuisine__recipe {
+    padding-left: 6px;
+}
+.vegan-cuisine__recipe-item {
+    width: 100%;
+    padding: 10px 28px 14px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}
+.vegan-cuisine__recipe-title {
+    margin-top: 13px;
+    margin-bottom: 12px;
 }
