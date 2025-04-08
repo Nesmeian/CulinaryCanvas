@@ -20,13 +20,13 @@ export default function Slider() {
                 {sliderData.map(({ imgUrl, title, description, tag, notifications }) => (
                     <VStack key={title} width='322px' className='slider__item' overflow='hidden'>
                         <Image src={imgUrl} alt={title} />
-                        <VStack align='flex-start' p='7px 0 0 22px' gap='6px'>
+                        <VStack className='slider__item-content' align='flex-start' gap='6px'>
                             <Heading as='h4' size='h4' noOfLines={1}>
                                 {title}
                             </Heading>
                             <Text variant='sectionDescription'>{description}</Text>
                             <HStack m='25px 0 20px 0' justify='space-between' width='100%'>
-                                <Tags tag={tag as TagKey} />
+                                <Tags tag={tag as TagKey} withText={true} />
                                 <AddNotifications notifications={notifications} />
                             </HStack>
                         </VStack>

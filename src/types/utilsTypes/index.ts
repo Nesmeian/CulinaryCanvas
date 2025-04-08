@@ -3,6 +3,7 @@ import tagsKeys from '~/utils/addTags/tagsImgData';
 export type TagKey = keyof typeof tagsKeys;
 
 export default interface TagsProps {
+    withText: boolean;
     tag: TagKey;
 }
 interface Notifications {

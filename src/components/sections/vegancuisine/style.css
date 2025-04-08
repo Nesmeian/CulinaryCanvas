@@ -1,0 +1,7 @@
+.vegan-cuisine__card-item {
+    width: 47.5%;
+    padding: 24px 23px;
+    gap: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}

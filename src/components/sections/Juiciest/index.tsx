@@ -34,9 +34,13 @@ export default function Juiciest() {
                                 <Image src={imgUrl} />
                                 <AddRecommendation userRecommendation={userRecommendation} />
                             </VStack>
-                            <VStack align='flex-start' width='50%' pl='15.5px' pt='7px' gap='24px'>
+                            <VStack
+                                className='juiciest__item-content'
+                                align='flex-start'
+                                gap='24px'
+                            >
                                 <HStack justify='space-between' width='100%'>
-                                    <AddTags tag={tag as TagKey} />
+                                    <AddTags tag={tag as TagKey} withText={true} />
                                     <AddNotifications notifications={notifications} />
                                 </HStack>
                                 <VStack align='flex-start' gap='6px' height='100px'>
@@ -45,7 +49,7 @@ export default function Juiciest() {
                                     </Heading>
                                     <Text variant='sectionDescription'>{description}</Text>
                                 </VStack>
-                                <ButtonGroup width='100%' justifyContent='flex-end' pr='24px'>
+                                <ButtonGroup width='100%' justifyContent='flex-end'>
                                     <Button
                                         height='32px'
                                         width='122px'
