@@ -40,7 +40,12 @@ export default function Juiciest() {
                                 gap='24px'
                             >
                                 <HStack justify='space-between' width='100%'>
-                                    <AddTags tag={tag as TagKey} withText={true} />
+                                    <AddTags
+                                        tag={tag as TagKey}
+                                        withText={true}
+                                        color='#ffffd3'
+                                        size='16px'
+                                    />
                                     <AddNotifications notifications={notifications} />
                                 </HStack>
                                 <VStack align='flex-start' gap='6px' height='100px'>
