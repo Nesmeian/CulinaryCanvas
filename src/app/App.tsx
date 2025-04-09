@@ -1,3 +1,5 @@
+import './style.css';
+
 import { HStack, Stack } from '@chakra-ui/react';
 
 import Header from '~/components/Header';
@@ -11,12 +13,7 @@ function App() {
     return (
         <Stack gap='0'>
             <Header />
-            <HStack
-                justifyContent='space-between'
-                alignItems='flex-start'
-                height='100vh'
-                paddingTop='80px'
-            >
+            <HStack className='app' justifyContent='space-between' alignItems='flex-start'>
                 {!isTablet && <NavMenu />}
                 <Main />
                 {!isTablet && <Sidebar />}

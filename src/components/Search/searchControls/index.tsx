@@ -9,16 +9,15 @@ export default function SearchControls() {
                 </FormLabel>
                 <Switch
                     sx={{
-                        // Стили для трека (фона)
                         'span.chakra-switch__track': {
-                            bg: 'rgba(0, 0, 0, 0.16)', // Цвет фона
+                            bg: 'rgba(0, 0, 0, 0.16)',
                             _checked: {
-                                bg: 'blue', // Цвет при активации
+                                bg: 'blue',
                             },
                         },
-                        // Стили для переключателя (thumb)
+
                         'span.chakra-switch__thumb': {
-                            bg: 'white', // Цвет кружка
+                            bg: 'white',
                         },
                     }}
                 />
