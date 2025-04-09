@@ -24,3 +24,8 @@ interface UserRecommendation {
 export interface AddRecommendationProps {
     userRecommendation?: UserRecommendation | null;
 }
+export type Breakpoints = {
+    isMobile: boolean;
+    isTablet: boolean;
+    isDesktop: boolean;
+};

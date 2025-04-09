@@ -13,14 +13,14 @@ export default function NotificationList({ direction }: NotificationListProps) {
     };
     const styles = {
         horizontal: {
+            flexDirection: 'row' as StackDirection,
+            gap: '10px',
+            marginTop: '0px',
+        },
+        vertical: {
             flexDirection: 'column' as StackDirection,
             gap: '40px',
             marginTop: '24px',
-        },
-        vertical: {
-            flexDirection: 'row' as StackDirection,
-            gap: '8px',
-            marginTop: '0px',
         },
     };
     const currentStyle = styles[direction];
@@ -33,7 +33,13 @@ export default function NotificationList({ direction }: NotificationListProps) {
             >
                 {Object.entries(sidebarData).map(([type, value]) => (
                     <HStack key={type} paddingLeft='5px'>
-                        <Image src={socialImgs[type as SocialType]} />
+                        <Image
+                            boxSize={{
+                                sm: '12px',
+                                lg: '16px',
+                            }}
+                            src={socialImgs[type as SocialType]}
+                        />
                         <Text variant='notificationTextStyles'>{value}</Text>
                     </HStack>
                 ))}
