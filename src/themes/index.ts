@@ -10,7 +10,7 @@ import utilsTextStyles from '~/utils/utilsTextStyles';
 const breakpoints = {
     sm: '360px',
     md: '768px',
-    lg: '769px',
+    lg: '1440px',
     xl: '1920px',
 };
 
@@ -53,24 +53,25 @@ const theme = extendTheme({
             sizes: {
                 h1: {
                     fontSize: {
-                        lg: '48px',
+                        md: '48px',
+                        sm: '24px',
                     },
                 },
                 h2: {
                     fontSize: {
-                        lg: '48px',
+                        md: '48px',
                     },
                 },
                 h3: {
                     fontSize: {
-                        lg: '36px',
+                        md: '36px',
                     },
                     fontWeight: '400',
                     letterSpacing: '1px',
                 },
                 h4: {
                     fontSize: {
-                        lg: '20px',
+                        md: '20px',
                     },
                     letterSpacing: '0.4px',
                 },

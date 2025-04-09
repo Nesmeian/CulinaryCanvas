@@ -3,19 +3,33 @@
     height: 48px;
     border: 1px solid rgba(0, 0, 0, 0.48);
     border-radius: 6px;
+    @media (max-width: 768px) {
+        width: 32px;
+        height: 32px;
+    }
 }
+.third-line,
+.second-line,
 .first-line {
-    width: 18px;
     height: 2px;
     background-color: black;
+}
+
+.first-line {
+    width: 18px;
+    @media (max-width: 768px) {
+        width: 12px;
+    }
 }
 .second-line {
     width: 10px;
-    height: 2px;
-    background-color: black;
+    @media (max-width: 768px) {
+        width: 6px;
+    }
 }
 .third-line {
     width: 5px;
-    height: 2px;
-    background-color: black;
+    @media (max-width: 768px) {
+        width: 3px;
+    }
 }

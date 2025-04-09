@@ -1,4 +1,13 @@
+.main {
+    width: 75%;
+    height: 100%;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
 .title {
-    letter-spacing: 1px;
     padding: 16px 56px 0 0;
+    @media (max-width: 768px) {
+        padding: 0 0 8px;
+    }
 }
