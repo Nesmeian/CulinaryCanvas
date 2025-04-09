@@ -15,7 +15,7 @@ export default function VeganCuisine() {
                 <Heading as='h2' size='h2' letterSpacing='0.8px' mb='4px'>
                     Веганская кухня
                 </Heading>
-                <HStack gap='24px'>
+                <HStack gap='24px' flexWrap='wrap'>
                     {veganCuisineCardData.map(({ title, tag, description, notifications }) => (
                         <VStack key={title} className='vegan-cuisine__card-item'>
                             <Heading width='100%' noOfLines={1} as='h4' size='h4'>

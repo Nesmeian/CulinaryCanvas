@@ -1,12 +1,8 @@
 export const navMenuTextStyles = {
     navMenuItems: {
-        fontSize: {
-            xl: '17px',
-        },
+        fontSize: '16px',
     },
     navMenuFooter: {
-        fontSize: {
-            xl: '12px',
-        },
+        fontSize: '12px',
     },
 };

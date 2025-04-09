@@ -1,19 +1,24 @@
 .navMenu {
-    padding-left: 20px;
     box-sizing: content-box;
     box-shadow:
         0 2px 1px -1px rgba(0, 0, 0, 0.2),
         0 1px 1px 0 rgba(0, 0, 0, 0.14),
         0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    min-width: 256px;
 }
-.navMenu__item:first-child {
-    margin-top: 44px;
+.navMenu__list {
+    width: 100%;
+    padding-left: 20px;
 }
 
 .navMenu__item {
     justify-content: space-between;
     width: 100%;
 }
+.navMenu__item:first-child {
+    margin-top: 44px;
+}
+
 .navMenu__item_text {
     font-weight: 500;
     line-height: 150%;
@@ -23,7 +28,7 @@
 }
 
 .navMenu__footer {
-    padding-left: 6.8px;
+    padding-left: 28px;
 }
 .navMenu__version {
     font-weight: 500;

@@ -15,7 +15,7 @@ export default function Slider() {
             <Heading as='h2' size='h2' p='35px 0 0 10px'>
                 Новые рецепты
             </Heading>
-            <HStack className='slider' gap='23px' pr='10px'>
+            <HStack className='slider' gap='23px' pr='10px' flexWrap='wrap'>
                 <Image src={sliderArrows.leftArrow} className='slider__left-arrow' />
                 {sliderData.map(({ imgUrl, title, description, tag, notifications }) => (
                     <VStack key={title} width='322px' className='slider__item' overflow='hidden'>

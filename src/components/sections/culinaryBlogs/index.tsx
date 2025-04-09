@@ -21,7 +21,7 @@ export default function CulinaryBlogs() {
                     Все авторы
                 </Button>
             </HStack>
-            <HStack gap='18px'>
+            <HStack gap='18px' flexWrap='wrap'>
                 {culinaryBlogData.map(({ img, user, email, description }) => (
                     <VStack
                         key={user}

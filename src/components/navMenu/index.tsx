@@ -8,13 +8,7 @@ import NavMenuItems from './navMenuItems';
 
 export default function navMenu() {
     return (
-        <VStack
-            className='navMenu'
-            gap='22.5px'
-            alignItems='flex-start'
-            justify='space-between'
-            height='100%'
-        >
+        <VStack className='navMenu' alignItems='flex-start' justify='space-between' height='100%'>
             <NavMenuItems navMenuData={navMenuData} />
             <NavMenuFooter />
         </VStack>

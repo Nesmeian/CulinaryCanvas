@@ -6,7 +6,7 @@ import vector from '../../../assets/vector.svg';
 
 export default function NavMenuItems({ navMenuData }: navMenuItemsProps) {
     return (
-        <VStack gap='22.3px'>
+        <VStack gap='24px' className='navMenu__list'>
             {navMenuData.map(({ name, imgUrl }) => (
                 <HStack key={name} className='navMenu__item'>
                     <HStack gap='12px' className='navMenu__item-inner'>
