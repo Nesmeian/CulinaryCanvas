@@ -53,24 +53,24 @@ const theme = extendTheme({
             sizes: {
                 h1: {
                     fontSize: {
-                        xl: '48px',
+                        lg: '48px',
                     },
                 },
                 h2: {
                     fontSize: {
-                        xl: '48px',
+                        lg: '48px',
                     },
                 },
                 h3: {
                     fontSize: {
-                        xl: '36px',
+                        lg: '36px',
                     },
                     fontWeight: '400',
                     letterSpacing: '1px',
                 },
                 h4: {
                     fontSize: {
-                        xl: '20px',
+                        lg: '20px',
                     },
                     letterSpacing: '0.4px',
                 },

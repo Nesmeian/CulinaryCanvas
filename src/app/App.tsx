@@ -4,8 +4,10 @@ import Header from '~/components/Header';
 import Main from '~/components/Main';
 import NavMenu from '~/components/navMenu';
 import Sidebar from '~/components/SideBar';
+import useBreakpoints from '~/themes/chakraBreakPoints';
 
 function App() {
+    const { isTablet } = useBreakpoints();
     return (
         <Stack gap='0'>
             <Header />
@@ -15,9 +17,9 @@ function App() {
                 height='100vh'
                 paddingTop='80px'
             >
-                <NavMenu />;
+                {!isTablet && <NavMenu />}
                 <Main />
-                <Sidebar />
+                {!isTablet && <Sidebar />}
             </HStack>
         </Stack>
     );

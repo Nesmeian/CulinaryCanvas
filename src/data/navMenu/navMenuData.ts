@@ -13,7 +13,7 @@ export const navMenuData = [
         imgUrl: navMenuIcons.firstCourses,
     },
     {
-        name: 'Вторые Блюда',
+        name: 'Вторые блюда',
         imgUrl: navMenuIcons.secondCourses,
     },
     {
