@@ -8,7 +8,7 @@ import WriteRecipeButton from '../WriteRecipe';
 export default function SideBar() {
     return (
         <VStack className='sidebar' justify='space-between' alignItems='center'>
-            <NotificationList direction='horizontal' />
+            <NotificationList direction='vertical' />
             <WriteRecipeButton />
         </VStack>
     );

@@ -1,0 +1,11 @@
+.burger {
+    width: 48px;
+    height: 48px;
+}
+.burger__first-line,
+.burger__second-line,
+.burger__third-line {
+    width: 16px;
+    height: 2px;
+    background: black;
+}

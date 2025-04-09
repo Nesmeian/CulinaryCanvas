@@ -1,7 +1,8 @@
 export const notificationTextStyles = {
     notificationTextStyles: {
         fontSize: {
-            xl: '16px',
+            lg: '16px',
+            sm: '12px',
         },
         color: '#2DB100',
     },

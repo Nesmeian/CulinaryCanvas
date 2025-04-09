@@ -10,7 +10,7 @@ import utilsTextStyles from '~/utils/utilsTextStyles';
 const breakpoints = {
     sm: '360px',
     md: '768px',
-    lg: '1440px',
+    lg: '769px',
     xl: '1920px',
 };
 
