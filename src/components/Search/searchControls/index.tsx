@@ -2,7 +2,13 @@ import { FormControl, FormLabel, HStack, Select, Switch } from '@chakra-ui/react
 
 export default function SearchControls() {
     return (
-        <FormControl display='flex' alignItems='center' justifyContent='space-between' p='0 8px'>
+        <FormControl
+            display='flex'
+            alignItems='center'
+            justifyContent='space-between'
+            p='0 8px'
+            gap='20px'
+        >
             <HStack gap='16px'>
                 <FormLabel m='0' fontSize='16.5px'>
                     Исключить мои аллергены

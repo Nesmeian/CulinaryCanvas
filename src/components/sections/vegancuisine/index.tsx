@@ -2,8 +2,7 @@ import './style.css';
 
 import { Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 
-import veganCuisineCardData from '~/data/veganCuisine/cards';
-import veganCuisineRecipesData from '~/data/veganCuisine/recipes';
+import DB from '~/data/db.json';
 import { TagKey } from '~/types/utilsTypes';
 import AddNotifications from '~/utils/addNotifications';
 import AddTags from '~/utils/addTags';
@@ -16,7 +15,7 @@ export default function VeganCuisine() {
                     Веганская кухня
                 </Heading>
                 <HStack gap='24px' flexWrap='wrap'>
-                    {veganCuisineCardData.map(({ title, tag, description, notifications }) => (
+                    {DB.veganCuisine.card.map(({ title, tag, description, notifications }) => (
                         <VStack key={title} className='vegan-cuisine__card-item'>
                             <Heading width='100%' noOfLines={1} as='h4' size='h4'>
                                 {title}
@@ -43,7 +42,7 @@ export default function VeganCuisine() {
                     вегетарианскую диету и готовить вкусные вегетарианские блюда.
                 </Text>
                 <VStack width='100%' gap='12px'>
-                    {veganCuisineRecipesData.map(({ title, tag }) => (
+                    {DB.veganCuisine.recipes.map(({ title, tag }) => (
                         <HStack key={title} className='vegan-cuisine__recipe-item'>
                             <HStack width='100%' gap='0px'>
                                 <AddTags tag={tag as TagKey} withText={false} size='24px' />

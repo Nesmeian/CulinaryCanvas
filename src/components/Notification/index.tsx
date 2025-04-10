@@ -14,7 +14,7 @@ export default function NotificationList({ direction }: NotificationListProps) {
     const styles = {
         horizontal: {
             flexDirection: 'row' as StackDirection,
-            gap: '10px',
+            gap: '12px',
             marginTop: '0px',
         },
         vertical: {

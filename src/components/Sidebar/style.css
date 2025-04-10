@@ -1,8 +1,9 @@
 .sidebar {
     height: 100%;
-    padding-right: 8px;
     display: flex;
     flex-direction: column;
+    min-width: 200px;
+    margin-left: 60px;
 }
 
 .sidebar__shares {

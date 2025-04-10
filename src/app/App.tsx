@@ -11,9 +11,14 @@ import useBreakpoints from '~/themes/chakraBreakPoints';
 function App() {
     const { isTablet } = useBreakpoints();
     return (
-        <Stack gap='0'>
+        <Stack gap='0px'>
             <Header />
-            <HStack className='app' justifyContent='space-between' alignItems='flex-start'>
+            <HStack
+                className='app'
+                justifyContent='space-between'
+                alignItems='flex-start'
+                gap='12px'
+            >
                 {!isTablet && <NavMenu />}
                 <Main />
                 {!isTablet && <Sidebar />}

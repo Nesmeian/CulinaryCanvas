@@ -4,7 +4,8 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 
 import CardAvatar from '~/components/CardAvatar';
-import culinaryBlogData from '~/data/culinaryBlogs';
+
+import DB from '../../../data/db.json';
 export default function CulinaryBlogs() {
     return (
         <VStack className='culinary-blogs' alignSelf='baseline'>
@@ -22,7 +23,7 @@ export default function CulinaryBlogs() {
                 </Button>
             </HStack>
             <HStack gap='18px' flexWrap='wrap'>
-                {culinaryBlogData.map(({ img, user, email, description }) => (
+                {DB.culinaryBlogData.map(({ img, user, email, description }) => (
                     <VStack
                         key={user}
                         className='culinary-blogs__item'

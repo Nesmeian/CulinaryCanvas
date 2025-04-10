@@ -3,18 +3,19 @@ import './style.css';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Button, ButtonGroup, Grid, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
-import juiciestData from '~/data/juiciest';
 import { TagKey } from '~/types/utilsTypes';
 import AddNotifications from '~/utils/addNotifications';
 import AddRecommendation from '~/utils/addRecommendation';
 import AddTags from '~/utils/addTags';
 
+import * as JuiciestImg from '../../../assets/sections/JuiciestImg/index';
 import * as socialIcons from '../../../assets/socialIcons/index';
+import DB from '../../../data/db.json';
 
 export default function Juiciest() {
     return (
         <VStack className='juiciest' align='flex-start' gap='10px'>
-            <HStack justifyContent='space-between' width='95.5%'>
+            <HStack justifyContent='space-between' width='100%'>
                 <Heading as='h2' size='h2'>
                     Самое cочное
                 </Heading>
@@ -23,7 +24,7 @@ export default function Juiciest() {
                 </Button>
             </HStack>
             <Grid className='juiciest__list' gap='24px'>
-                {juiciestData.map(
+                {DB.juiciestData.map(
                     ({ imgUrl, title, description, tag, notifications, userRecommendation }) => (
                         <HStack key={title} className='juiciest__item' width='668px'>
                             <VStack
@@ -31,7 +32,7 @@ export default function Juiciest() {
                                 width='55%'
                                 className='juiciest__item__image-container'
                             >
-                                <Image src={imgUrl} />
+                                <Image src={JuiciestImg[imgUrl as keyof typeof JuiciestImg]} />
                                 <AddRecommendation userRecommendation={userRecommendation} />
                             </VStack>
                             <VStack
