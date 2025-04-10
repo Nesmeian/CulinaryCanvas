@@ -9,8 +9,8 @@ export default interface TagsProps {
     tag: TagKey;
 }
 interface Notifications {
-    share?: string;
-    likes?: string;
+    share?: number;
+    likes?: number;
 }
 
 export interface addNotificationsProps {

@@ -2,7 +2,8 @@ const sectionTextStyles = {
     sectionDescription: {
         noOfLines: 3,
         fontSize: '15px',
-        letterSpacing: '0px',
+        fontWeight: 400,
+        letterSpacing: '0',
         lineHeight: '20px',
     },
     culinaryTextStyles: {

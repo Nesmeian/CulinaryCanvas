@@ -29,7 +29,11 @@ export default function Header() {
                     <CardAvatar userData={userData} />
                 </HStack>
             ) : (
-                <HStack className='header__container' justify='flex-end' gap='23px'>
+                <HStack
+                    className='header__container'
+                    justify='flex-end'
+                    gap={{ sm: '15', md: '22px' }}
+                >
                     <NotificationList direction='horizontal' />
                     <Burger />
                 </HStack>
