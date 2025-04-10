@@ -32,7 +32,7 @@ export default function NotificationList({ direction }: NotificationListProps) {
                 mt={currentStyle.marginTop}
             >
                 {Object.entries(sidebarData).map(([type, value]) => (
-                    <HStack key={type} paddingLeft='5px'>
+                    <HStack key={`${type}${value}`} paddingLeft='5px'>
                         <Image
                             boxSize={{
                                 sm: '12px',

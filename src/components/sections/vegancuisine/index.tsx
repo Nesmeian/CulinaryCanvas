@@ -15,15 +15,15 @@ export default function VeganCuisine() {
                     Веганская кухня
                 </Heading>
                 <HStack gap='24px' flexWrap='wrap'>
-                    {DB.veganCuisine.card.map(({ title, tag, description, notifications }) => (
-                        <VStack key={title} className='vegan-cuisine__card-item'>
+                    {DB.veganCuisine.card.map(({ id, title, tag, description, notifications }) => (
+                        <VStack key={id} className='vegan-cuisine__card-item'>
                             <Heading width='100%' noOfLines={1} as='h4' size='h4'>
                                 {title}
                             </Heading>
                             <Text variant='culinaryTextStyles' mb='18px' noOfLines={3}>
                                 {description}
                             </Text>
-                            <HStack width='100%' justify='space-between'>
+                            <HStack width='100%' justify='space-between' position='relative'>
                                 <AddTags
                                     tag={tag as TagKey}
                                     withText
@@ -44,7 +44,7 @@ export default function VeganCuisine() {
                 <VStack width='100%' gap='12px'>
                     {DB.veganCuisine.recipes.map(({ title, tag }) => (
                         <HStack key={title} className='vegan-cuisine__recipe-item'>
-                            <HStack width='100%' gap='0px'>
+                            <HStack width='100%' gap='0px' position='relative'>
                                 <AddTags tag={tag as TagKey} withText={false} size='24px' />
                                 <Heading as='h4' size='h4'>
                                     {title}

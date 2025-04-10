@@ -16,6 +16,7 @@ export default function Header() {
     const userData = useSelector((state: ApplicationState) => state.userData);
     const { isTablet, isMobile } = useBreakpoints();
     const logo = isMobile ? logoUrl.mobileLogo : logoUrl.logo;
+    console.log(userData);
     return (
         <HStack className='header'>
             <Box className='header__img'>

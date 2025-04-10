@@ -2,10 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { UserData } from '~/types/userTypes';
 
-import userImg from '../assets/userImg.png';
-
 const initialState: UserData = {
-    img: userImg,
+    img: 'userImg',
     user: 'Екатерина Константинопольская',
     email: '@bake_and_pie',
 };

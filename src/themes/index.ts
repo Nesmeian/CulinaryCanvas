@@ -8,9 +8,9 @@ import { writeRecipeTextStyle } from '~/components/WriteRecipe/textStyles';
 import utilsTextStyles from '~/utils/utilsTextStyles';
 
 const breakpoints = {
-    sm: '360px',
-    md: '768px',
-    lg: '1440px',
+    sm: '300px',
+    md: '600px',
+    lg: '900px',
     xl: '1920px',
 };
 
@@ -61,7 +61,8 @@ const theme = extendTheme({
                 h2: {
                     fontSize: {
                         xl: '48px',
-                        md: '36px',
+                        lg: '36px',
+                        sm: '24px',
                     },
                 },
                 h3: {
@@ -77,6 +78,7 @@ const theme = extendTheme({
                         lg: '18px',
                         sm: '16px',
                     },
+                    fontWeight: '500',
                     letterSpacing: '0.4px',
                 },
             },
