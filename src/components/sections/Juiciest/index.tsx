@@ -26,7 +26,12 @@ export default function Juiciest() {
             <Grid className='juiciest__list' gap='24px'>
                 {DB.juiciestData.map(
                     ({ imgUrl, title, description, tag, notifications, userRecommendation }) => (
-                        <HStack key={title} className='juiciest__item' width='668px'>
+                        <HStack
+                            key={title}
+                            className='juiciest__item'
+                            width='668px'
+                            position='relative'
+                        >
                             <VStack
                                 height='100%'
                                 width='55%'

@@ -3,6 +3,7 @@ import './style.css';
 import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
 import DB from '~/data/db.json';
+import useBreakpoints from '~/themes/chakraBreakPoints';
 import { TagKey } from '~/types/utilsTypes';
 
 import * as sliderArrows from '../../assets/sliderArrows/index';
@@ -11,6 +12,7 @@ import AddNotifications from '../../utils/addNotifications';
 import Tags from '../../utils/addTags';
 
 export default function Slider() {
+    const { isTablet } = useBreakpoints();
     return (
         <VStack align='flex-start' className='slider'>
             <Heading as='h2' size='h2' className='slider__title'>
@@ -18,15 +20,14 @@ export default function Slider() {
             </Heading>
             <HStack
                 width='100%'
-                gap={{ xl: '20px', lg: '12px' }}
-                overflow='hidden'
+                gap={{ xl: '26px', lg: '12px', sm: '12px' }}
                 className='slider__list'
             >
-                <Image src={sliderArrows.leftArrow} className='slider__left-arrow' />
-                {DB.sliderData.map(({ imgUrl, title, description, tag, notifications }) => (
-                    <VStack key={title} className='slider__item' overflow='hidden'>
+                {!isTablet && <Image src={sliderArrows.leftArrow} className='slider__left-arrow' />}
+                {DB.sliderData.map(({ id, imgUrl, title, description, tag, notifications }) => (
+                    <VStack key={id} className='slider__item' overflow='hidden'>
                         <Image
-                            height={{ lg: '230px', md: '128px' }}
+                            height={{ lg: '230px', sm: '128px' }}
                             src={sliderImgs[imgUrl as keyof typeof sliderImgs]}
                             alt={title}
                         />
@@ -40,23 +41,25 @@ export default function Slider() {
                                 <Heading
                                     as='h4'
                                     size='h4'
-                                    noOfLines={1}
+                                    noOfLines={{ lg: 1, sm: 2 }}
+                                    sx={{
+                                        wordBreak: 'break-all',
+                                        overflowWrap: 'anywhere',
+                                    }}
                                     className='slider__item-title'
                                 >
                                     {title}
                                 </Heading>
-                                <Text
-                                    className='slider__content-description'
-                                    variant='sectionDescription'
-                                >
-                                    {description}
-                                </Text>
+                                {!isTablet && (
+                                    <Text
+                                        className='slider__content-description'
+                                        variant='sectionDescription'
+                                    >
+                                        {description}
+                                    </Text>
+                                )}
                             </VStack>
-                            <HStack
-                                className='slider__controls'
-                                justify='space-between'
-                                width='100%'
-                            >
+                            <HStack className='slider__controls' justify='space-between'>
                                 <Tags
                                     tag={tag as TagKey}
                                     withText={true}
@@ -68,7 +71,9 @@ export default function Slider() {
                         </VStack>
                     </VStack>
                 ))}
-                <Image src={sliderArrows.rightArrow} className='slider__right-arrow' />
+                {!isTablet && (
+                    <Image src={sliderArrows.rightArrow} className='slider__right-arrow' />
+                )}
             </HStack>
         </VStack>
     );
