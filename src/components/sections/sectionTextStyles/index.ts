@@ -11,4 +11,9 @@ const sectionTextStyles = {
         letterSpacing: '0.5px',
     },
 };
+export const sectionHeadingStyles = {
+    sectionHeadingStyles: {
+        fontSize: { lg: '20px', sm: '16px' },
+    },
+};
 export default sectionTextStyles;

@@ -24,7 +24,7 @@
             "userRecommendation": {
                 "id": "ur1",
                 "user": "Елена Высоцкая",
-                "imgUrl": "userRecommendationImg/ElenaVysotskaya"
+                "imgUrl": "ElenaVysotskaya"
             }
         },
         {
@@ -40,7 +40,7 @@
             "userRecommendation": {
                 "id": "ur2",
                 "user": "Alex Cook",
-                "imgUrl": "userRecommendationImg/AlexCookImg"
+                "imgUrl": "AlexCookImg"
             }
         },
         {
