@@ -19,9 +19,10 @@ export default function Slider() {
                 Новые рецепты
             </Heading>
             <HStack
-                width='100%'
                 gap={{ xl: '26px', lg: '12px', sm: '12px' }}
                 className='slider__list'
+                width='100%'
+                overflow='hidden'
             >
                 {!isTablet && <Image src={sliderArrows.leftArrow} className='slider__left-arrow' />}
                 {DB.sliderData.map(({ id, imgUrl, title, description, tag, notifications }) => (

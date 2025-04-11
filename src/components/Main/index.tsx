@@ -10,7 +10,7 @@ import Slider from '../slider';
 
 export default function Main() {
     return (
-        <VStack className='main' overflowX='hidden'>
+        <VStack className='main'>
             <Heading as='h1' size='h1' className='title'>
                 Приятного аппетита!
             </Heading>
