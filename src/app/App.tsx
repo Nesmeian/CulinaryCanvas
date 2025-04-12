@@ -13,12 +13,7 @@ function App() {
     return (
         <Stack gap='0px'>
             <Header />
-            <HStack
-                className='app'
-                justifyContent='space-between'
-                alignItems='flex-start'
-                gap='12px'
-            >
+            <HStack className='app' alignItems='flex-start' gap='12px'>
                 {!isTablet && <NavMenu />}
                 <Main />
                 {!isTablet && <Sidebar />}
