@@ -15,5 +15,13 @@ export const sectionHeadingStyles = {
     sectionContentHeadingStyles: {
         fontSize: { lg: '20px', sm: '16px' },
     },
+    veganCardHeadingStyles: {
+        fontSize: { lg: '20px', sm: '16px' },
+        noOfLines: 1,
+    },
+    veganItemHeadingStyles: {
+        fontSize: { xl: '20px', lg: '18px', sm: '16px' },
+        noOfLines: 1,
+    },
 };
 export default sectionTextStyles;

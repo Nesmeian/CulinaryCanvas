@@ -1,6 +1,6 @@
 import './style.css';
 
-import { Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Button, Grid, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 
 import DB from '~/data/db.json';
 import { TagKey } from '~/types/utilsTypes';
@@ -9,15 +9,47 @@ import AddTags from '~/utils/addTags';
 
 export default function VeganCuisine() {
     return (
-        <HStack alignSelf='flex-start' alignItems='flex-start' gap='10px' className='vegan-cuisine'>
-            <VStack align='flex-start' width='50%'>
-                <Heading as='h2' size='h2' letterSpacing='0.8px' mb='4px'>
+        <VStack className='vegan-cuisine' alignSelf='flex-start' gap={{ xl: '11px', lg: '20px' }}>
+            <Grid
+                alignItems='center'
+                width='100%'
+                templateColumns={{
+                    xl: 'repeat(2, 1fr)',
+                    lg: '31.8% 1fr',
+                    md: '1fr',
+                }}
+                gap={{ xl: '32px', lg: '24px', sm: '4px' }}
+                className='vegan-cuisine__title-container'
+            >
+                <Heading as='h2' size='h2' lineHeight='44px' className='vegan-cuisine__title'>
                     Веганская кухня
                 </Heading>
-                <HStack gap='24px' flexWrap='wrap'>
+                <Text lineHeight='20px'>
+                    Интересны не только убеждённым вегетарианцам, но и тем, кто хочет попробовать
+                    вегетарианскую диету и готовить вкусные вегетарианские блюда.
+                </Text>
+            </Grid>
+            <Grid
+                templateColumns={{
+                    sm: '1fr',
+                    md: '2fr 1fr',
+                    xl: '1fr 1fr',
+                }}
+                gap={{ xl: '24px', sm: '12px' }}
+                className='vegan-cuisine__lists'
+            >
+                <Grid
+                    gap={{ xl: '25px', sm: '10px' }}
+                    templateColumns='repeat(auto-fit, minmax(232px, 1fr)) '
+                >
                     {DB.veganCuisine.card.map(({ id, title, tag, description, notifications }) => (
                         <VStack key={id} className='vegan-cuisine__card-item'>
-                            <Heading width='100%' noOfLines={1} as='h4' size='h4'>
+                            <Heading
+                                variant='veganCardHeadingStyles'
+                                width='100%'
+                                as='h4'
+                                size='h4'
+                            >
                                 {title}
                             </Heading>
                             <Text variant='culinaryTextStyles' mb='18px' noOfLines={3}>
@@ -29,24 +61,34 @@ export default function VeganCuisine() {
                                     withText
                                     size='14px'
                                     color='#ffffd3;'
+                                    newPosition
                                 />
                                 <AddNotifications notifications={notifications} />
                             </HStack>
                         </VStack>
                     ))}
-                </HStack>
-            </VStack>
-            <VStack width='50%' height='100%' className='vegan-cuisine__recipe'>
-                <Text className='vegan-cuisine__recipe-title'>
-                    Интересны не только убеждённым вегетарианцам, но и тем, кто хочет попробовать
-                    вегетарианскую диету и готовить вкусные вегетарианские блюда.
-                </Text>
-                <VStack width='100%' gap='12px'>
+                </Grid>
+                <VStack gap={{ lg: '12px', md: '8px', sm: '15px' }} width='100%'>
                     {DB.veganCuisine.recipes.map(({ title, tag }) => (
-                        <HStack key={title} className='vegan-cuisine__recipe-item'>
-                            <HStack width='100%' gap='0px' position='relative'>
-                                <AddTags tag={tag as TagKey} withText={false} size='24px' />
-                                <Heading as='h4' size='h4'>
+                        <HStack
+                            key={title}
+                            className='vegan-cuisine__recipe-item'
+                            width='100%'
+                            justify='space-between'
+                        >
+                            <HStack gap='0px' position='relative'>
+                                <AddTags
+                                    tag={tag as TagKey}
+                                    newPosition
+                                    withText={false}
+                                    size='24px'
+                                />
+                                <Heading
+                                    variant='veganItemHeadingStyles'
+                                    noOfLines={1}
+                                    as='h4'
+                                    size='h4'
+                                >
                                     {title}
                                 </Heading>
                             </HStack>
@@ -63,7 +105,7 @@ export default function VeganCuisine() {
                         </HStack>
                     ))}
                 </VStack>
-            </VStack>
-        </HStack>
+            </Grid>
+        </VStack>
     );
 }

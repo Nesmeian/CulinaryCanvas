@@ -1,6 +1,7 @@
 const utilsTextStyles = {
     addTag: {
         fontSize: '15px',
+        noOfLines: 1,
     },
     addNotification: {
         fontSize: '12px',

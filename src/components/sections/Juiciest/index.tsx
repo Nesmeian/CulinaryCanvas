@@ -28,7 +28,7 @@ export default function Juiciest() {
     return (
         <VStack className='juiciest' align='flex-start' gap={{ xl: '10px', sm: '10px' }}>
             <HStack justifyContent='space-between' width='100%'>
-                <Heading as='h2' size='h2'>
+                <Heading as='h2' size='h2' className='juiciest__title'>
                     Самое cочное
                 </Heading>
                 {!isTablet && (

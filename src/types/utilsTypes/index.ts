@@ -7,6 +7,7 @@ export default interface TagsProps {
     size?: string;
     withText: boolean;
     tag: TagKey;
+    newPosition?: true;
 }
 interface Notifications {
     share?: number;
