@@ -12,7 +12,7 @@ const sectionTextStyles = {
     },
 };
 export const sectionHeadingStyles = {
-    sectionHeadingStyles: {
+    sectionContentHeadingStyles: {
         fontSize: { lg: '20px', sm: '16px' },
     },
 };

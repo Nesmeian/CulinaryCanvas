@@ -3,14 +3,11 @@
     height: 80px;
     background: #ffffd3;
     position: fixed;
+    z-index: 10;
     @media (max-width: 768px) {
         height: 64px;
     }
 }
-
-/* .header__current-route {
-    padding-left: 14px;
-} */
 
 .header__img {
     width: 13%;

@@ -86,7 +86,7 @@ export default function Juiciest() {
                                     {isTablet && (
                                         <Heading
                                             noOfLines={2}
-                                            variant='sectionHeadingStyles'
+                                            variant='sectionContentHeadingStyles'
                                             as='h4'
                                             size='h4'
                                             mt='-2px'
@@ -114,17 +114,17 @@ export default function Juiciest() {
                                         <Text variant='sectionDescription'>{description}</Text>
                                     </VStack>
                                 )}
-                                <ButtonGroup width='100%' justifyContent='flex-end'>
+                                <ButtonGroup width='100%' justifyContent='flex-end' gap='10px'>
                                     <Button
                                         fontSize={{ md: '15px', sm: '12px' }}
                                         className='juiciest__btn-save'
                                         size={{ lg: 'sm', sm: 'xs' }}
                                         border='1px solid black'
                                         backgroundColor='white'
-                                        p={{ lg: '8px', sm: '0' }}
+                                        p={{ xl: '8px', lg: '8px', sm: '0' }}
                                         leftIcon={
                                             <Image
-                                                boxSize={{ lg: '20px', sm: '12px' }}
+                                                boxSize={{ lg: '16px', sm: '12px' }}
                                                 src={socialIcons.shares}
                                             />
                                         }
