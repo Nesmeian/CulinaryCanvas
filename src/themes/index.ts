@@ -67,12 +67,15 @@ const theme = extendTheme({
                         lg: '36px',
                         sm: '24px',
                     },
+                    fontWeight: 500,
                 },
                 h3: {
                     fontSize: {
-                        md: '36px',
+                        xl: '36px',
+                        lg: '30px',
+                        sm: '24px',
                     },
-                    fontWeight: '400',
+                    fontWeight: '500',
                     letterSpacing: '1px',
                 },
                 h4: {
