@@ -3,7 +3,7 @@ import './style.css';
 import { VStack } from '@chakra-ui/react';
 
 import NavMenuFooter from './navMenuFooter';
-import NavMenuItems from './navMenuItems';
+import NavMenuList from './navMenuList';
 
 export default function navMenu() {
     return (
@@ -14,7 +14,7 @@ export default function navMenu() {
             justify='space-between'
             height='100%'
         >
-            <NavMenuItems />
+            <NavMenuList />
             <NavMenuFooter />
         </VStack>
     );
