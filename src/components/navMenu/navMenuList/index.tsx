@@ -7,13 +7,16 @@ import {
     Box,
     HStack,
     Image,
+    Link,
     Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { Link as RouterLink } from 'react-router';
 
 import DB from '~/data/db.json';
 
 import * as navMenuIcons from '../../../assets/navMenuIcons/index';
+
 export default function NavMenuList() {
     const [activeElement, setActiveElement] = useState<string | null>(null);
     const handleClick = (id: string, index: number) => {
@@ -22,7 +25,7 @@ export default function NavMenuList() {
     };
     return (
         <Accordion allowToggle className='navMenu__list' width='256px'>
-            {DB.navMenu.map(({ elems, id, name, imgUrl }) => (
+            {DB.navMenu.map(({ elems, id, name, imgUrl, routeName }) => (
                 <AccordionItem key={id} className='navMenu__item' border='0'>
                     <AccordionButton
                         display='flex'
@@ -41,36 +44,42 @@ export default function NavMenuList() {
                         </HStack>
                         <AccordionIcon boxSize='24px' />
                     </AccordionButton>
-                    {elems.map((title, index) => {
-                        const elementKey = `${id}-${index}`;
-                        const isActive = activeElement === elementKey;
+                    {Object.entries(elems as Record<string, string>).map(
+                        ([rusTitle, engTitle], index) => {
+                            const elementKey = `${id}-${index}`;
+                            const isActive = activeElement === elementKey;
 
-                        return (
-                            <AccordionPanel
-                                p='0 0 10px 52px'
-                                key={elementKey}
-                                onClick={() => handleClick(id, index)}
-                                cursor='pointer'
-                                transition='all 0.2s'
-                                _hover={{ bg: 'gray.50' }}
-                            >
-                                <HStack spacing={2}>
-                                    <Box
-                                        width={isActive ? '8px' : '1px'}
-                                        height='24px'
-                                        background='#c4ff61'
-                                        transition='width 0.2s ease'
-                                    />
-                                    <Text
-                                        fontWeight={isActive ? 700 : 400}
-                                        transition='font-weight 0.2s'
-                                    >
-                                        {title}
-                                    </Text>
-                                </HStack>
-                            </AccordionPanel>
-                        );
-                    })}
+                            return (
+                                <AccordionPanel
+                                    p='0 0 10px 52px'
+                                    key={elementKey}
+                                    onClick={() => handleClick(id, index)}
+                                    cursor='pointer'
+                                    transition='all 0.2s'
+                                    _hover={{ bg: 'gray.50' }}
+                                >
+                                    <HStack spacing={2}>
+                                        <Box
+                                            width={isActive ? '8px' : '1px'}
+                                            height='24px'
+                                            background='#c4ff61'
+                                            transition='width 0.2s ease'
+                                        />
+                                        <Link
+                                            as={RouterLink}
+                                            to={{
+                                                pathname: `/${routeName}/${engTitle || encodeURIComponent(rusTitle)}`,
+                                            }}
+                                            fontWeight={isActive ? 700 : 400}
+                                            transition='font-weight 0.2s'
+                                        >
+                                            {rusTitle}
+                                        </Link>
+                                    </HStack>
+                                </AccordionPanel>
+                            );
+                        },
+                    )}
                 </AccordionItem>
             ))}
         </Accordion>

@@ -47,34 +47,36 @@ export default function VeganCuisine() {
                     gap={{ xl: '25px', sm: '10px' }}
                     templateColumns='repeat(auto-fit, minmax(232px, 1fr)) '
                 >
-                    {DB.veganCuisine.card.map(({ id, title, tag, description, notifications }) => (
-                        <VStack key={id} className='vegan-cuisine__card-item'>
-                            <Heading
-                                variant='veganCardHeadingStyles'
-                                width='100%'
-                                as='h4'
-                                size='h4'
-                            >
-                                {title}
-                            </Heading>
-                            <Text variant='culinaryTextStyles' mb='18px' noOfLines={3}>
-                                {description}
-                            </Text>
-                            <HStack width='100%' justify='space-between' position='relative'>
-                                <AddTags
-                                    tag={tag as TagKey}
-                                    withText
-                                    size='14px'
-                                    color='#ffffd3;'
-                                    newPosition
-                                />
-                                <AddNotifications notifications={notifications} />
-                            </HStack>
-                        </VStack>
-                    ))}
+                    {DB.veganCuisine.elems.card.map(
+                        ({ id, title, tag, description, notifications }) => (
+                            <VStack key={id} className='vegan-cuisine__card-item'>
+                                <Heading
+                                    variant='veganCardHeadingStyles'
+                                    width='100%'
+                                    as='h4'
+                                    size='h4'
+                                >
+                                    {title}
+                                </Heading>
+                                <Text variant='culinaryTextStyles' mb='18px' noOfLines={3}>
+                                    {description}
+                                </Text>
+                                <HStack width='100%' justify='space-between' position='relative'>
+                                    <AddTags
+                                        tag={tag as TagKey}
+                                        withText
+                                        size='14px'
+                                        color='#ffffd3;'
+                                        newPosition
+                                    />
+                                    <AddNotifications notifications={notifications} />
+                                </HStack>
+                            </VStack>
+                        ),
+                    )}
                 </Grid>
                 <VStack gap={{ lg: '12px', md: '8px', sm: '15px' }} width='100%'>
-                    {DB.veganCuisine.recipes.map(({ title, tag }) => (
+                    {DB.veganCuisine.elems.recipes.map(({ title, tag }) => (
                         <HStack
                             key={title}
                             className='vegan-cuisine__recipe-item'
