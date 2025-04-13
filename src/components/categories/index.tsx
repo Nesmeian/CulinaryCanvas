@@ -1,16 +1,26 @@
-import { Heading, VStack } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
+
+import { CategoriesProps, DBStructure } from '~/types/routesTypes';
 
 import DB from '../../data/db.json';
+import BigCardsList from '../bigCardsList';
 import Search from '../Search';
-export default function Categories({ category }) {
-    const dbItem = DB[category];
-    console.log(dbItem);
+import BottomSection from '../sections/vegancuisine';
+import GreenButton from '../styledComponents/greenButton';
+import MainStyled from '../styledComponents/Main';
+export default function Categories({ category }: CategoriesProps) {
+    const db = DB as unknown as DBStructure;
+    const dbItem = db[category];
+    const bottomSectionData = category === 'juiciest' ? 'veganCuisine' : 'desert';
     return (
-        <VStack as='main'>
+        <MainStyled as='main'>
             <Heading as='h1' size='h1' pt={{ base: 0, md: 4 }} pb={{ base: '10px', md: 5 }}>
-                {dbItem.title}
+                {dbItem?.title}
             </Heading>
             <Search />
-        </VStack>
+            <BigCardsList data={dbItem} maxElems={8}></BigCardsList>
+            <GreenButton text='Загрузить еще' />
+            <BottomSection data={DB[bottomSectionData]} />
+        </MainStyled>
     );
 }

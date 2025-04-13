@@ -1,20 +1,21 @@
 import './style.css';
 
-import { Heading, VStack } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 
 import useBreakpoints from '~/themes/chakraBreakPoints';
 
+import DB from '../../data/db.json';
 import Footer from '../Footer';
 import Search from '../Search';
 import CulinaryBlogs from '../sections/culinaryBlogs';
 import Juiciest from '../sections/Juiciest';
-import VeganCuisine from '../sections/vegancuisine';
+import BottomSection from '../sections/vegancuisine';
 import Slider from '../slider';
-
+import MainStyled from '../styledComponents/Main';
 export default function Main() {
     const { isTablet } = useBreakpoints();
     return (
-        <VStack className='main' as='main' flex={1} overflowY='scroll'>
+        <MainStyled as='main'>
             <Heading as='h1' size='h1' className='title'>
                 Приятного аппетита!
             </Heading>
@@ -22,8 +23,8 @@ export default function Main() {
             <Slider />
             <Juiciest />
             <CulinaryBlogs />
-            <VeganCuisine />
+            <BottomSection data={DB.veganCuisine} />
             {isTablet && <Footer />}
-        </VStack>
+        </MainStyled>
     );
 }

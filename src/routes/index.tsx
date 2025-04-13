@@ -2,24 +2,10 @@ import { Navigate, Route, Routes } from 'react-router';
 
 import Categories from '~/components/categories';
 import Main from '~/components/Main';
+import { CategoryKey, SubcategoryKey } from '~/types/routesTypes';
 
 const AppRoutes = () => {
-    const categories = [
-        'salads',
-        'snacks',
-        'firstCourses',
-        'secondCourses',
-        'dessertsPastries',
-        'grilledDishes',
-        'veganCuisine',
-        'childrenMeals',
-        'therapeuticNutrition',
-        'nationalNutrition',
-        'sauces',
-        'drinks',
-        'foodPreparation',
-        'juiciest',
-    ];
+    const categories = ['veganCuisine', 'juiciest'] as const satisfies readonly CategoryKey[];
 
     const subcategories = [
         'appetizers',
@@ -28,7 +14,7 @@ const AppRoutes = () => {
         'sideDishes',
         'desserts',
         'rawFoodDishes',
-    ];
+    ] as const satisfies readonly SubcategoryKey[];
 
     return (
         <Routes>
