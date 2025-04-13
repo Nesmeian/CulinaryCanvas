@@ -1,5 +1,4 @@
 .main {
-    height: 100%;
     padding-left: 14px;
     width: calc(100% - 542px);
     @media (max-width: 768px) {

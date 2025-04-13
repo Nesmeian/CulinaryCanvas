@@ -1,4 +1,4 @@
-.vegan-cuisine {
+.bottom-section {
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     padding-top: 4px;
     margin-top: 48px;
@@ -12,14 +12,14 @@
         margin-bottom: 84px;
     }
 }
-.vegan-cuisine__title-container {
+.bottom-section__title-container {
     padding-right: 10px;
     @media (max-width: 768px) {
         margin-bottom: 12px;
     }
 }
 
-.vegan-cuisine__lists {
+.bottom-section__lists {
     margin-top: 12px;
     @media (max-width: 1440px) {
         margin-top: 6px;
@@ -28,7 +28,7 @@
         margin-bottom: 100px;
     }
 }
-.vegan-cuisine__card-item {
+.bottom-section__card-item {
     padding: 24px 23px;
     gap: 5px;
     border: 1px solid #00000014;
@@ -40,10 +40,10 @@
         padding: 11px 12px 12px;
     }
 }
-.vegan-cuisine__recipe {
+.bottom-section__recipe {
     padding-left: 6px;
 }
-.vegan-cuisine__recipe-item {
+.bottom-section__recipe-item {
     padding: 12px 22px 12px 16px;
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 8px;
@@ -51,7 +51,7 @@
         padding: 8px 5px;
     }
 }
-.vegan-cuisine__recipe-title {
+.bottom-section__recipe-title {
     margin-top: 13px;
     margin-bottom: 12px;
 }
