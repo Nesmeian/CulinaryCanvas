@@ -1,7 +1,8 @@
 import './style.css';
 
-import { Box, HStack, Image, Text } from '@chakra-ui/react';
+import { Box, HStack, Image } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 
 import { ApplicationState } from '~/store/configure-store';
 import useBreakpoints from '~/themes/chakraBreakPoints';
@@ -9,14 +10,14 @@ import useBreakpoints from '~/themes/chakraBreakPoints';
 import * as logoUrl from '../../assets/logo/index';
 import CardAvatar from '../CardAvatar';
 import NotificationList from '../Notification';
+import BreadCrumb from './breadCrumb';
 import Burger from './burger';
 
 export default function Header() {
-    const temporaryRout = 'Главная';
     const userData = useSelector((state: ApplicationState) => state.userData);
     const { isTablet, isMobile } = useBreakpoints();
     const logo = isMobile ? logoUrl.mobileLogo : logoUrl.logo;
-    console.log(userData);
+    console.log(useLocation());
     return (
         <HStack className='header' as='header'>
             <Box className='header__img'>
@@ -24,9 +25,7 @@ export default function Header() {
             </Box>
             {!isTablet ? (
                 <HStack className='header__container' justify='space-between'>
-                    <Text className='header__current-route' variant='currentRoute'>
-                        {temporaryRout}
-                    </Text>
+                    <BreadCrumb />
                     <CardAvatar userData={userData} />
                 </HStack>
             ) : (

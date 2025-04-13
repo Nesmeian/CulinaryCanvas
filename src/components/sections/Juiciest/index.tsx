@@ -12,6 +12,7 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react';
+import { Link } from 'react-router';
 
 import useBreakpoints from '~/themes/chakraBreakPoints';
 import { TagKey } from '~/types/utilsTypes';
@@ -37,18 +38,20 @@ export default function Juiciest() {
                     Самое cочное
                 </Heading>
                 {!isTablet && (
-                    <Button
-                        size={{ xl: 'lg', sm: 'md' }}
-                        background='#B1FF2E'
-                        className='juiciest__btn-all'
-                        rightIcon={<ArrowForwardIcon />}
-                    >
-                        Вся подборка
-                    </Button>
+                    <Link to='juiciest'>
+                        <Button
+                            size={{ xl: 'lg', sm: 'md' }}
+                            background='#B1FF2E'
+                            className='juiciest__btn-all'
+                            rightIcon={<ArrowForwardIcon />}
+                        >
+                            Вся подборка
+                        </Button>
+                    </Link>
                 )}
             </HStack>
             <Grid className='juiciest__list' gap={{ xl: '24px', md: '16px', sm: '11px' }}>
-                {DB.juiciestData.map(
+                {DB.juiciest.elems.map(
                     ({
                         id,
                         imgUrl,
