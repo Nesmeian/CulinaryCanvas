@@ -10,7 +10,7 @@ import DB from '../../../data/db.json';
 export default function CulinaryBlogs() {
     const { isTablet } = useBreakpoints();
     return (
-        <VStack className='culinary-blogs' alignSelf='baseline'>
+        <VStack as='section' className='culinary-blogs' alignSelf='baseline'>
             <HStack width='100%' justifyContent='space-between'>
                 <Heading as='h3' size='h3' className='culinary-blogs__title'>
                     Кулинарные блоги

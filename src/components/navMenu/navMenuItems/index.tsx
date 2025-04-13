@@ -5,7 +5,6 @@ import DB from '~/data/db.json';
 import * as navMenuIcons from '../../../assets/navMenuIcons/index';
 import vector from '../../../assets/vector.svg';
 export default function NavMenuItems() {
-    console.log(navMenuIcons.childrenMeals);
     return (
         <VStack gap='24px' className='navMenu__list'>
             {DB.navMenu.map(({ id, name, imgUrl }) => (

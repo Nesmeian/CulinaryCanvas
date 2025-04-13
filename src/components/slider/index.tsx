@@ -14,7 +14,7 @@ import Tags from '../../utils/addTags';
 export default function Slider() {
     const { isTablet } = useBreakpoints();
     return (
-        <VStack align='flex-start' className='slider'>
+        <VStack align='flex-start' className='slider' as='section'>
             <Heading as='h2' size='h2' className='slider__title'>
                 Новые рецепты
             </Heading>

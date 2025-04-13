@@ -9,7 +9,12 @@ import AddTags from '~/utils/addTags';
 
 export default function VeganCuisine() {
     return (
-        <VStack className='vegan-cuisine' alignSelf='flex-start' gap={{ xl: '11px', lg: '20px' }}>
+        <VStack
+            as='section'
+            className='vegan-cuisine'
+            alignSelf='flex-start'
+            gap={{ xl: '11px', lg: '20px' }}
+        >
             <Grid
                 alignItems='center'
                 width='100%'
