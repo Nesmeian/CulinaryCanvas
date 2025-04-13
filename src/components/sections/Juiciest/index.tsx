@@ -26,7 +26,12 @@ import DB from '../../../data/db.json';
 export default function Juiciest() {
     const { isTablet } = useBreakpoints();
     return (
-        <VStack className='juiciest' align='flex-start' gap={{ xl: '10px', sm: '10px' }}>
+        <VStack
+            as='section'
+            className='juiciest'
+            align='flex-start'
+            gap={{ xl: '10px', sm: '10px' }}
+        >
             <HStack justifyContent='space-between' width='100%'>
                 <Heading as='h2' size='h2' className='juiciest__title'>
                     Самое cочное

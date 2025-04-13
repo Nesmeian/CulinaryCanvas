@@ -1,0 +1,9 @@
+.footer {
+    position: fixed;
+    background-color: #ffffd3;
+    height: 84px;
+    z-index: overlay;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

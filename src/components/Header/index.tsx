@@ -18,7 +18,7 @@ export default function Header() {
     const logo = isMobile ? logoUrl.mobileLogo : logoUrl.logo;
     console.log(userData);
     return (
-        <HStack className='header'>
+        <HStack className='header' as='header'>
             <Box className='header__img'>
                 <Image src={logo} alt='logo image' />
             </Box>
