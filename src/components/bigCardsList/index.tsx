@@ -36,7 +36,15 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
         <Grid className='card__list' gap={{ xl: '24px', md: '16px', sm: '11px' }}>
             {displayedData!.map(
                 ({ id, imgUrl, title, description, tag, notifications, userRecommendation }) => (
-                    <HStack key={id} className='card__item' position='relative'>
+                    <HStack
+                        key={id}
+                        className='card__item'
+                        position='relative'
+                        _hover={{
+                            boxShadow:
+                                '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
+                        }}
+                    >
                         <VStack className='card__item__image-container'>
                             <Image
                                 height='100%'
