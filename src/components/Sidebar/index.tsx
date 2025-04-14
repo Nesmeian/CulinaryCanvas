@@ -5,7 +5,7 @@ import { VStack } from '@chakra-ui/react';
 import NotificationList from '../Notification';
 import WriteRecipeButton from '../WriteRecipe';
 
-export default function SideBar() {
+export default function Sidebar() {
     return (
         <VStack as='aside' className='sidebar' justify='space-between' alignItems='center'>
             <NotificationList direction='vertical' />
