@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router';
 
 import Header from '../components/Header';
 import NavMenu from '../components/navMenu';
-import SideBar from '../components/SideBar';
+import Sidebar from '../components/Sidebar';
 import AppRoutes from '../routes';
 import useBreakpoints from '../themes/chakraBreakPoints';
 
@@ -18,7 +18,7 @@ function App() {
                 <HStack className='app' alignItems='flex-start' gap='12px' justify='space-between'>
                     {!isTablet && <NavMenu />}
                     <AppRoutes />
-                    {!isTablet && <SideBar />}
+                    {!isTablet && <Sidebar />}
                 </HStack>
             </Stack>
         </BrowserRouter>
