@@ -22,6 +22,9 @@ const MainStyled = styled(VStack, {
             sm: '14px',
         },
         overflowY: 'scroll',
+        // '&::-webkit-scrollbar': {
+        //     display: 'none',
+        // },
         justifyContent: 'flex-start',
         alignItems: 'center',
         gap: '8px',

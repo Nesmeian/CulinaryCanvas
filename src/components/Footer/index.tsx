@@ -31,7 +31,7 @@ export default function Footer() {
                 <Button
                     sx={buttonStyles}
                     variant='plain'
-                    bgGradient='radial-gradient(62.52% 62.51% at 48.89% 37.5%, #c4ff61 0%, rgba(255, 255, 255, 0) 100%)'
+                    bgGradient='radial-gradient(62.52% 62.51% at 48.89% 37.5%, #c4ff61 0%, rgba(255, 255, 255, 0) 60%)'
                 >
                     <Image src={btnImg.homeBtn} boxSize='48px' />
                     <Text fontSize='10px'>Главная</Text>
