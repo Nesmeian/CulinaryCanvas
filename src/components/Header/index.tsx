@@ -2,7 +2,6 @@ import './style.css';
 
 import { Box, HStack, Image } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
 
 import { ApplicationState } from '~/store/configure-store';
 import useBreakpoints from '~/themes/chakraBreakPoints';
@@ -17,7 +16,7 @@ export default function Header() {
     const userData = useSelector((state: ApplicationState) => state.userData);
     const { isTablet, isMobile } = useBreakpoints();
     const logo = isMobile ? logoUrl.mobileLogo : logoUrl.logo;
-    console.log(useLocation());
+
     return (
         <HStack className='header' as='header'>
             <Box className='header__img'>

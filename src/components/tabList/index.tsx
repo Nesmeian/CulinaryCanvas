@@ -20,6 +20,7 @@ export default function AddTabList({ location }: { location: string }) {
             <TabList
                 overflowX='auto'
                 overflowY='hidden'
+                justifyContent='center'
                 sx={{
                     '&::-webkit-scrollbar': {
                         height: '0',

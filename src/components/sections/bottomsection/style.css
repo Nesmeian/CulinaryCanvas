@@ -9,7 +9,7 @@
     @media (max-width: 768px) {
         margin-top: 24px;
         padding-top: 0;
-        margin-bottom: 84px;
+        margin-bottom: 100px;
     }
 }
 .bottom-section__title-container {
@@ -23,9 +23,6 @@
     margin-top: 12px;
     @media (max-width: 1440px) {
         margin-top: 6px;
-    }
-    @media (max-width: 768px) {
-        margin-bottom: 100px;
     }
 }
 .bottom-section__card-item {

@@ -14,17 +14,50 @@ import { useState } from 'react';
 import { Link as RouterLink } from 'react-router';
 
 import DB from '~/data/db.json';
+import GetCurrentPath from '~/utils/getCurrentPath';
 
 import * as navMenuIcons from '../../../assets/navMenuIcons/index';
 
 export default function NavMenuList() {
-    const [activeElement, setActiveElement] = useState<string | null>(null);
-    const handleClick = (id: string, index: number) => {
+    const pathSegments = GetCurrentPath();
+    const currentRoute = pathSegments[0];
+    const currentSubRoute = pathSegments[1];
+    const categoryIndex = DB.navMenu.categories.findIndex(
+        (category) => category.routeName === currentRoute,
+    );
+    const [activeCategoryIndex, setCategoryActiveIndex] = useState<number | undefined>(
+        categoryIndex !== -1 ? categoryIndex : undefined,
+    );
+    const initialActiveSubElement = (() => {
+        const category = DB.navMenu.categories.find((c) => c.routeName === currentRoute);
+        if (category && currentSubRoute) {
+            const elemsArray = Object.entries(category.elems as Record<string, string>);
+            for (let index = 0; index < elemsArray.length; index++) {
+                const [rusTitle, engTitle] = elemsArray[index];
+                const expectedPath = engTitle || encodeURIComponent(rusTitle);
+                if (expectedPath === currentSubRoute) {
+                    return `${category.id}-${index}`;
+                }
+            }
+        }
+        return null;
+    })();
+    const [activeSubElement, setActiveSubElement] = useState<string | null>(
+        initialActiveSubElement,
+    );
+    const handleClickSubElement = (id: string, index: number) => {
         const elementKey = `${id}-${index}`;
-        setActiveElement((prev) => (prev === elementKey ? null : elementKey));
+        setActiveSubElement((prev) => (prev === elementKey ? null : elementKey));
     };
+
     return (
-        <Accordion allowToggle className='navMenu__list' width='256px'>
+        <Accordion
+            allowToggle
+            className='navMenu__list'
+            width='256px'
+            index={activeCategoryIndex}
+            onChange={(index) => setCategoryActiveIndex(index as number | undefined)}
+        >
             {DB.navMenu.categories.map(({ elems, id, name, imgUrl, routeName }) => (
                 <AccordionItem key={id} className='navMenu__item' border='0'>
                     <AccordionButton
@@ -32,6 +65,17 @@ export default function NavMenuList() {
                         justifyContent='space-between'
                         pb='16px'
                         pl='20px'
+                        _expanded={{
+                            bg: '#EAffc7',
+                            '& .navMenu__item_text': {
+                                color: 'black.700',
+                                fontWeight: 700,
+                            },
+                            '& .accordion-icon': {
+                                transform: 'rotate(180deg)',
+                                color: 'black.700',
+                            },
+                        }}
                     >
                         <HStack gap='12px' className='navMenu__item-inner'>
                             <Image
@@ -47,13 +91,13 @@ export default function NavMenuList() {
                     {Object.entries(elems as Record<string, string>).map(
                         ([rusTitle, engTitle], index) => {
                             const elementKey = `${id}-${index}`;
-                            const isActive = activeElement === elementKey;
+                            const isActive = activeSubElement === elementKey;
 
                             return (
                                 <AccordionPanel
-                                    p='0 0 10px 52px'
+                                    p={isActive ? '0 0 10px 46px' : '0 0 10px 52px'}
                                     key={elementKey}
-                                    onClick={() => handleClick(id, index)}
+                                    onClick={() => handleClickSubElement(id, index)}
                                     cursor='pointer'
                                     transition='all 0.2s'
                                     _hover={{ bg: 'gray.50' }}
