@@ -77,7 +77,7 @@ export default function BottomSection({ data }) {
                             width='100%'
                             justify='space-between'
                         >
-                            <HStack gap='0px' position='relative'>
+                            <HStack gap='0px' position='relative' width='70%'>
                                 <AddTags
                                     tag={tag as TagKey}
                                     newPosition
@@ -94,7 +94,7 @@ export default function BottomSection({ data }) {
                                 </Heading>
                             </HStack>
                             <Button
-                                width='95px'
+                                width='30%'
                                 fontSize='15.5px'
                                 fontWeight='600'
                                 height='32px'
