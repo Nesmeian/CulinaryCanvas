@@ -82,9 +82,20 @@ export default function NavMenuList() {
                                 src={navMenuIcons[imgUrl as keyof typeof navMenuIcons]}
                                 alt={name}
                             />
-                            <Text className='navMenu__item_text' variant='navMenuItems'>
-                                {name}
-                            </Text>
+                            <Link
+                                as={RouterLink}
+                                data-test-id={
+                                    routeName === 'veganCuisine' ? 'vegan-cuisine' : undefined
+                                }
+                                to={{
+                                    pathname: `/${routeName}/`,
+                                }}
+                                transition='font-weight 0.2s'
+                            >
+                                <Text className='navMenu__item_text' variant='navMenuItems'>
+                                    {name}
+                                </Text>
+                            </Link>
                         </HStack>
                         <AccordionIcon boxSize='24px' />
                     </AccordionButton>
@@ -112,7 +123,7 @@ export default function NavMenuList() {
                                         <Link
                                             as={RouterLink}
                                             to={{
-                                                pathname: `/${routeName}/${engTitle || encodeURIComponent(rusTitle)}`,
+                                                pathname: `/${routeName}/${engTitle}`,
                                             }}
                                             fontWeight={isActive ? 700 : 400}
                                             transition='font-weight 0.2s'

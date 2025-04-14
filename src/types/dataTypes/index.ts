@@ -1,7 +1,6 @@
-import { TagKey } from '../utilsTypes';
-interface Notification {
-    share: number;
-    likes: number;
+interface NotificationBase {
+    share?: number;
+    likes?: number;
 }
 
 interface UserRecommendation {
@@ -10,17 +9,46 @@ interface UserRecommendation {
     imgUrl: string;
 }
 
-interface CardItem {
+export interface CardItem {
     id: string;
     imgUrl: string;
     title: string;
     description: string;
-    tag: TagKey;
-    notifications: Notification;
+    tag: string;
+    notifications: NotificationBase;
     userRecommendation?: UserRecommendation;
 }
 
-export default interface BigCardsListProps {
-    maxElems: number;
-    data: CardItem[];
+interface BaseData {
+    title: string;
+    description?: string;
+}
+
+export interface CategoryData extends BaseData {
+    elems: {
+        smallCard?: Array<{
+            id: string;
+            title: string;
+            tag: string;
+            description: string;
+            notifications: NotificationBase;
+        }>;
+        recipes?: Array<{
+            id: string;
+            title: string;
+            tag: string;
+        }>;
+        card?: CardItem[];
+    };
+}
+export type Category = 'veganCuisine' | 'juiciest';
+export interface BottomSectionProps {
+    data: CategoryData;
+}
+export interface CategoriesProps {
+    category: 'veganCuisine' | 'juiciest'; // 👈 Явно указываем допустимые значения
+}
+export interface BigCardsListProps {
+    data: CategoryData;
+    maxElems?: number;
 }
