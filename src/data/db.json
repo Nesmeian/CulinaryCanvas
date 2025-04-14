@@ -185,190 +185,200 @@
             "tag": "Салаты"
         }
     ],
-    "navMenu": [
-        {
-            "id": "nm1",
-            "name": "Салаты",
-            "routeName": "salads",
-            "imgUrl": "salads",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
+    "navMenu": {
+        "categories": [
+            {
+                "id": "nm1",
+                "name": "Салаты",
+                "routeName": "salads",
+                "imgUrl": "salads",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm2",
+                "name": "Закуски",
+                "imgUrl": "snacks",
+                "routeName": "snacks",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm3",
+                "name": "Первые блюда",
+                "imgUrl": "firstCourses",
+                "routeName": "firstCourses",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm4",
+                "name": "Вторые блюда",
+                "imgUrl": "mainCourses",
+                "routeName": "mainCourses",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm5",
+                "name": "Десерты, выпечка",
+                "imgUrl": "dessertsPastries",
+                "routeName": "dessertsPastries",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm6",
+                "name": "Блюда на гриле",
+                "imgUrl": "grilledDishes",
+                "routeName": "grilledDishes",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm7",
+                "name": "Веганская кухня",
+                "imgUrl": "veganCuisine",
+                "routeName": "veganCuisine",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm8",
+                "name": "Детские блюда",
+                "imgUrl": "childrenMeals",
+                "routeName": "childrenMeals",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm9",
+                "name": "Лечебное питание",
+                "imgUrl": "therapeuticNutrition",
+                "routeName": "therapeuticNutrition",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm10",
+                "name": "Национальные",
+                "imgUrl": "nationalNutrition",
+                "routeName": "nationalNutrition",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm11",
+                "name": "Соусы",
+                "imgUrl": "sauces",
+                "routeName": "sauces",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm12",
+                "name": "Напитки",
+                "imgUrl": "drinks",
+                "routeName": "drinks",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
+            },
+            {
+                "id": "nm13",
+                "name": "Заготовки",
+                "imgUrl": "foodPreparation",
+                "routeName": "foodPreparation",
+                "elems": {
+                    "Закуски": "appetizers",
+                    "Первые блюда": "firstCourses",
+                    "Вторые блюда": "mainCourses",
+                    "Гарниры": "sideDishes",
+                    "Десерты": "desserts",
+                    "Сыроедческие блюда": "rawFoodDishes"
+                }
             }
-        },
-        {
-            "id": "nm2",
-            "name": "Закуски",
-            "imgUrl": "snacks",
-            "routeName": "snacks",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm3",
-            "name": "Первые блюда",
-            "imgUrl": "firstCourses",
-            "routeName": "firstCourses",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm4",
-            "name": "Вторые блюда",
-            "imgUrl": "secondCourses",
-            "routeName": "secondCourses",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm5",
-            "name": "Десерты, выпечка",
-            "imgUrl": "dessertsPastries",
-            "routeName": "dessertsPastries",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm6",
-            "name": "Блюда на гриле",
-            "imgUrl": "grilledDishes",
-            "routeName": "grilledDishes",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm7",
-            "name": "Веганская кухня",
-            "imgUrl": "veganCuisine",
-            "routeName": "veganCuisine",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm8",
-            "name": "Детские блюда",
-            "imgUrl": "childrenMeals",
-            "routeName": "childrenMeals",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm9",
-            "name": "Лечебное питание",
-            "imgUrl": "therapeuticNutrition",
-            "routeName": "therapeuticNutrition",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm10",
-            "name": "Национальные",
-            "imgUrl": "nationalNutrition",
-            "routeName": "nationalNutrition",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm11",
-            "name": "Соусы",
-            "imgUrl": "sauces",
-            "routeName": "sauces",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm12",
-            "name": "Напитки",
-            "imgUrl": "drinks",
-            "routeName": "drinks",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
-        },
-        {
-            "id": "nm13",
-            "name": "Заготовки",
-            "imgUrl": "foodPreparation",
-            "routeName": "foodPreparation",
-            "elems": {
-                "Закуски": "appetizers",
-                "Первые блюда": "firstCourses",
-                "Вторые блюда": "mainCourses",
-                "Гарниры": "sideDishes",
-                "Десерты": "desserts",
-                "Сыроедческие блюда": "rawFoodDishes"
-            }
+        ],
+        "subcategories": {
+            "Закуски": "appetizers",
+            "Первые блюда": "firstCourses",
+            "Вторые блюда": "mainCourses",
+            "Гарниры": "sideDishes",
+            "Десерты": "desserts",
+            "Сыроедческие блюда": "rawFoodDishes"
         }
-    ],
+    },
     "veganCuisine": {
         "title": "Веганская кухня",
         "description": "Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.",
@@ -509,7 +519,7 @@
             ]
         }
     },
-    "desert": {
+    "desserts": {
         "title": "Веганская кухня",
         "description": "Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.",
         "elems": {

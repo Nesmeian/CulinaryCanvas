@@ -7,7 +7,6 @@ import AddNotifications from '~/utils/addNotifications';
 import AddTags from '~/utils/addTags';
 
 export default function BottomSection({ data }) {
-    console.log(data);
     return (
         <VStack
             as='section'

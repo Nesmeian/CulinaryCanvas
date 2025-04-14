@@ -25,7 +25,7 @@ export default function NavMenuList() {
     };
     return (
         <Accordion allowToggle className='navMenu__list' width='256px'>
-            {DB.navMenu.map(({ elems, id, name, imgUrl, routeName }) => (
+            {DB.navMenu.categories.map(({ elems, id, name, imgUrl, routeName }) => (
                 <AccordionItem key={id} className='navMenu__item' border='0'>
                     <AccordionButton
                         display='flex'

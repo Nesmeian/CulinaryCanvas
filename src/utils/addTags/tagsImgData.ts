@@ -4,7 +4,7 @@ const tagsKeys = {
     Салаты: imgTags.salads,
     Закуски: imgTags.snacks,
     'Первые блюда': imgTags.firstCourses,
-    'Вторые блюда': imgTags.secondCourses,
+    'Вторые блюда': imgTags.mainCourses,
     'Десерты, выпечка': imgTags.dessertsPastries,
     'Блюда на гриле': imgTags.grilledDishes,
     'Веганская кухня': imgTags.veganCuisine,
