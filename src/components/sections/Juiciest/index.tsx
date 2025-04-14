@@ -3,9 +3,8 @@ import './style.css';
 import { Heading, HStack, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
-import BigCardsList from '~/components/bigCardsList';
-import GreenButton from '~/components/styledComponents/greenButton';
-
+import BigCardsList from '../../../components/bigCardsList';
+import GreenButton from '../../../components/styledComponents/greenButton';
 import DB from '../../../data/db.json';
 
 export default function Juiciest() {

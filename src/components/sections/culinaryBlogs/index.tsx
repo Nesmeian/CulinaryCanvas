@@ -3,10 +3,9 @@ import './style.css';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Button, Grid, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 
-import CardAvatar from '~/components/CardAvatar';
-import useBreakpoints from '~/themes/chakraBreakPoints';
-
+import CardAvatar from '../../../components/CardAvatar';
 import DB from '../../../data/db.json';
+import useBreakpoints from '../../../themes/chakraBreakPoints';
 export default function CulinaryBlogs() {
     const { isTablet } = useBreakpoints();
     return (

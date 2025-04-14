@@ -3,11 +3,11 @@ import './style.css';
 import { HStack, Stack } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router';
 
-import Header from '~/components/Header';
-import NavMenu from '~/components/navMenu';
-import Sidebar from '~/components/SideBar';
-import AppRoutes from '~/routes';
-import useBreakpoints from '~/themes/chakraBreakPoints';
+import Header from '../components/Header';
+import NavMenu from '../components/navMenu';
+import Sidebar from '../components/SideBar';
+import AppRoutes from '../routes';
+import useBreakpoints from '../themes/chakraBreakPoints';
 
 function App() {
     const { isTablet } = useBreakpoints();

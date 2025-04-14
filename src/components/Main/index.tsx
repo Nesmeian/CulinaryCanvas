@@ -2,9 +2,8 @@ import './style.css';
 
 import { Heading } from '@chakra-ui/react';
 
-import useBreakpoints from '~/themes/chakraBreakPoints';
-
 import DB from '../../data/db.json';
+import useBreakpoints from '../../themes/chakraBreakPoints';
 import Footer from '../Footer';
 import Search from '../Search';
 import BottomSection from '../sections/bottomsection';

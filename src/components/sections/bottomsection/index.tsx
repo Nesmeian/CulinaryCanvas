@@ -3,9 +3,10 @@ import './style.css';
 import { Button, Grid, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 
 import { BottomSectionProps } from '~/types/dataTypes';
-import { TagKey } from '~/types/utilsTypes';
-import AddNotifications from '~/utils/addNotifications';
-import AddTags from '~/utils/addTags';
+
+import { TagKey } from '../../../types/utilsTypes';
+import AddNotifications from '../../../utils/addNotifications';
+import AddTags from '../../../utils/addTags';
 
 export default function BottomSection({ data }: BottomSectionProps) {
     return (

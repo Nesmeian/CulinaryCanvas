@@ -1,4 +1,4 @@
-import tagsKeys from '~/utils/addTags/tagsImgData';
+import tagsKeys from '../../utils/addTags/tagsImgData';
 
 export type TagKey = keyof typeof tagsKeys;
 

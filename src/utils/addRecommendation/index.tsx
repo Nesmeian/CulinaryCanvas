@@ -2,9 +2,8 @@ import './style.css';
 
 import { HStack, Image, Text } from '@chakra-ui/react';
 
-import { AddRecommendationProps } from '~/types/utilsTypes';
-
 import * as userRecommendationImg from '../../assets/users/smallImg/index';
+import { AddRecommendationProps } from '../../types/utilsTypes';
 export default function AddRecommendation({ userRecommendation }: AddRecommendationProps) {
     return (
         userRecommendation && (

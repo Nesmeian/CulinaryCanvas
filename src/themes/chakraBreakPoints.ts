@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@chakra-ui/react';
 
-import { Breakpoints } from '~/types/utilsTypes';
+import { Breakpoints } from '../types/utilsTypes';
 
 const useBreakpoints = (): Breakpoints => {
     const [isMobile] = useMediaQuery('(max-width: 500px)', { ssr: true });

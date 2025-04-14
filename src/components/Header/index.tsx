@@ -3,10 +3,9 @@ import './style.css';
 import { Box, HStack, Image } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 
-import { ApplicationState } from '~/store/configure-store';
-import useBreakpoints from '~/themes/chakraBreakPoints';
-
 import * as logoUrl from '../../assets/logo/index';
+import { ApplicationState } from '../../store/configure-store';
+import useBreakpoints from '../../themes/chakraBreakPoints';
 import CardAvatar from '../CardAvatar';
 import NotificationList from '../Notification';
 import BreadCrumb from './breadCrumb';

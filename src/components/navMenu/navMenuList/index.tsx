@@ -13,10 +13,9 @@ import {
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router';
 
-import DB from '~/data/db.json';
-import GetCurrentPath from '~/utils/getCurrentPath';
-
 import * as navMenuIcons from '../../../assets/navMenuIcons/index';
+import DB from '../../../data/db.json';
+import GetCurrentPath from '../../../utils/getCurrentPath';
 
 export default function NavMenuList() {
     const pathSegments = GetCurrentPath();
