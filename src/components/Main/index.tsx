@@ -7,9 +7,9 @@ import useBreakpoints from '~/themes/chakraBreakPoints';
 import DB from '../../data/db.json';
 import Footer from '../Footer';
 import Search from '../Search';
+import BottomSection from '../sections/bottomsection';
 import CulinaryBlogs from '../sections/culinaryBlogs';
 import Juiciest from '../sections/Juiciest';
-import BottomSection from '../sections/vegancuisine';
 import Slider from '../slider';
 import MainStyled from '../styledComponents/Main';
 export default function Main() {
