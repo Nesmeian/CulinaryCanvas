@@ -5,16 +5,19 @@ import Main from '~/components/Main';
 import { CategoryKey, SubcategoryKey } from '~/types/routesTypes';
 
 const AppRoutes = () => {
-    const categories = ['veganCuisine', 'juiciest'] as const satisfies readonly CategoryKey[];
+    const categorySubcategories: Record<CategoryKey, SubcategoryKey[]> = {
+        veganCuisine: ['mainCourses'],
+        juiciest: [
+            'appetizers',
+            'firstCourses',
+            'desserts',
+            'mainCourses',
+            'sideDishes',
+            'rawFoodDishes',
+        ],
+    };
 
-    const subcategories = [
-        'appetizers',
-        'firstCourses',
-        'mainCourses',
-        'sideDishes',
-        'desserts',
-        'rawFoodDishes',
-    ] as const satisfies readonly SubcategoryKey[];
+    const categories = ['veganCuisine', 'juiciest'] as const satisfies readonly CategoryKey[];
 
     return (
         <Routes>
@@ -23,7 +26,8 @@ const AppRoutes = () => {
             {categories.map((category) => (
                 <Route key={category} path={`/${category}`}>
                     <Route index element={<Categories category={category} />} />
-                    {subcategories.map((sub) => (
+
+                    {categorySubcategories[category].map((sub) => (
                         <Route key={sub} path={sub} element={<Categories category={category} />} />
                     ))}
                 </Route>
