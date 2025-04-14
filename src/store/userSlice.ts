@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { UserData } from '~/types/userTypes';
+import { UserData } from '../types/userTypes';
 
 const initialState: UserData = {
     img: 'userImg',

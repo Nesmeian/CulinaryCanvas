@@ -1,8 +1,7 @@
 import { Avatar, Stack, Text } from '@chakra-ui/react';
 
-import { UserProps } from '~/types/userTypes';
-
 import * as usersImg from '../../assets/users/commonImg';
+import { UserProps } from '../../types/userTypes';
 
 export default function CardAvatar({ userData, isLogo }: UserProps) {
     const { img, user, email } = userData;

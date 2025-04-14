@@ -1,8 +1,7 @@
 import { HStack, Image, Text } from '@chakra-ui/react';
 
-import { addNotificationsProps } from '~/types/utilsTypes';
-
 import * as socialIcons from '../../assets/socialIcons/index';
+import { addNotificationsProps } from '../../types/utilsTypes';
 
 export default function AddNotifications({ notifications }: addNotificationsProps) {
     return (

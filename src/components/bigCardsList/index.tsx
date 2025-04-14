@@ -12,16 +12,15 @@ import {
     VStack,
 } from '@chakra-ui/react';
 
-import useBreakpoints from '~/themes/chakraBreakPoints';
-import { BigCardsListProps } from '~/types/dataTypes';
-import { TagKey } from '~/types/utilsTypes';
-import AddNotifications from '~/utils/addNotifications';
-import AddRecommendation from '~/utils/addRecommendation';
-import AddTags from '~/utils/addTags';
-
 import * as juiciestImg from '../../assets/sections/JuiciestImg/index';
 import * as veganImg from '../../assets/sections/veganImg/index';
 import * as socialIcons from '../../assets/socialIcons/index';
+import useBreakpoints from '../../themes/chakraBreakPoints';
+import { BigCardsListProps } from '../../types/dataTypes';
+import { TagKey } from '../../types/utilsTypes';
+import AddNotifications from '../../utils/addNotifications';
+import AddRecommendation from '../../utils/addRecommendation';
+import AddTags from '../../utils/addTags/index';
 const imgObj = {
     'Веганская кухня': veganImg,
     'Самое сочное': juiciestImg,

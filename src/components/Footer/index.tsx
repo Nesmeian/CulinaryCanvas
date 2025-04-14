@@ -3,9 +3,8 @@ import './style.css';
 import { Box, Button, HStack, Image, Text } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 
-import { ApplicationState } from '~/store/configure-store';
-
 import * as btnImg from '../../assets/footerBtns/index';
+import { ApplicationState } from '../../store/configure-store';
 import CardAvatar from '../CardAvatar';
 export default function Footer() {
     const buttonStyles = {

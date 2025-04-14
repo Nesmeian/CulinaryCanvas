@@ -1,10 +1,9 @@
 import { Heading } from '@chakra-ui/react';
 
-import useBreakpoints from '~/themes/chakraBreakPoints';
-import { CategoriesProps } from '~/types/dataTypes';
-import GetCurrentPath from '~/utils/getCurrentPath';
-
 import DB from '../../data/db.json';
+import useBreakpoints from '../../themes/chakraBreakPoints';
+import { CategoriesProps } from '../../types/dataTypes';
+import GetCurrentPath from '../../utils/getCurrentPath';
 import BigCardsList from '../bigCardsList';
 import Footer from '../Footer';
 import Search from '../Search';

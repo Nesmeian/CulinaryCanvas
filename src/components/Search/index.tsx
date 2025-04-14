@@ -1,7 +1,6 @@
 import { HStack, VStack } from '@chakra-ui/react';
 
-import useBreakpoints from '~/themes/chakraBreakPoints';
-
+import useBreakpoints from '../../themes/chakraBreakPoints';
 import SearchControls from './searchControls';
 import InputSearch from './searchInput';
 import UnknownBlock from './unknownBlock';

@@ -2,12 +2,11 @@ import './style.css';
 
 import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
-import DB from '~/data/db.json';
-import useBreakpoints from '~/themes/chakraBreakPoints';
-import { TagKey } from '~/types/utilsTypes';
-
 import * as sliderArrows from '../../assets/sliderArrows/index';
 import * as sliderImgs from '../../assets/sliderImg/index';
+import DB from '../../data/db.json';
+import useBreakpoints from '../../themes/chakraBreakPoints';
+import { TagKey } from '../../types/utilsTypes';
 import AddNotifications from '../../utils/addNotifications';
 import Tags from '../../utils/addTags';
 
