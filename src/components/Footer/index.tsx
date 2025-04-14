@@ -29,7 +29,11 @@ export default function Footer() {
     return (
         <Box as='footer' className='footer'>
             <HStack width='100%' height='100%' justify='space-between'>
-                <Button sx={buttonStyles} variant='plain'>
+                <Button
+                    sx={buttonStyles}
+                    variant='plain'
+                    bgGradient='radial-gradient(62.52% 62.51% at 48.89% 37.5%, #c4ff61 0%, rgba(255, 255, 255, 0) 100%)'
+                >
                     <Image src={btnImg.homeBtn} boxSize='48px' />
                     <Text fontSize='10px'>Главная</Text>
                 </Button>
