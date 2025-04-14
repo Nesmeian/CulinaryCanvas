@@ -1,3 +1,4 @@
+import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 
 import GetCurrentPath from '~/utils/getCurrentPath';
@@ -8,15 +9,18 @@ export default function BreadCrumb() {
         const translations: Record<string, string> = {
             veganCuisine: 'Веганская кухня',
             mainCourses: 'Вторые блюда',
+            juiciest: 'Самое сочное',
         };
         return translations[segment] || segment;
     };
 
     const generatePath = (index: number) => '/' + pathSegments.slice(0, index + 1).join('/');
-
-    console.log(generatePath);
     return (
-        <Breadcrumb separator='-' fontSize='sm' color='gray.500'>
+        <Breadcrumb
+            separator={<ChevronRightIcon color='gray.500' />}
+            fontSize='sm'
+            color='gray.500'
+        >
             <BreadcrumbItem>
                 <BreadcrumbLink href='/'>Главная</BreadcrumbLink>
             </BreadcrumbItem>

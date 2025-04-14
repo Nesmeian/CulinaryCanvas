@@ -2,10 +2,10 @@ import { Navigate, Route, Routes } from 'react-router';
 
 import Categories from '~/components/categories';
 import Main from '~/components/Main';
-import { CategoryKey, SubcategoryKey } from '~/types/routesTypes';
+import { Category } from '~/types/dataTypes';
 
 const AppRoutes = () => {
-    const categorySubcategories: Record<CategoryKey, SubcategoryKey[]> = {
+    const categorySubcategories: Record<Category, string[]> = {
         veganCuisine: ['mainCourses'],
         juiciest: [
             'appetizers',
@@ -17,7 +17,7 @@ const AppRoutes = () => {
         ],
     };
 
-    const categories = ['veganCuisine', 'juiciest'] as const satisfies readonly CategoryKey[];
+    const categories: Category[] = ['veganCuisine', 'juiciest'];
 
     return (
         <Routes>

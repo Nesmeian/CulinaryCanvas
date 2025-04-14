@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 
 import useBreakpoints from '~/themes/chakraBreakPoints';
-import BigCardsListProps from '~/types/dataTypes';
+import { BigCardsListProps } from '~/types/dataTypes';
 import { TagKey } from '~/types/utilsTypes';
 import AddNotifications from '~/utils/addNotifications';
 import AddRecommendation from '~/utils/addRecommendation';
@@ -30,11 +30,11 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
     const dataCards = data.elems.card;
     const dataTitle = data.title;
     const { isTablet } = useBreakpoints();
-    const displayedData = maxElems ? dataCards.slice(0, maxElems) : dataCards;
-    const imgData = imgObj[dataTitle];
+    const displayedData = maxElems ? dataCards?.slice(0, maxElems) : dataCards;
+    const imgData = imgObj[dataTitle as keyof typeof imgObj];
     return (
         <Grid className='card__list' gap={{ xl: '24px', md: '16px', sm: '11px' }}>
-            {displayedData.map(
+            {displayedData!.map(
                 ({ id, imgUrl, title, description, tag, notifications, userRecommendation }) => (
                     <HStack key={id} className='card__item' position='relative'>
                         <VStack className='card__item__image-container'>

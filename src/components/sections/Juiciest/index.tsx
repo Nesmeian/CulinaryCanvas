@@ -5,12 +5,10 @@ import { Link } from 'react-router';
 
 import BigCardsList from '~/components/bigCardsList';
 import GreenButton from '~/components/styledComponents/greenButton';
-import useBreakpoints from '~/themes/chakraBreakPoints';
 
 import DB from '../../../data/db.json';
 
 export default function Juiciest() {
-    const { isTablet } = useBreakpoints();
     return (
         <VStack
             as='section'
@@ -22,14 +20,16 @@ export default function Juiciest() {
                 <Heading as='h2' size='h2' className='juiciest__title'>
                     Самое cочное
                 </Heading>
-                {!isTablet && (
-                    <Link to='juiciest'>
-                        <GreenButton text='Вся Подборка' />
-                    </Link>
-                )}
+                <Link to='juiciest' className='linka' data-test-id='juiciest-link'>
+                    <GreenButton text='Вся Подборка' />
+                </Link>
             </HStack>
+
             <BigCardsList data={DB.juiciest} maxElems={4} />
-            {isTablet && <GreenButton center text='Вся Подборка' />}
+
+            <Link to='juiciest' className='lina' data-test-id='juiciest-link-mobile'>
+                <GreenButton center text='Вся Подборка' />
+            </Link>
         </VStack>
     );
 }

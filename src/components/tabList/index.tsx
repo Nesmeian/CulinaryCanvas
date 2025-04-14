@@ -14,13 +14,15 @@ export default function AddTabList({ location }: { location: string }) {
             onChange={(index) => setTabIndex(index)}
             variant='unstyled'
             colorScheme='green'
-            width='100%'
+            width='1006px'
             mb='24px'
         >
             <TabList
                 overflowX='auto'
                 overflowY='hidden'
                 justifyContent='center'
+                position='relative'
+                width='100%'
                 sx={{
                     '&::-webkit-scrollbar': {
                         height: '0',
