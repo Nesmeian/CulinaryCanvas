@@ -35,6 +35,10 @@ export default function CulinaryBlogs() {
                 {DB.culinaryBlogData.map(({ id, img, user, email, description }) => (
                     <VStack
                         key={id}
+                        _hover={{
+                            boxShadow:
+                                '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
+                        }}
                         className='culinary-blogs__item'
                         alignItems='flex-start'
                         gap={{ xl: '24px', sm: '13px' }}

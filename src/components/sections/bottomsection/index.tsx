@@ -44,8 +44,15 @@ export default function BottomSection({ data }: BottomSectionProps) {
                     gap={{ xl: '25px', sm: '10px' }}
                     templateColumns='repeat(auto-fit, minmax(232px, 1fr)) '
                 >
-                    {data.elems.smallCard.map(({ id, title, tag, description, notifications }) => (
-                        <VStack key={id} className='bottom-section__card-item'>
+                    {data.elems.smallCard?.map(({ id, title, tag, description, notifications }) => (
+                        <VStack
+                            key={id}
+                            className='bottom-section__card-item'
+                            _hover={{
+                                boxShadow:
+                                    '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
+                            }}
+                        >
                             <Heading
                                 variant='veganCardHeadingStyles'
                                 width='100%'
@@ -71,8 +78,12 @@ export default function BottomSection({ data }: BottomSectionProps) {
                     ))}
                 </Grid>
                 <VStack gap={{ lg: '12px', md: '8px', sm: '15px' }} width='100%'>
-                    {data.elems.recipes.map(({ title, tag }) => (
+                    {data.elems.recipes?.map(({ title, tag }) => (
                         <HStack
+                            _hover={{
+                                boxShadow:
+                                    '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
+                            }}
                             key={title}
                             className='bottom-section__recipe-item'
                             width='100%'
