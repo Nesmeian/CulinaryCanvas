@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router';
 
 import Header from '../components/Header';
 import NavMenu from '../components/navMenu';
-import Sidebar from '../components/SideBar';
+import Sidebar from '../components/sidebar';
 import AppRoutes from '../routes';
 import useBreakpoints from '../themes/chakraBreakPoints';
 
