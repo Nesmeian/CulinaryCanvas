@@ -1,7 +1,7 @@
 import './style.css';
 
-import { Heading, HStack, VStack } from '@chakra-ui/react';
-import { Link } from 'react-router';
+import { Heading, HStack, Link, VStack } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router';
 
 import BigCardsList from '../../../components/bigCardsList';
 import GreenButton from '../../../components/styledComponents/greenButton';
@@ -19,15 +19,26 @@ export default function Juiciest() {
                 <Heading as='h2' size='h2' className='juiciest__title'>
                     Самое cочное
                 </Heading>
-                <Link to='juiciest' className='linka' data-test-id='juiciest-link'>
+                <Link
+                    as={RouterLink}
+                    to='juiciest'
+                    display={{ md: 'none', lg: 'block' }}
+                    data-test-id='juiciest-link'
+                >
                     <GreenButton text='Вся Подборка' />
                 </Link>
             </HStack>
 
             <BigCardsList data={DB.juiciest} maxElems={4} />
 
-            <Link to='juiciest' className='lina' data-test-id='juiciest-link-mobile'>
-                <GreenButton center text='Вся Подборка' />
+            <Link
+                as={RouterLink}
+                to='juiciest'
+                display={{ sm: 'flex', lg: 'none' }}
+                alignSelf='center'
+                data-test-id='juiciest-link-mobile'
+            >
+                <GreenButton text='Вся Подборка' />
             </Link>
         </VStack>
     );
