@@ -1,33 +1,27 @@
-import './App.css';
+import './style.css';
 
-import { useState } from 'react';
+import { HStack, Stack } from '@chakra-ui/react';
+import { BrowserRouter } from 'react-router';
 
-import reactLogo from '~/assets/react.svg';
-import { useGetPostsQuery } from '~/query/services/posts.ts';
+import Header from '../components/Header';
+import NavMenu from '../components/navMenu';
+import Sidebar from '../components/Sidebar';
+import AppRoutes from '../routes';
+import useBreakpoints from '../themes/chakraBreakPoints';
 
 function App() {
-    const [count, setCount] = useState(0);
-    const { data: _data, isLoading: _isLoading } = useGetPostsQuery();
-
+    const { isTablet } = useBreakpoints();
     return (
-        <>
-            <div>
-                <a href='https://vite.dev' target='_blank'>
-                    <img src='/vite.svg' className='logo' alt='Vite logo' />
-                </a>
-                <a href='https://react.dev' target='_blank'>
-                    <img src={reactLogo} className='logo react' alt='React logo' />
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className='card'>
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
-        </>
+        <BrowserRouter>
+            <Stack gap='0px'>
+                <Header />
+                <HStack className='app' alignItems='flex-start' gap='12px' justify='space-between'>
+                    {!isTablet && <NavMenu />}
+                    <AppRoutes />
+                    {!isTablet && <Sidebar />}
+                </HStack>
+            </Stack>
+        </BrowserRouter>
     );
 }
 

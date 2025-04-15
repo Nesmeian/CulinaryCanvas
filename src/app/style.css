@@ -1,0 +1,8 @@
+.app {
+    height: 100vh;
+    padding-top: 80px;
+    width: 100%;
+    @media (max-width: 768px) {
+        padding-top: 76px;
+    }
+}

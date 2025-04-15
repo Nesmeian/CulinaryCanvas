@@ -1,0 +1,16 @@
+.juiciest {
+    padding-top: 19px;
+    width: 100%;
+}
+.linka {
+    display: block;
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+.lina {
+    display: none;
+    @media (max-width: 768px) {
+        display: block;
+    }
+}
