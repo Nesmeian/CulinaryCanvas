@@ -7,3 +7,6 @@ export interface UserData {
     user: string;
     email: string;
 }
+export type BurgerState = {
+    isOpen: boolean;
+};

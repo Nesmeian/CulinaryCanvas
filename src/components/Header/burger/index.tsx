@@ -1,20 +1,26 @@
 import './style.css';
 
 import { Box, VStack } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { toggleBurgerState } from '~/store/burgerSlice';
+import { ApplicationState } from '~/store/configure-store';
 
 export default function Burger() {
+    const burgerState = useSelector((state: ApplicationState) => state.burgerState.isOpen);
+    const dispatch = useDispatch();
     return (
         <VStack
-            className='burger'
+            className={`burger ${burgerState ? 'active' : ''}`}
             justify='center'
             gap='3px'
             onClick={() => {
-                console.log('click');
+                dispatch(toggleBurgerState());
             }}
         >
-            <Box className='burger__first-line'></Box>
-            <Box className='burger__second-line'></Box>
-            <Box className='burger__third-line'></Box>
+            <Box className='burger__first-line' />
+            <Box className='burger__second-line' />
+            <Box className='burger__third-line' />
         </VStack>
     );
 }

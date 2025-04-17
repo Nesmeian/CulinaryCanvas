@@ -13,6 +13,7 @@ export default function AddTags({ tag, withText, color, size, newPosition }: Tag
             position={{ lg: 'static', sm: position }}
             background={color}
             gap={{ sm: '9px' }}
+            pr='8px'
         >
             <Image
                 objectFit='cover'
