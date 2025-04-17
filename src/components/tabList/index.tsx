@@ -12,15 +12,14 @@ export default function AddTabList({ location }: { location: string }) {
         <Tabs
             index={tabIndex}
             onChange={(index) => setTabIndex(index)}
+            width={{ md: '70%', sm: '100%' }}
             variant='unstyled'
             colorScheme='green'
-            width='1006px'
             mb='24px'
         >
             <TabList
                 overflowX='auto'
                 overflowY='hidden'
-                justifyContent='center'
                 position='relative'
                 width='100%'
                 sx={{
