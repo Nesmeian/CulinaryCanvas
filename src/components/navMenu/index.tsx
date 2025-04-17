@@ -16,7 +16,6 @@ export default function NavMenu() {
             className='navMenu'
             alignItems='flex-start'
             justify='space-between'
-            height='100%'
             width='256px'
         >
             <VStack width='100%' overflowY='scroll'>
