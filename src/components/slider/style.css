@@ -1,3 +1,5 @@
+@import 'swiper/css';
+@import 'swiper/css/navigation';
 .slider {
     width: 100%;
     padding: 35px 0 0;
@@ -69,11 +71,14 @@
     }
 }
 
+.swiper-button-prev,
 .swiper-button-next {
-    right: 10px;
+    width: 40px;
+    height: 40px;
 }
-
-.swiper-button-disabled {
-    opacity: 0.5 !important;
-    cursor: not-allowed;
+.swiper-button-next {
+    right: -8px;
+}
+.swiper-button-prev {
+    left: -8px;
 }
