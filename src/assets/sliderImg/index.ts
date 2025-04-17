@@ -1,4 +1,10 @@
+export { default as bulgurAndLentil } from './bulgurAndLentil.png';
 export { default as cabbagePatties } from './cabbagePatties.png';
+export { default as garlicPotatoes } from './garlicPotatoes.png';
+export { default as noodlesWithChickenAndSaffron } from './noodlesWithChickenAndSaffron.png';
 export { default as pancakesOnKefir } from './pancakesOnKefir.png';
 export { default as saladHealth } from './saladHealth.png';
 export { default as solyanka } from './solyanka.png';
+export { default as spaghettiDumplings } from './spaghettiDumplings.png';
+export { default as spicyItalianHam } from './spicyItalianHam.png';
+export { default as tomYamWithKimchiCabbage } from './tomYamWithKimchiCabbage.png';
