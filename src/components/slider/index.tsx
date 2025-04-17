@@ -1,6 +1,8 @@
 import './style.css';
 
 import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import * as sliderArrows from '../../assets/sliderArrows/index';
 import * as sliderImgs from '../../assets/sliderImg/index';
@@ -13,19 +15,23 @@ import Tags from '../../utils/addTags';
 export default function Slider() {
     const { isTablet } = useBreakpoints();
     return (
-        <VStack align='flex-start' className='slider' as='section'>
+        <VStack align='flex-start' className='slider' as='section' width='100%'>
             <Heading as='h2' size='h2' className='slider__title'>
                 Новые рецепты
             </Heading>
-            <HStack
-                gap={{ xl: '26px', lg: '12px', sm: '12px' }}
+            <Swiper
                 className='slider__list'
-                width='100%'
-                overflow='hidden'
+                spaceBetween={24}
+                modules={[Navigation]}
+                navigation={{
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                }}
+                loop={true}
+                slidesPerView={4}
             >
-                {!isTablet && <Image src={sliderArrows.leftArrow} className='slider__left-arrow' />}
                 {DB.sliderData.map(({ id, imgUrl, title, description, tag, notifications }) => (
-                    <VStack key={id} className='slider__item' overflow='hidden'>
+                    <SwiperSlide key={id} className='slider__item'>
                         <Image
                             height={{ lg: '230px', sm: '128px' }}
                             src={sliderImgs[imgUrl as keyof typeof sliderImgs]}
@@ -69,12 +75,11 @@ export default function Slider() {
                                 <AddNotifications notifications={notifications} />
                             </HStack>
                         </VStack>
-                    </VStack>
+                    </SwiperSlide>
                 ))}
-                {!isTablet && (
-                    <Image src={sliderArrows.rightArrow} className='slider__right-arrow' />
-                )}
-            </HStack>
+                <Image src={sliderArrows.leftArrow} className='swiper-button-prev' />
+                <Image src={sliderArrows.rightArrow} className='swiper-button-next' />
+            </Swiper>
         </VStack>
     );
 }
