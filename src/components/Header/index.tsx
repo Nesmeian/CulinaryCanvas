@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux';
 import * as logoUrl from '../../assets/logo/index';
 import { ApplicationState } from '../../store/configure-store';
 import useBreakpoints from '../../themes/chakraBreakPoints';
+import BreadCrumb from '../breadCrumb';
 import CardAvatar from '../CardAvatar';
 import NotificationList from '../Notification';
-import BreadCrumb from './breadCrumb';
 import Burger from './burger';
 
 export default function Header() {

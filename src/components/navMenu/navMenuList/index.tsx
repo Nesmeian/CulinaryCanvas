@@ -7,7 +7,6 @@ import {
     Box,
     HStack,
     Image,
-    Link,
     Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -53,17 +52,23 @@ export default function NavMenuList() {
         <Accordion
             allowToggle
             className='navMenu__list'
-            width='256px'
+            width='100%'
             index={activeCategoryIndex}
             onChange={(index) => setCategoryActiveIndex(index as number | undefined)}
         >
             {DB.navMenu.categories.map(({ elems, id, name, imgUrl, routeName }) => (
                 <AccordionItem key={id} className='navMenu__item' border='0'>
                     <AccordionButton
+                        as={RouterLink}
+                        data-test-id={routeName === 'veganCuisine' ? 'vegan-cuisine' : undefined}
+                        to={{
+                            pathname: `/${routeName}/`,
+                        }}
+                        transition='font-weight 0.2s'
                         display='flex'
                         justifyContent='space-between'
                         pb='16px'
-                        pl='20px'
+                        pl='0'
                         _expanded={{
                             bg: '#EAffc7',
                             '& .navMenu__item_text': {
@@ -81,20 +86,9 @@ export default function NavMenuList() {
                                 src={navMenuIcons[imgUrl as keyof typeof navMenuIcons]}
                                 alt={name}
                             />
-                            <Link
-                                as={RouterLink}
-                                data-test-id={
-                                    routeName === 'veganCuisine' ? 'vegan-cuisine' : undefined
-                                }
-                                to={{
-                                    pathname: `/${routeName}/`,
-                                }}
-                                transition='font-weight 0.2s'
-                            >
-                                <Text className='navMenu__item_text' variant='navMenuItems'>
-                                    {name}
-                                </Text>
-                            </Link>
+                            <Text className='navMenu__item_text' variant='navMenuItems'>
+                                {name}
+                            </Text>
                         </HStack>
                         <AccordionIcon boxSize='24px' />
                     </AccordionButton>
@@ -112,23 +106,25 @@ export default function NavMenuList() {
                                     transition='all 0.2s'
                                     _hover={{ bg: 'gray.50' }}
                                 >
-                                    <HStack spacing={2}>
+                                    <HStack
+                                        spacing={2}
+                                        as={RouterLink}
+                                        to={{
+                                            pathname: `/${routeName}/${engTitle}`,
+                                        }}
+                                    >
                                         <Box
                                             width={isActive ? '8px' : '1px'}
                                             height='24px'
                                             background='#c4ff61'
                                             transition='width 0.2s ease'
                                         />
-                                        <Link
-                                            as={RouterLink}
-                                            to={{
-                                                pathname: `/${routeName}/${engTitle}`,
-                                            }}
+                                        <Text
                                             fontWeight={isActive ? 700 : 400}
                                             transition='font-weight 0.2s'
                                         >
                                             {rusTitle}
-                                        </Link>
+                                        </Text>
                                     </HStack>
                                 </AccordionPanel>
                             );

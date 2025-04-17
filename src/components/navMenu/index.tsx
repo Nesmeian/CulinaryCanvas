@@ -2,10 +2,14 @@ import './style.css';
 
 import { VStack } from '@chakra-ui/react';
 
+import useBreakpoints from '~/themes/chakraBreakPoints';
+
+import BreadCrumb from '../breadCrumb';
 import NavMenuFooter from './navMenuFooter';
 import NavMenuList from './navMenuList';
 
-export default function navMenu() {
+export default function NavMenu() {
+    const { isTablet } = useBreakpoints();
     return (
         <VStack
             as='nav'
@@ -13,8 +17,12 @@ export default function navMenu() {
             alignItems='flex-start'
             justify='space-between'
             height='100%'
+            width='256px'
         >
-            <NavMenuList />
+            <VStack width='100%' overflowY='scroll'>
+                {isTablet && <BreadCrumb />}
+                <NavMenuList />
+            </VStack>
             <NavMenuFooter />
         </VStack>
     );
