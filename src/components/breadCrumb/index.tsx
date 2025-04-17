@@ -17,9 +17,18 @@ export default function BreadCrumb() {
     const generatePath = (index: number) => '/' + pathSegments.slice(0, index + 1).join('/');
     return (
         <Breadcrumb
+            pt='16px'
+            alignSelf='baseline'
             separator={<ChevronRightIcon color='gray.500' />}
             fontSize='sm'
             color='gray.500'
+            sx={{
+                '& > .chakra-breadcrumb__list': {
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '8px',
+                },
+            }}
         >
             <BreadcrumbItem>
                 <BreadcrumbLink href='/'>Главная</BreadcrumbLink>
