@@ -41,6 +41,9 @@
 }
 .slider__content-description {
     margin-bottom: 30px;
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
 
 .slider__item-content {
@@ -75,6 +78,9 @@
 .swiper-button-next {
     width: 40px;
     height: 40px;
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
 .swiper-button-next {
     right: -8px;
