@@ -28,7 +28,12 @@ export default function Slider() {
                     prevEl: '.swiper-button-prev',
                 }}
                 loop={true}
-                slidesPerView={4}
+                breakpoints={{
+                    1920: { slidesPerView: 4 },
+                    1440: { slidesPerView: 3 },
+                    768: { slidesPerView: 4.2 },
+                    360: { slidesPerView: 2 },
+                }}
             >
                 {DB.sliderData.map(({ id, imgUrl, title, description, tag, notifications }) => (
                     <SwiperSlide key={id} className='slider__item'>
