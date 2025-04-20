@@ -11,8 +11,10 @@ interface IngredientsData {
     count: string;
     measureUnit: string;
 }
-export interface IngredientsDataProps {
-    data: IngredientsData[];
+interface StepsData {
+    stepNumber: number;
+    description: string;
+    image?: string;
 }
 export interface NutritionValueData {
     calories: number;
@@ -20,12 +22,13 @@ export interface NutritionValueData {
     fats: number;
     carbohydrates: number;
 }
-
-interface StepsData {
-    stepNumber: number;
-    description: string;
-    image: string;
+export interface StepsDataProps {
+    data: StepsData[];
 }
+export interface IngredientsDataProps {
+    data: IngredientsData[];
+}
+
 export interface RecipeData extends CardItem {
     id: string;
     title: string;

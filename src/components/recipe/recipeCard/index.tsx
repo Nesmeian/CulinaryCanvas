@@ -13,6 +13,7 @@ export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
     const { title, id, description, tag, imgUrl, notifications, time } = recipeData;
     return (
         <Stack
+            as='section'
             flexDir={{ md: 'row', sm: 'column' }}
             mt={{ lg: '56px', sm: '4px' }}
             width='100%'
