@@ -67,7 +67,7 @@ export default function BottomSection({ data }: BottomSectionProps) {
                             </Text>
                             <HStack width='100%' justify='space-between' position='relative'>
                                 <AddTags
-                                    tag={tag as TagKey}
+                                    tag={tag as TagKey[]}
                                     withText
                                     size='14px'
                                     color='#ffffd3;'
@@ -92,7 +92,7 @@ export default function BottomSection({ data }: BottomSectionProps) {
                         >
                             <HStack gap='0px' position='relative' width='70%'>
                                 <AddTags
-                                    tag={tag as TagKey}
+                                    tag={tag as TagKey[]}
                                     newPosition
                                     withText={false}
                                     size='24px'

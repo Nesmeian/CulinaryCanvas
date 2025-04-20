@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router';
 
 import Categories from '~/components/categories';
 import Main from '~/components/Main';
+import Recipe from '~/components/recipe';
 import { Category } from '~/types/dataTypes';
 
 const AppRoutes = () => {
@@ -16,7 +17,10 @@ const AppRoutes = () => {
             'rawFoodDishes',
         ],
     };
-
+    const recipes: Record<Category, string[]> = {
+        juiciest: ['NoodlesWithChickenAndSaffron'],
+        veganCuisine: ['mainCourses'],
+    };
     const categories: Category[] = ['veganCuisine', 'juiciest'];
 
     return (
@@ -26,9 +30,11 @@ const AppRoutes = () => {
             {categories.map((category) => (
                 <Route key={category} path={`/${category}`}>
                     <Route index element={<Categories category={category} />} />
-
                     {categorySubcategories[category].map((sub) => (
                         <Route key={sub} path={sub} element={<Categories category={category} />} />
+                    ))}
+                    {recipes[category].map((recipe) => (
+                        <Route key={recipe} path={recipe} element={<Recipe recipe={recipe} />} />
                     ))}
                 </Route>
             ))}

@@ -10,6 +10,7 @@ export default function BreadCrumb() {
             veganCuisine: 'Веганская кухня',
             mainCourses: 'Вторые блюда',
             juiciest: 'Самое сочное',
+            NoodlesWithChickenAndSaffron: 'Лапша с курицей и шафраном',
         };
         return translations[segment] || segment;
     };
@@ -20,7 +21,7 @@ export default function BreadCrumb() {
             pt='16px'
             alignSelf='baseline'
             separator={<ChevronRightIcon color='gray.500' />}
-            fontSize='sm'
+            fontSize='md'
             color='gray.500'
             sx={{
                 '& > .chakra-breadcrumb__list': {

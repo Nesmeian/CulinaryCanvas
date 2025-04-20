@@ -6,7 +6,7 @@ export default interface TagsProps {
     color?: string;
     size?: string;
     withText: boolean;
-    tag: TagKey;
+    tag: TagKey[];
     newPosition?: true;
 }
 interface Notifications {
@@ -15,6 +15,7 @@ interface Notifications {
 }
 
 export interface addNotificationsProps {
+    isRecipe?: boolean;
     notifications?: Notifications;
 }
 interface UserRecommendation {
