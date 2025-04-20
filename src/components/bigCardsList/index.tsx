@@ -11,6 +11,7 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react';
+import { Link } from 'react-router';
 
 import * as juiciestImg from '../../assets/sections/JuiciestImg/index';
 import * as veganImg from '../../assets/sections/veganImg/index';
@@ -34,7 +35,16 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
     return (
         <Grid className='card__list' gap={{ xl: '24px', md: '16px', sm: '11px' }}>
             {displayedData!.map(
-                ({ id, imgUrl, title, description, tag, notifications, userRecommendation }) => (
+                ({
+                    id,
+                    imgUrl,
+                    title,
+                    description,
+                    tag,
+                    notifications,
+                    userRecommendation,
+                    path,
+                }) => (
                     <HStack
                         key={id}
                         className='card__item'
@@ -67,7 +77,7 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                                 gap={0}
                             >
                                 <AddTags
-                                    tag={tag as TagKey}
+                                    tag={tag as TagKey[]}
                                     withText={true}
                                     color='#ffffd3'
                                     size='16px'
@@ -123,6 +133,8 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                                     {!isTablet && 'Сохранить'}
                                 </Button>
                                 <Button
+                                    as={Link}
+                                    to={path}
                                     fontSize={{ md: '15px', sm: '12px' }}
                                     className='card__btn-cook'
                                     size={{ lg: 'sm', sm: 'xs' }}
