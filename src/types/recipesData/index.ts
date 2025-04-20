@@ -11,12 +11,16 @@ interface IngredientsData {
     count: string;
     measureUnit: string;
 }
+export interface IngredientsDataProps {
+    data: IngredientsData[];
+}
 export interface NutritionValueData {
     calories: number;
     proteins: number;
     fats: number;
     carbohydrates: number;
 }
+
 interface StepsData {
     stepNumber: number;
     description: string;
