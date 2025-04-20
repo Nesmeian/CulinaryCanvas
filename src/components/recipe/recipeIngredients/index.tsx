@@ -8,7 +8,7 @@ export default function RecipeIngredients({ data }: IngredientsDataProps) {
 
     return (
         <VStack
-            width={{ lg: '100%', md: '83%', base: '100%' }}
+            width={{ lg: '100%', base: '100%' }}
             mt={{ lg: '40px', md: '23px', base: '25px' }}
             gap='0'
         >
