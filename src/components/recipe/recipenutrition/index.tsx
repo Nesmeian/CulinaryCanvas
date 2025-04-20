@@ -16,24 +16,29 @@ export default function RecipeNutritionValue({ data }: { data: NutritionValueDat
         proteins: 'ГРАММ',
     };
     return (
-        <Stack alignItems='flex-start' mt={{ lg: '36px', base: '23px' }} width={{ base: '100%' }}>
+        <Stack
+            alignItems='flex-start'
+            mt={{ lg: '36px', base: '23px' }}
+            width={{ md: 'auto', base: '100%' }}
+        >
             <Text fontSize='14px' mb={{ md: '12px', base: '4px' }}>
                 * Калорийность на 1 порцию
             </Text>
             <HStack
-                width='100%'
+                width={{ md: 'auto', base: '100%' }}
                 gap={{ xl: '24px', md: '12px', base: '15px' }}
                 flexDirection={{ md: 'row', base: 'column' }}
             >
                 {(Object.entries(data) as Array<[keyof NutritionValueData, number]>).map(
                     ([name, value]) => (
                         <HStack
+                            key={name}
                             flexDirection={{ md: 'column', base: 'row' }}
                             p={{ md: '16px', base: '12px 12px' }}
                             border='1px solid black'
                             borderRadius='16px'
                             width={{ xl: '149px', lg: '135.5px', md: '173px', base: '100%' }}
-                            gap='3px'
+                            gap='4px'
                         >
                             <Text fontSize='14px' width={{ md: 'auto', base: '117.5px' }}>
                                 {rusTranslateOfNutrion[name]}
