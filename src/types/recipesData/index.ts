@@ -11,7 +11,7 @@ interface IngredientsData {
     count: string;
     measureUnit: string;
 }
-interface NutritionValueData {
+export interface NutritionValueData {
     calories: number;
     proteins: number;
     fats: number;
