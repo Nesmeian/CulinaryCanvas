@@ -1,6 +1,6 @@
 import { CardItem, NotificationBase } from '../dataTypes';
 
-interface AuthorData {
+export interface AuthorData {
     name: string;
     email: string;
     imgUrl: string;
