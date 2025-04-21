@@ -1,6 +1,17 @@
-import { FormControl, FormLabel, HStack, Select, Switch } from '@chakra-ui/react';
+import { Checkbox, FormControl, FormLabel, HStack, Select, Switch } from '@chakra-ui/react';
 
 export default function SearchControls() {
+    const alergens = {
+        'Молочные продукты': 'Dairy products',
+        Яйцо: 'Egg',
+        Рыба: 'Fish',
+        Моллюски: 'Shellfish',
+        Орехи: 'Nuts',
+        'Томат (помидор)': 'Tomato',
+        Цитрусовые: 'Citrus',
+        'Клубника (ягоды)': 'Strawberry (berries)',
+        Шоколад: 'Chocolate',
+    };
     return (
         <FormControl
             display='flex'
@@ -18,7 +29,7 @@ export default function SearchControls() {
                         'span.chakra-switch__track': {
                             bg: 'rgba(0, 0, 0, 0.16)',
                             _checked: {
-                                bg: 'blue',
+                                bg: '#b1ff2e',
                             },
                         },
 
@@ -28,7 +39,13 @@ export default function SearchControls() {
                     }}
                 />
             </HStack>
-            <Select fontSize='17.5px' width='234px' placeholder='Выберите из списка...' />
+            <Select fontSize='17.5px' width='234px' placeholder='Выберите из списка...'>
+                {Object.entries(alergens).map(([key, value]) => (
+                    <option key={key}>
+                        <Checkbox>{value}</Checkbox>
+                    </option>
+                ))}
+            </Select>
         </FormControl>
     );
 }

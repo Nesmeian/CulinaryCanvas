@@ -12,10 +12,16 @@ import { TagKey } from '../../types/utilsTypes';
 import AddNotifications from '../../utils/addNotifications';
 import Tags from '../../utils/addTags';
 
-export default function Slider() {
+export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
     const { isTablet } = useBreakpoints();
     return (
-        <VStack align='flex-start' className='slider' as='section' width='100%'>
+        <VStack
+            align='flex-start'
+            className='slider'
+            as='section'
+            width='100%'
+            pb={isRecipePage ? { lg: '0', base: '116px' } : '0px'}
+        >
             <Heading as='h2' size='h2' className='slider__title'>
                 Новые рецепты
             </Heading>
@@ -70,9 +76,13 @@ export default function Slider() {
                                     </Text>
                                 )}
                             </VStack>
-                            <HStack className='slider__controls' justify='space-between'>
+                            <HStack
+                                className='slider__controls'
+                                justify={{ lg: 'space-between', base: 'flex-start' }}
+                                alignItems='flex-start'
+                            >
                                 <Tags
-                                    tag={tag as TagKey}
+                                    tag={tag as TagKey[]}
                                     withText={true}
                                     color='#d7ff94'
                                     size='16px'
