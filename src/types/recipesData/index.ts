@@ -22,11 +22,13 @@ export interface NutritionValueData {
     fats: number;
     carbohydrates: number;
 }
+
 export interface StepsDataProps {
     data: StepsData[];
 }
 export interface IngredientsDataProps {
     data: IngredientsData[];
+    recipePortions: number;
 }
 
 export interface RecipeData extends CardItem {

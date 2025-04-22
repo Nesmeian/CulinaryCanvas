@@ -5,6 +5,7 @@ import { VStack } from '@chakra-ui/react';
 import useBreakpoints from '~/themes/chakraBreakPoints';
 
 import BreadCrumb from '../breadCrumb';
+import { StyledNav } from '../styledComponents/nav';
 import NavMenuFooter from './navMenuFooter';
 import NavMenuList from './navMenuList';
 
@@ -18,10 +19,10 @@ export default function NavMenu() {
             justify='space-between'
             width='256px'
         >
-            <VStack width='100%' overflowY='scroll'>
+            <StyledNav>
                 {isTablet && <BreadCrumb />}
                 <NavMenuList />
-            </VStack>
+            </StyledNav>
             <NavMenuFooter />
         </VStack>
     );

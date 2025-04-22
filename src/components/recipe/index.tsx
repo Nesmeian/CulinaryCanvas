@@ -15,18 +15,31 @@ import RecipeSteps from './recipeSteps';
 export default function Recipe({ recipe }: { recipe: string }) {
     const { isTablet } = useBreakpoints();
     const recipeItem = DB.recipes.find(({ path }) => recipe === path);
-    const [recipeNutritionValueData, recipeIngredientsData, recipeStepsData, recipeAuthorData] = [
+
+    const [
+        recipeNutritionValueData,
+        recipeIngredientsData,
+        recipeStepsData,
+        recipeAuthorData,
+        recipePortions,
+    ] = [
         recipeItem?.nutritionValue,
         recipeItem?.ingredients,
         recipeItem?.steps,
         recipeItem?.author,
+        recipeItem?.portions ?? 1,
     ];
 
     if (!recipeIngredientsData || !recipeStepsData) {
         return <div>Ошибка: ингредиенты не указаны</div>;
     }
     return (
-        <MainStyled as='main' pl={{ lg: '14px', md: '20px', sm: '16px' }} gap={0} overflow='unset'>
+        <MainStyled
+            as='main'
+            pl={{ lg: '14px', md: '20px', sm: '16px' }}
+            gap={0}
+            overflowY='scroll'
+        >
             <RecipeCard recipeData={recipeItem as RecipeData} />
             <VStack
                 as='section'
@@ -34,7 +47,7 @@ export default function Recipe({ recipe }: { recipe: string }) {
                 mb='18px'
             >
                 <RecipeNutritionValue data={recipeNutritionValueData as NutritionValueData} />
-                <RecipeIngredients data={recipeIngredientsData} />
+                <RecipeIngredients data={recipeIngredientsData} recipePortions={recipePortions} />
                 <RecipeSteps data={recipeStepsData} />
                 <RecipeAuthor data={recipeAuthorData as AuthorData} />
             </VStack>
