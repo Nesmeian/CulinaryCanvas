@@ -16,7 +16,6 @@ export default function Categories({ category }: CategoriesProps) {
     const pathSegments = GetCurrentPath();
     const bottomSectionData = category === 'juiciest' ? 'veganCuisine' : 'desserts';
     const { isTablet } = useBreakpoints();
-    console.log(pathSegments);
     return (
         <MainStyled as='main'>
             <Heading as='h1' size='h1' pt={{ base: 0, md: 4 }} pb={{ base: '10px', md: 5 }}>

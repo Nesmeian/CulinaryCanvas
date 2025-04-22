@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import { IngredientsDataProps } from '~/types/recipesData';
 import StepperInput from '~/utils/stepperInput';
-export default function RecipeIngredients({ data }: IngredientsDataProps) {
-    const [portions, setPortions] = useState(1);
+export default function RecipeIngredients({ data, recipePortions }: IngredientsDataProps) {
+    const [portions, setPortions] = useState(recipePortions);
 
     return (
         <VStack

@@ -17,10 +17,8 @@ const breakpoints = {
 const theme = extendTheme({
     breakpoints,
     colors: {
-        customGreen: {
-            500: '#2db100',
-            600: '#259900',
-            700: '#1c8000',
+        customgreen: {
+            500: '#b1ff2e',
         },
     },
     fonts: {
