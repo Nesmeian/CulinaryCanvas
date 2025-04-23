@@ -13,15 +13,17 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
+    Portal,
     Switch,
+    Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import addIcon from '../../../assets/addIcon.svg';
-export default function SearchControls() {
+export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) {
     const [checked, setChecked] = useState<string[]>([]);
     const [inputState, setInputState] = useState('');
-    const alergens = {
+    const allergens = {
         'Молочные продукты': 'Dairy products',
         Яйцо: 'Egg',
         Рыба: 'Fish',
@@ -52,14 +54,15 @@ export default function SearchControls() {
     return (
         <FormControl
             display='flex'
-            alignItems='center'
+            flexDirection={!isDrawer ? 'row' : 'column'}
+            alignItems={!isDrawer ? 'center' : 'flex-start'}
             justifyContent='space-between'
             p=' 8px'
-            gap='20px'
+            gap={!isDrawer ? '20px' : '10px'}
         >
             <HStack gap='16px'>
                 <FormLabel m='0' fontSize='16.5px'>
-                    Исключить мои аллергены
+                    {!isDrawer ? 'Исключить мои аллергены' : 'Исключить аллергены'}
                 </FormLabel>
                 <Switch
                     sx={{
@@ -79,16 +82,19 @@ export default function SearchControls() {
             <Menu closeOnSelect={false}>
                 <MenuButton
                     height='100%'
+                    w={!isDrawer ? '234px' : { lg: '399px', base: '308px' }}
                     background='white'
                     border='1px solid rgba(0, 0, 0, 0.08)'
                     as={Button}
                     fontSize='17.5px'
-                    width='234px'
                     textAlign='left'
-                    rightIcon={<ChevronDownIcon />}
+                    rightIcon={<ChevronDownIcon transition='transform 0.1s' />}
                     _active={{
                         background: 'white',
                         border: '1px solid #c4ff61',
+                        '& svg': {
+                            transform: 'rotate(180deg)',
+                        },
                     }}
                     _hover={{ background: 'white' }}
                 >
@@ -107,52 +113,62 @@ export default function SearchControls() {
                                 </Box>
                             ))
                         ) : (
-                            <Box color='rgba(0, 0, 0, 0.64)'>Выберите из списка...</Box>
+                            <Text color='rgba(0, 0, 0, 0.64)' noOfLines={1}>
+                                {!isDrawer
+                                    ? 'Выберите из списка...'
+                                    : 'Выберите из списка аллергенов...'}
+                            </Text>
                         )}
                     </HStack>
                 </MenuButton>
-
-                <MenuList width='234px' zIndex={10}>
-                    {Object.entries(alergens).map(([key, _], i) => (
-                        <MenuItem
-                            key={key}
-                            background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
-                        >
-                            <Checkbox
-                                width='100%'
-                                borderColor='#b1ff2e'
-                                colorScheme='customgreen'
-                                onChange={() => addAllergen(key)}
-                                icon={
-                                    <CheckboxIcon
-                                        sx={{
-                                            color: 'black',
-                                        }}
-                                    />
-                                }
+                <Portal>
+                    <MenuList w={!isDrawer ? 'auto' : { lg: '399px', base: '308px' }} zIndex={30}>
+                        {Object.entries(allergens).map(([key, _], i) => (
+                            <MenuItem
+                                key={key}
+                                background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
                             >
-                                {key}
-                            </Checkbox>
-                        </MenuItem>
-                    ))}
-                    <HStack p='0 8px' mt='10px' alignItems='center' justifyContent='space-between'>
-                        <Input
-                            height='32px'
-                            width='90%'
-                            color='#134b00'
-                            value={inputState}
-                            placeholder='Другой аллерген'
-                            onChange={(e) => setInputState(e.target.value)}
-                            _placeholder={{ color: '#134b00' }}
-                        />
-                        <Image
-                            src={addIcon}
-                            onClick={() => {
-                                handleAddCustomAllergen();
-                            }}
-                        />
-                    </HStack>
-                </MenuList>
+                                <Checkbox
+                                    width='100%'
+                                    borderColor='#b1ff2e'
+                                    colorScheme='customgreen'
+                                    onChange={() => addAllergen(key)}
+                                    icon={
+                                        <CheckboxIcon
+                                            sx={{
+                                                color: 'black',
+                                            }}
+                                        />
+                                    }
+                                >
+                                    {key}
+                                </Checkbox>
+                            </MenuItem>
+                        ))}
+                        <HStack
+                            p='0 8px'
+                            mt='10px'
+                            alignItems='center'
+                            justifyContent='space-between'
+                        >
+                            <Input
+                                height='32px'
+                                width='90%'
+                                color='#134b00'
+                                value={inputState}
+                                placeholder='Другой аллерген'
+                                onChange={(e) => setInputState(e.target.value)}
+                                _placeholder={{ color: '#134b00' }}
+                            />
+                            <Image
+                                src={addIcon}
+                                onClick={() => {
+                                    handleAddCustomAllergen();
+                                }}
+                            />
+                        </HStack>
+                    </MenuList>
+                </Portal>
             </Menu>
         </FormControl>
     );
