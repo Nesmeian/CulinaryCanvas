@@ -10,3 +10,6 @@ export interface UserData {
 export type BurgerState = {
     isOpen: boolean;
 };
+export type FilterState = {
+    isOpen: boolean;
+};

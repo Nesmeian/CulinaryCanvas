@@ -1,25 +1,32 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { JSX } from 'react';
 
-export default function Drawer({ state, element }: { state: boolean; element: JSX.Element }) {
+export default function Drawer({
+    state,
+    element,
+    isFilter,
+}: {
+    state: boolean;
+    element: JSX.Element;
+    isFilter?: boolean;
+}) {
     return (
         <AnimatePresence>
             {state && (
                 <motion.div
                     key='menu'
                     style={{
-                        width: '320px',
-                        height: 'calc(100vh - 160px)',
+                        zIndex: '20',
+                        borderRadius: ' 0 0 12px 12px',
                         position: 'fixed',
-                        right: 0,
-                        top: '80px',
+                        right: isFilter ? '0' : '12px',
+                        top: isFilter ? '0px' : '80px',
                         background: 'white',
                         boxShadow: '-2px 0 15px rgba(0,0,0,0.1)',
-                        padding: '20px',
                     }}
-                    initial={{ x: '320px' }}
+                    initial={{ x: '100%' }}
                     animate={{ x: '0' }}
-                    exit={{ x: '320px' }}
+                    exit={{ x: '100%' }}
                     transition={{ duration: 0.5 }}
                     className='menu-overlay'
                 >

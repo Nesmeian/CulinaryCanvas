@@ -9,7 +9,7 @@ import { StyledNav } from '../styledComponents/nav';
 import NavMenuFooter from './navMenuFooter';
 import NavMenuList from './navMenuList';
 
-export default function NavMenu() {
+export default function NavMenu({ isDrawer }: { isDrawer?: boolean }) {
     const { isTablet } = useBreakpoints();
     return (
         <VStack
@@ -18,6 +18,7 @@ export default function NavMenu() {
             alignItems='flex-start'
             justify='space-between'
             width='256px'
+            boxShadow={!isDrawer ? '1px 3px 0 rgba(0, 0, 0, 0.12)' : 'none'}
         >
             <StyledNav>
                 {isTablet && <BreadCrumb />}

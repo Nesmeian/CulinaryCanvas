@@ -57,7 +57,7 @@ export default function Header() {
                     <Burger />
                 </HStack>
             )}
-            <Drawer state={burgerState} element={<NavMenu />} />
+            <Drawer state={burgerState} element={<NavMenu isDrawer />} />
         </HStack>
     );
 }
