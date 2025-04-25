@@ -2,7 +2,7 @@ import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
 import { StepsDataProps } from '~/types/recipesData';
 
-import * as recipeSteps from '../../../assets/recipes/steps/index';
+import * as recipeSteps from '../../../assets/recipeImages/index';
 export default function RecipeSteps({ data }: StepsDataProps) {
     return (
         <VStack width='100%' alignItems='flex-start' mt={{ lg: '16px', base: '14px' }}>

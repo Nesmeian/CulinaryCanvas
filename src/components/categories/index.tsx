@@ -18,14 +18,17 @@ export default function Categories({ category }: CategoriesProps) {
     const { isTablet } = useBreakpoints();
     return (
         <MainStyled as='main'>
-            <Heading as='h1' size='h1' pt={{ base: 0, md: 4 }} pb={{ base: '10px', md: 5 }}>
-                {db[category]?.title}
-            </Heading>
+            <Heading
+                as='h1'
+                size='h1'
+                pt={{ base: 0, md: 4 }}
+                pb={{ base: '10px', md: 5 }}
+            ></Heading>
             <Search />
             {(pathSegments.length !== 0 || category !== 'juiciest') && (
                 <AddTabList location={pathSegments[1]} />
             )}
-            <BigCardsList data={db[category]} maxElems={8}></BigCardsList>
+            <BigCardsList data={db[category].elems.card} maxElems={8}></BigCardsList>
             <GreenButton text='Загрузить еще' />
             <BottomSection data={DB[bottomSectionData]} />
             {isTablet && <Footer />}

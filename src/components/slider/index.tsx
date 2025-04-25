@@ -4,8 +4,8 @@ import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import * as sliderImgs from '../../assets/recipeImages/index';
 import * as sliderArrows from '../../assets/sliderArrows/index';
-import * as sliderImgs from '../../assets/sliderImg/index';
 import DB from '../../data/db.json';
 import useBreakpoints from '../../themes/chakraBreakPoints';
 import { TagKey } from '../../types/utilsTypes';

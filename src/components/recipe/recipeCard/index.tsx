@@ -6,7 +6,7 @@ import AddNotifications from '~/utils/addNotifications';
 import AddTags from '~/utils/addTags';
 
 import alarmImg from '../../../assets/alarm.svg';
-import * as recipesDishesImg from '../../../assets/recipes/dishes/index';
+import * as recipesDishesImg from '../../../assets/recipeImages/index';
 import * as socialIcons from '../../../assets/socialIcons/index';
 
 export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {

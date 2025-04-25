@@ -13,8 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
-import * as juiciestImg from '../../assets/sections/JuiciestImg/index';
-import * as veganImg from '../../assets/sections/veganImg/index';
+import * as imgObj from '../../assets/recipeImages/index';
 import * as socialIcons from '../../assets/socialIcons/index';
 import useBreakpoints from '../../themes/chakraBreakPoints';
 import { BigCardsListProps } from '../../types/dataTypes';
@@ -22,16 +21,9 @@ import { TagKey } from '../../types/utilsTypes';
 import AddNotifications from '../../utils/addNotifications';
 import AddRecommendation from '../../utils/addRecommendation';
 import AddTags from '../../utils/addTags/index';
-const imgObj = {
-    'Веганская кухня': veganImg,
-    'Самое сочное': juiciestImg,
-};
 export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
-    const dataCards = data.elems.card;
-    const dataTitle = data.title;
     const { isTablet } = useBreakpoints();
-    const displayedData = maxElems ? dataCards?.slice(0, maxElems) : dataCards;
-    const imgData = imgObj[dataTitle as keyof typeof imgObj];
+    const displayedData = maxElems ? data?.slice(0, maxElems) : data;
     return (
         <Grid className='card__list' gap={{ xl: '24px', md: '16px', sm: '11px' }}>
             {displayedData!.map(
@@ -58,7 +50,7 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                             <Image
                                 height='100%'
                                 width='100%'
-                                src={imgData[imgUrl as keyof typeof imgData]}
+                                src={imgObj[imgUrl as keyof typeof imgObj]}
                             />
                             {!isTablet && (
                                 <AddRecommendation userRecommendation={userRecommendation} />
