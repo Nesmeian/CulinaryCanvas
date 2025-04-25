@@ -38,9 +38,9 @@ export default function AddTabList({ location }: { location: string }) {
                         borderBottom='3px solid'
                         borderColor='transparent'
                         transition='all 0.2s'
-                        fontSize={{ base: '14px', md: '16px' }} // Адаптивный шрифт
-                        px={{ base: 3, md: 4 }} // Адаптивные отступы
-                        flexShrink={0} // Запрещаем сжатие элементов
+                        fontSize={{ base: '14px', md: '16px' }}
+                        px={{ base: 3, md: 4 }}
+                        flexShrink={0}
                         _selected={{
                             color: '#2DB100',
                             borderColor: '#2DB100',

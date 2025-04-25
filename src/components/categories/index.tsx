@@ -1,4 +1,8 @@
 import { Heading } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
+
+import { ApplicationState } from '~/store/configure-store';
+import getSearchCards from '~/utils/getSearchCards';
 
 import DB from '../../data/db.json';
 import useBreakpoints from '../../themes/chakraBreakPoints';
@@ -16,6 +20,9 @@ export default function Categories({ category }: CategoriesProps) {
     const pathSegments = GetCurrentPath();
     const bottomSectionData = category === 'juiciest' ? 'veganCuisine' : 'desserts';
     const { isTablet } = useBreakpoints();
+    const searchState = useSelector((state: ApplicationState) => state.searchState.search);
+    const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
+    const searchArrs = getSearchCards(searchState, category);
     return (
         <MainStyled as='main'>
             <Heading
@@ -25,12 +32,19 @@ export default function Categories({ category }: CategoriesProps) {
                 pb={{ base: '10px', md: 5 }}
             ></Heading>
             <Search />
-            {(pathSegments.length !== 0 || category !== 'juiciest') && (
-                <AddTabList location={pathSegments[1]} />
+            {allowSearch ? (
+                <BigCardsList data={searchArrs} />
+            ) : (
+                <>
+                    {(pathSegments.length !== 0 || category !== 'juiciest') && (
+                        <AddTabList location={pathSegments[1]} />
+                    )}
+                    <BigCardsList data={db[category].elems.card} maxElems={8} />
+                    <GreenButton text='Загрузить еще' />
+                    <BottomSection data={DB[bottomSectionData]} />
+                </>
             )}
-            <BigCardsList data={db[category].elems.card} maxElems={8}></BigCardsList>
-            <GreenButton text='Загрузить еще' />
-            <BottomSection data={DB[bottomSectionData]} />
+
             {isTablet && <Footer />}
         </MainStyled>
     );

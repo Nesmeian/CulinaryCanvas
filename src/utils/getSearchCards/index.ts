@@ -3,10 +3,10 @@ import { CardItem } from '~/types/dataTypes';
 import DB from '../../data/db.json';
 import concatAllArrays from '../concatAllArrays';
 import findCardArrays from '../findCardsArray';
-export default function getSearchCards(search: string) {
+export default function getSearchCards(search: string, category?: string) {
     let arr: CardItem[][] = [];
-    arr = findCardArrays(DB, arr);
-    console.log(arr);
+    const searchDB = category ? DB[category] : DB;
+    arr = findCardArrays(searchDB, arr);
     const newArr = concatAllArrays(arr);
     const searchResults = newArr
         .filter((prof) => prof.title.toLowerCase().includes(search.toLowerCase()))
