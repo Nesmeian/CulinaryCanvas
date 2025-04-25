@@ -29,7 +29,7 @@ export default function Juiciest() {
                 </Link>
             </HStack>
 
-            <BigCardsList data={DB.juiciest} maxElems={4} />
+            <BigCardsList data={DB.juiciest.elems.card} maxElems={4} />
 
             <Link
                 as={RouterLink}

@@ -46,7 +46,7 @@ export interface RecipeData extends CardItem {
     nutritionValue: NutritionValueData;
     author: AuthorData;
     ingredients: IngredientsData[];
-    meat: string;
-    side: string;
+    meat?: string;
+    side?: string;
     steps: StepsData[];
 }

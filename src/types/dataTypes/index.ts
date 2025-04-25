@@ -1,6 +1,9 @@
+import { RecipeData } from '../recipesData';
+
 export interface NotificationBase {
     share?: number;
     likes?: number;
+    views?: number;
 }
 
 interface UserRecommendation {
@@ -11,16 +14,19 @@ interface UserRecommendation {
 
 export interface CardItem {
     id: string;
-    imgUrl: string;
+    imgUrl?: string;
+    imgPath?: string;
     path?: string;
     title: string;
     description: string;
     tag: string[];
-    notifications: NotificationBase;
+    notifications?: NotificationBase;
     userRecommendation?: UserRecommendation;
     time?: string;
 }
-
+export interface SearchCardsProps {
+    data: CardItem[];
+}
 interface BaseData {
     title: string;
     description?: string;
@@ -33,7 +39,7 @@ export interface CategoryData extends BaseData {
             title: string;
             tag: string[];
             description: string;
-            notifications: NotificationBase;
+            notifications?: NotificationBase;
         }>;
         recipes?: Array<{
             id: string;
@@ -50,9 +56,63 @@ export interface BottomSectionProps {
 }
 
 export interface CategoriesProps {
-    category: 'veganCuisine' | 'juiciest'; // 👈 Явно указываем допустимые значения
+    category: 'veganCuisine' | 'juiciest';
 }
 export interface BigCardsListProps {
-    data: CategoryData;
+    data: CardItem[];
     maxElems?: number;
+}
+export interface DBProps {
+    juiciest: {
+        title: string;
+        elems: {
+            card: CardItem[];
+        };
+    };
+    culinaryBlogData: SmallCardProps[];
+    sliderData: CardItem[];
+    navMenu: {
+        categories: categoriesProps[];
+        subcategories: subCategoriesProps;
+    };
+    veganCuisine: ExtendCategory;
+    desserts: ExtendCategory;
+    recipes: RecipeData[];
+}
+interface SmallCardProps {
+    id: string;
+    user: string;
+    email: string;
+    img: string;
+    description: string;
+}
+interface categoriesProps {
+    id: string;
+    name: string;
+    routeName: string;
+    imgUrl: string;
+    elems: subCategoriesProps;
+}
+interface subCategoriesProps {
+    Закуски: string;
+    'Первые блюда': string;
+    'Вторые блюда': string;
+    Гарниры: string;
+    Десерты: string;
+    'Сыроедческие блюда': string;
+}
+export interface ExtendCategory {
+    title: string;
+    description: string;
+    elems: {
+        smallCard: CardItem[];
+        recipes: recipesProps[];
+        card: CardItem[];
+    };
+}
+
+interface recipesProps {
+    id: string;
+    title: string;
+    tag: string[];
 }

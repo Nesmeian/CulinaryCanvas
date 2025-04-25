@@ -13,3 +13,7 @@ export type BurgerState = {
 export type FilterState = {
     isOpen: boolean;
 };
+export type SearchState = {
+    allowSearch: boolean;
+    search: string;
+};
