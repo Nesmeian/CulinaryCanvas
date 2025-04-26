@@ -1,22 +1,11 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
 
+import translatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
-import DB from '../../data/db.json';
 export default function BreadCrumb() {
     const pathSegments = GetCurrentPath();
-    const navMenu = DB.navMenu.categories;
-    console.log(navMenu.find(({ routeName }) => routeName === pathSegments[0]));
-    const translatePathSegment = (segment: string) => {
-        const translations: Record<string, string> = {
-            vegan: 'Веганская кухня',
-            mainCourses: 'Вторые блюда',
-            juiciest: 'Самое сочное',
-            NoodlesWithChickenAndSaffron: 'Лапша с курицей и шафраном',
-        };
-        return translations[segment] || segment;
-    };
 
     const generatePath = (index: number) => '/' + pathSegments.slice(0, index + 1).join('/');
     return (
@@ -47,7 +36,7 @@ export default function BreadCrumb() {
                             href={!isLast ? generatePath(index) : undefined}
                             color={isLast ? 'black' : 'rgba(0, 0, 0, 0.64)'}
                         >
-                            {translatePathSegment(segment)}
+                            <Text>{translatePathSegment(segment)}</Text>
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                 );
