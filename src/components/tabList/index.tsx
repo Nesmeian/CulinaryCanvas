@@ -6,18 +6,17 @@ import GetCurrentPath from '~/utils/getCurrentPath';
 
 import DB from '../../data/db.json';
 
-export default function AddTabList() {
-    const navList = DB.navMenu.subcategories;
+export default function AddTabList({ category }: { category: string }) {
+    const navList = DB.navMenu.categories.find(({ routeName }) => routeName === category)?.elems;
     const paths = Object.values(navList);
     const segments = GetCurrentPath();
     const base = segments[0] || '';
     const currentSub = segments[1] || '';
-
-    const startIndex = currentSub && paths.includes(currentSub) ? paths.indexOf(currentSub) : 0;
+    const startIndex = currentSub && paths.includes(currentSub) ? paths.indexOf(currentSub) : -1;
 
     const [tabIndex, setTabIndex] = useState(startIndex);
     useEffect(() => {
-        const newIndex = currentSub && paths.includes(currentSub) ? paths.indexOf(currentSub) : 0;
+        const newIndex = currentSub && paths.includes(currentSub) ? paths.indexOf(currentSub) : -1;
         setTabIndex(newIndex);
     }, [currentSub, paths]);
     return (

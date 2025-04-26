@@ -21,7 +21,7 @@ import { TagKey } from '../../types/utilsTypes';
 import AddNotifications from '../../utils/addNotifications';
 import AddRecommendation from '../../utils/addRecommendation';
 import AddTags from '../../utils/addTags/index';
-export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
+export default function BigCardsList({ data, maxElems, categoryTag }: BigCardsListProps) {
     const { isTablet } = useBreakpoints();
     const displayedData = maxElems ? data?.slice(0, maxElems) : data;
     return (
@@ -70,6 +70,7 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                                 gap={0}
                             >
                                 <AddTags
+                                    category={categoryTag}
                                     tag={category as TagKey[]}
                                     withText={true}
                                     color='#ffffd3'

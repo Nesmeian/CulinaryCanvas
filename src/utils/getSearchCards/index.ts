@@ -1,16 +1,12 @@
-import { CardItem } from '~/types/dataTypes';
+import { RecipeData } from '~/types/recipesData';
 
 import DB from '../../data/db.json';
-import concatAllArrays from '../concatAllArrays';
 import filterOnSubCategories from '../filterOnsubcategorys';
-import findCardArrays from '../findCardsArray';
 export default function getSearchCards(search: string, category?: string, subcategory?: string) {
-    let arr: CardItem[][] = [];
-    const searchDB = category ? DB[category] : DB;
-    arr = findCardArrays(searchDB, arr);
-
-    const newArr = concatAllArrays(arr);
-    const searchDb = subcategory ? filterOnSubCategories(newArr, subcategory) : newArr;
+    const searchDB = category ? DB.card.filter((e) => e.category.includes(category)) : DB.card;
+    const searchDb: RecipeData[] = subcategory
+        ? filterOnSubCategories(searchDB, subcategory)
+        : searchDB;
     const searchResults = searchDb
         .filter((prof) => prof.title.toLowerCase().includes(search.toLowerCase()))
         .sort((a, b) => {

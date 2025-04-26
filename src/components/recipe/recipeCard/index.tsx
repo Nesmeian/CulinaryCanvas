@@ -10,7 +10,7 @@ import * as recipesDishesImg from '../../../assets/recipeImages/index';
 import * as socialIcons from '../../../assets/socialIcons/index';
 
 export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
-    const { title, id, description, category, imgUrl, notifications, time } = recipeData;
+    const { title, id, description, category, imgUrl, bookmarks, likes, time } = recipeData;
     return (
         <Stack
             as='section'
@@ -25,10 +25,10 @@ export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
             }}
             gap={{ lg: '24px', md: '10px' }}
         >
-            <VStack
-                height={{ md: '100%', sm: '224px' }}
-                width={{ xl: '41%', lg: '59%', md: '50%', sm: '100%' }}
-                mb={{ md: '0', base: '14px' }}
+            <HStack
+                minWidth={{ xl: '553px', lg: '353px', md: '232px', base: '328px' }}
+                overflow='hidden'
+                borderRadius='8px'
             >
                 <Image
                     height='100%'
@@ -36,7 +36,7 @@ export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
                     src={recipesDishesImg[imgUrl as keyof typeof recipesDishesImg]}
                     alt={imgUrl}
                 />
-            </VStack>
+            </HStack>
             <VStack
                 alignSelf='flex-start'
                 height={{ lg: '410px', md: 'auto' }}
@@ -60,7 +60,7 @@ export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
                             size='16px'
                             newPosition
                         />
-                        <AddNotifications isRecipe notifications={notifications} />
+                        <AddNotifications isRecipe bookmarks={bookmarks} likes={likes} />
                     </Stack>
                     <VStack
                         w={{ xl: '70%', sm: '100%' }}
@@ -76,7 +76,7 @@ export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
                         >
                             {title}
                         </Heading>
-                        <Text lineHeight='20px' fontSize='14px' noOfLines={5}>
+                        <Text lineHeight='20px' fontSize='14px' noOfLines={3}>
                             {description}
                         </Text>
                     </VStack>
