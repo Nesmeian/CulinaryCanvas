@@ -15,7 +15,14 @@ const AppRoutes = () => {
         },
         {} as Record<string, string[]>,
     );
-
+    const juiciest = ['juiciest'];
+    const juiciestRecipes: Record<string, string[]> = juiciest.reduce(
+        (acum, e) => {
+            acum[e] = DB.card.map(({ imgUrl }) => imgUrl);
+            return acum;
+        },
+        {} as Record<string, string[]>,
+    );
     const recipes: Record<string, string[]> = categories.reduce(
         (acum, e) => {
             acum[e] = DB.card
@@ -25,10 +32,21 @@ const AppRoutes = () => {
         },
         {} as Record<string, string[]>,
     );
-
+    const mainRecipes = DB.card.map(({ imgUrl }) => imgUrl);
     return (
         <Routes>
             <Route path='/' element={<Main />} />
+            {mainRecipes.map((recipe) => (
+                <Route key={recipe} path={recipe} element={<Recipe card={recipe} />} />
+            ))}
+            {juiciest.map((category) => (
+                <Route key={category} path={`/${category}`}>
+                    <Route index element={<Categories category={category} />} />
+                    {juiciestRecipes[category]?.map((recipe) => (
+                        <Route key={recipe} path={recipe} element={<Recipe card={recipe} />} />
+                    ))}
+                </Route>
+            ))}
             {categories.map((category) => (
                 <Route key={category} path={`/${category}`}>
                     <Route index element={<Categories category={category} />} />
