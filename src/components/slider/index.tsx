@@ -4,9 +4,10 @@ import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import filterRecipesOnData from '~/utils/filterOnData';
+
 import * as sliderImgs from '../../assets/recipeImages/index';
 import * as sliderArrows from '../../assets/sliderArrows/index';
-import DB from '../../data/db.json';
 import useBreakpoints from '../../themes/chakraBreakPoints';
 import { TagKey } from '../../types/utilsTypes';
 import AddNotifications from '../../utils/addNotifications';
@@ -14,6 +15,7 @@ import Tags from '../../utils/addTags';
 
 export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
     const { isTablet } = useBreakpoints();
+    const sortedOnTimeRecipes = filterRecipesOnData();
     return (
         <VStack
             align='flex-start'
@@ -41,7 +43,7 @@ export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
                     360: { slidesPerView: 2 },
                 }}
             >
-                {DB.sliderData.map(
+                {sortedOnTimeRecipes.map(
                     ({ id, imgUrl, title, description, category, bookmarks, likes }) => (
                         <SwiperSlide key={id} className='slider__item'>
                             <Image

@@ -34,7 +34,8 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                     title,
                     description,
                     category,
-                    notifications,
+                    bookmarks,
+                    likes,
                     userRecommendation,
                 }) => (
                     <HStack
@@ -74,7 +75,7 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                                     color='#ffffd3'
                                     size='16px'
                                 />
-                                <AddNotifications notifications={notifications} />
+                                <AddNotifications bookmarks={bookmarks} likes={likes} />
                                 {isTablet && (
                                     <Heading
                                         noOfLines={2}

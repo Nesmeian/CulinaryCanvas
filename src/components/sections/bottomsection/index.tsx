@@ -9,7 +9,6 @@ import AddNotifications from '../../../utils/addNotifications';
 import AddTags from '../../../utils/addTags';
 
 export default function BottomSection({ data }: BottomSectionProps) {
-    console.log(data);
     return (
         <VStack
             as='section'
@@ -47,7 +46,7 @@ export default function BottomSection({ data }: BottomSectionProps) {
                     templateColumns='repeat(auto-fit, minmax(232px, 1fr)) '
                 >
                     {data.elems.smallCard?.map(
-                        ({ id, title, category, description, notifications }) => (
+                        ({ id, title, category, description, bookmarks, likes }) => (
                             <VStack
                                 key={id}
                                 className='bottom-section__card-item'
@@ -75,7 +74,7 @@ export default function BottomSection({ data }: BottomSectionProps) {
                                         color='#ffffd3;'
                                         newPosition
                                     />
-                                    <AddNotifications notifications={notifications} />
+                                    <AddNotifications bookmarks={bookmarks} likes={likes} />
                                 </HStack>
                             </VStack>
                         ),
