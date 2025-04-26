@@ -41,57 +41,59 @@ export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
                     360: { slidesPerView: 2 },
                 }}
             >
-                {DB.sliderData.map(({ id, imgUrl, title, description, tag, notifications }) => (
-                    <SwiperSlide key={id} className='slider__item'>
-                        <Image
-                            height={{ lg: '230px', sm: '128px' }}
-                            src={sliderImgs[imgUrl as keyof typeof sliderImgs]}
-                            alt={title}
-                        />
-                        <VStack className='slider__item-content' align='flex-start' gap='6spx'>
-                            <VStack
-                                className='slider__text-group'
-                                alignItems='flex-start'
-                                gap='0px'
-                                width='100%'
-                            >
-                                <Heading
-                                    as='h4'
-                                    size='h4'
-                                    noOfLines={{ lg: 1, sm: 2 }}
-                                    sx={{
-                                        wordBreak: 'break-all',
-                                        overflowWrap: 'anywhere',
-                                    }}
-                                    className='slider__item-title'
+                {DB.sliderData.map(
+                    ({ id, imgUrl, title, description, category, bookmarks, likes }) => (
+                        <SwiperSlide key={id} className='slider__item'>
+                            <Image
+                                height={{ lg: '230px', sm: '128px' }}
+                                src={sliderImgs[imgUrl as keyof typeof sliderImgs]}
+                                alt={title}
+                            />
+                            <VStack className='slider__item-content' align='flex-start' gap='6spx'>
+                                <VStack
+                                    className='slider__text-group'
+                                    alignItems='flex-start'
+                                    gap='0px'
+                                    width='100%'
                                 >
-                                    {title}
-                                </Heading>
-                                {!isTablet && (
-                                    <Text
-                                        className='slider__content-description'
-                                        variant='sectionDescription'
+                                    <Heading
+                                        as='h4'
+                                        size='h4'
+                                        noOfLines={{ lg: 1, sm: 2 }}
+                                        sx={{
+                                            wordBreak: 'break-all',
+                                            overflowWrap: 'anywhere',
+                                        }}
+                                        className='slider__item-title'
                                     >
-                                        {description}
-                                    </Text>
-                                )}
+                                        {title}
+                                    </Heading>
+                                    {!isTablet && (
+                                        <Text
+                                            className='slider__content-description'
+                                            variant='sectionDescription'
+                                        >
+                                            {description}
+                                        </Text>
+                                    )}
+                                </VStack>
+                                <HStack
+                                    className='slider__controls'
+                                    justify={{ lg: 'space-between', base: 'flex-start' }}
+                                    alignItems='flex-start'
+                                >
+                                    <Tags
+                                        tag={category as TagKey[]}
+                                        withText={true}
+                                        color='#d7ff94'
+                                        size='16px'
+                                    />
+                                    <AddNotifications bookmarks={bookmarks} likes={likes} />
+                                </HStack>
                             </VStack>
-                            <HStack
-                                className='slider__controls'
-                                justify={{ lg: 'space-between', base: 'flex-start' }}
-                                alignItems='flex-start'
-                            >
-                                <Tags
-                                    tag={tag as TagKey[]}
-                                    withText={true}
-                                    color='#d7ff94'
-                                    size='16px'
-                                />
-                                <AddNotifications notifications={notifications} />
-                            </HStack>
-                        </VStack>
-                    </SwiperSlide>
-                ))}
+                        </SwiperSlide>
+                    ),
+                )}
                 <Image src={sliderArrows.leftArrow} className='swiper-button-prev' />
                 <Image src={sliderArrows.rightArrow} className='swiper-button-next' />
             </Swiper>

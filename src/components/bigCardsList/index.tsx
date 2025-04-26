@@ -26,16 +26,16 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
     const displayedData = maxElems ? data?.slice(0, maxElems) : data;
     return (
         <Grid className='card__list' gap={{ xl: '24px', md: '16px', sm: '11px' }}>
+            {data.length === 0 && <Text>К Сожалению рецептов не обнаруженно</Text>}
             {displayedData!.map(
                 ({
                     id,
                     imgUrl,
                     title,
                     description,
-                    tag,
+                    category,
                     notifications,
                     userRecommendation,
-                    path,
                 }) => (
                     <HStack
                         key={id}
@@ -69,7 +69,7 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                                 gap={0}
                             >
                                 <AddTags
-                                    tag={tag as TagKey[]}
+                                    tag={category as TagKey[]}
                                     withText={true}
                                     color='#ffffd3'
                                     size='16px'
@@ -126,7 +126,7 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                                 </Button>
                                 <Button
                                     as={Link}
-                                    to={path}
+                                    to={imgUrl}
                                     fontSize={{ md: '15px', sm: '12px' }}
                                     className='card__btn-cook'
                                     size={{ lg: 'sm', sm: 'xs' }}

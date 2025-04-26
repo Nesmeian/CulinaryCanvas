@@ -26,27 +26,6 @@ export default function NavMenuList() {
     const [activeCategoryIndex, setCategoryActiveIndex] = useState<number | undefined>(
         categoryIndex !== -1 ? categoryIndex : undefined,
     );
-    const initialActiveSubElement = (() => {
-        const category = DB.navMenu.categories.find((c) => c.routeName === currentRoute);
-        if (category && currentSubRoute) {
-            const elemsArray = Object.entries(category.elems as Record<string, string>);
-            for (let index = 0; index < elemsArray.length; index++) {
-                const [rusTitle, engTitle] = elemsArray[index];
-                const expectedPath = engTitle || encodeURIComponent(rusTitle);
-                if (expectedPath === currentSubRoute) {
-                    return `${category.id}-${index}`;
-                }
-            }
-        }
-        return null;
-    })();
-    const [activeSubElement, setActiveSubElement] = useState<string | null>(
-        initialActiveSubElement,
-    );
-    const handleClickSubElement = (id: string, index: number) => {
-        const elementKey = `${id}-${index}`;
-        setActiveSubElement((prev) => (prev === elementKey ? null : elementKey));
-    };
 
     return (
         <Accordion
@@ -94,24 +73,19 @@ export default function NavMenuList() {
                     </AccordionButton>
                     {Object.entries(elems as Record<string, string>).map(
                         ([rusTitle, engTitle], index) => {
-                            const elementKey = `${id}-${index}`;
-                            const isActive = activeSubElement === elementKey;
+                            const expectedPath = engTitle || encodeURIComponent(rusTitle);
+                            const isActive = expectedPath === currentSubRoute;
 
                             return (
                                 <AccordionPanel
+                                    key={`${id}-${index}`}
                                     p={isActive ? '0 0 10px 46px' : '0 0 10px 52px'}
-                                    key={elementKey}
-                                    onClick={() => handleClickSubElement(id, index)}
-                                    cursor='pointer'
-                                    transition='all 0.2s'
                                     _hover={{ bg: 'gray.50' }}
                                 >
                                     <HStack
-                                        spacing={2}
                                         as={RouterLink}
-                                        to={{
-                                            pathname: `/${routeName}/${engTitle}`,
-                                        }}
+                                        to={`/${routeName}/${expectedPath}`}
+                                        cursor='pointer'
                                     >
                                         <Box
                                             width={isActive ? '8px' : '1px'}
