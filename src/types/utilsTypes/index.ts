@@ -8,6 +8,8 @@ export default interface TagsProps {
     withText: boolean;
     tag: TagKey[];
     newPosition?: true;
+    category?: string;
+    multi?: boolean;
 }
 
 export interface addNotificationsProps {

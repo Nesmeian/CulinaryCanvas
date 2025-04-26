@@ -2,13 +2,13 @@ import { Heading, Text, VStack } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 
 import { ApplicationState } from '~/store/configure-store';
+import filterRecipesOnData from '~/utils/filterOnData';
 import filterOnSubCategories from '~/utils/filterOnsubcategorys';
 import getSearchCards from '~/utils/getSearchCards';
 
 import DB from '../../data/db.json';
 import useBreakpoints from '../../themes/chakraBreakPoints';
 import { CategoriesProps } from '../../types/dataTypes';
-import GetCurrentPath from '../../utils/getCurrentPath';
 import BigCardsList from '../bigCardsList';
 import Footer from '../Footer';
 import Search from '../Search';
@@ -17,16 +17,14 @@ import GreenButton from '../styledComponents/greenButton';
 import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
-    const pathSegments = GetCurrentPath();
     const bottomSectionData = category === 'juiciest' ? 'vegan' : 'desserts';
     const { isTablet } = useBreakpoints();
     const searchState = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const searchArrs = getSearchCards(searchState, category, subcategory);
-    const searchDb = subcategory
-        ? filterOnSubCategories(DB[category].elems.card, subcategory)
-        : DB[category].elems.card;
-
+    const categoryDb = DB.card.filter((e) => e.category.includes(category));
+    const searchDb = subcategory ? filterOnSubCategories(categoryDb, subcategory) : categoryDb;
+    const sortedOnTimeRecipes = filterRecipesOnData();
     return (
         <MainStyled as='main'>
             <VStack width={{ lg: '50%', base: '100%' }}>
@@ -47,8 +45,12 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                 <BigCardsList data={searchArrs} />
             ) : (
                 <>
-                    {(pathSegments.length !== 0 || category !== 'juiciest') && <AddTabList />}
-                    <BigCardsList data={searchDb} maxElems={8} />
+                    {category !== 'juiciest' && <AddTabList category={category} />}
+                    <BigCardsList
+                        data={category === 'juiciest' ? sortedOnTimeRecipes : searchDb}
+                        maxElems={8}
+                        categoryTag={category}
+                    />
                     <GreenButton text='Загрузить еще' />
                     <BottomSection data={DB[bottomSectionData]} />
                 </>

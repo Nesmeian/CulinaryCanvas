@@ -39,7 +39,8 @@ export interface CategoryData extends BaseData {
             title: string;
             category: string[];
             description: string;
-            notifications?: NotificationBase;
+            bookmarks: number;
+            likes: number;
         }>;
         recipes?: Array<{
             id: string;
@@ -71,11 +72,12 @@ export interface BottomSectionProps {
 
 export interface CategoriesProps {
     subcategory?: string;
-    category: 'veganCuisine' | 'juiciest';
+    category: string;
 }
 export interface BigCardsListProps {
-    data: CardItem[];
+    data: RecipeData[];
     maxElems?: number;
+    categoryTag: string;
 }
 export interface DBProps {
     juiciest: {

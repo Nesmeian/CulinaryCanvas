@@ -3,75 +3,43 @@ import { Navigate, Route, Routes } from 'react-router';
 import Categories from '~/components/categories';
 import Main from '~/components/Main';
 import Recipe from '~/components/recipe';
-import { Category } from '~/types/dataTypes';
 
+import DB from '../data/db.json';
 const AppRoutes = () => {
-    const subCategories = [
-        'snacks',
-        'firstCourses',
-        'desserts',
-        'second-dish',
-        'side-dishes',
-        'vegetables',
-    ];
-    const categorySubcategories: Record<Category, string[]> = {
-        salads: subCategories,
-        snacks: subCategories,
-        firstCourses: subCategories,
-        'second-dish': subCategories,
-        desserts: subCategories,
-        grilledDishes: subCategories,
-        vegan: subCategories,
-        childrenMeals: subCategories,
-        therapeuticNutrition: subCategories,
-        national: subCategories,
-        drinks: subCategories,
-        preserves: subCategories,
-        sauces: subCategories,
-        juiciest: subCategories,
-    };
-    const recipes: Record<Category, string[]> = {
-        juiciest: ['NoodlesWithChickenAndSaffron', 'spaghettiDumplings'],
-        vegan: subCategories,
-        salads: subCategories,
-        snacks: subCategories,
-        firstCourses: subCategories,
-        'second-dish': subCategories,
-        desserts: subCategories,
-        grilledDishes: subCategories,
-        childrenMeals: subCategories,
-        therapeuticNutrition: subCategories,
-        national: subCategories,
-        drinks: subCategories,
-        preserves: subCategories,
-        sauces: subCategories,
-    };
-    const categories: Category[] = [
-        'vegan',
-        'juiciest',
-        'vegan',
-        'salads',
-        'snacks',
-        'firstCourses',
-        'second-dish',
-        'desserts',
-        'grilledDishes',
-        'childrenMeals',
-        'therapeuticNutrition',
-        'national',
-        'drinks',
-        'preserves',
-        'sauces',
-    ];
+    const categories = DB.navMenu.categories.map(({ routeName }) => routeName);
+    const subcategories = DB.navMenu.categories.reduce((acc, { routeName, elems }) => {
+        acc[routeName] = Object.values(elems);
+        return acc;
+    }, {});
+    const recipes = categories.reduce((acum, e) => {
+        acum[e] = DB.card
+            .filter(({ category }) => category.includes(e))
+            .map(({ imgUrl }) => imgUrl);
+        return acum;
+    }, {});
+    // const subCategoriesRecipes = DB.navMenu.categories.reduce((acc, { routeName, elems }) => {
+    //     const subcatKeys = Object.values(elems);
+    //     const subcatMap = subcatKeys.reduce((subAcc, subKey) => {
+    //         const urls = DB.card
+    //             .filter(({ category }) => category.includes(routeName))
+    //             .filter(({ subcategory }) => subcategory.includes(subKey))
+    //             .map(({ imgUrl }) => imgUrl);
+
+    //         subAcc[subKey] = urls;
+    //         return subAcc;
+    //     }, {});
+
+    //     acc[routeName] = subcatMap;
+    //     return acc;
+    // }, {});
 
     return (
         <Routes>
             <Route path='/' element={<Main />} />
-
             {categories.map((category) => (
                 <Route key={category} path={`/${category}`}>
                     <Route index element={<Categories category={category} />} />
-                    {categorySubcategories[category].map((sub) => (
+                    {subcategories[category].map((sub) => (
                         <Route
                             key={sub}
                             path={sub}
@@ -79,7 +47,11 @@ const AppRoutes = () => {
                         />
                     ))}
                     {recipes[category].map((recipe) => (
-                        <Route key={recipe} path={recipe} element={<Recipe recipe={recipe} />} />
+                        <Route
+                            key={recipe}
+                            path={recipe}
+                            element={<Recipe card={recipe} category={category} />}
+                        />
                     ))}
                 </Route>
             ))}

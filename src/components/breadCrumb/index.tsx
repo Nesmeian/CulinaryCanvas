@@ -2,12 +2,15 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 
 import GetCurrentPath from '~/utils/getCurrentPath';
+
+import DB from '../../data/db.json';
 export default function BreadCrumb() {
     const pathSegments = GetCurrentPath();
-
+    const navMenu = DB.navMenu.categories;
+    console.log(navMenu.find(({ routeName }) => routeName === pathSegments[0]));
     const translatePathSegment = (segment: string) => {
         const translations: Record<string, string> = {
-            veganCuisine: 'Веганская кухня',
+            vegan: 'Веганская кухня',
             mainCourses: 'Вторые блюда',
             juiciest: 'Самое сочное',
             NoodlesWithChickenAndSaffron: 'Лапша с курицей и шафраном',

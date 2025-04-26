@@ -12,10 +12,9 @@ import RecipeCard from './recipeCard';
 import RecipeIngredients from './recipeIngredients';
 import RecipeNutritionValue from './recipenutrition';
 import RecipeSteps from './recipeSteps';
-export default function Recipe({ recipe }: { recipe: string }) {
+export default function Recipe({ card }: { card: string }) {
     const { isTablet } = useBreakpoints();
-    const recipeItem = DB.recipes.find(({ path }) => recipe === path);
-
+    const recipeItem = DB.card.find(({ imgUrl }) => card === imgUrl);
     const [
         recipeNutritionValueData,
         recipeIngredientsData,
