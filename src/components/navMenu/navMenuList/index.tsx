@@ -10,7 +10,10 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router';
+
+import { closeBurger } from '~/store/burgerSlice';
 
 import * as navMenuIcons from '../../../assets/navMenuIcons/index';
 import DB from '../../../data/db.json';
@@ -26,7 +29,7 @@ export default function NavMenuList() {
     const [activeCategoryIndex, setCategoryActiveIndex] = useState<number | undefined>(
         categoryIndex !== -1 ? categoryIndex : undefined,
     );
-
+    const dispatch = useDispatch();
     return (
         <Accordion
             allowToggle
@@ -85,6 +88,9 @@ export default function NavMenuList() {
                                     <HStack
                                         as={RouterLink}
                                         to={`/${routeName}/${expectedPath}`}
+                                        onClick={() => {
+                                            dispatch(closeBurger());
+                                        }}
                                         cursor='pointer'
                                     >
                                         <Box

@@ -1,10 +1,14 @@
 import { Button, Heading, HStack, Image, VStack } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
+
+import { toggleFilterState } from '~/store/filterSlice';
 
 import closeSvg from '../../assets/closeSvg.svg';
 import AllergensControls from '../Search/allergensControls';
 import FilterCategories from './filterMenu';
 import FilterType from './filterType';
 export default function FilterDrawer() {
+    const dispatch = useDispatch();
     const test = ['LASSSSSSSSSooooo', 'LASSSSSSSSSooooo', 'LASSSSSSSSSooooo'];
     const meatType = ['Курица', 'Свинина', 'Говядина', 'Индейка', 'Утка'];
     const garnishType = [
@@ -29,7 +33,11 @@ export default function FilterDrawer() {
                 <Heading as='h4' size='h4' fontSize='24px' fontWeight='700'>
                     Фильтр
                 </Heading>
-                <Image src={closeSvg} alt='close Svg' />
+                <Image
+                    src={closeSvg}
+                    alt='close Svg'
+                    onClick={() => dispatch(toggleFilterState())}
+                />
             </HStack>
             <VStack width='100%' position='relative' gap='24px'>
                 <FilterCategories name='Категория' list={test} />

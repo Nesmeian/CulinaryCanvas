@@ -1,19 +1,25 @@
 import { Tab, TabList, Tabs } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 
 import GetCurrentPath from '~/utils/getCurrentPath';
 
 import DB from '../../data/db.json';
 
-export default function AddTabList({ location }: { location: string }) {
+export default function AddTabList() {
     const navList = DB.navMenu.subcategories;
-    const currentPath = GetCurrentPath();
-    const base = currentPath[0];
-    const currentSub = currentPath[1];
-    const startIndex = Object.values(navList).indexOf(location);
+    const paths = Object.values(navList);
+    const segments = GetCurrentPath();
+    const base = segments[0] || '';
+    const currentSub = segments[1] || '';
+
+    const startIndex = currentSub && paths.includes(currentSub) ? paths.indexOf(currentSub) : 0;
+
     const [tabIndex, setTabIndex] = useState(startIndex);
-    console.log(currentPath);
+    useEffect(() => {
+        const newIndex = currentSub && paths.includes(currentSub) ? paths.indexOf(currentSub) : 0;
+        setTabIndex(newIndex);
+    }, [currentSub, paths]);
     return (
         <Tabs
             index={tabIndex}
