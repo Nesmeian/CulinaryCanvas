@@ -9,14 +9,11 @@ export default interface TagsProps {
     tag: TagKey[];
     newPosition?: true;
 }
-interface Notifications {
-    share?: number;
-    likes?: number;
-}
 
 export interface addNotificationsProps {
     isRecipe?: boolean;
-    notifications?: Notifications;
+    bookmarks: number;
+    likes: number;
 }
 interface UserRecommendation {
     imgUrl: string;

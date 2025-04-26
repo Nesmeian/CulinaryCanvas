@@ -9,6 +9,7 @@ import AddNotifications from '../../../utils/addNotifications';
 import AddTags from '../../../utils/addTags';
 
 export default function BottomSection({ data }: BottomSectionProps) {
+    console.log(data);
     return (
         <VStack
             as='section'
@@ -45,41 +46,43 @@ export default function BottomSection({ data }: BottomSectionProps) {
                     gap={{ xl: '25px', sm: '10px' }}
                     templateColumns='repeat(auto-fit, minmax(232px, 1fr)) '
                 >
-                    {data.elems.smallCard?.map(({ id, title, tag, description, notifications }) => (
-                        <VStack
-                            key={id}
-                            className='bottom-section__card-item'
-                            _hover={{
-                                boxShadow:
-                                    '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
-                            }}
-                        >
-                            <Heading
-                                variant='veganCardHeadingStyles'
-                                width='100%'
-                                as='h4'
-                                size='h4'
+                    {data.elems.smallCard?.map(
+                        ({ id, title, category, description, notifications }) => (
+                            <VStack
+                                key={id}
+                                className='bottom-section__card-item'
+                                _hover={{
+                                    boxShadow:
+                                        '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
+                                }}
                             >
-                                {title}
-                            </Heading>
-                            <Text variant='culinaryTextStyles' mb='18px' noOfLines={3}>
-                                {description}
-                            </Text>
-                            <HStack width='100%' justify='space-between' position='relative'>
-                                <AddTags
-                                    tag={tag as TagKey[]}
-                                    withText
-                                    size='14px'
-                                    color='#ffffd3;'
-                                    newPosition
-                                />
-                                <AddNotifications notifications={notifications} />
-                            </HStack>
-                        </VStack>
-                    ))}
+                                <Heading
+                                    variant='veganCardHeadingStyles'
+                                    width='100%'
+                                    as='h4'
+                                    size='h4'
+                                >
+                                    {title}
+                                </Heading>
+                                <Text variant='culinaryTextStyles' mb='18px' noOfLines={3}>
+                                    {description}
+                                </Text>
+                                <HStack width='100%' justify='space-between' position='relative'>
+                                    <AddTags
+                                        tag={category as TagKey[]}
+                                        withText
+                                        size='14px'
+                                        color='#ffffd3;'
+                                        newPosition
+                                    />
+                                    <AddNotifications notifications={notifications} />
+                                </HStack>
+                            </VStack>
+                        ),
+                    )}
                 </Grid>
                 <VStack gap={{ lg: '12px', md: '8px', sm: '15px' }} width='100%'>
-                    {data.elems.recipes?.map(({ title, tag }) => (
+                    {data.elems.recipes?.map(({ title, category }) => (
                         <HStack
                             _hover={{
                                 boxShadow:
@@ -92,7 +95,7 @@ export default function BottomSection({ data }: BottomSectionProps) {
                         >
                             <HStack gap='0px' position='relative' width='70%'>
                                 <AddTags
-                                    tag={tag as TagKey[]}
+                                    tag={category as TagKey[]}
                                     newPosition
                                     withText={false}
                                     size='24px'

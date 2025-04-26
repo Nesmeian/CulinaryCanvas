@@ -36,7 +36,7 @@ export default function Main() {
                     <Slider />
                     <Juiciest />
                     <CulinaryBlogs />
-                    <BottomSection data={DB.veganCuisine} />
+                    <BottomSection data={DB.vegan} />
                 </>
             )}
 

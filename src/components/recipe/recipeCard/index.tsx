@@ -10,7 +10,7 @@ import * as recipesDishesImg from '../../../assets/recipeImages/index';
 import * as socialIcons from '../../../assets/socialIcons/index';
 
 export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
-    const { title, id, description, tag, imgUrl, notifications, time } = recipeData;
+    const { title, id, description, category, imgUrl, notifications, time } = recipeData;
     return (
         <Stack
             as='section'
@@ -54,7 +54,7 @@ export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
                         alignItems='flex-start'
                     >
                         <AddTags
-                            tag={tag as TagKey[]}
+                            tag={category as TagKey[]}
                             withText={true}
                             color='#ffffd3'
                             size='16px'

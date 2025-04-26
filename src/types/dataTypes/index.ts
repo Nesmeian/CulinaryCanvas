@@ -19,7 +19,7 @@ export interface CardItem {
     path?: string;
     title: string;
     description: string;
-    tag: string[];
+    category: string[];
     notifications?: NotificationBase;
     userRecommendation?: UserRecommendation;
     time?: string;
@@ -37,7 +37,7 @@ export interface CategoryData extends BaseData {
         smallCard?: Array<{
             id: string;
             title: string;
-            tag: string[];
+            category: string[];
             description: string;
             notifications?: NotificationBase;
         }>;
@@ -50,12 +50,27 @@ export interface CategoryData extends BaseData {
     };
 }
 
-export type Category = 'veganCuisine' | 'juiciest';
+export type Category =
+    | 'salads'
+    | 'snacks'
+    | 'firstCourses'
+    | 'second-dish'
+    | 'desserts'
+    | 'grilledDishes'
+    | 'vegan'
+    | 'childrenMeals'
+    | 'therapeuticNutrition'
+    | 'national'
+    | 'drinks'
+    | 'preserves'
+    | 'sauces'
+    | 'juiciest';
 export interface BottomSectionProps {
     data: CategoryData;
 }
 
 export interface CategoriesProps {
+    subcategory?: string;
     category: 'veganCuisine' | 'juiciest';
 }
 export interface BigCardsListProps {

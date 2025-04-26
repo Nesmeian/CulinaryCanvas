@@ -1,13 +1,19 @@
 import { Tab, TabList, Tabs } from '@chakra-ui/react';
 import { useState } from 'react';
+import { Link } from 'react-router';
+
+import GetCurrentPath from '~/utils/getCurrentPath';
 
 import DB from '../../data/db.json';
 
 export default function AddTabList({ location }: { location: string }) {
     const navList = DB.navMenu.subcategories;
+    const currentPath = GetCurrentPath();
+    const base = currentPath[0];
+    const currentSub = currentPath[1];
     const startIndex = Object.values(navList).indexOf(location);
     const [tabIndex, setTabIndex] = useState(startIndex);
-
+    console.log(currentPath);
     return (
         <Tabs
             index={tabIndex}
@@ -30,29 +36,44 @@ export default function AddTabList({ location }: { location: string }) {
                     },
                 }}
             >
-                {Object.entries(navList).map(([key, _]) => (
-                    <Tab
-                        key={key}
-                        color='#134B00'
-                        whiteSpace='nowrap'
-                        borderBottom='3px solid'
-                        borderColor='transparent'
-                        transition='all 0.2s'
-                        fontSize={{ base: '14px', md: '16px' }}
-                        px={{ base: 3, md: 4 }}
-                        flexShrink={0}
-                        _selected={{
-                            color: '#2DB100',
-                            borderColor: '#2DB100',
-                            fontWeight: 500,
-                        }}
-                        _hover={{
-                            color: 'green.500',
-                        }}
-                    >
-                        {key}
-                    </Tab>
-                ))}
+                {Object.entries(navList).map(([name, path]) => {
+                    let toPath: string;
+
+                    if (currentSub) {
+                        const newSegs = [base, path];
+                        toPath = '/' + newSegs.join('/');
+                    } else if (base) {
+                        toPath = `/${base}/${path}`;
+                    } else {
+                        toPath = `/${path}`;
+                    }
+
+                    return (
+                        <Tab
+                            key={name}
+                            as={Link}
+                            to={toPath}
+                            color='#134B00'
+                            whiteSpace='nowrap'
+                            borderBottom='3px solid'
+                            borderColor='transparent'
+                            transition='all 0.2s'
+                            fontSize={{ base: '14px', md: '16px' }}
+                            px={{ base: 3, md: 4 }}
+                            flexShrink={0}
+                            _selected={{
+                                color: '#2DB100',
+                                borderColor: '#2DB100',
+                                fontWeight: 500,
+                            }}
+                            _hover={{
+                                color: 'green.500',
+                            }}
+                        >
+                            {name}
+                        </Tab>
+                    );
+                })}
             </TabList>
         </Tabs>
     );

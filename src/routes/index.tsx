@@ -6,22 +6,63 @@ import Recipe from '~/components/recipe';
 import { Category } from '~/types/dataTypes';
 
 const AppRoutes = () => {
+    const subCategories = [
+        'appetizers',
+        'firstCourses',
+        'desserts',
+        'second-dish',
+        'sideDishes',
+        'rawFoodDishes',
+    ];
     const categorySubcategories: Record<Category, string[]> = {
-        veganCuisine: ['mainCourses'],
-        juiciest: [
-            'appetizers',
-            'firstCourses',
-            'desserts',
-            'mainCourses',
-            'sideDishes',
-            'rawFoodDishes',
-        ],
+        salads: subCategories,
+        snacks: subCategories,
+        firstCourses: subCategories,
+        'second-dish': subCategories,
+        desserts: subCategories,
+        grilledDishes: subCategories,
+        vegan: subCategories,
+        childrenMeals: subCategories,
+        therapeuticNutrition: subCategories,
+        national: subCategories,
+        drinks: subCategories,
+        preserves: subCategories,
+        sauces: subCategories,
+        juiciest: subCategories,
     };
     const recipes: Record<Category, string[]> = {
-        juiciest: ['NoodlesWithChickenAndSaffron'],
-        veganCuisine: ['mainCourses'],
+        juiciest: ['NoodlesWithChickenAndSaffron', 'spaghettiDumplings'],
+        vegan: subCategories,
+        salads: subCategories,
+        snacks: subCategories,
+        firstCourses: subCategories,
+        'second-dish': subCategories,
+        desserts: subCategories,
+        grilledDishes: subCategories,
+        childrenMeals: subCategories,
+        therapeuticNutrition: subCategories,
+        national: subCategories,
+        drinks: subCategories,
+        preserves: subCategories,
+        sauces: subCategories,
     };
-    const categories: Category[] = ['veganCuisine', 'juiciest'];
+    const categories: Category[] = [
+        'vegan',
+        'juiciest',
+        'vegan',
+        'salads',
+        'snacks',
+        'firstCourses',
+        'second-dish',
+        'desserts',
+        'grilledDishes',
+        'childrenMeals',
+        'therapeuticNutrition',
+        'national',
+        'drinks',
+        'preserves',
+        'sauces',
+    ];
 
     return (
         <Routes>
@@ -31,7 +72,11 @@ const AppRoutes = () => {
                 <Route key={category} path={`/${category}`}>
                     <Route index element={<Categories category={category} />} />
                     {categorySubcategories[category].map((sub) => (
-                        <Route key={sub} path={sub} element={<Categories category={category} />} />
+                        <Route
+                            key={sub}
+                            path={sub}
+                            element={<Categories category={category} subcategory={sub} />}
+                        />
                     ))}
                     {recipes[category].map((recipe) => (
                         <Route key={recipe} path={recipe} element={<Recipe recipe={recipe} />} />
