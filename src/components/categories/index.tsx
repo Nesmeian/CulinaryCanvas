@@ -22,7 +22,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const { isTablet } = useBreakpoints();
     const searchState = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
-    const searchArrs = getSearchCards(searchState, category);
+    const searchArrs = getSearchCards(searchState, category, subcategory);
     const searchDb = subcategory
         ? filterOnSubCategories(DB[category].elems.card, subcategory)
         : DB[category].elems.card;
@@ -47,9 +47,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                 <BigCardsList data={searchArrs} />
             ) : (
                 <>
-                    {(pathSegments.length !== 0 || category !== 'juiciest') && (
-                        <AddTabList location={pathSegments[1]} />
-                    )}
+                    {(pathSegments.length !== 0 || category !== 'juiciest') && <AddTabList />}
                     <BigCardsList data={searchDb} maxElems={8} />
                     <GreenButton text='Загрузить еще' />
                     <BottomSection data={DB[bottomSectionData]} />

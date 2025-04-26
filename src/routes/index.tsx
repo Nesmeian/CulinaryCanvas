@@ -7,12 +7,12 @@ import { Category } from '~/types/dataTypes';
 
 const AppRoutes = () => {
     const subCategories = [
-        'appetizers',
+        'snacks',
         'firstCourses',
         'desserts',
         'second-dish',
-        'sideDishes',
-        'rawFoodDishes',
+        'side-dishes',
+        'vegetables',
     ];
     const categorySubcategories: Record<Category, string[]> = {
         salads: subCategories,

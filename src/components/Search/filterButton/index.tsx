@@ -3,6 +3,7 @@ import './style.css';
 import { Box, VStack } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
+import { closeBurger } from '~/store/burgerSlice';
 import { toggleFilterState } from '~/store/filterSlice';
 export default function FilterButton() {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export default function FilterButton() {
             gap='2.4px'
             onClick={() => {
                 dispatch(toggleFilterState());
+                dispatch(closeBurger());
             }}
         >
             <Box className='first-line'></Box>
