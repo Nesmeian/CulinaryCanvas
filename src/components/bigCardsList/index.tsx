@@ -24,9 +24,15 @@ import AddTags from '../../utils/addTags/index';
 export default function BigCardsList({ data, maxElems, categoryTag }: BigCardsListProps) {
     const { isTablet } = useBreakpoints();
     const displayedData = maxElems ? data?.slice(0, maxElems) : data;
+    if (data.length === 0) {
+        return (
+            <Heading as='h1' size='h1'>
+                К Сожалению рецептов не обнаруженно
+            </Heading>
+        );
+    }
     return (
         <Grid className='card__list' gap={{ xl: '24px', md: '16px', sm: '11px' }}>
-            {data.length === 0 && <Text>К Сожалению рецептов не обнаруженно</Text>}
             {displayedData!.map(
                 ({
                     id,

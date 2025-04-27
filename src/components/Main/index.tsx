@@ -4,6 +4,7 @@ import { Heading } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 
 import { ApplicationState } from '~/store/configure-store';
+import filterAllergens from '~/utils/filterAllergens';
 import getSearchCards from '~/utils/getSearchCards';
 
 import DB from '../../data/db.json';
@@ -18,18 +19,21 @@ import Slider from '../slider';
 import MainStyled from '../styledComponents/Main';
 export default function Main() {
     const { isTablet } = useBreakpoints();
-
+    const allergensState = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const searchState = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
+    const allergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
     const searchArrs = getSearchCards(searchState);
+    const filteredAllergens = filterAllergens(allergens, DB.card);
     return (
         <MainStyled as='main'>
             <Heading as='h1' size='h1' className='title'>
                 Приятного аппетита!
             </Heading>
             <Search />
-
-            {allowSearch ? (
+            {allergensState ? (
+                <BigCardsList data={filteredAllergens} />
+            ) : allowSearch ? (
                 <BigCardsList data={searchArrs} />
             ) : (
                 <>
