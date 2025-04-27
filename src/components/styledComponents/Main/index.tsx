@@ -3,7 +3,7 @@ import { styled, VStack } from '@chakra-ui/react';
 const MainStyled = styled(VStack, {
     baseStyle: {
         display: 'flex',
-        height: '100%',
+        height: '100vh',
         flexDirection: 'column',
         flex: 1,
         width: {

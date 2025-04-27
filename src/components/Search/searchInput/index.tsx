@@ -46,6 +46,7 @@ export default function InputSearch() {
         >
             <Input
                 placeholder='Название или ингредиент...'
+                data-test-id='search-input'
                 _placeholder={{ color: '#134b00', fontSize: { sm: '15', lg: '19px' } }}
                 border='1px solid rgba(0, 0, 0, 0.48)'
                 padding='6px'
@@ -67,6 +68,7 @@ export default function InputSearch() {
                     />
                 )}
                 <SearchIcon
+                    data-test-id='search-button'
                     boxSize={{ sm: '14px', lg: '18px' }}
                     color={isBlocked ? 'gray.300' : 'gray.600'}
                     onClick={handleSearch}

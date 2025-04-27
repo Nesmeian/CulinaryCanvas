@@ -10,7 +10,6 @@ import getSearchCards from '~/utils/getSearchCards';
 import hasActiveFilters from '~/utils/hasActiveFilter';
 
 import DB from '../../data/db.json';
-import useBreakpoints from '../../themes/chakraBreakPoints';
 import BigCardsList from '../bigCardsList';
 import Footer from '../Footer';
 import Search from '../Search';
@@ -20,7 +19,6 @@ import Juiciest from '../sections/Juiciest';
 import Slider from '../slider';
 import MainStyled from '../styledComponents/Main';
 export default function Main() {
-    const { isTablet } = useBreakpoints();
     const allergensState = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const searchState = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
@@ -50,7 +48,7 @@ export default function Main() {
                 </>
             )}
 
-            {isTablet && <Footer />}
+            <Footer />
         </MainStyled>
     );
 }

@@ -17,6 +17,7 @@ export default function Burger() {
             onClick={() => {
                 dispatch(toggleBurgerState());
             }}
+            data-test-id={burgerState ? 'close-icon' : 'hamburger-icon'}
         >
             <Box className='burger__first-line' />
             <Box className='burger__second-line' />
