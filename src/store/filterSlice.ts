@@ -12,8 +12,11 @@ export const filterSlice = createSlice({
         toggleFilterState: (state) => {
             state.isOpen = !state.isOpen;
         },
+        closeFilter: (state) => {
+            state.isOpen = false;
+        },
     },
 });
 
-export const { toggleFilterState } = filterSlice.actions;
+export const { toggleFilterState, closeFilter } = filterSlice.actions;
 export default filterSlice.reducer;
