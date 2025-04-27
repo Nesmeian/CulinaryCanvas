@@ -11,11 +11,11 @@ export type BurgerState = {
     isOpen: boolean;
 };
 export interface FilterData {
-    allergens?: string[];
-    sideDish?: string[];
-    meat?: string[];
-    category?: string;
-    auth?: string;
+    allergens: string[];
+    sideDish: string[];
+    meat: string[];
+    category: string;
+    auth: string;
 }
 export type FilterState = {
     isOpen: boolean;

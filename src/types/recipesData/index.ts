@@ -37,13 +37,12 @@ export interface RecipeData extends CardItem {
     description: string;
     category: string[];
     subcategory: string[];
-    path: string;
     imgUrl: string;
     bookmarks: number;
     likes: number;
     date: string;
     time: string;
-    portions: number;
+    portions?: number;
     nutritionValue: NutritionValueData;
     author: AuthorData;
     ingredients: IngredientsData[];

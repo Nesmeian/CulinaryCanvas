@@ -39,13 +39,13 @@ export interface CategoryData extends BaseData {
             title: string;
             category: string[];
             description: string;
-            bookmarks: number;
-            likes: number;
+            bookmarks?: number;
+            likes?: number;
         }>;
         recipes?: Array<{
             id: string;
             title: string;
-            tag: string[];
+            category: string[];
         }>;
         card?: CardItem[];
     };
@@ -77,7 +77,7 @@ export interface CategoriesProps {
 export interface BigCardsListProps {
     data: RecipeData[];
     maxElems?: number;
-    categoryTag: string;
+    categoryTag?: string;
 }
 export interface DBProps {
     juiciest: {

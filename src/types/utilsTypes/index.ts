@@ -14,8 +14,8 @@ export default interface TagsProps {
 
 export interface addNotificationsProps {
     isRecipe?: boolean;
-    bookmarks: number;
-    likes: number;
+    bookmarks?: number;
+    likes?: number;
 }
 interface UserRecommendation {
     imgUrl: string;
