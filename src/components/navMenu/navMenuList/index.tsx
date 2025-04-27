@@ -15,7 +15,7 @@ import { Link as RouterLink } from 'react-router';
 
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { closeBurger } from '~/store/burgerSlice';
-import { closeFilter } from '~/store/filterSlice';
+import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 
 import * as navMenuIcons from '../../../assets/navMenuIcons/index';
@@ -39,6 +39,7 @@ export default function NavMenuList() {
         dispatch(setSearchState(''));
         dispatch(setAllowSearch(false));
         dispatch(closeFilter());
+        dispatch(cleanFilterData());
     };
     return (
         <Accordion

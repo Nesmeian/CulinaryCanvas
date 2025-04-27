@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 
 import { ApplicationState } from '~/store/configure-store';
 import filterAllergens from '~/utils/filterAllergens';
+import filterDrawerData from '~/utils/filterDrawerData';
 import filterRecipesOnData from '~/utils/filterOnData';
 import filterOnSubCategories from '~/utils/filterOnsubcategorys';
 import getSearchCards from '~/utils/getSearchCards';
+import hasActiveFilters from '~/utils/hasActiveFilter';
 
 import DB from '../../data/db.json';
 import useBreakpoints from '../../themes/chakraBreakPoints';
@@ -34,6 +36,9 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const searchDb = subcategory ? filterOnSubCategories(categoryDb, subcategory) : categoryDb;
     const sortedOnTimeRecipes = filterRecipesOnData();
     const actualDB = category === 'juiciest' ? sortedOnTimeRecipes : searchDb;
+    const filterState = useSelector((state: ApplicationState) => state.filterState.filterData);
+    const filterData = filterDrawerData(filterState);
+
     return (
         <MainStyled as='main'>
             <VStack width={{ lg: '50%', base: '100%' }}>
@@ -50,7 +55,9 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                 </Text>
             </VStack>
             <Search />
-            {allergenState ? (
+            {hasActiveFilters(filterState) ? (
+                <BigCardsList data={filterData} />
+            ) : allergenState ? (
                 <BigCardsList data={allergenFilter} />
             ) : allowSearch ? (
                 <BigCardsList data={searchArrs} />

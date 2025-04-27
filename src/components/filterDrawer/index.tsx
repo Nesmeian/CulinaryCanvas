@@ -1,9 +1,10 @@
 import { CloseIcon } from '@chakra-ui/icons';
 import { Button, FormControl, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { toggleFilterState } from '~/store/filterSlice';
+import { ApplicationState } from '~/store/configure-store';
+import { addFilterData, cleanFilterData, toggleFilterState } from '~/store/filterSlice';
 import { invertedAllergens } from '~/utils/allergensMap';
 
 import closeSvg from '../../assets/closeSvg.svg';
@@ -13,25 +14,64 @@ import FilterCategories from './filterMenu';
 import FilterType from './filterType';
 export default function FilterDrawer() {
     const dispatch = useDispatch();
+    const [allowAllergens, setAllowAllergens] = useState(false);
     const [allergens, setAllergens] = useState<string[]>([]);
     const categories = DB.navMenu.categories.map(({ name }) => name);
     const [category, setCategory] = useState<string>('Категория');
     const [auth, setAuth] = useState<string>('Поиск по автору');
     const [sideDish, setSideDish] = useState<string[]>([]);
     const [meat, setMeat] = useState<string[]>([]);
+    const filterData = useSelector((state: ApplicationState) => state.filterState.filterData);
     const authCategory = [...new Set(DB.card.map(({ author }) => author.name))];
-    const meatType = ['Курица', 'Свинина', 'Говядина', 'Индейка', 'Утка'];
-    const garnishType = [
-        'Картошка',
-        'Гречка',
-        'Паста',
-        'Спагетти',
-        'Рис',
-        'Капуста',
-        'Фасоль',
-        'Другие овощи',
-    ];
-    console.log(sideDish, meat);
+    const hasSelectedFilters = useMemo(() => {
+        const textFilters = category !== 'Категория' || auth !== 'Поиск по автору';
+        const arrayFilters = sideDish.length > 0 || meat.length > 0;
+        const allergenFilter = allowAllergens && allergens.length > 0;
+        return textFilters || arrayFilters || allergenFilter;
+    }, [category, auth, sideDish, meat, allowAllergens, allergens]);
+    const meatType: Record<string, string> = {
+        Курица: 'Chicken',
+        Свинина: 'Pork',
+        Говядина: 'Beef',
+        Индейка: 'Turkey',
+        Утка: 'Duck',
+    };
+
+    const garnishType: Record<string, string> = {
+        Картошка: 'Potato',
+        Гречка: 'Buckwheat',
+        Паста: 'Pasta',
+        Спагетти: 'Spaghetti',
+        Рис: 'Rice',
+        Капуста: 'Cabbage',
+        Фасоль: 'Beans',
+        'Другие овощи': 'Other vegetables',
+    };
+    const toggleAllowAllergens = () => {
+        setAllowAllergens((prev) => !prev);
+    };
+    const collectData = () => {
+        dispatch(
+            addFilterData({
+                allergens: allowAllergens ? allergens : [],
+                sideDish: sideDish,
+                meat: meat,
+                category: category,
+                auth: auth,
+            }),
+        );
+    };
+    const cleanData = () => {
+        if (filterData) {
+            setAllowAllergens(false);
+            setAllergens([]);
+            setSideDish([]);
+            setMeat([]);
+            setCategory('Категория');
+            setAuth('Поиск по автору');
+            dispatch(cleanFilterData());
+        }
+    };
     return (
         <FormControl
             display='flex'
@@ -56,9 +96,18 @@ export default function FilterDrawer() {
                 <FilterCategories name={category} list={categories} onClick={setCategory} />
                 <FilterCategories name={auth} list={authCategory} onClick={setAuth} />
             </VStack>
-            <FilterType list={meatType} name='Тип Мяса' onChange={setSideDish} />
-            <FilterType list={garnishType} name='Тип Гарнира' onChange={setMeat} />
-            <AllergensControlsDrawer setAllergens={setAllergens} allergens={allergens} />
+            <FilterType list={meatType} name='Тип Мяса' onChange={setMeat} selectedItems={meat} />
+            <FilterType
+                list={garnishType}
+                name='Тип Гарнира'
+                onChange={setSideDish}
+                selectedItems={sideDish}
+            />
+            <AllergensControlsDrawer
+                setAllergens={setAllergens}
+                toggleAllowAllergens={toggleAllowAllergens}
+                allergens={allergens}
+            />
 
             <VStack marginTop='auto' alignSelf='flex-end' gap='32px' width='100%'>
                 <HStack alignItems='flex-start' w='100%' flexWrap='wrap'>
@@ -86,15 +135,33 @@ export default function FilterDrawer() {
                         fontSize={{ lg: '18px', base: '14px' }}
                         fontWeight='600'
                         height={{ lg: '48px', base: '32px' }}
+                        variant='noHover'
+                        _hover={{
+                            background: '#f5f5f5',
+                            borderColor: 'rgba(0, 0, 0, 0.6)',
+                            transition: 'all 0.2s ease-in-out',
+                        }}
+                        onClick={() => {
+                            cleanData();
+                        }}
                     >
                         Очистить фильтр
                     </Button>
                     <Button
+                        isDisabled={!hasSelectedFilters}
                         background='black'
                         color='white'
                         height={{ lg: '48px', base: '32px' }}
                         fontSize={{ lg: '18px', base: '14px' }}
                         fontWeight='600'
+                        _hover={{
+                            background: '#1a1a1a',
+                            transform: 'scale(1.02)',
+                            transition: 'all 0.2s ease-in-out',
+                        }}
+                        onClick={() => {
+                            collectData();
+                        }}
                     >
                         Найти рецепт
                     </Button>
