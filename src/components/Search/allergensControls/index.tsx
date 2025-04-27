@@ -13,7 +13,6 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
-    Portal,
     Switch,
     Text,
 } from '@chakra-ui/react';
@@ -22,26 +21,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { toggleAllergen, toggleAllergenState } from '~/store/allergens';
 import { ApplicationState } from '~/store/configure-store';
+import { allergensMap, invertedAllergens } from '~/utils/allergensMap';
 
 import addIcon from '../../../assets/addIcon.svg';
-export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) {
+export default function AllergensControls() {
     const [inputState, setInputState] = useState('');
+    const allergenState = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const reduxAllergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
     const dispatch = useDispatch();
-    const allergens = {
-        'Молочные продукты': 'Dairy products',
-        Яйцо: 'Egg',
-        Рыба: 'Fish',
-        Моллюски: 'Shellfish',
-        Орехи: 'Nuts',
-        'Томат (помидор)': 'Tomato',
-        Цитрусовые: 'Citrus',
-        'Клубника (ягоды)': 'Strawberry (berries)',
-        Шоколад: 'Chocolate',
-    };
-    const invertedAllergens = Object.fromEntries(
-        Object.entries(allergens).map(([rus, eng]) => [eng, rus]),
-    );
+
     const addAllergen = (allergen: string) => {
         dispatch(toggleAllergen(allergen));
     };
@@ -53,17 +41,18 @@ export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) 
     return (
         <FormControl
             display='flex'
-            flexDirection={!isDrawer ? 'row' : 'column'}
-            alignItems={!isDrawer ? 'center' : 'flex-start'}
+            flexDirection='row'
+            alignItems='center'
             justifyContent='space-between'
             p=' 8px'
-            gap={!isDrawer ? '20px' : '10px'}
+            gap='20px'
         >
             <HStack gap='16px'>
                 <FormLabel m='0' fontSize='16.5px'>
-                    {!isDrawer ? 'Исключить мои аллергены' : 'Исключить аллергены'}
+                    Исключить мои аллергены
                 </FormLabel>
                 <Switch
+                    checked={allergenState}
                     onChange={() => {
                         dispatch(toggleAllergenState());
                     }}
@@ -84,7 +73,7 @@ export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) 
             <Menu closeOnSelect={false}>
                 <MenuButton
                     height='100%'
-                    w={!isDrawer ? '234px' : { lg: '399px', base: '308px' }}
+                    w='234px'
                     background='white'
                     border='1px solid rgba(0, 0, 0, 0.08)'
                     as={Button}
@@ -116,67 +105,58 @@ export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) 
                             ))
                         ) : (
                             <Text color='rgba(0, 0, 0, 0.64)' noOfLines={1}>
-                                {!isDrawer
-                                    ? 'Выберите из списка...'
-                                    : 'Выберите из списка аллергенов...'}
+                                Выберите из списка...
                             </Text>
                         )}
                     </HStack>
                 </MenuButton>
-                <Portal>
-                    <MenuList w={!isDrawer ? 'auto' : { lg: '399px', base: '308px' }} zIndex={30}>
-                        {Object.entries(allergens).map(([key, value], i) => (
-                            <MenuItem
-                                key={key}
-                                background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
-                            >
-                                <Checkbox
-                                    width='100%'
-                                    borderColor='#b1ff2e'
-                                    colorScheme='customgreen'
-                                    isChecked={reduxAllergens.includes(value)}
-                                    onChange={() => addAllergen(value)}
-                                    icon={
-                                        <CheckboxIcon
-                                            sx={{
-                                                color: 'black',
-                                            }}
-                                        />
-                                    }
-                                >
-                                    {key}
-                                </Checkbox>
-                            </MenuItem>
-                        ))}
-                        <HStack
-                            p='0 8px'
-                            mt='10px'
-                            alignItems='center'
-                            justifyContent='space-between'
+                <MenuList w='auto' zIndex={30}>
+                    {Object.entries(allergensMap).map(([key, value], i) => (
+                        <MenuItem
+                            key={key}
+                            background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
                         >
-                            <Input
-                                height='32px'
-                                width='90%'
-                                color='#134b00'
-                                value={inputState}
-                                placeholder='Другой аллерген'
-                                onChange={(e) => setInputState(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        handleAddCustomAllergen();
-                                    }
-                                }}
-                                _placeholder={{ color: '#134b00' }}
-                            />
-                            <Image
-                                src={addIcon}
-                                onClick={() => {
+                            <Checkbox
+                                width='100%'
+                                borderColor='#b1ff2e'
+                                colorScheme='customgreen'
+                                isChecked={reduxAllergens.includes(value)}
+                                onChange={() => addAllergen(value)}
+                                icon={
+                                    <CheckboxIcon
+                                        sx={{
+                                            color: 'black',
+                                        }}
+                                    />
+                                }
+                            >
+                                {key}
+                            </Checkbox>
+                        </MenuItem>
+                    ))}
+                    <HStack p='0 8px' mt='10px' alignItems='center' justifyContent='space-between'>
+                        <Input
+                            height='32px'
+                            width='90%'
+                            color='#134b00'
+                            value={inputState}
+                            placeholder='Другой аллерген'
+                            onChange={(e) => setInputState(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
                                     handleAddCustomAllergen();
-                                }}
-                            />
-                        </HStack>
-                    </MenuList>
-                </Portal>
+                                }
+                            }}
+                            _placeholder={{ color: '#134b00' }}
+                        />
+                        <Image
+                            src={addIcon}
+                            onClick={() => {
+                                handleAddCustomAllergen();
+                            }}
+                        />
+                    </HStack>
+                </MenuList>
             </Menu>
         </FormControl>
     );
