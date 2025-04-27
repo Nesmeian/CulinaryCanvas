@@ -36,9 +36,8 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const searchDb = subcategory ? filterOnSubCategories(categoryDb, subcategory) : categoryDb;
     const sortedOnTimeRecipes = filterRecipesOnData();
     const actualDB = category === 'juiciest' ? sortedOnTimeRecipes : searchDb;
-    const filterState = useSelector((state: ApplicationState) => state.filterState.filterData);
-    const filterData = filterDrawerData(filterState);
-
+    const filterStateData = useSelector((state: ApplicationState) => state.filterState.filterData);
+    const filterData = filterDrawerData(filterStateData);
     return (
         <MainStyled as='main'>
             <VStack width={{ lg: '50%', base: '100%' }}>
@@ -55,7 +54,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                 </Text>
             </VStack>
             <Search />
-            {hasActiveFilters(filterState) ? (
+            {hasActiveFilters(filterStateData) ? (
                 <BigCardsList data={filterData} />
             ) : allergenState ? (
                 <BigCardsList data={allergenFilter} />
