@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { closeBurger } from '~/store/burgerSlice';
-import { closeFilter } from '~/store/filterSlice';
+import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
@@ -27,6 +27,7 @@ export default function AddTabList({ category }: { category: string }) {
         dispatch(setSearchState(''));
         dispatch(setAllowSearch(false));
         dispatch(closeFilter());
+        dispatch(cleanFilterData());
     };
     useEffect(() => {
         const newIndex = currentSub && paths.includes(currentSub) ? paths.indexOf(currentSub) : -1;

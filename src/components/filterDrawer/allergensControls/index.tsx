@@ -23,9 +23,11 @@ import addIcon from '../../../assets/addIcon.svg';
 export default function AllergensControlsDrawer({
     setAllergens,
     allergens,
+    toggleAllowAllergens,
 }: {
     allergens: string[];
     setAllergens: React.Dispatch<React.SetStateAction<string[]>>;
+    toggleAllowAllergens: () => void;
 }) {
     const [inputState, setInputState] = useState('');
     return (
@@ -42,6 +44,7 @@ export default function AllergensControlsDrawer({
                     Исключить аллергены
                 </FormLabel>
                 <Switch
+                    onChange={() => toggleAllowAllergens()}
                     sx={{
                         'span.chakra-switch__track': {
                             bg: 'rgba(0, 0, 0, 0.16)',

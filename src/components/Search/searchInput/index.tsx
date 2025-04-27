@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { closeBurger } from '~/store/burgerSlice';
 import { ApplicationState } from '~/store/configure-store';
-import { closeFilter } from '~/store/filterSlice';
+import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 
 export default function InputSearch() {
@@ -29,6 +29,7 @@ export default function InputSearch() {
             dispatch(closeBurger());
             dispatch(stopAllergens());
             dispatch(closeFilter());
+            dispatch(cleanFilterData());
         }
     };
 

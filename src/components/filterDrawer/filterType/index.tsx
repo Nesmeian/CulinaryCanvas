@@ -1,39 +1,38 @@
 import { Checkbox, CheckboxIcon, Heading, VStack } from '@chakra-ui/react';
-
-export default function FilterType({
+export interface FilterTypeProps<K extends string> {
+    name: string;
+    list: Record<K, string>;
+    onChange: React.Dispatch<React.SetStateAction<string[]>>;
+    selectedItems: string[];
+}
+export default function FilterType<K extends string>({
     name,
     list,
     onChange,
-}: {
-    name: string;
-    list: string[];
-    onChange: React.Dispatch<React.SetStateAction<string[]>>;
-}) {
+    selectedItems,
+}: FilterTypeProps<K>) {
     return (
         <VStack width='100%' alignItems='flex-start'>
             <Heading as='h5' size='h5' fontSize='16px' fontWeight='500'>
                 {name}
             </Heading>
             <VStack alignItems='flex-start'>
-                {list.map((e) => (
+                {(Object.entries(list) as [K, string][]).map(([rus, eng]) => (
                     <Checkbox
-                        key={e}
+                        key={rus}
                         borderColor='#D7FF94'
+                        colorScheme='customgreen'
+                        icon={<CheckboxIcon sx={{ color: 'black' }} />}
+                        isChecked={selectedItems.includes(eng)}
                         onChange={() =>
-                            onChange((prev) =>
-                                prev.includes(e) ? prev.filter((item) => item !== e) : [...prev, e],
+                            onChange((prev: string[]): string[] =>
+                                prev.includes(eng)
+                                    ? prev.filter((item) => item !== eng)
+                                    : [...prev, eng],
                             )
                         }
-                        colorScheme='customgreen'
-                        icon={
-                            <CheckboxIcon
-                                sx={{
-                                    color: 'black',
-                                }}
-                            />
-                        }
                     >
-                        {e}
+                        {rus}
                     </Checkbox>
                 ))}
             </VStack>
