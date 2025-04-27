@@ -14,6 +14,7 @@ export default function NavMenu({ isDrawer }: { isDrawer?: boolean }) {
     return (
         <VStack
             as='nav'
+            data-test-id='nav'
             className='navMenu'
             alignItems='flex-start'
             justify='space-between'

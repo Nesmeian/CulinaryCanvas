@@ -14,7 +14,6 @@ import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router';
 
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
-import { closeBurger } from '~/store/burgerSlice';
 import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 
@@ -53,9 +52,14 @@ export default function NavMenuList() {
                 <AccordionItem key={id} className='navMenu__item' border='0'>
                     <AccordionButton
                         as={RouterLink}
-                        data-test-id={routeName === 'veganCuisine' ? 'vegan-cuisine' : undefined}
+                        data-test-id={routeName === 'vegan' ? 'vegan-cuisine' : routeName}
                         to={{
-                            pathname: `/${routeName}/`,
+                            pathname: `/${routeName}/${
+                                Object.entries(elems)[0]
+                                    ? Object.entries(elems)[0][1] ||
+                                      encodeURIComponent(Object.entries(elems)[0][0])
+                                    : ''
+                            }`,
                         }}
                         onClick={() => {
                             cleanEffects();
@@ -104,7 +108,6 @@ export default function NavMenuList() {
                                     cursor='pointer'
                                     onClick={() => {
                                         cleanEffects();
-                                        dispatch(closeBurger());
                                     }}
                                 >
                                     <Box

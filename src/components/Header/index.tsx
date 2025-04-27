@@ -17,7 +17,7 @@ import Burger from './burger';
 export default function Header() {
     const userData = useSelector((state: ApplicationState) => state.userData);
     const burgerState = useSelector((state: ApplicationState) => state.burgerState.isOpen);
-    const { isTablet, isMobile } = useBreakpoints();
+    const { isMobile } = useBreakpoints();
     const logo = isMobile ? logoUrl.mobileLogo : logoUrl.logo;
 
     return (
@@ -30,33 +30,32 @@ export default function Header() {
             <Box className='header__img'>
                 <Image src={logo} alt='logo image' />
             </Box>
-            {!isTablet ? (
-                <HStack className='header__container' justify='space-between'>
-                    <BreadCrumb />
-                    <CardAvatar userData={userData} />
-                </HStack>
-            ) : (
-                <HStack
-                    className='header__container'
-                    justify='flex-end'
-                    gap={{ sm: '15', md: '22px' }}
-                >
-                    <AnimatePresence>
-                        {!burgerState && (
-                            <motion.div
-                                key='notifications'
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.5 }}
-                            >
-                                <NotificationList direction='horizontal' />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                    <Burger />
-                </HStack>
-            )}
+
+            <Box className='header__container-desktop header__container'>
+                <BreadCrumb />
+                <CardAvatar userData={userData} />
+            </Box>
+
+            <Box
+                className='header__container-tablet header__container'
+                gap={{ sm: '15', md: '22px' }}
+            >
+                <AnimatePresence>
+                    {!burgerState && (
+                        <motion.div
+                            key='notifications'
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <NotificationList direction='horizontal' />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                <Burger />
+            </Box>
+
             <Drawer state={burgerState} element={<NavMenu isDrawer />} />
         </HStack>
     );

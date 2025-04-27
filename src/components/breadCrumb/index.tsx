@@ -14,6 +14,7 @@ export default function BreadCrumb() {
             alignSelf='baseline'
             separator={<ChevronRightIcon color='gray.500' />}
             fontSize='md'
+            data-test-id='breadcrumbs'
             color='gray.500'
             sx={{
                 '& > .chakra-breadcrumb__list': {

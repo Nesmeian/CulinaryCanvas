@@ -28,24 +28,31 @@ export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
                 Новые рецепты
             </Heading>
             <Swiper
+                data-test-id='carousel'
                 className='slider__list'
                 spaceBetween={24}
                 modules={[Navigation]}
+                watchSlidesProgress={false}
+                resistanceRatio={0}
                 navigation={{
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 }}
                 loop={true}
                 breakpoints={{
-                    1920: { slidesPerView: 4 },
-                    1440: { slidesPerView: 3 },
-                    768: { slidesPerView: 4.2 },
-                    360: { slidesPerView: 2 },
+                    1920: { slidesPerView: 4, spaceBetween: 24 },
+                    1440: { slidesPerView: 3, spaceBetween: 20 },
+                    768: { slidesPerView: 4, spaceBetween: 16 },
+                    360: { slidesPerView: 2, spaceBetween: 8 },
                 }}
             >
                 {sortedOnTimeRecipes.map(
-                    ({ id, imgUrl, title, description, category, bookmarks, likes }) => (
-                        <SwiperSlide key={id} className='slider__item'>
+                    ({ id, imgUrl, title, description, category, bookmarks, likes }, i) => (
+                        <SwiperSlide
+                            key={id}
+                            className='slider__item'
+                            data-test-id={`carousel-card-${i}`}
+                        >
                             <Image
                                 height={{ lg: '230px', sm: '128px' }}
                                 src={sliderImgs[imgUrl as keyof typeof sliderImgs]}
@@ -96,8 +103,16 @@ export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
                         </SwiperSlide>
                     ),
                 )}
-                <Image src={sliderArrows.leftArrow} className='swiper-button-prev' />
-                <Image src={sliderArrows.rightArrow} className='swiper-button-next' />
+                <Image
+                    src={sliderArrows.leftArrow}
+                    className='swiper-button-prev'
+                    data-test-id='carousel-back'
+                />
+                <Image
+                    src={sliderArrows.rightArrow}
+                    className='swiper-button-next'
+                    data-test-id='carousel-forward'
+                />
             </Swiper>
         </VStack>
     );

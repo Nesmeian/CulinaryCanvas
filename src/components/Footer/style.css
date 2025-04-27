@@ -6,4 +6,8 @@
     bottom: 0;
     left: 0;
     right: 0;
+    display: none;
+    @media (max-width: 768px) {
+        display: block;
+    }
 }

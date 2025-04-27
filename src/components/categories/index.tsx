@@ -10,7 +10,6 @@ import getSearchCards from '~/utils/getSearchCards';
 import hasActiveFilters from '~/utils/hasActiveFilter';
 
 import DB from '../../data/db.json';
-import useBreakpoints from '../../themes/chakraBreakPoints';
 import { CategoriesProps } from '../../types/dataTypes';
 import BigCardsList from '../bigCardsList';
 import Footer from '../Footer';
@@ -21,7 +20,7 @@ import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
     const bottomSectionData = category === 'juiciest' ? 'vegan' : 'desserts';
-    const { isTablet } = useBreakpoints();
+
     const searchState = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergenState = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
@@ -69,7 +68,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                 </>
             )}
 
-            {isTablet && <Footer />}
+            <Footer />
         </MainStyled>
     );
 }
