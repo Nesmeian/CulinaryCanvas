@@ -87,43 +87,41 @@ export default function NavMenuList() {
                         </HStack>
                         <AccordionIcon boxSize='24px' />
                     </AccordionButton>
-                    {Object.entries(elems as Record<string, string>).map(
-                        ([rusTitle, engTitle], index) => {
-                            const expectedPath = engTitle || encodeURIComponent(rusTitle);
-                            const isActive = expectedPath === currentSubRoute;
+                    {Object.entries(elems).map(([rusTitle, engTitle], index) => {
+                        const expectedPath = engTitle || encodeURIComponent(rusTitle);
+                        const isActive = expectedPath === currentSubRoute;
 
-                            return (
-                                <AccordionPanel
-                                    key={`${id}-${index}`}
-                                    p={isActive ? '0 0 10px 46px' : '0 0 10px 52px'}
-                                    _hover={{ bg: 'gray.50' }}
+                        return (
+                            <AccordionPanel
+                                key={`${id}-${index}`}
+                                p={isActive ? '0 0 10px 46px' : '0 0 10px 52px'}
+                                _hover={{ bg: 'gray.50' }}
+                            >
+                                <HStack
+                                    as={RouterLink}
+                                    to={`/${routeName}/${expectedPath}`}
+                                    cursor='pointer'
+                                    onClick={() => {
+                                        cleanEffects();
+                                        dispatch(closeBurger());
+                                    }}
                                 >
-                                    <HStack
-                                        as={RouterLink}
-                                        to={`/${routeName}/${expectedPath}`}
-                                        cursor='pointer'
-                                        onClick={() => {
-                                            cleanEffects();
-                                            dispatch(closeBurger());
-                                        }}
+                                    <Box
+                                        width={isActive ? '8px' : '1px'}
+                                        height='24px'
+                                        background='#c4ff61'
+                                        transition='width 0.2s ease'
+                                    />
+                                    <Text
+                                        fontWeight={isActive ? 700 : 400}
+                                        transition='font-weight 0.2s'
                                     >
-                                        <Box
-                                            width={isActive ? '8px' : '1px'}
-                                            height='24px'
-                                            background='#c4ff61'
-                                            transition='width 0.2s ease'
-                                        />
-                                        <Text
-                                            fontWeight={isActive ? 700 : 400}
-                                            transition='font-weight 0.2s'
-                                        >
-                                            {rusTitle}
-                                        </Text>
-                                    </HStack>
-                                </AccordionPanel>
-                            );
-                        },
-                    )}
+                                        {rusTitle}
+                                    </Text>
+                                </HStack>
+                            </AccordionPanel>
+                        );
+                    })}
                 </AccordionItem>
             ))}
         </Accordion>
