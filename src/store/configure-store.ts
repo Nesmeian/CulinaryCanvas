@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { apiSlice } from '../query/create-api';
+import { allergensSlice } from './allergens';
 import appReducer, { appSlice } from './app-slice';
 import { burgerSlice } from './burgerSlice';
 import { filterSlice } from './filterSlice';
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     [burgerSlice.name]: burgerSlice.reducer,
     [filterSlice.name]: filterSlice.reducer,
     [searchSlice.name]: searchSlice.reducer,
+    [allergensSlice.name]: allergensSlice.reducer,
 });
 
 export type ApplicationState = ReturnType<typeof rootReducer>;

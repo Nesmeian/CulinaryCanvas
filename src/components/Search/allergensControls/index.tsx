@@ -18,11 +18,16 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { toggleAllergen, toggleAllergenState } from '~/store/allergens';
+import { ApplicationState } from '~/store/configure-store';
 
 import addIcon from '../../../assets/addIcon.svg';
 export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) {
-    const [checked, setChecked] = useState<string[]>([]);
     const [inputState, setInputState] = useState('');
+    const reduxAllergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
+    const dispatch = useDispatch();
     const allergens = {
         'Молочные продукты': 'Dairy products',
         Яйцо: 'Egg',
@@ -34,22 +39,16 @@ export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) 
         'Клубника (ягоды)': 'Strawberry (berries)',
         Шоколад: 'Chocolate',
     };
-    const addAllergen = (key: string) => {
-        const cleanKey = key.split(' (')[0].trim();
-        setChecked((prev) =>
-            prev.includes(cleanKey)
-                ? prev.filter((item) => item !== cleanKey)
-                : [...prev, cleanKey],
-        );
+    const invertedAllergens = Object.fromEntries(
+        Object.entries(allergens).map(([rus, eng]) => [eng, rus]),
+    );
+    const addAllergen = (allergen: string) => {
+        dispatch(toggleAllergen(allergen));
     };
     const handleAddCustomAllergen = () => {
         const trimmedValue = inputState.trim();
-        if (trimmedValue && !checked.includes(trimmedValue)) {
-            setChecked((prev) => [...prev, trimmedValue]);
-            setInputState('');
-        } else {
-            setInputState('');
-        }
+        setInputState('');
+        dispatch(toggleAllergen(trimmedValue));
     };
     return (
         <FormControl
@@ -65,6 +64,9 @@ export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) 
                     {!isDrawer ? 'Исключить мои аллергены' : 'Исключить аллергены'}
                 </FormLabel>
                 <Switch
+                    onChange={() => {
+                        dispatch(toggleAllergenState());
+                    }}
                     sx={{
                         'span.chakra-switch__track': {
                             bg: 'rgba(0, 0, 0, 0.16)',
@@ -99,8 +101,8 @@ export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) 
                     _hover={{ background: 'white' }}
                 >
                     <HStack flexWrap='wrap' p='10px 0' rowGap='4px' columnGap='8px'>
-                        {checked.length !== 0 ? (
-                            checked.map((e) => (
+                        {reduxAllergens.length !== 0 ? (
+                            reduxAllergens.map((e) => (
                                 <Box
                                     fontSize='12px'
                                     key={e}
@@ -109,7 +111,7 @@ export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) 
                                     border='1px solid #2db100'
                                     borderRadius='6px'
                                 >
-                                    {e}
+                                    {invertedAllergens[e] || e}
                                 </Box>
                             ))
                         ) : (
@@ -123,7 +125,7 @@ export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) 
                 </MenuButton>
                 <Portal>
                     <MenuList w={!isDrawer ? 'auto' : { lg: '399px', base: '308px' }} zIndex={30}>
-                        {Object.entries(allergens).map(([key, _], i) => (
+                        {Object.entries(allergens).map(([key, value], i) => (
                             <MenuItem
                                 key={key}
                                 background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
@@ -132,7 +134,8 @@ export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) 
                                     width='100%'
                                     borderColor='#b1ff2e'
                                     colorScheme='customgreen'
-                                    onChange={() => addAllergen(key)}
+                                    isChecked={reduxAllergens.includes(value)}
+                                    onChange={() => addAllergen(value)}
                                     icon={
                                         <CheckboxIcon
                                             sx={{
@@ -158,6 +161,11 @@ export default function AllergensControls({ isDrawer }: { isDrawer?: boolean }) 
                                 value={inputState}
                                 placeholder='Другой аллерген'
                                 onChange={(e) => setInputState(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        handleAddCustomAllergen();
+                                    }
+                                }}
                                 _placeholder={{ color: '#134b00' }}
                             />
                             <Image

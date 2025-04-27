@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router';
 
+import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { closeBurger } from '~/store/burgerSlice';
 
 import * as navMenuIcons from '../../../assets/navMenuIcons/index';
@@ -30,6 +31,11 @@ export default function NavMenuList() {
         categoryIndex !== -1 ? categoryIndex : undefined,
     );
     const dispatch = useDispatch();
+    const cleanEffects = () => {
+        dispatch(closeBurger());
+        dispatch(cleanAllergens());
+        dispatch(stopAllergens());
+    };
     return (
         <Accordion
             allowToggle
@@ -45,6 +51,9 @@ export default function NavMenuList() {
                         data-test-id={routeName === 'veganCuisine' ? 'vegan-cuisine' : undefined}
                         to={{
                             pathname: `/${routeName}/`,
+                        }}
+                        onClick={() => {
+                            cleanEffects();
                         }}
                         transition='font-weight 0.2s'
                         display='flex'
@@ -88,10 +97,10 @@ export default function NavMenuList() {
                                     <HStack
                                         as={RouterLink}
                                         to={`/${routeName}/${expectedPath}`}
-                                        onClick={() => {
-                                            dispatch(closeBurger());
-                                        }}
                                         cursor='pointer'
+                                        onClick={() => {
+                                            cleanEffects();
+                                        }}
                                     >
                                         <Box
                                             width={isActive ? '8px' : '1px'}

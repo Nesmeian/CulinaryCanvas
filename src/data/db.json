@@ -411,7 +411,9 @@
                 }
             },
             "meat": "",
-            "side": "potatoes"
+            "side": "potatoes",
+            "Egg": "",
+            "Dairy products": ""
         },
         {
             "id": "vc2",
@@ -462,7 +464,8 @@
                     "views": 125
                 }
             },
-            "side": "potatoes"
+            "side": "potatoes",
+            "Fish": ""
         },
         {
             "id": "vc3",
@@ -562,7 +565,8 @@
                 "notifications": {
                     "views": 125
                 }
-            }
+            },
+            "Nuts": ""
         },
         {
             "id": "vc5",
