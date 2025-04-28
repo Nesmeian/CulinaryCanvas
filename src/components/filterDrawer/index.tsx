@@ -24,7 +24,8 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
     const filterData = useSelector((state: ApplicationState) => state.filterState.filterData);
     const authCategory = [...new Set(DB.card.map(({ author }) => author.name))];
     const hasSelectedFilters = useMemo(() => {
-        const arrayFilters = sideDish.length > 0 || meat.length > 0 || category.length > 0;
+        const arrayFilters =
+            sideDish.length > 0 || meat.length > 0 || category.length > 0 || auth.length > 0;
         const allergenFilter = allowAllergens && allergens.length > 0;
         return arrayFilters || allergenFilter;
     }, [category, auth, sideDish, meat, allowAllergens, allergens]);

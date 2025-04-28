@@ -1,3 +1,5 @@
+import './style.css';
+
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
     Box,
@@ -15,16 +17,18 @@ import {
     MenuList,
     Switch,
     Text,
+    useDisclosure,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { toggleAllergen, toggleAllergenState } from '~/store/allergens';
+import { cleanAllergens, toggleAllergen, toggleAllergenState } from '~/store/allergens';
 import { ApplicationState } from '~/store/configure-store';
 import { allergensMap, invertedAllergens } from '~/utils/allergensMap';
 
 import addIcon from '../../../assets/addIcon.svg';
 export default function AllergensControls() {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const [inputState, setInputState] = useState('');
     const allergenState = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const reduxAllergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
@@ -52,9 +56,11 @@ export default function AllergensControls() {
                     Исключить мои аллергены
                 </FormLabel>
                 <Switch
+                    data-test-id='allergens-switcher'
                     checked={allergenState}
                     onChange={() => {
                         dispatch(toggleAllergenState());
+                        dispatch(cleanAllergens());
                     }}
                     sx={{
                         'span.chakra-switch__track': {
@@ -70,10 +76,18 @@ export default function AllergensControls() {
                     }}
                 />
             </HStack>
-            <Menu closeOnSelect={false}>
+            <Menu
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+                closeOnBlur={true}
+                closeOnSelect={false}
+            >
                 <MenuButton
+                    data-test-id='allergens-menu-button'
                     height='100%'
                     w='234px'
+                    isDisabled={!allergenState}
                     background='white'
                     border='1px solid rgba(0, 0, 0, 0.08)'
                     as={Button}
@@ -89,7 +103,13 @@ export default function AllergensControls() {
                     }}
                     _hover={{ background: 'white' }}
                 >
-                    <HStack flexWrap='wrap' p='10px 0' rowGap='4px' columnGap='8px'>
+                    <HStack
+                        flexWrap='wrap'
+                        p='10px 0'
+                        rowGap='4px'
+                        columnGap='8px'
+                        data-test-id='allergens-menu'
+                    >
                         {reduxAllergens.length !== 0 ? (
                             reduxAllergens.map((e) => (
                                 <Box
@@ -115,6 +135,7 @@ export default function AllergensControls() {
                         <MenuItem
                             key={key}
                             background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
+                            data-test-id={isOpen ? `allergen-${i}` : ''}
                         >
                             <Checkbox
                                 width='100%'
@@ -141,6 +162,7 @@ export default function AllergensControls() {
                             color='#134b00'
                             value={inputState}
                             placeholder='Другой аллерген'
+                            data-test-id={isOpen ? `add-other-allergen` : ''}
                             onChange={(e) => setInputState(e.target.value)}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
@@ -151,6 +173,7 @@ export default function AllergensControls() {
                         />
                         <Image
                             src={addIcon}
+                            data-test-id={isOpen ? `add-allergen-button` : ''}
                             onClick={() => {
                                 handleAddCustomAllergen();
                             }}
