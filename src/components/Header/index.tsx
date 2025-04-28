@@ -25,7 +25,7 @@ export default function Header() {
             as='header'
             data-test-id='header'
             background={isOpen ? '#ffffff' : '#ffffd3'}
-            zIndex={2000}
+            zIndex={isOpen ? 2000 : 0}
         >
             <Box className='header__img'>
                 <Image src={logo} alt='logo image' />

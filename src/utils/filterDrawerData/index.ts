@@ -34,7 +34,7 @@ export default function filterDrawerData(data: FilterData) {
         }
 
         if (getData.sideDish) {
-            if (!card.subcategory.some((sub) => getData.sideDish!.includes(sub))) {
+            if (!getData.sideDish.includes(card.side)) {
                 return false;
             }
         }

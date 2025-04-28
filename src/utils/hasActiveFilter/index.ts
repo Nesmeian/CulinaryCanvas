@@ -5,8 +5,8 @@ export default function hasActiveFilters(filterData: FilterData) {
         allergens: filterData.allergens,
         sideDish: filterData.sideDish,
         meat: filterData.meat,
-        category: filterData.category ? [filterData.category] : [],
-        auth: filterData.auth ? [filterData.auth] : [],
+        category: filterData.category,
+        auth: filterData.auth,
     };
 
     return Object.values(filterDataArray).some((value) =>

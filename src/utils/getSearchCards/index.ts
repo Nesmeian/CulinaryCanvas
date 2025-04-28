@@ -1,29 +1,20 @@
 import { RecipeData } from '~/types/recipesData';
+export default function getSearchCards(searchQuery: string, cards: RecipeData[]): RecipeData[] {
+    if (!searchQuery) return cards;
 
-import DB from '../../data/db.json';
-import filterOnSubCategories from '../filterOnsubcategorys';
-export default function getSearchCards(search: string, category?: string, subcategory?: string) {
-    const searchDB = category ? DB.card.filter((e) => e.category.includes(category)) : DB.card;
-    const searchDb: RecipeData[] = subcategory
-        ? filterOnSubCategories(searchDB, subcategory)
-        : searchDB;
-    const searchResults = searchDb
-        .filter((prof) => prof.title.toLowerCase().includes(search.toLowerCase()))
-        .sort((a, b) => {
-            if (
-                a.title.toLowerCase().indexOf(search.toLowerCase()) >
-                b.title.toLowerCase().indexOf(search.toLowerCase())
-            ) {
-                return 1;
-            } else if (
-                a.title.toLowerCase().indexOf(search.toLowerCase()) <
-                b.title.toLowerCase().indexOf(search.toLowerCase())
-            ) {
-                return -1;
-            } else {
-                if (a.title > b.title) return 1;
-                else return -1;
-            }
-        });
-    return searchResults;
+    const lowerQuery = searchQuery.toLowerCase();
+
+    const filtered = cards.filter((recipe) => recipe.title.toLowerCase().includes(lowerQuery));
+
+    const sorted = filtered.sort((a, b) => {
+        const idxA = a.title.toLowerCase().indexOf(lowerQuery);
+        const idxB = b.title.toLowerCase().indexOf(lowerQuery);
+        if (idxA !== idxB) {
+            return idxA - idxB;
+        }
+
+        return a.title.localeCompare(b.title);
+    });
+
+    return sorted;
 }

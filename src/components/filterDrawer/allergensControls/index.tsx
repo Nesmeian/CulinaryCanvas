@@ -28,6 +28,12 @@ export default function AllergensControlsDrawer({
     setAllergens: React.Dispatch<React.SetStateAction<string[]>>;
     toggleAllowAllergens: () => void;
 }) {
+    const addOtherAllergen = () => {
+        const trimmed = inputState.trim();
+        if (!trimmed) return;
+        setAllergens((prev) => (prev.includes(trimmed) ? prev : [...prev, trimmed]));
+        setInputState('');
+    };
     const [inputState, setInputState] = useState('');
     return (
         <FormControl
@@ -121,10 +127,20 @@ export default function AllergensControlsDrawer({
                             value={inputState}
                             placeholder='Другой аллерген'
                             onChange={(e) => setInputState(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    addOtherAllergen();
+                                }
+                            }}
                             _placeholder={{ color: '#134b00' }}
                             data-test-id='add-other-allergen'
                         />
-                        <Image src={addIcon} data-test-id='add-allergen-button' />
+                        <Image
+                            src={addIcon}
+                            data-test-id='add-allergen-button'
+                            onClick={addOtherAllergen}
+                        />
                     </HStack>
                 </MenuList>
             </Menu>

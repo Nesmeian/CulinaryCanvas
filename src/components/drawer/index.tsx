@@ -10,7 +10,13 @@ type DrawerProps = {
 
 export default function Drawer({ isOpen, onClose, element, isFilter = false }: DrawerProps) {
     return (
-        <ChakraDrawer isOpen={isOpen} placement='right' onClose={onClose} closeOnOverlayClick>
+        <ChakraDrawer
+            isOpen={isOpen}
+            placement='right'
+            onClose={onClose}
+            closeOnOverlayClick
+            size='md'
+        >
             <DrawerOverlay backdropFilter='blur(4px)' bg='blackAlpha.200' />
             <DrawerContent
                 borderRadius='12px'

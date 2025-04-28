@@ -411,7 +411,7 @@
                 }
             },
             "meat": "chicken",
-            "side": "potatoes",
+            "side": "Potato",
             "Egg": "",
             "Dairy products": ""
         },
@@ -464,7 +464,7 @@
                     "views": 125
                 }
             },
-            "side": "potatoes",
+            "side": "Potato",
             "Fish": ""
         },
         {
@@ -616,8 +616,7 @@
                 "notifications": {
                     "views": 125
                 }
-            },
-            "side": "potatoes"
+            }
         },
         {
             "id": "vc6",

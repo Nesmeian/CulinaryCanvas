@@ -19,24 +19,33 @@ import GreenButton from '../styledComponents/greenButton';
 import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
+    const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
+    const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
+    const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
+    const allergenList = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
+    const filterState = useSelector((state: ApplicationState) => state.filterState.filterData);
+
+    const categoryCards = DB.card.filter((card) => card.category.includes(category));
+    const subCatCards = subcategory
+        ? filterOnSubCategories(categoryCards, subcategory)
+        : categoryCards;
+    const sortedTimeCards = filterRecipesOnData();
+    const actualDB = category === 'the-juiciest' ? sortedTimeCards : subCatCards;
+    const allergenFiltered = filterAllergens(allergenList, actualDB);
+    const drawerFiltered = filterDrawerData(filterState);
+    const filtersApplied = hasActiveFilters(filterState);
+
+    const baseCards = filtersApplied
+        ? drawerFiltered
+        : allergensActive
+          ? allergenFiltered
+          : actualDB;
+    const displayedCards = allowSearch ? getSearchCards(searchQuery, baseCards) : baseCards;
+    const showFallback =
+        !displayedCards.length && !allowSearch && !filtersApplied && !allergensActive;
+
     const bottomSectionData = category === 'the-juiciest' ? 'vegan' : 'desserts';
 
-    const searchState = useSelector((state: ApplicationState) => state.searchState.search);
-    const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
-    const allergenState = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
-    const allergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
-
-    const searchArrs = getSearchCards(searchState, category, subcategory);
-    const categoryDb = DB.card.filter((e) => e.category.includes(category));
-    const allergenFilter = subcategory
-        ? filterAllergens(allergens, filterOnSubCategories(categoryDb, subcategory))
-        : filterAllergens(allergens, categoryDb);
-
-    const searchDb = subcategory ? filterOnSubCategories(categoryDb, subcategory) : categoryDb;
-    const sortedOnTimeRecipes = filterRecipesOnData();
-    const actualDB = category === 'the-juiciest' ? sortedOnTimeRecipes : searchDb;
-    const filterStateData = useSelector((state: ApplicationState) => state.filterState.filterData);
-    const filterData = filterDrawerData(filterStateData);
     return (
         <MainStyled as='main'>
             <VStack width={{ lg: '50%', base: '100%' }}>
@@ -52,20 +61,18 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                     {DB[category].description}
                 </Text>
             </VStack>
+
             <Search />
-            {hasActiveFilters(filterStateData) ? (
-                <BigCardsList data={filterData} />
-            ) : allergenState ? (
-                <BigCardsList data={allergenFilter} />
-            ) : allowSearch ? (
-                <BigCardsList data={searchArrs} />
-            ) : (
+
+            {showFallback ? (
                 <>
                     {category !== 'the-juiciest' && <AddTabList category={category} />}
                     <BigCardsList data={actualDB} maxElems={8} categoryTag={category} />
-                    {actualDB.length > 4 && <GreenButton text='Загрузить еще' />}
+                    {actualDB.length > 8 && <GreenButton text='Загрузить еще' />}
                     <BottomSection data={DB[bottomSectionData]} />
                 </>
+            ) : (
+                <BigCardsList data={displayedCards} />
             )}
 
             <Footer />
