@@ -63,10 +63,9 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
             </VStack>
 
             <Search />
-
+            {category !== 'the-juiciest' && <AddTabList category={category} />}
             {showFallback ? (
                 <>
-                    {category !== 'the-juiciest' && <AddTabList category={category} />}
                     <BigCardsList data={actualDB} maxElems={8} categoryTag={category} />
                     {actualDB.length > 8 && <GreenButton text='Загрузить еще' />}
                     <BottomSection data={DB[bottomSectionData]} />

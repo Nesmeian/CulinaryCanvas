@@ -138,7 +138,7 @@ export default function BigCardsList({ data, maxElems, categoryTag }: BigCardsLi
                                 </Button>
                                 <Button
                                     as={Link}
-                                    to={imgUrl}
+                                    to={id}
                                     fontSize={{ md: '15px', sm: '12px' }}
                                     className='card__btn-cook'
                                     size={{ lg: 'sm', sm: 'xs' }}

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router';
 
 import Categories from '~/components/categories';
 import Main from '~/components/Main';
@@ -18,21 +18,19 @@ const AppRoutes = () => {
     const juiciest = ['the-juiciest'];
     const juiciestRecipes: Record<string, string[]> = juiciest.reduce(
         (acum, e) => {
-            acum[e] = DB.card.map(({ imgUrl }) => imgUrl);
+            acum[e] = DB.card.map(({ id }) => id);
             return acum;
         },
         {} as Record<string, string[]>,
     );
     const recipes: Record<string, string[]> = categories.reduce(
         (acum, e) => {
-            acum[e] = DB.card
-                .filter(({ category }) => category.includes(e))
-                .map(({ imgUrl }) => imgUrl);
+            acum[e] = DB.card.filter(({ category }) => category.includes(e)).map(({ id }) => id);
             return acum;
         },
         {} as Record<string, string[]>,
     );
-    const mainRecipes = DB.card.map(({ imgUrl }) => imgUrl);
+    const mainRecipes = DB.card.map(({ id }) => id);
     return (
         <Routes>
             <Route path='/' element={<Main />} />
@@ -72,7 +70,7 @@ const AppRoutes = () => {
                 </Route>
             ))}
 
-            <Route path='*' element={<Navigate to='/' replace />} />
+            {/* <Route path='*' element={<Navigate to='/' replace />} /> */}
         </Routes>
     );
 };

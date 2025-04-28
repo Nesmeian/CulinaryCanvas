@@ -19,8 +19,8 @@ export default function translatePathSegment(segment: string) {
         {} as Record<string, string>,
     );
     const dishes = DB.card.reduce(
-        (acc, { imgUrl, title }) => {
-            acc[imgUrl] = title.length > 15 ? `${title.slice(0, 15)}...` : title;
+        (acc, { id, title }) => {
+            acc[id] = title;
             return acc;
         },
         {} as Record<string, string>,

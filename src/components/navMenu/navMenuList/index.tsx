@@ -31,6 +31,7 @@ export default function NavMenuList() {
     const [activeCategoryIndex, setCategoryActiveIndex] = useState<number | undefined>(
         categoryIndex !== -1 ? categoryIndex : undefined,
     );
+
     const dispatch = useDispatch();
     const cleanEffects = () => {
         dispatch(cleanAllergens());
@@ -98,6 +99,9 @@ export default function NavMenuList() {
 
                         return (
                             <AccordionPanel
+                                data-test-id={
+                                    isActive ? `${expectedPath}-active` : `${expectedPath}-${index}`
+                                }
                                 key={`${id}-${index}`}
                                 p={isActive ? '0 0 10px 46px' : '0 0 10px 52px'}
                                 _hover={{ bg: 'gray.50' }}

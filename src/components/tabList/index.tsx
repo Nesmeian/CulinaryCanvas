@@ -55,7 +55,7 @@ export default function AddTabList({ category }: { category: string }) {
                     },
                 }}
             >
-                {Object.entries(navList).map(([name, path]) => {
+                {Object.entries(navList).map(([name, path], index) => {
                     let toPath: string;
 
                     if (currentSub) {
@@ -69,6 +69,7 @@ export default function AddTabList({ category }: { category: string }) {
 
                     return (
                         <Tab
+                            data-test-id={`tab-${path}-${index}`}
                             key={name}
                             as={Link}
                             to={toPath}

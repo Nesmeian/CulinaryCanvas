@@ -25,14 +25,14 @@ export default function Header() {
             as='header'
             data-test-id='header'
             background={isOpen ? '#ffffff' : '#ffffd3'}
-            zIndex={isOpen ? 2000 : 0}
+            zIndex={isOpen ? 2000 : 40}
         >
             <Box className='header__img'>
                 <Image src={logo} alt='logo image' />
             </Box>
 
             <Box className='header__container-desktop header__container'>
-                <BreadCrumb />
+                <BreadCrumb isOpen />
                 <CardAvatar userData={userData} />
             </Box>
 

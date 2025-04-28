@@ -1,6 +1,7 @@
 import './style.css';
 
 import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { Link } from 'react-router';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -16,6 +17,7 @@ import Tags from '../../utils/addTags';
 export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
     const { isTablet } = useBreakpoints();
     const sortedOnTimeRecipes = filterRecipesOnData();
+    sortedOnTimeRecipes;
     return (
         <VStack
             align='flex-start'
@@ -47,58 +49,67 @@ export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
                 }}
             >
                 {sortedOnTimeRecipes.map(
-                    ({ id, imgUrl, title, description, category, bookmarks, likes }, i) => (
+                    (
+                        { id, imgUrl, title, description, category, subcategory, bookmarks, likes },
+                        i,
+                    ) => (
                         <SwiperSlide
                             key={id}
                             className='slider__item'
                             data-test-id={`carousel-card-${i}`}
                         >
-                            <Image
-                                height={{ lg: '230px', sm: '128px' }}
-                                src={sliderImgs[imgUrl as keyof typeof sliderImgs]}
-                                alt={title}
-                            />
-                            <VStack className='slider__item-content' align='flex-start' gap='6spx'>
+                            <VStack as={Link} to={`/${category[0]}/${subcategory[0]}/${i}`}>
+                                <Image
+                                    height={{ lg: '230px', sm: '128px' }}
+                                    src={sliderImgs[imgUrl as keyof typeof sliderImgs]}
+                                    alt={title}
+                                />
                                 <VStack
-                                    className='slider__text-group'
-                                    alignItems='flex-start'
-                                    gap='0px'
-                                    width='100%'
+                                    className='slider__item-content'
+                                    align='flex-start'
+                                    gap='6spx'
                                 >
-                                    <Heading
-                                        as='h4'
-                                        size='h4'
-                                        noOfLines={{ lg: 1, sm: 2 }}
-                                        sx={{
-                                            wordBreak: 'break-all',
-                                            overflowWrap: 'anywhere',
-                                        }}
-                                        className='slider__item-title'
+                                    <VStack
+                                        className='slider__text-group'
+                                        alignItems='flex-start'
+                                        gap='0px'
+                                        width='100%'
                                     >
-                                        {title}
-                                    </Heading>
-                                    {!isTablet && (
-                                        <Text
-                                            className='slider__content-description'
-                                            variant='sectionDescription'
+                                        <Heading
+                                            as='h4'
+                                            size='h4'
+                                            noOfLines={{ lg: 1, sm: 2 }}
+                                            sx={{
+                                                wordBreak: 'break-all',
+                                                overflowWrap: 'anywhere',
+                                            }}
+                                            className='slider__item-title'
                                         >
-                                            {description}
-                                        </Text>
-                                    )}
+                                            {title}
+                                        </Heading>
+                                        {!isTablet && (
+                                            <Text
+                                                className='slider__content-description'
+                                                variant='sectionDescription'
+                                            >
+                                                {description}
+                                            </Text>
+                                        )}
+                                    </VStack>
+                                    <HStack
+                                        className='slider__controls'
+                                        justify={{ lg: 'space-between', base: 'flex-start' }}
+                                        alignItems='flex-start'
+                                    >
+                                        <Tags
+                                            tag={category as TagKey[]}
+                                            withText={true}
+                                            color='#d7ff94'
+                                            size='16px'
+                                        />
+                                        <AddNotifications bookmarks={bookmarks} likes={likes} />
+                                    </HStack>
                                 </VStack>
-                                <HStack
-                                    className='slider__controls'
-                                    justify={{ lg: 'space-between', base: 'flex-start' }}
-                                    alignItems='flex-start'
-                                >
-                                    <Tags
-                                        tag={category as TagKey[]}
-                                        withText={true}
-                                        color='#d7ff94'
-                                        size='16px'
-                                    />
-                                    <AddNotifications bookmarks={bookmarks} likes={likes} />
-                                </HStack>
                             </VStack>
                         </SwiperSlide>
                     ),
