@@ -74,6 +74,7 @@ export default function FilterDrawer() {
     };
     return (
         <FormControl
+            data-test-id='filter-drawer'
             display='flex'
             flexDirection='column'
             height='100vh'
@@ -141,6 +142,7 @@ export default function FilterDrawer() {
                             borderColor: 'rgba(0, 0, 0, 0.6)',
                             transition: 'all 0.2s ease-in-out',
                         }}
+                        data-test-id='clear-filter-button'
                         onClick={() => {
                             cleanData();
                         }}
@@ -162,6 +164,7 @@ export default function FilterDrawer() {
                         onClick={() => {
                             collectData();
                         }}
+                        data-test-id='find-recipe-button'
                     >
                         Найти рецепт
                     </Button>

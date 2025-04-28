@@ -12,7 +12,6 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
-    Portal,
     Switch,
 } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -81,56 +80,49 @@ export default function AllergensControlsDrawer({
                 >
                     Выберите из списка аллергенов...
                 </MenuButton>
-                <Portal>
-                    <MenuList w={{ lg: '399px', base: '308px' }} zIndex={30}>
-                        {Object.entries(allergensMap).map(([key, value], i) => (
-                            <MenuItem
-                                key={key}
-                                background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
-                            >
-                                <Checkbox
-                                    width='100%'
-                                    borderColor='#b1ff2e'
-                                    isChecked={allergens.includes(value)}
-                                    onChange={() =>
-                                        setAllergens((prev) =>
-                                            prev.includes(value)
-                                                ? prev.filter((item) => item !== value)
-                                                : [...prev, value],
-                                        )
-                                    }
-                                    colorScheme='customgreen'
-                                    icon={
-                                        <CheckboxIcon
-                                            sx={{
-                                                color: 'black',
-                                            }}
-                                        />
-                                    }
-                                >
-                                    {key}
-                                </Checkbox>
-                            </MenuItem>
-                        ))}
-                        <HStack
-                            p='0 8px'
-                            mt='10px'
-                            alignItems='center'
-                            justifyContent='space-between'
+                <MenuList w={{ lg: '399px', base: '308px' }} zIndex={30}>
+                    {Object.entries(allergensMap).map(([key, value], i) => (
+                        <MenuItem
+                            key={key}
+                            background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
                         >
-                            <Input
-                                height='32px'
-                                width='90%'
-                                color='#134b00'
-                                value={inputState}
-                                placeholder='Другой аллерген'
-                                onChange={(e) => setInputState(e.target.value)}
-                                _placeholder={{ color: '#134b00' }}
-                            />
-                            <Image src={addIcon} />
-                        </HStack>
-                    </MenuList>
-                </Portal>
+                            <Checkbox
+                                width='100%'
+                                borderColor='#b1ff2e'
+                                isChecked={allergens.includes(value)}
+                                onChange={() =>
+                                    setAllergens((prev) =>
+                                        prev.includes(value)
+                                            ? prev.filter((item) => item !== value)
+                                            : [...prev, value],
+                                    )
+                                }
+                                colorScheme='customgreen'
+                                icon={
+                                    <CheckboxIcon
+                                        sx={{
+                                            color: 'black',
+                                        }}
+                                    />
+                                }
+                            >
+                                {key}
+                            </Checkbox>
+                        </MenuItem>
+                    ))}
+                    <HStack p='0 8px' mt='10px' alignItems='center' justifyContent='space-between'>
+                        <Input
+                            height='32px'
+                            width='90%'
+                            color='#134b00'
+                            value={inputState}
+                            placeholder='Другой аллерген'
+                            onChange={(e) => setInputState(e.target.value)}
+                            _placeholder={{ color: '#134b00' }}
+                        />
+                        <Image src={addIcon} />
+                    </HStack>
+                </MenuList>
             </Menu>
         </FormControl>
     );

@@ -34,17 +34,21 @@ export default function BigCardsList({ data, maxElems, categoryTag }: BigCardsLi
     return (
         <Grid className='card__list' gap={{ xl: '24px', md: '16px', sm: '11px' }}>
             {displayedData!.map(
-                ({
-                    id,
-                    imgUrl,
-                    title,
-                    description,
-                    category,
-                    bookmarks,
-                    likes,
-                    userRecommendation,
-                }) => (
+                (
+                    {
+                        id,
+                        imgUrl,
+                        title,
+                        description,
+                        category,
+                        bookmarks,
+                        likes,
+                        userRecommendation,
+                    },
+                    i,
+                ) => (
                     <HStack
+                        data-test-id={`food-card-${i}`}
                         key={id}
                         className='card__item'
                         position='relative'
@@ -140,6 +144,7 @@ export default function BigCardsList({ data, maxElems, categoryTag }: BigCardsLi
                                     size={{ lg: 'sm', sm: 'xs' }}
                                     background='black'
                                     color='white'
+                                    data-test-id={`card-link-${i}`}
                                 >
                                     Готовить
                                 </Button>

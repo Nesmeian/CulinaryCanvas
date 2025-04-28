@@ -1,12 +1,10 @@
 import { CloseIcon, SearchIcon } from '@chakra-ui/icons';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
-import { closeBurger } from '~/store/burgerSlice';
 import { ApplicationState } from '~/store/configure-store';
-import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 
 export default function InputSearch() {
@@ -14,23 +12,13 @@ export default function InputSearch() {
     const searchState = useSelector((state: ApplicationState) => state.searchState.search);
 
     const [search, setSearch] = useState(searchState);
-
-    useEffect(() => {
-        setSearch(searchState);
-    }, [searchState]);
-
-    const isBlocked = search.trim().length < 3;
+    const [allowSearchInput, setAllowSearchInput] = useState(false);
 
     const handleSearch = () => {
-        if (!isBlocked) {
-            dispatch(setAllowSearch(true));
-            dispatch(setSearchState(search.trim()));
-            dispatch(cleanAllergens());
-            dispatch(closeBurger());
-            dispatch(stopAllergens());
-            dispatch(closeFilter());
-            dispatch(cleanFilterData());
-        }
+        dispatch(setAllowSearch(true));
+        dispatch(setSearchState(search.trim()));
+        dispatch(cleanAllergens());
+        dispatch(stopAllergens());
     };
 
     const blockSearch = () => {
@@ -55,12 +43,15 @@ export default function InputSearch() {
                 value={search}
                 onChange={(e) => {
                     setSearch(e.target.value);
+                    if (e.target.value.length >= 3) {
+                        setAllowSearchInput(true);
+                    }
                 }}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 className='search__input'
             />
             <InputRightElement boxSize={{ sm: '32px', lg: '48px' }} gap='10px' pr='20px'>
-                {!isBlocked && (
+                {allowSearchInput && (
                     <CloseIcon
                         boxSize={{ sm: '10px', lg: '10px' }}
                         color='blue'
@@ -70,9 +61,9 @@ export default function InputSearch() {
                 <SearchIcon
                     data-test-id='search-button'
                     boxSize={{ sm: '14px', lg: '18px' }}
-                    color={isBlocked ? 'gray.300' : 'gray.600'}
+                    color={allowSearchInput ? 'gray.600' : 'gray.300'}
+                    pointerEvents={allowSearchInput ? 'auto' : 'none'}
                     onClick={handleSearch}
-                    cursor={isBlocked ? 'not-allowed' : 'pointer'}
                 />
             </InputRightElement>
         </InputGroup>

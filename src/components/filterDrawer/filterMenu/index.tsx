@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Button, Menu, MenuButton, MenuItem, MenuList, Portal } from '@chakra-ui/react';
+import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
 export default function FilterCategories({
     name,
@@ -13,6 +13,7 @@ export default function FilterCategories({
     return (
         <Menu>
             <MenuButton
+                data-test-id='filter-menu-button-категория'
                 height='40px'
                 width='100%'
                 textAlign='left'
@@ -33,20 +34,18 @@ export default function FilterCategories({
             >
                 {name}
             </MenuButton>
-            <Portal>
-                <MenuList width='100%' zIndex={30}>
-                    {list.map((e) => (
-                        <MenuItem
-                            key={e}
-                            width={{ lg: '400px', base: '308px' }}
-                            zIndex={30}
-                            onClick={() => onClick(e)}
-                        >
-                            {e}
-                        </MenuItem>
-                    ))}
-                </MenuList>
-            </Portal>
+            <MenuList width='100%' zIndex={30}>
+                {list.map((e) => (
+                    <MenuItem
+                        key={e}
+                        width={{ lg: '400px', base: '308px' }}
+                        zIndex={30}
+                        onClick={() => onClick(e)}
+                    >
+                        {e}
+                    </MenuItem>
+                ))}
+            </MenuList>
         </Menu>
     );
 }

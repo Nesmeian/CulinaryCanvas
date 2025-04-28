@@ -32,8 +32,8 @@ export default function StepperInput({
                 }}
             />
             <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
+                <NumberIncrementStepper data-test-id='increment-stepper' />
+                <NumberDecrementStepper data-test-id='decrement-stepper' />
             </NumberInputStepper>
         </NumberInput>
     );
