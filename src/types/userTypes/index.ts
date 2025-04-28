@@ -14,8 +14,8 @@ export interface FilterData {
     allergens: string[];
     sideDish: string[];
     meat: string[];
-    category: string;
-    auth: string;
+    category: string[];
+    auth: string[];
 }
 export type FilterState = {
     isOpen: boolean;
