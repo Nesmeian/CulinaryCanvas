@@ -11,6 +11,7 @@ import AddTags from '../../../utils/addTags';
 export default function BottomSection({ data }: BottomSectionProps) {
     return (
         <VStack
+            mt='auto'
             as='section'
             className='bottom-section'
             alignSelf='flex-start'

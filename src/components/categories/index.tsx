@@ -68,12 +68,12 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                 <>
                     <BigCardsList data={actualDB} maxElems={8} categoryTag={category} />
                     {actualDB.length > 8 && <GreenButton text='Загрузить еще' />}
-                    <BottomSection data={DB[bottomSectionData]} />
                 </>
             ) : (
                 <BigCardsList data={displayedCards} />
             )}
 
+            <BottomSection data={DB[bottomSectionData]} />
             <Footer />
         </MainStyled>
     );
