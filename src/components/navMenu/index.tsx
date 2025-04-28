@@ -18,7 +18,7 @@ export default function NavMenu({ isDrawer }: { isDrawer?: boolean }) {
             className='navMenu'
             alignItems='flex-start'
             justify='space-between'
-            width='256px'
+            width={{ lg: '256px', base: '100%' }}
             boxShadow={!isDrawer ? '1px 3px 0 rgba(0, 0, 0, 0.12)' : 'none'}
             borderRadius='12px'
         >
