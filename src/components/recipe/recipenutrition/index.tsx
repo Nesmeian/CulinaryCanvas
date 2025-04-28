@@ -35,12 +35,16 @@ export default function RecipeNutritionValue({ data }: { data: NutritionValueDat
                             key={name}
                             flexDirection={{ md: 'column', base: 'row' }}
                             p={{ md: '16px', base: '12px 12px' }}
-                            border='1px solid black'
+                            border='1px solid rgba(0, 0, 0, 0.08)'
                             borderRadius='16px'
                             width={{ xl: '149px', lg: '135.5px', md: '173px', base: '100%' }}
                             gap='4px'
                         >
-                            <Text fontSize='14px' width={{ md: 'auto', base: '117.5px' }}>
+                            <Text
+                                fontSize='14px'
+                                width={{ md: 'auto', base: '117.5px' }}
+                                color='rgba(0, 0, 0, 0.48)'
+                            >
                                 {rusTranslateOfNutrion[name]}
                             </Text>
                             <Text

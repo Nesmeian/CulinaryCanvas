@@ -22,7 +22,8 @@ const theme = extendTheme({
         },
     },
     fonts: {
-        body: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
+        heading: 'Inter, sans-serif',
+        body: 'Inter, sans-serif',
     },
     components: {
         Text: {
