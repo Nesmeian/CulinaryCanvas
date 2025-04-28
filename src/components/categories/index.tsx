@@ -19,7 +19,7 @@ import GreenButton from '../styledComponents/greenButton';
 import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
-    const bottomSectionData = category === 'juiciest' ? 'vegan' : 'desserts';
+    const bottomSectionData = category === 'the-juiciest' ? 'vegan' : 'desserts';
 
     const searchState = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
@@ -34,7 +34,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
 
     const searchDb = subcategory ? filterOnSubCategories(categoryDb, subcategory) : categoryDb;
     const sortedOnTimeRecipes = filterRecipesOnData();
-    const actualDB = category === 'juiciest' ? sortedOnTimeRecipes : searchDb;
+    const actualDB = category === 'the-juiciest' ? sortedOnTimeRecipes : searchDb;
     const filterStateData = useSelector((state: ApplicationState) => state.filterState.filterData);
     const filterData = filterDrawerData(filterStateData);
     return (
@@ -61,7 +61,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                 <BigCardsList data={searchArrs} />
             ) : (
                 <>
-                    {category !== 'juiciest' && <AddTabList category={category} />}
+                    {category !== 'the-juiciest' && <AddTabList category={category} />}
                     <BigCardsList data={actualDB} maxElems={8} categoryTag={category} />
                     {actualDB.length > 4 && <GreenButton text='Загрузить еще' />}
                     <BottomSection data={DB[bottomSectionData]} />

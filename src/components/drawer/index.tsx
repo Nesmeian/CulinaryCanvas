@@ -1,38 +1,27 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { Drawer as ChakraDrawer, DrawerBody, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
 import { JSX } from 'react';
 
-export default function Drawer({
-    state,
-    element,
-    isFilter,
-}: {
-    state: boolean;
+type DrawerProps = {
+    isOpen: boolean;
+    onClose: () => void;
     element: JSX.Element;
     isFilter?: boolean;
-}) {
+};
+
+export default function Drawer({ isOpen, onClose, element, isFilter = false }: DrawerProps) {
     return (
-        <AnimatePresence>
-            {state && (
-                <motion.div
-                    key='menu'
-                    style={{
-                        zIndex: '20',
-                        borderRadius: ' 0 0 12px 12px',
-                        position: 'fixed',
-                        right: isFilter ? '0' : '12px',
-                        top: isFilter ? '0px' : '80px',
-                        background: 'white',
-                        boxShadow: '-2px 0 15px rgba(0,0,0,0.1)',
-                    }}
-                    initial={{ x: '100%' }}
-                    animate={{ x: '0' }}
-                    exit={{ x: '100%' }}
-                    transition={{ duration: 0.5 }}
-                    className='menu-overlay'
-                >
-                    {element}
-                </motion.div>
-            )}
-        </AnimatePresence>
+        <ChakraDrawer isOpen={isOpen} placement='right' onClose={onClose} closeOnOverlayClick>
+            <DrawerOverlay backdropFilter='blur(4px)' bg='blackAlpha.200' />
+            <DrawerContent
+                borderRadius='12px'
+                mt={isFilter ? 0 : '60px'}
+                mb={isFilter ? 0 : '80px'}
+                mr='8px'
+                boxShadow='-2px 0 15px rgba(0,0,0,0.1)'
+                bg='white'
+            >
+                <DrawerBody p={0}>{element}</DrawerBody>
+            </DrawerContent>
+        </ChakraDrawer>
     );
 }

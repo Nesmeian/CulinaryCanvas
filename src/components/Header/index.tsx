@@ -1,6 +1,6 @@
 import './style.css';
 
-import { Box, HStack, Image } from '@chakra-ui/react';
+import { Box, HStack, Image, useDisclosure } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 
@@ -16,16 +16,16 @@ import Burger from './burger';
 
 export default function Header() {
     const userData = useSelector((state: ApplicationState) => state.userData);
-    const burgerState = useSelector((state: ApplicationState) => state.burgerState.isOpen);
     const { isMobile } = useBreakpoints();
     const logo = isMobile ? logoUrl.mobileLogo : logoUrl.logo;
-
+    const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <HStack
             className='header'
             as='header'
             data-test-id='header'
-            background={burgerState ? '#ffffff' : '#ffffd3'}
+            background={isOpen ? '#ffffff' : '#ffffd3'}
+            zIndex={2000}
         >
             <Box className='header__img'>
                 <Image src={logo} alt='logo image' />
@@ -41,7 +41,7 @@ export default function Header() {
                 gap={{ sm: '15', md: '22px' }}
             >
                 <AnimatePresence>
-                    {!burgerState && (
+                    {!isOpen && (
                         <motion.div
                             key='notifications'
                             initial={{ opacity: 0 }}
@@ -53,10 +53,10 @@ export default function Header() {
                         </motion.div>
                     )}
                 </AnimatePresence>
-                <Burger />
+                <Burger onClick={onOpen} isOpen={isOpen} onClose={onClose} />
             </Box>
 
-            <Drawer state={burgerState} element={<NavMenu isDrawer />} />
+            <Drawer isOpen={isOpen} onClose={onClose} element={<NavMenu isDrawer />} />
         </HStack>
     );
 }

@@ -51,21 +51,6 @@ export interface CategoryData extends BaseData {
     };
 }
 
-export type Category =
-    | 'salads'
-    | 'snacks'
-    | 'firstCourses'
-    | 'second-dish'
-    | 'desserts'
-    | 'grilledDishes'
-    | 'vegan'
-    | 'childrenMeals'
-    | 'therapeuticNutrition'
-    | 'national'
-    | 'drinks'
-    | 'preserves'
-    | 'sauces'
-    | 'juiciest';
 export interface BottomSectionProps {
     data: CategoryData;
 }
@@ -80,7 +65,7 @@ export interface BigCardsListProps {
     categoryTag?: string;
 }
 export interface DBProps {
-    juiciest: {
+    'the-juiciest': {
         title: string;
         elems: {
             card: CardItem[];
