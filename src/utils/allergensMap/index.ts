@@ -8,6 +8,9 @@ export const allergensMap: Record<string, string> = {
     Цитрусовые: 'Citrus',
     'Клубника (ягоды)': 'Strawberry (berries)',
     Шоколад: 'Chocolate',
+};
+
+export const otherTags: Record<string, string> = {
     Курица: 'Chicken',
     Свинина: 'Pork',
     Говядина: 'Beef',
@@ -23,6 +26,11 @@ export const allergensMap: Record<string, string> = {
     'Другие овощи': 'Other vegetables',
 };
 
+export const tagsMap: Record<string, string> = {
+    ...allergensMap,
+    ...otherTags,
+};
+
 export const invertedAllergens = Object.fromEntries(
-    Object.entries(allergensMap).map(([rus, eng]) => [eng, rus]),
+    Object.entries(tagsMap).map(([rus, eng]) => [eng, rus]),
 );
