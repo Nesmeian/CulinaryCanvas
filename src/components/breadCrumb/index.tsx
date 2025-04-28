@@ -4,7 +4,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/rea
 import translatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
-export default function BreadCrumb() {
+export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
     const pathSegments = GetCurrentPath();
 
     const generatePath = (index: number) => '/' + pathSegments.slice(0, index + 1).join('/');
@@ -14,7 +14,7 @@ export default function BreadCrumb() {
             alignSelf='baseline'
             separator={<ChevronRightIcon color='gray.500' />}
             fontSize='md'
-            data-test-id='breadcrumbs'
+            data-test-id={isOpen ? '' : 'breadcrumbs'}
             color='gray.500'
             sx={{
                 '& > .chakra-breadcrumb__list': {
