@@ -15,7 +15,7 @@ const AppRoutes = () => {
         },
         {} as Record<string, string[]>,
     );
-    const juiciest = ['juiciest'];
+    const juiciest = ['the-juiciest'];
     const juiciestRecipes: Record<string, string[]> = juiciest.reduce(
         (acum, e) => {
             acum[e] = DB.card.map(({ imgUrl }) => imgUrl);

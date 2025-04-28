@@ -1,23 +1,28 @@
 import './style.css';
 
 import { Box, VStack } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { toggleBurgerState } from '~/store/burgerSlice';
-import { ApplicationState } from '~/store/configure-store';
-
-export default function Burger() {
-    const burgerState = useSelector((state: ApplicationState) => state.burgerState.isOpen);
-    const dispatch = useDispatch();
+export default function Burger({
+    onClick,
+    isOpen,
+    onClose,
+}: {
+    isOpen: boolean;
+    onClick: () => void;
+    onClose: () => void;
+}) {
     return (
         <VStack
-            className={`burger ${burgerState ? 'active' : ''}`}
+            className={`burger ${isOpen ? 'active' : ''}`}
             justify='center'
             gap='3px'
             onClick={() => {
-                dispatch(toggleBurgerState());
+                onClick();
+                if (isOpen) {
+                    onClose();
+                }
             }}
-            data-test-id={burgerState ? 'close-icon' : 'hamburger-icon'}
+            data-test-id={isOpen ? 'close-icon' : 'hamburger-icon'}
         >
             <Box className='burger__first-line' />
             <Box className='burger__second-line' />

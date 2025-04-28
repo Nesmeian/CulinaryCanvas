@@ -23,7 +23,7 @@ export default function Juiciest() {
                 </Heading>
                 <Link
                     as={RouterLink}
-                    to='juiciest'
+                    to='the-juiciest'
                     display={{ md: 'none', lg: 'block' }}
                     data-test-id='juiciest-link'
                 >
@@ -35,7 +35,7 @@ export default function Juiciest() {
 
             <Link
                 as={RouterLink}
-                to='juiciest'
+                to='the-juiciest'
                 display={{ sm: 'flex', lg: 'none' }}
                 alignSelf='center'
                 data-test-id='juiciest-link-mobile'

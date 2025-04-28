@@ -25,7 +25,7 @@ export default function translatePathSegment(segment: string) {
         },
         {} as Record<string, string>,
     );
-    const juiciest = { juiciest: 'Самое сочное' } as Record<string, string>;
+    const juiciest = { 'the-juiciest': 'Самое сочное' } as Record<string, string>;
     const mergedTranslations = { ...subcategories, ...categories, ...dishes, ...juiciest };
 
     return mergedTranslations[segment] || segment;

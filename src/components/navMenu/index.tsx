@@ -20,6 +20,7 @@ export default function NavMenu({ isDrawer }: { isDrawer?: boolean }) {
             justify='space-between'
             width='256px'
             boxShadow={!isDrawer ? '1px 3px 0 rgba(0, 0, 0, 0.12)' : 'none'}
+            borderRadius='12px'
         >
             <StyledNav>
                 {isTablet && <BreadCrumb />}
