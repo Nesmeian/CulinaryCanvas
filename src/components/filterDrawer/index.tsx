@@ -17,17 +17,16 @@ export default function FilterDrawer() {
     const [allowAllergens, setAllowAllergens] = useState(false);
     const [allergens, setAllergens] = useState<string[]>([]);
     const categories = DB.navMenu.categories.map(({ name }) => name);
-    const [category, setCategory] = useState<string>('Категория');
-    const [auth, setAuth] = useState<string>('Поиск по автору');
+    const [category, setCategory] = useState<string[]>([]);
+    const [auth, setAuth] = useState<string[]>([]);
     const [sideDish, setSideDish] = useState<string[]>([]);
     const [meat, setMeat] = useState<string[]>([]);
     const filterData = useSelector((state: ApplicationState) => state.filterState.filterData);
     const authCategory = [...new Set(DB.card.map(({ author }) => author.name))];
     const hasSelectedFilters = useMemo(() => {
-        const textFilters = category !== 'Категория' || auth !== 'Поиск по автору';
-        const arrayFilters = sideDish.length > 0 || meat.length > 0;
+        const arrayFilters = sideDish.length > 0 || meat.length > 0 || category.length > 0;
         const allergenFilter = allowAllergens && allergens.length > 0;
-        return textFilters || arrayFilters || allergenFilter;
+        return arrayFilters || allergenFilter;
     }, [category, auth, sideDish, meat, allowAllergens, allergens]);
     const meatType: Record<string, string> = {
         Курица: 'Chicken',
@@ -67,8 +66,8 @@ export default function FilterDrawer() {
             setAllergens([]);
             setSideDish([]);
             setMeat([]);
-            setCategory('Категория');
-            setAuth('Поиск по автору');
+            setCategory([]);
+            setAuth([]);
             dispatch(cleanFilterData());
         }
     };
@@ -94,8 +93,18 @@ export default function FilterDrawer() {
                 />
             </HStack>
             <VStack width='100%' position='relative' gap='24px'>
-                <FilterCategories name={category} list={categories} onClick={setCategory} />
-                <FilterCategories name={auth} list={authCategory} onClick={setAuth} />
+                <FilterCategories
+                    selectedItems={category}
+                    name='категория'
+                    list={categories}
+                    onChange={setCategory}
+                />
+                <FilterCategories
+                    selectedItems={auth}
+                    name='поиск по автору'
+                    list={authCategory}
+                    onChange={setAuth}
+                />
             </VStack>
             <FilterType list={meatType} name='Тип Мяса' onChange={setMeat} selectedItems={meat} />
             <FilterType
@@ -164,6 +173,7 @@ export default function FilterDrawer() {
                         onClick={() => {
                             collectData();
                         }}
+                        pointerEvents={hasSelectedFilters ? 'auto' : 'none'}
                         data-test-id='find-recipe-button'
                     >
                         Найти рецепт

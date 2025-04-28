@@ -16,14 +16,13 @@ export default function filterDrawerData(data: FilterData) {
             }
         }
 
-        if (getData.auth) {
-            if (card.author.name !== getData.auth) {
+        if (getData.auth && getData.auth.length > 0) {
+            if (!getData.auth.includes(card.author.name)) {
                 return false;
             }
         }
-
-        if (getData.category) {
-            if (!card.category.includes(getData.category)) {
+        if (getData.category && getData.category.length > 0) {
+            if (!card.category.some((cat) => getData.category?.includes(cat))) {
                 return false;
             }
         }

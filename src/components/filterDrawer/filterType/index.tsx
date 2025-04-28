@@ -19,6 +19,7 @@ export default function FilterType<K extends string>({
             <VStack alignItems='flex-start'>
                 {(Object.entries(list) as [K, string][]).map(([rus, eng]) => (
                     <Checkbox
+                        data-test-id={`checkbox-${rus}`}
                         key={rus}
                         borderColor='#D7FF94'
                         colorScheme='customgreen'

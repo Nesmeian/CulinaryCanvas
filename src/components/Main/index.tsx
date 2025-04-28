@@ -27,6 +27,7 @@ export default function Main() {
     const searchArrs = getSearchCards(searchState);
     const filteredAllergens = filterAllergens(allergens, DB.card);
     const filterData = filterDrawerData(filterState);
+    console.log(filterState);
     return (
         <MainStyled as='main'>
             <Heading as='h1' size='h1' className='title'>

@@ -43,6 +43,7 @@ export default function AllergensControlsDrawer({
                     Исключить аллергены
                 </FormLabel>
                 <Switch
+                    data-test-id='allergens-switcher-filter'
                     onChange={() => toggleAllowAllergens()}
                     sx={{
                         'span.chakra-switch__track': {
@@ -60,6 +61,7 @@ export default function AllergensControlsDrawer({
             </HStack>
             <Menu closeOnSelect={false}>
                 <MenuButton
+                    data-test-id='allergens-menu-button-filter'
                     w={{ lg: '399px', base: '308px' }}
                     background='white'
                     border='1px solid rgba(0, 0, 0, 0.08)'
@@ -87,6 +89,7 @@ export default function AllergensControlsDrawer({
                             background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
                         >
                             <Checkbox
+                                data-test-id={`allergen-${i}`}
                                 width='100%'
                                 borderColor='#b1ff2e'
                                 isChecked={allergens.includes(value)}
@@ -119,8 +122,9 @@ export default function AllergensControlsDrawer({
                             placeholder='Другой аллерген'
                             onChange={(e) => setInputState(e.target.value)}
                             _placeholder={{ color: '#134b00' }}
+                            data-test-id='add-other-allergen'
                         />
-                        <Image src={addIcon} />
+                        <Image src={addIcon} data-test-id='add-allergen-button' />
                     </HStack>
                 </MenuList>
             </Menu>

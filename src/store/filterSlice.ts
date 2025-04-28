@@ -8,8 +8,8 @@ const initialState: FilterState = {
         allergens: [],
         sideDish: [],
         meat: [],
-        category: '',
-        auth: '',
+        category: [],
+        auth: [],
     },
 };
 export const filterSlice = createSlice({
@@ -30,8 +30,8 @@ export const filterSlice = createSlice({
                 allergens: [],
                 sideDish: [],
                 meat: [],
-                category: '',
-                auth: '',
+                category: [],
+                auth: [],
             };
         },
     },
