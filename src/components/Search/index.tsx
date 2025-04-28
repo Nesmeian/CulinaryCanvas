@@ -1,7 +1,4 @@
-import { HStack, VStack } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
-
-import { ApplicationState } from '~/store/configure-store';
+import { HStack, useDisclosure, VStack } from '@chakra-ui/react';
 
 import useBreakpoints from '../../themes/chakraBreakPoints';
 import Drawer from '../drawer';
@@ -12,15 +9,15 @@ import InputSearch from './searchInput';
 
 export default function Search() {
     const { isTablet } = useBreakpoints();
-    const filterState = useSelector((state: ApplicationState) => state.filterState.isOpen);
+    const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <VStack className='search' gap='15px'>
             <HStack gap='10px' justify='center' align='center'>
-                <FilterButton />
+                <FilterButton onOpen={onOpen} isOpen={isOpen} onClose={onClose} />
                 <InputSearch />
             </HStack>
             {!isTablet && <AllergensControls />}
-            <Drawer state={filterState} isFilter element={<FilterDrawer />} />
+            <Drawer isOpen={isOpen} onClose={onClose} isFilter element={<FilterDrawer />} />
         </VStack>
     );
 }

@@ -4,10 +4,16 @@ import { Box, VStack } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
-import { closeBurger } from '~/store/burgerSlice';
-import { toggleFilterState } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
-export default function FilterButton() {
+export default function FilterButton({
+    onOpen,
+    isOpen,
+    onClose,
+}: {
+    onOpen: () => void;
+    isOpen: boolean;
+    onClose: () => void;
+}) {
     const dispatch = useDispatch();
 
     return (
@@ -15,9 +21,12 @@ export default function FilterButton() {
             className='unknown-block'
             justify='center'
             gap='2.4px'
+            data-test-id='filter-button'
             onClick={() => {
-                dispatch(toggleFilterState());
-                dispatch(closeBurger());
+                onOpen();
+                if (isOpen) {
+                    onClose();
+                }
                 dispatch(cleanAllergens());
                 dispatch(stopAllergens());
                 dispatch(setSearchState(''));

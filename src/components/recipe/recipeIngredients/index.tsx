@@ -39,7 +39,9 @@ export default function RecipeIngredients({ data, recipePortions }: IngredientsD
                     <Text fontSize='14px' fontWeight='500'>
                         {title}
                     </Text>
-                    <Text fontSize='14px'>{`${Number(count) * portions} ${measureUnit}`}</Text>
+                    <Text fontSize='14px' data-test-id={`ingredient-quantity-${i}`}>
+                        {`${Math.round(Number(count) * portions)} ${measureUnit}`}
+                    </Text>
                 </HStack>
             ))}
         </VStack>
