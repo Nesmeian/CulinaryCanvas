@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ApplicationState } from '~/store/configure-store';
-import { addFilterData, cleanFilterData, toggleFilterState } from '~/store/filterSlice';
+import { addFilterData, cleanFilterData } from '~/store/filterSlice';
 import { invertedAllergens } from '~/utils/allergensMap';
 
 import closeSvg from '../../assets/closeSvg.svg';
@@ -12,7 +12,7 @@ import DB from '../../data/db.json';
 import AllergensControlsDrawer from './allergensControls';
 import FilterCategories from './filterMenu';
 import FilterType from './filterType';
-export default function FilterDrawer() {
+export default function FilterDrawer({ onClose }: { onClose: () => void }) {
     const dispatch = useDispatch();
     const [allowAllergens, setAllowAllergens] = useState(false);
     const [allergens, setAllergens] = useState<string[]>([]);
@@ -28,6 +28,7 @@ export default function FilterDrawer() {
         const allergenFilter = allowAllergens && allergens.length > 0;
         return arrayFilters || allergenFilter;
     }, [category, auth, sideDish, meat, allowAllergens, allergens]);
+    const tags = [...allergens, ...meat, ...sideDish, ...category, ...auth];
     const meatType: Record<string, string> = {
         Курица: 'Chicken',
         Свинина: 'Pork',
@@ -89,19 +90,20 @@ export default function FilterDrawer() {
                 <Image
                     src={closeSvg}
                     alt='close Svg'
-                    onClick={() => dispatch(toggleFilterState())}
+                    data-test-id='close-filter-drawer'
+                    onClick={() => onClose()}
                 />
             </HStack>
             <VStack width='100%' position='relative' gap='24px'>
                 <FilterCategories
                     selectedItems={category}
-                    name='категория'
+                    name='Категория'
                     list={categories}
                     onChange={setCategory}
                 />
                 <FilterCategories
                     selectedItems={auth}
-                    name='поиск по автору'
+                    name='Поиск по автору'
                     list={authCategory}
                     onChange={setAuth}
                 />
@@ -121,7 +123,7 @@ export default function FilterDrawer() {
 
             <VStack marginTop='auto' alignSelf='flex-end' gap='32px' width='100%'>
                 <HStack alignItems='flex-start' w='100%' flexWrap='wrap'>
-                    {allergens.map((e) => (
+                    {tags.map((e) => (
                         <HStack
                             key={e}
                             border='1px solid #b1ff2e'
@@ -129,6 +131,7 @@ export default function FilterDrawer() {
                             background='#EAFFC7'
                             borderRadius='6px'
                             gap='8px'
+                            data-test-id='filter-tag'
                         >
                             <Text fontSize='14px' color='#207e00' fontWeight='500'>
                                 {invertedAllergens[e] || e}
@@ -172,6 +175,7 @@ export default function FilterDrawer() {
                         }}
                         onClick={() => {
                             collectData();
+                            onClose();
                         }}
                         pointerEvents={hasSelectedFilters ? 'auto' : 'none'}
                         data-test-id='find-recipe-button'

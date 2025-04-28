@@ -19,34 +19,37 @@ import Juiciest from '../sections/Juiciest';
 import Slider from '../slider';
 import MainStyled from '../styledComponents/Main';
 export default function Main() {
-    const allergensState = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
-    const searchState = useSelector((state: ApplicationState) => state.searchState.search);
+    const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
+    const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
-    const allergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
+    const allergenList = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
     const filterState = useSelector((state: ApplicationState) => state.filterState.filterData);
-    const searchArrs = getSearchCards(searchState);
-    const filteredAllergens = filterAllergens(allergens, DB.card);
+
+    const allCards = DB.card;
+    const filteredAllergens = filterAllergens(allergenList, allCards);
     const filterData = filterDrawerData(filterState);
-    console.log(filterState);
+    const filtersApplied = hasActiveFilters(filterState);
+    const baseCards = filtersApplied ? filterData : allergensActive ? filteredAllergens : allCards;
+    const displayedCards = allowSearch ? getSearchCards(searchQuery, baseCards) : baseCards;
+    const showFallback = !allowSearch && !filtersApplied && !allergensActive;
+
     return (
         <MainStyled as='main'>
             <Heading as='h1' size='h1' className='title'>
                 Приятного аппетита!
             </Heading>
+
             <Search />
-            {hasActiveFilters(filterState) ? (
-                <BigCardsList data={filterData} />
-            ) : allergensState ? (
-                <BigCardsList data={filteredAllergens} />
-            ) : allowSearch ? (
-                <BigCardsList data={searchArrs} />
-            ) : (
+
+            {showFallback ? (
                 <>
                     <Slider />
                     <Juiciest />
                     <CulinaryBlogs />
                     <BottomSection data={DB.vegan} />
                 </>
+            ) : (
+                <BigCardsList data={displayedCards} />
             )}
 
             <Footer />

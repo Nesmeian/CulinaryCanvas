@@ -17,7 +17,12 @@ export default function Search() {
                 <InputSearch />
             </HStack>
             {!isTablet && <AllergensControls />}
-            <Drawer isOpen={isOpen} onClose={onClose} isFilter element={<FilterDrawer />} />
+            <Drawer
+                isOpen={isOpen}
+                onClose={onClose}
+                isFilter
+                element={<FilterDrawer onClose={onClose} />}
+            />
         </VStack>
     );
 }

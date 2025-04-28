@@ -8,7 +8,21 @@ export const allergensMap: Record<string, string> = {
     Цитрусовые: 'Citrus',
     'Клубника (ягоды)': 'Strawberry (berries)',
     Шоколад: 'Chocolate',
+    Курица: 'Chicken',
+    Свинина: 'Pork',
+    Говядина: 'Beef',
+    Индейка: 'Turkey',
+    Утка: 'Duck',
+    Картошка: 'Potato',
+    Гречка: 'Buckwheat',
+    Паста: 'Pasta',
+    Спагетти: 'Spaghetti',
+    Рис: 'Rice',
+    Капуста: 'Cabbage',
+    Фасоль: 'Beans',
+    'Другие овощи': 'Other vegetables',
 };
+
 export const invertedAllergens = Object.fromEntries(
     Object.entries(allergensMap).map(([rus, eng]) => [eng, rus]),
 );
