@@ -11,7 +11,11 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
+
+import { ApplicationState } from '~/store/configure-store';
+import { renderColoredHeading } from '~/utils/coloriseText';
 
 import * as imgObj from '../../assets/recipeImages/index';
 import * as socialIcons from '../../assets/socialIcons/index';
@@ -24,7 +28,7 @@ import AddTags from '../../utils/addTags/index';
 export default function BigCardsList({ data, maxElems, categoryTag }: BigCardsListProps) {
     const { isTablet } = useBreakpoints();
     const displayedData = maxElems ? data?.slice(0, maxElems) : data;
-
+    const searcStr = useSelector((store: ApplicationState) => store.searchState.search).length;
     return (
         <Grid className='card__list' gap={{ xl: '24px', md: '16px', sm: '11px' }}>
             {displayedData!.map(
@@ -89,7 +93,7 @@ export default function BigCardsList({ data, maxElems, categoryTag }: BigCardsLi
                                         size='h4'
                                         mt='-2px'
                                     >
-                                        {title}
+                                        {renderColoredHeading(title, searcStr)}
                                     </Heading>
                                 )}
                             </Stack>

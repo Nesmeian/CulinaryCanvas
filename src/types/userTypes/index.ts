@@ -28,4 +28,5 @@ export type AllergensState = {
 export type SearchState = {
     allowSearch: boolean;
     search: string;
+    findElems: 'common' | 'find' | 'not found';
 };

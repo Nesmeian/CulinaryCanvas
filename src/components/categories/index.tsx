@@ -1,7 +1,9 @@
 import { Heading, Text, VStack } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ApplicationState } from '~/store/configure-store';
+import { setFindState } from '~/store/searchSlice';
 import filterAllergens from '~/utils/filterAllergens';
 import filterDrawerData from '~/utils/filterDrawerData';
 import filterRecipesOnData from '~/utils/filterOnData';
@@ -19,6 +21,7 @@ import GreenButton from '../styledComponents/greenButton';
 import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
+    const dispatch = useDispatch();
     const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
@@ -45,7 +48,13 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
         !displayedCards.length && !allowSearch && !filtersApplied && !allergensActive;
 
     const bottomSectionData = category === 'the-juiciest' ? 'vegan' : 'desserts';
-
+    useEffect(() => {
+        if (!allowSearch) {
+            dispatch(setFindState('common'));
+        } else {
+            dispatch(setFindState(displayedCards.length > 0 ? 'find' : 'not found'));
+        }
+    }, [allowSearch, displayedCards, dispatch]);
     return (
         <MainStyled as='main'>
             <VStack width={{ lg: '50%', base: '100%' }}>
