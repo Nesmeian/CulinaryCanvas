@@ -15,10 +15,11 @@ export default function FilterCategories({
     onChange: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
     const handleCheckboxChange = (value: string) => {
-        onChange((prev) =>
-            prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value],
-        );
+        onChange((prev) => (prev.includes(value) ? [] : [value]));
     };
+
+    const activeTitle = selectedItems.length === 1 ? selectedItems[0] : name;
+
     return (
         <Menu closeOnSelect={false}>
             <MenuButton
@@ -41,7 +42,7 @@ export default function FilterCategories({
                 }}
                 _hover={{ background: 'white' }}
             >
-                {name}
+                {activeTitle}
             </MenuButton>
             <MenuList width='100%' zIndex={30}>
                 {list.map((e) => (
