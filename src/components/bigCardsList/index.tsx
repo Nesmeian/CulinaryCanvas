@@ -11,9 +11,13 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router';
 
-import * as juiciestImg from '../../assets/sections/JuiciestImg/index';
-import * as veganImg from '../../assets/sections/veganImg/index';
+import { ApplicationState } from '~/store/configure-store';
+import { renderColoredHeading } from '~/utils/coloriseText';
+
+import * as imgObj from '../../assets/recipeImages/index';
 import * as socialIcons from '../../assets/socialIcons/index';
 import useBreakpoints from '../../themes/chakraBreakPoints';
 import { BigCardsListProps } from '../../types/dataTypes';
@@ -21,21 +25,28 @@ import { TagKey } from '../../types/utilsTypes';
 import AddNotifications from '../../utils/addNotifications';
 import AddRecommendation from '../../utils/addRecommendation';
 import AddTags from '../../utils/addTags/index';
-const imgObj = {
-    'Веганская кухня': veganImg,
-    'Самое сочное': juiciestImg,
-};
-export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
-    const dataCards = data.elems.card;
-    const dataTitle = data.title;
+export default function BigCardsList({ data, maxElems, categoryTag }: BigCardsListProps) {
     const { isTablet } = useBreakpoints();
-    const displayedData = maxElems ? dataCards?.slice(0, maxElems) : dataCards;
-    const imgData = imgObj[dataTitle as keyof typeof imgObj];
+    const displayedData = maxElems ? data?.slice(0, maxElems) : data;
+    const searcStr = useSelector((store: ApplicationState) => store.searchState.search).length;
     return (
         <Grid className='card__list' gap={{ xl: '24px', md: '16px', sm: '11px' }}>
             {displayedData!.map(
-                ({ id, imgUrl, title, description, tag, notifications, userRecommendation }) => (
+                (
+                    {
+                        id,
+                        imgUrl,
+                        title,
+                        description,
+                        category,
+                        bookmarks,
+                        likes,
+                        userRecommendation,
+                    },
+                    i,
+                ) => (
                     <HStack
+                        data-test-id={`food-card-${i}`}
                         key={id}
                         className='card__item'
                         position='relative'
@@ -48,7 +59,7 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                             <Image
                                 height='100%'
                                 width='100%'
-                                src={imgData[imgUrl as keyof typeof imgData]}
+                                src={imgObj[imgUrl as keyof typeof imgObj]}
                             />
                             {!isTablet && (
                                 <AddRecommendation userRecommendation={userRecommendation} />
@@ -67,12 +78,13 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                                 gap={0}
                             >
                                 <AddTags
-                                    tag={tag as TagKey}
+                                    category={categoryTag}
+                                    tag={category as TagKey[]}
                                     withText={true}
                                     color='#ffffd3'
                                     size='16px'
                                 />
-                                <AddNotifications notifications={notifications} />
+                                <AddNotifications bookmarks={bookmarks} likes={likes} />
                                 {isTablet && (
                                     <Heading
                                         noOfLines={2}
@@ -81,7 +93,7 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                                         size='h4'
                                         mt='-2px'
                                     >
-                                        {title}
+                                        {renderColoredHeading(title, searcStr)}
                                     </Heading>
                                 )}
                             </Stack>
@@ -123,11 +135,14 @@ export default function BigCardsList({ data, maxElems }: BigCardsListProps) {
                                     {!isTablet && 'Сохранить'}
                                 </Button>
                                 <Button
+                                    as={Link}
+                                    to={id}
                                     fontSize={{ md: '15px', sm: '12px' }}
                                     className='card__btn-cook'
                                     size={{ lg: 'sm', sm: 'xs' }}
                                     background='black'
                                     color='white'
+                                    data-test-id={`card-link-${i}`}
                                 >
                                     Готовить
                                 </Button>

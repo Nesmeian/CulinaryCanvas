@@ -9,7 +9,11 @@ export default function AddRecommendation({ userRecommendation }: AddRecommendat
         userRecommendation && (
             <HStack className='user-recommendation'>
                 <Image
-                    src={userRecommendationImg[userRecommendation.imgUrl]}
+                    src={
+                        userRecommendationImg[
+                            userRecommendation.imgUrl as keyof typeof userRecommendationImg
+                        ]
+                    }
                     alt={`${userRecommendation.user} image`}
                 />
                 <Text variant='addUserRecommendation'>{`${userRecommendation.user} рекомендует`}</Text>

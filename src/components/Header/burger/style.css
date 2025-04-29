@@ -1,11 +1,32 @@
 .burger {
     width: 48px;
     height: 48px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: none;
+    @media (max-width: 768px) {
+        display: block;
+    }
 }
+
 .burger__first-line,
 .burger__second-line,
 .burger__third-line {
     width: 16px;
     height: 2px;
     background: black;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.burger.active .burger__first-line {
+    transform: translateY(5px) rotate(45deg);
+}
+
+.burger.active .burger__second-line {
+    opacity: 0;
+}
+
+.burger.active .burger__third-line {
+    transform: translateY(-5px) rotate(-45deg);
 }

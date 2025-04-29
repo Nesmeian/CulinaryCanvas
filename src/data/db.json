@@ -1,119 +1,52 @@
 {
-    "juiciest": {
-        "title": "Самое сочное",
-        "elems": {
-            "card": [
-                {
-                    "id": "jd1",
-                    "imgUrl": "SpaghettiDumplings",
-                    "title": "Кнеди со спагетти",
-                    "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-                    "tag": "Вторые блюда",
-                    "notifications": {
-                        "share": 85,
-                        "likes": 152
-                    }
-                },
-                {
-                    "id": "jd2",
-                    "imgUrl": "SpicyItalianHam",
-                    "title": "Пряная ветчина по итальянски",
-                    "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-                    "tag": "Вторые блюда",
-                    "notifications": {
-                        "share": 257,
-                        "likes": 159
-                    },
-                    "userRecommendation": {
-                        "id": "ur1",
-                        "user": "Елена Высоцкая",
-                        "imgUrl": "ElenaVysotskaya"
-                    }
-                },
-                {
-                    "id": "jd3",
-                    "imgUrl": "NoodlesWithChickenAndSaffron",
-                    "title": "Лапша с курицей и шафраном",
-                    "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-                    "tag": "Вторые блюда",
-                    "notifications": {
-                        "share": 258,
-                        "likes": 342
-                    },
-                    "userRecommendation": {
-                        "id": "ur2",
-                        "user": "Alex Cook",
-                        "imgUrl": "AlexCookImg"
-                    }
-                },
-                {
-                    "id": "jd4",
-                    "imgUrl": "TomYamWithKimchiCabbage",
-                    "title": "Том-ям с капустой кимчи",
-                    "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 124,
-                        "likes": 324
-                    }
-                },
-                {
-                    "id": "jd5",
-                    "imgUrl": "TomYamWithKimchiCabbage",
-                    "title": "Том-ям с капустой кимчи",
-                    "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 124,
-                        "likes": 324
-                    }
-                },
-                {
-                    "id": "jd6",
-                    "imgUrl": "TomYamWithKimchiCabbage",
-                    "title": "Том-ям с капустой кимчи",
-                    "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 124,
-                        "likes": 324
-                    }
-                },
-                {
-                    "id": "jd7",
-                    "imgUrl": "TomYamWithKimchiCabbage",
-                    "title": "Том-ям с капустой кимчи",
-                    "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 124,
-                        "likes": 324
-                    }
-                },
-                {
-                    "id": "jd8",
-                    "imgUrl": "TomYamWithKimchiCabbage",
-                    "title": "Том-ям с капустой кимчи",
-                    "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 124,
-                        "likes": 324
-                    }
-                },
-                {
-                    "id": "jd9",
-                    "imgUrl": "TomYamWithKimchiCabbage",
-                    "title": "Том-ям с капустой кимчи",
-                    "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 124,
-                        "likes": 324
-                    }
-                }
-            ]
-        }
+    "the-juiciest": {
+        "title": "Самое сочное"
+    },
+    "salads": {
+        "title": "Салаты",
+        "description": "Салаты лучшие закуски для всей семьи"
+    },
+    "firstCourses": {
+        "title": "Первое блюдо",
+        "description": "Не один приём пищи не обойдётся без первого"
+    },
+
+    "second-dish": {
+        "title": "Вторые блюда",
+        "description": "Не один приём пищи не обойдётся без второго"
+    },
+    "grilledDishes": {
+        "title": "Блюда на гриле",
+        "description": "Не один приём пищи не обойдётся без второго"
+    },
+    "childrenMeals": {
+        "title": "Детские блюда",
+        "description": "Блюда для самых маленьких"
+    },
+    "therapeuticNutrition": {
+        "title": "Лечебное Питание",
+        "description": "Блюда для оздоровления"
+    },
+
+    "national": {
+        "title": "Национальные",
+        "description": "Национальные блюда для всех"
+    },
+    "sauces": {
+        "title": "Соусы",
+        "description": "Соусы для любого блюда"
+    },
+    "snacks": {
+        "title": "Закуски",
+        "description": "Закуски для всей семьи"
+    },
+    "drinks": {
+        "title": "Напитки",
+        "description": "Напитки для всех"
+    },
+    "preserves": {
+        "title": "Заготовки",
+        "description": "Заготовки на любой случай жизни"
     },
     "culinaryBlogData": [
         {
@@ -138,53 +71,6 @@
             "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку."
         }
     ],
-    "sliderData": [
-        {
-            "id": "sd1",
-            "imgUrl": "solyanka",
-            "title": "Солянка с грибами",
-            "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-            "tag": "Первые блюда",
-            "notifications": {
-                "share": 1
-            }
-        },
-        {
-            "id": "sd2",
-            "imgUrl": "cabbagePatties",
-            "title": "Капустные котлеты",
-            "description": "Капустные котлеты по этому рецепту получаются необычайно пышными и невероятно вкусными. Мягкий вкус и лёгкая пряная нотка наверняка помогут сделать эти чудесные котлеты из капусты одним из ваших любимых овощных блюд.",
-            "tag": "Веганская кухня",
-            "notifications": {
-                "share": 2,
-                "likes": 1
-            }
-        },
-        {
-            "id": "sd3",
-            "imgUrl": "pancakesOnKefir",
-            "title": "Оладьи на кефире \"Пышные\"",
-            "description": "Очень вкусные и нежные оладьи на кефире. Настоятельно рекомендую пышные кефирные оладьи на завтрак.",
-            "tag": "Десерты, выпечка",
-            "notifications": {
-                "likes": 1
-            }
-        },
-        {
-            "id": "sd4",
-            "imgUrl": "saladHealth",
-            "title": "Салат \"Здоровье\"",
-            "description": "Сельдерей очень полезен для здоровья, пора набираться витаминов. Не салат, а сплошное удовольствие:) Вкусный, необычный, а главное быстрый.",
-            "tag": "Салаты"
-        },
-        {
-            "id": "sd5",
-            "imgUrl": "saladHealth",
-            "title": "Салат \"Здоровье\"",
-            "description": "Сельдерей очень полезен для здоровья, пора набираться витаминов. Не салат, а сплошное удовольствие:) Вкусный, необычный, а главное быстрый.",
-            "tag": "Салаты"
-        }
-    ],
     "navMenu": {
         "categories": [
             {
@@ -193,12 +79,17 @@
                 "routeName": "salads",
                 "imgUrl": "salads",
                 "elems": {
-                    "Закуски": "appetizers",
-                    "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
-                    "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Мясные": "meat-dishes",
+                    "Рыбные": "fish-dishes",
+                    "Овощные": "vegetable-dishes",
+                    "Из птицы": "poultry-dishes",
+                    "Из грибов": "mushroom-dishes",
+                    "Из субпродуктов": "offal-dishes",
+                    "На пару": "steamed-dishes",
+                    "Пельмени, вареники": "dumplings",
+                    "Мучные гарниры": "flour-garnishes",
+                    "Овощные гарниры": "vegetable-garnishes",
+                    "Пицца": "pizza"
                 }
             },
             {
@@ -207,12 +98,12 @@
                 "imgUrl": "snacks",
                 "routeName": "snacks",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
@@ -221,40 +112,40 @@
                 "imgUrl": "firstCourses",
                 "routeName": "firstCourses",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
                 "id": "nm4",
                 "name": "Вторые блюда",
                 "imgUrl": "mainCourses",
-                "routeName": "mainCourses",
+                "routeName": "second-dish",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
                 "id": "nm5",
                 "name": "Десерты, выпечка",
                 "imgUrl": "dessertsPastries",
-                "routeName": "dessertsPastries",
+                "routeName": "desserts",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
@@ -263,26 +154,26 @@
                 "imgUrl": "grilledDishes",
                 "routeName": "grilledDishes",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
                 "id": "nm7",
                 "name": "Веганская кухня",
                 "imgUrl": "veganCuisine",
-                "routeName": "veganCuisine",
+                "routeName": "vegan",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
@@ -291,12 +182,12 @@
                 "imgUrl": "childrenMeals",
                 "routeName": "childrenMeals",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
@@ -305,26 +196,26 @@
                 "imgUrl": "therapeuticNutrition",
                 "routeName": "therapeuticNutrition",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
                 "id": "nm10",
                 "name": "Национальные",
                 "imgUrl": "nationalNutrition",
-                "routeName": "nationalNutrition",
+                "routeName": "national",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
@@ -333,12 +224,12 @@
                 "imgUrl": "sauces",
                 "routeName": "sauces",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
@@ -347,39 +238,39 @@
                 "imgUrl": "drinks",
                 "routeName": "drinks",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             },
             {
                 "id": "nm13",
                 "name": "Заготовки",
                 "imgUrl": "foodPreparation",
-                "routeName": "foodPreparation",
+                "routeName": "preserves",
                 "elems": {
-                    "Закуски": "appetizers",
+                    "Закуски": "snacks",
                     "Первые блюда": "firstCourses",
-                    "Вторые блюда": "mainCourses",
-                    "Гарниры": "sideDishes",
+                    "Вторые блюда": "second-dish",
+                    "Гарниры": "side-dishes",
                     "Десерты": "desserts",
-                    "Сыроедческие блюда": "rawFoodDishes"
+                    "Сыроедческие блюда": "vegetables"
                 }
             }
         ],
         "subcategories": {
-            "Закуски": "appetizers",
+            "Закуски": "snacks",
             "Первые блюда": "firstCourses",
-            "Вторые блюда": "mainCourses",
-            "Гарниры": "sideDishes",
+            "Вторые блюда": "second-dish",
+            "Гарниры": "side-dishes",
             "Десерты": "desserts",
-            "Сыроедческие блюда": "rawFoodDishes"
+            "Сыроедческие блюда": "vegetables"
         }
     },
-    "veganCuisine": {
+    "vegan": {
         "title": "Веганская кухня",
         "description": "Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.",
         "elems": {
@@ -388,198 +279,669 @@
                     "id": "vcs1",
                     "title": "Картошка, тушенная с болгарским перцем и фасолью в томатном соусе",
                     "description": "Картошка, тушенная с болгарским перцем, фасолью, морковью и луком, - вариант сытного блюда на каждый день. Фасоль в данном случае заменяет мясо, делая рагу сытным и питательным. Чтобы сократить время приготовления, возьмём консервированную фасоль. Блюдо хоть и простое, но в полной мере наполнено ароматами и имеет выразительный вкус за счёт добавления томатной пасты.",
-                    "tag": "Вторые блюда",
-                    "notifications": {
-                        "share": 1,
-                        "likes": 1
-                    }
+                    "category": ["second-dish"],
+                    "bookmarks": 1,
+                    "likes": 1
                 },
                 {
                     "id": "vcs2",
                     "title": "Капустные котлеты",
                     "description": "Капустные котлеты по этому рецепту получаются необычайно пышными и невероятно вкусными. Мягкий вкус и лёгкая пряная нотка наверняка помогут сделать эти чудесные котлеты из капусты одним из ваших любимых овощных блюд.",
-                    "tag": "Вторые блюда",
-                    "notifications": {
-                        "share": 2,
-                        "likes": 1
-                    }
+                    "category": ["second-dish"],
+
+                    "bookmarks": 2,
+                    "likes": 1
                 }
             ],
             "recipes": [
                 {
                     "id": "vr1",
                     "title": "Стейк для вегетарианцев",
-                    "tag": "Вторые блюда"
+                    "category": ["second-dish"]
                 },
                 {
                     "id": "vr2",
                     "title": "Котлеты из гречки и фасоли",
-                    "tag": "Вторые блюда"
+                    "category": ["second-dish"]
                 },
                 {
                     "id": "vr3",
                     "title": "Сырный суп с лапшой и брокколи",
-                    "tag": "Первые блюда"
-                }
-            ],
-            "card": [
-                {
-                    "id": "vc1",
-                    "imgUrl": "potatoesStewed",
-                    "title": "Картошка, тушенная с болгарским перцем и фасолью в томатном соусе",
-                    "description": "Картошка, тушенная с болгарским перцем, фасолью, морковью и луком, -  вариант сытного блюда на каждый день. Фасоль в данном случае заменяет  мясо, делая рагу сытным и питательным. Чтобы сократить время  приготовления, возьмём консервированную фасоль. Блюдо хоть и простое, но в полной мере наполнено ароматами и имеет выразительный вкус за счёт  добавления томатной пасты.",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 85,
-                        "likes": 152
-                    },
-                    "userRecommendation": {
-                        "id": "ur2",
-                        "user": "Alex Cook",
-                        "imgUrl": "AlexCookImg"
-                    }
-                },
-                {
-                    "id": "vc2",
-                    "imgUrl": "potatoRolls",
-                    "title": "Картофельные рулетики с грибами",
-                    "description": "Рекомендую всем приготовить постное блюдо из картофеля и грибов.  Готовится это блюдо без яиц, без мяса и без сыра, из самых простых  ингредиентов, а получается очень вкусно и сытно. Постный рецепт  картофельных рулетиков с грибами, в томатном соусе, - на обед, ужин и  даже на праздничный стол!",
-                    "tag": "Детские блюда",
-                    "notifications": {
-                        "share": 85,
-                        "likes": 152
-                    }
-                },
-                {
-                    "id": "vc3",
-                    "imgUrl": "tomYum",
-                    "title": "Том-ям с капустой кимчи",
-                    "description": "Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 124,
-                        "likes": 324
-                    }
-                },
-                {
-                    "id": "vc4",
-                    "imgUrl": "vegetableLasagna",
-                    "title": "Овощная лазанья из лаваша",
-                    "description": "Большое, сытное блюдо для ценителей блюд без мяса! Такая лазанья  готовится с овощным соусом и соусом бешамель, а вместо листов для  лазаньи используется тонкий лаваш.",
-                    "tag": "Блюда на гриле",
-                    "notifications": {
-                        "share": 85,
-                        "likes": 152
-                    }
-                },
-                {
-                    "id": "vc5",
-                    "imgUrl": "bulgurAndLentil",
-                    "title": "Тефтели из булгура и чечевицы, запечённые в томатном соусе",
-                    "description": "Тефтели из булгура и чечевицы – яркие и питательные, отлично подходят  для постного и вегетарианского меню. Тефтели получаются нежными, а также сочными и ароматными благодаря использованию томатного соуса и душистых пряностей.",
-                    "tag": "Вторые блюда",
-                    "notifications": {
-                        "share": 85,
-                        "likes": 152
-                    }
-                },
-                {
-                    "id": "vc6",
-                    "imgUrl": "bulgurAndLentil",
-                    "title": "Тефтели из булгура и чечевицы, запечённые в томатном соусе",
-                    "description": "Тефтели из булгура и чечевицы – яркие и питательные, отлично подходят  для постного и вегетарианского меню. Тефтели получаются нежными, а также сочными и ароматными благодаря использованию томатного соуса и душистых пряностей.",
-                    "tag": "Вторые блюда",
-                    "notifications": {
-                        "share": 85,
-                        "likes": 152
-                    }
-                },
-                {
-                    "id": "vc7",
-                    "imgUrl": "garlicPotatoes",
-                    "title": "Чесночная картошка",
-                    "description": "Такая картошечка украсит любой семейный обед! Все будут в полном  восторге, очень вкусно! Аромат чеснока, хрустящая корочка на картошечке - просто объедение! Отличная идея для обеда или ужина, готовится просто!",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 124,
-                        "likes": 324
-                    }
-                },
-                {
-                    "id": "vc8",
-                    "imgUrl": "puri",
-                    "title": "Пури",
-                    "description": "Пури - это индийские жареные лепешки, которые готовятся из пресного  теста. Рецепт лепешек пури требует самых доступных ингредиентов, и  времени на приготовление хрустящих лепешек уйдет мало.",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 124,
-                        "likes": 324
-                    }
+                    "category": ["firstCourses"]
                 }
             ]
         }
     },
     "desserts": {
-        "title": "Веганская кухня",
-        "description": "Интересны не только убеждённым вегетарианцам, но и тем, кто хочет  попробовать вегетарианскую диету и готовить вкусные  вегетарианские блюда.",
+        "title": "Дессерты",
+        "description": "Дессерты на любой вкус",
         "elems": {
             "smallCard": [
                 {
-                    "id": "desc1",
-                    "title": "Бананово-молочное желе",
-                    "description": "Молочное желе – это просто, вкусно и полезно, ведь для его приготовления в качестве основы используется молоко.",
-                    "tag": "Детские блюда",
-                    "notifications": {
-                        "share": 1,
-                        "likes": 1
-                    }
+                    "id": "vcs1",
+                    "title": "Картошка, тушенная с болгарским перцем и фасолью в томатном соусе",
+                    "description": "Картошка, тушенная с болгарским перцем, фасолью, морковью и луком, - вариант сытного блюда на каждый день. Фасоль в данном случае заменяет мясо, делая рагу сытным и питательным. Чтобы сократить время приготовления, возьмём консервированную фасоль. Блюдо хоть и простое, но в полной мере наполнено ароматами и имеет выразительный вкус за счёт добавления томатной пасты.",
+                    "category": ["second-dish"],
+                    "bookemarks": 1,
+                    "likes": 1
                 },
                 {
-                    "id": "desc2",
-                    "title": "Нежный сливочно-сырный крем для кексов",
-                    "description": "Сливочно-сырным кремом можно украсить кексы, либо другую выпечку, а также этим кремом можно наполнить заварные пирожные.",
-                    "tag": "Детские блюда",
-                    "notifications": {
-                        "share": 2,
-                        "likes": 1
-                    }
+                    "id": "vcs2",
+                    "title": "Капустные котлеты",
+                    "description": "Капустные котлеты по этому рецепту получаются необычайно пышными и невероятно вкусными. Мягкий вкус и лёгкая пряная нотка наверняка помогут сделать эти чудесные котлеты из капусты одним из ваших любимых овощных блюд.",
+                    "category": ["second-dish"],
+                    "bookemarks": 1,
+                    "likes": 1
                 }
             ],
             "recipes": [
                 {
-                    "id": "der1",
-                    "title": "Домашние сырные палочки",
-                    "tag": "Детские блюда"
+                    "id": "vr1",
+                    "title": "Стейк для вегетарианцев",
+                    "category": ["second-dish"]
                 },
                 {
-                    "id": "der2",
-                    "title": "Панкейки",
-                    "tag": "Национальные"
+                    "id": "vr2",
+                    "title": "Котлеты из гречки и фасоли",
+                    "category": ["second-dish"]
                 },
                 {
-                    "id": "der3",
-                    "title": "Воздушное банановое печенье на сковороде",
-                    "tag": "Веганская кухня"
-                }
-            ],
-            "card": [
-                {
-                    "id": "desc1",
-                    "imgUrl": "potatoesStewed",
-                    "title": "Картошка, тушенная с болгарским перцем и фасолью в томатном соусе",
-                    "description": "Картошка, тушенная с болгарским перцем, фасолью, морковью и луком, -  вариант сытного блюда на каждый день. Фасоль в данном случае заменяет  мясо, делая рагу сытным и питательным. Чтобы сократить время  приготовления, возьмём консервированную фасоль. Блюдо хоть и простое, но в полной мере наполнено ароматами и имеет выразительный вкус за счёт  добавления томатной пасты.",
-                    "tag": "Национальные",
-                    "notifications": {
-                        "share": 85,
-                        "likes": 152
-                    },
-                    "userRecommendation": {
-                        "id": "ur2",
-                        "user": "Alex Cook",
-                        "imgUrl": "AlexCookImg"
-                    }
+                    "id": "vr3",
+                    "title": "Сырный суп с лапшой и брокколи",
+                    "category": ["firstCourses"]
                 }
             ]
         }
-    }
+    },
+    "card": [
+        {
+            "id": "0",
+            "title": "Картошка, тушенная с болгарским перцем и фасолью в томатном соусе",
+            "description": "Картошка, тушенная с болгарским перцем, фасолью, морковью и луком, - вариант сытного блюда на каждый день. Фасоль в данном случае заменяет мясо, делая рагу сытным и питательным. Чтобы сократить время приготовления, возьмём консервированную фасоль. Блюдо хоть и простое, но в полной мере наполнено ароматами и имеет выразительный вкус за счёт добавления томатной пасты.",
+            "category": ["vegan", "second-dish"],
+            "subcategory": ["snacks", "vegetables"],
+            "imgUrl": "potatoesStewed",
+            "bookmarks": 85,
+            "likes": 152,
+            "date": "2025-05-28T00:00:00Z",
+            "time": "40 минут",
+            "portions": 4,
+            "nutritionValue": {
+                "calories": 250,
+                "proteins": 5,
+                "fats": 8,
+                "carbohydrates": 40
+            },
+            "ingredients": [
+                { "title": "лапша", "count": "50", "measureUnit": "г" },
+                { "title": "курица", "count": "75", "measureUnit": "г" },
+                { "title": "шафран", "count": "1", "measureUnit": "ч. л." },
+                { "title": "лук", "count": "1", "measureUnit": "шт." }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Нарезать картошку и перец.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Обжарить лук до золотистого цвета.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Добавить картошку, перец и фасоль, залить соусом.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 4,
+                    "description": "Тушить на медленном огне 30 минут.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Сергей Разумов",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            },
+            "meat": "chicken",
+            "side": "Potato",
+            "Egg": "",
+            "Dairy products": ""
+        },
+        {
+            "id": "1",
+            "title": "Картофельные рулетики с грибами",
+            "description": "Рекомендую всем приготовить постное блюдо из картофеля и грибов. Готовится это блюдо без яиц, без мяса и без сыра, из самых простых ингредиентов, а получается очень вкусно и сытно. Постный рецепт картофельных рулетиков с грибами, в томатном соусе, - на обед, ужин и даже на праздничный стол!",
+            "category": ["vegan", "snacks"],
+            "subcategory": ["snacks", "warm-snacks"],
+            "imgUrl": "potatoRolls",
+            "bookmarks": 85,
+            "likes": 1152,
+            "date": "2024-02-20T00:00:00Z",
+            "time": "30 минут",
+            "portions": 2,
+            "nutritionValue": {
+                "calories": 180,
+                "proteins": 4,
+                "fats": 6,
+                "carbohydrates": 28
+            },
+            "ingredients": [
+                { "title": "картошка", "count": "3", "measureUnit": "шт." },
+                { "title": "грибы", "count": "200", "measureUnit": "г" },
+                { "title": "мука", "count": "100", "measureUnit": "г" },
+                { "title": "специи", "count": "0", "measureUnit": "по вкусу" }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Отварить картошку и сделать пюре.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Обжарить грибы до готовности.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Сформировать рулетики и обжарить.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Сергей Разумов",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            },
+            "side": "Potato",
+            "Fish": ""
+        },
+        {
+            "id": "2",
+            "title": "Овощная лазанья из лаваша",
+            "description": "Большое, сытное блюдо для ценителей блюд без мяса! Такая лазанья готовится с овощным соусом и соусом бешамель, а вместо листов для лазаньи используется тонкий лаваш.",
+            "category": ["vegan", "second-dish", "national"],
+            "subcategory": ["second-dish", "vegetables", "italian", "snacks"],
+            "imgUrl": "tomYum",
+            "bookmarks": 85,
+            "likes": 152,
+            "date": "2025-01-25T00:00:00Z",
+            "time": "1 час",
+            "portions": 1,
+            "nutritionValue": {
+                "calories": 300,
+                "proteins": 12,
+                "fats": 8,
+                "carbohydrates": 45
+            },
+            "ingredients": [
+                { "title": "лаваш", "count": "3", "measureUnit": "листов" },
+                { "title": "овощной соус", "count": "300", "measureUnit": "мл" },
+                { "title": "соус бешамель", "count": "200", "measureUnit": "мл" },
+                { "title": "сыр", "count": "100", "measureUnit": "г" }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Приготовить соусы.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Сложить слои лазаньи.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Запекать 30 минут.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Сергей Разумов",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            },
+            "Tomato": ""
+        },
+        {
+            "id": "3",
+            "title": "Тефтели из булгура и чечевицы, запечённые в томатном соусе",
+            "description": "Тефтели из булгура и чечевицы – яркие и питательные, отлично подходят для постного и вегетарианского меню. Тефтели получаются нежными, а также сочными и ароматными благодаря использованию томатного соуса и душистых пряностей.",
+            "category": ["vegan", "second-dish"],
+            "subcategory": ["second-dish", "poultry-dish"],
+            "imgUrl": "vegetableLasagna",
+            "bookmarks": 85,
+            "likes": 152,
+            "date": "2023-02-15T00:00:00Z",
+            "time": "50 минут",
+            "portions": 4,
+            "nutritionValue": {
+                "calories": 200,
+                "proteins": 10,
+                "fats": 5,
+                "carbohydrates": 30
+            },
+            "ingredients": [
+                { "title": "булгур", "count": "150", "measureUnit": "г" },
+                { "title": "чечевица", "count": "100", "measureUnit": "г" },
+                { "title": "томатный соус", "count": "200", "measureUnit": "мл" },
+                { "title": "лук", "count": "1", "measureUnit": "шт." }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Смешать булгур и чечевицу.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Сформировать тефтели и запечь.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Подавать с соусом.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Сергей Разумов",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            },
+            "Nuts": ""
+        },
+        {
+            "id": "4",
+            "title": "Чесночная картошка",
+            "description": "Такая картошечка украсит любой семейный обед! Все будут в полном восторге, очень вкусно! Аромат чеснока, хрустящая корочка на картошечке - просто объедение! Отличная идея для обеда или ужина, готовится просто!",
+            "category": ["vegan", "second-dish"],
+            "subcategory": ["side-dishes", "second-dish", "vegetables"],
+            "imgUrl": "noodlesWithChickenAndSaffron",
+            "bookmarks": 124,
+            "likes": 342,
+            "date": "2024-03-01T00:00:00Z",
+            "time": "30 минут",
+            "portions": 2,
+            "nutritionValue": {
+                "calories": 220,
+                "proteins": 4,
+                "fats": 7,
+                "carbohydrates": 35
+            },
+            "ingredients": [
+                { "title": "картошка", "count": "6", "measureUnit": "шт." },
+                { "title": "чеснок", "count": "5", "measureUnit": "зубчиков" },
+                { "title": "масло", "count": "50", "measureUnit": "мл" },
+                { "title": "специи", "count": "0", "measureUnit": "по вкусу" }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Очистить и нарезать картошку.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Обжарить с чесноком.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Подавать горячей.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Сергей Разумов",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            }
+        },
+        {
+            "id": "5",
+            "title": "Капустные котлеты",
+            "description": "Капустные котлеты по этому рецепту получаются необычайно пышными и невероятно вкусными. Мягкий вкус и лёгкая пряная нотка наверняка помогут сделать эти чудесные котлеты из капусты одним из ваших любимых овощных блюд.",
+            "category": ["vegan"],
+            "subcategory": ["second-dish", "snacks"],
+            "imgUrl": "bulgurAndLentil",
+            "bookmarks": 2,
+            "likes": 1,
+            "date": "2024-02-05T00:00:00Z",
+            "time": "35 минут",
+            "portions": 4,
+            "nutritionValue": {
+                "calories": 150,
+                "proteins": 5,
+                "fats": 4,
+                "carbohydrates": 20
+            },
+            "ingredients": [
+                { "title": "капуста", "count": "300", "measureUnit": "г" },
+                { "title": "мука", "count": "50", "measureUnit": "г" },
+                { "title": "специи", "count": "0", "measureUnit": "по вкусу" }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Нарезать капусту и отварить.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Смешать с мукой и сформировать котлеты.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Обжарить до золотистой корочки.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Сергей Разумов",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            }
+        },
+        {
+            "id": "6",
+            "title": "Овощное рагу",
+            "description": "Сытное рагу из сезонных овощей, приправленное травами.",
+            "category": ["vegan", "second-dish"],
+            "subcategory": ["side-dishes", "vegetables", "snacks"],
+            "imgUrl": "bulgurAndLentil",
+            "bookmarks": 8,
+            "likes": 60,
+            "date": "2023-03-12T00:00:00Z",
+            "time": "1 час",
+            "portions": 2,
+            "nutritionValue": {
+                "calories": 200,
+                "proteins": 5,
+                "fats": 8,
+                "carbohydrates": 30
+            },
+            "ingredients": [
+                { "title": "цуккини", "count": "1", "measureUnit": "шт." },
+                { "title": "болгарский перец", "count": "1", "measureUnit": "шт." },
+                { "title": "морковь", "count": "1", "measureUnit": "шт." },
+                { "title": "картошка", "count": "2", "measureUnit": "шт." },
+                { "title": "специи", "count": "0", "measureUnit": "по вкусу" }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Нарезать все овощи.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Обжарить на сковороде.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Добавить специи и тушить до готовности.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Сергей Разумов",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            }
+        },
+        {
+            "id": "7",
+            "title": "Лапша с курицей и шафраном",
+            "description": "Ароматная лапша с курицей и шафраном, идеальное сочетание для сытного обеда.",
+            "category": ["second-dish"],
+            "subcategory": ["poultry-dish"],
+            "imgUrl": "garlicPotatoes",
+            "bookmarks": 258,
+            "likes": 1342,
+            "date": "2025-04-08T00:00:00Z",
+            "time": "40 минут",
+            "portions": 4,
+            "nutritionValue": {
+                "calories": 400,
+                "proteins": 30,
+                "fats": 15,
+                "carbohydrates": 50
+            },
+            "ingredients": [
+                { "title": "лапша", "count": "50", "measureUnit": "г" },
+                { "title": "курица", "count": "75", "measureUnit": "г" },
+                { "title": "шафран", "count": "1", "measureUnit": "ч. л." },
+                { "title": "лук", "count": "1", "measureUnit": "шт." }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Отварить лапшу.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Обжарить курицу с луком и шафраном.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 3,
+                    "description": "Смешать лапшу с курицей и подавать.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Сергей Разумов",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            }
+        },
+        {
+            "id": "8",
+            "title": "Гриль-салат с овощами",
+            "description": "Салат с обжаренными на гриле овощами и легкой заправкой.",
+            "category": ["salads"],
+            "subcategory": ["warm-salads"],
+            "imgUrl": "noodlesWithChickenAndSaffron",
+            "bookmarks": 10,
+            "likes": 80,
+            "date": "2023-03-20T00:00:00Z",
+            "time": "25 минут",
+            "nutritionValue": {
+                "calories": 150,
+                "proteins": 4,
+                "fats": 6,
+                "carbohydrates": 20
+            },
+            "ingredients": [
+                { "title": "цуккини", "count": "1", "measureUnit": "шт." },
+                { "title": "болгарский перец", "count": "1", "measureUnit": "шт." },
+                { "title": "баклажан", "count": "1", "measureUnit": "шт." },
+                { "title": "оливковое масло", "count": "0", "measureUnit": "по вкусу" }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Обжарить овощи на гриле.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Смешать с заправкой и подавать.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Виктор Степнов",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            }
+        },
+        {
+            "id": "9",
+            "title": "Грамп",
+            "description": "Салат с обжаренными на гриле овощами и легкой заправкой.",
+            "category": ["salads", "therapeuticNutrition"],
+            "subcategory": ["warm-salads", "snacks"],
+            "imgUrl": "noodlesWithChickenAndSaffron",
+            "bookmarks": 10,
+            "likes": 80,
+            "date": "2023-03-20T00:00:00Z",
+            "time": "25 минут",
+            "nutritionValue": {
+                "calories": 150,
+                "proteins": 4,
+                "fats": 6,
+                "carbohydrates": 20
+            },
+            "ingredients": [
+                { "title": "цуккини", "count": "1", "measureUnit": "шт." },
+                { "title": "болгарский перец", "count": "1", "measureUnit": "шт." },
+                { "title": "баклажан", "count": "1", "measureUnit": "шт." },
+                { "title": "оливковое масло", "count": "0", "measureUnit": "по вкусу" }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Обжарить овощи на гриле.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Смешать с заправкой и подавать.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Джекс РАССЕЛ",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            }
+        },
+        {
+            "id": "10",
+            "title": "Грамп",
+            "description": "Салат с обжаренными на гриле овощами и легкой заправкой.",
+            "category": ["preserves", "therapeuticNutrition"],
+            "subcategory": ["warm-salads", "snacks", "desserts"],
+            "imgUrl": "noodlesWithChickenAndSaffron",
+            "bookmarks": 10,
+            "likes": 80,
+            "date": "2023-03-20T00:00:00Z",
+            "time": "25 минут",
+            "nutritionValue": {
+                "calories": 150,
+                "proteins": 4,
+                "fats": 6,
+                "carbohydrates": 20
+            },
+            "ingredients": [
+                { "title": "цуккини", "count": "1", "measureUnit": "шт." },
+                { "title": "болгарский перец", "count": "1", "measureUnit": "шт." },
+                { "title": "баклажан", "count": "1", "measureUnit": "шт." },
+                { "title": "оливковое масло", "count": "0", "measureUnit": "по вкусу" }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Обжарить овощи на гриле.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Смешать с заправкой и подавать.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Джекс РАССЕЛ",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            }
+        },
+        {
+            "id": "11",
+            "title": "Грамп",
+            "description": "Салат с обжаренными на гриле овощами и легкой заправкой.",
+            "category": ["sauces", "therapeuticNutrition"],
+            "subcategory": ["warm-salads", "snacks", "desserts"],
+            "imgUrl": "noodlesWithChickenAndSaffron",
+            "bookmarks": 10,
+            "likes": 80,
+            "date": "2023-03-20T00:00:00Z",
+            "time": "25 минут",
+            "nutritionValue": {
+                "calories": 150,
+                "proteins": 4,
+                "fats": 6,
+                "carbohydrates": 20
+            },
+            "ingredients": [
+                { "title": "цуккини", "count": "1", "measureUnit": "шт." },
+                { "title": "болгарский перец", "count": "1", "measureUnit": "шт." },
+                { "title": "баклажан", "count": "1", "measureUnit": "шт." },
+                { "title": "оливковое масло", "count": "0", "measureUnit": "по вкусу" }
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "description": "Обжарить овощи на гриле.",
+                    "image": "potatoesStewed"
+                },
+                {
+                    "stepNumber": 2,
+                    "description": "Смешать с заправкой и подавать.",
+                    "image": "potatoesStewed"
+                }
+            ],
+            "author": {
+                "name": "Джекс РАССЕЛ",
+                "email": "@serge25",
+                "imgUrl": "sergeyRazumov",
+                "notifications": {
+                    "views": 125
+                }
+            }
+        }
+    ]
 }

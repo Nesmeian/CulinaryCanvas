@@ -1,18 +1,19 @@
 import * as imgTags from '../../assets/navMenuIcons/index';
 
 const tagsKeys = {
-    Салаты: imgTags.salads,
-    Закуски: imgTags.snacks,
-    'Первые блюда': imgTags.firstCourses,
-    'Вторые блюда': imgTags.mainCourses,
-    'Десерты, выпечка': imgTags.dessertsPastries,
-    'Блюда на гриле': imgTags.grilledDishes,
-    'Веганская кухня': imgTags.veganCuisine,
-    'Детские блюда': imgTags.childrenMeals,
-    'Лечебное питание': imgTags.therapeuticNutrition,
-    Национальные: imgTags.nationalNutrition,
-    Напитки: imgTags.drinks,
-    Заготовки: imgTags.foodPreparation,
+    salads: imgTags.salads,
+    snacks: imgTags.snacks,
+    firstCourses: imgTags.firstCourses,
+    'second-dish': imgTags.mainCourses,
+    desserts: imgTags.dessertsPastries,
+    grilledDishes: imgTags.grilledDishes,
+    vegan: imgTags.veganCuisine,
+    kidsDishes: imgTags.childrenMeals,
+    therapeuticNutrition: imgTags.therapeuticNutrition,
+    national: imgTags.nationalNutrition,
+    drinks: imgTags.drinks,
+    preserves: imgTags.foodPreparation,
+    sauces: imgTags.sauces,
 } as const;
 
 export default tagsKeys;

@@ -11,20 +11,19 @@ const breakpoints = {
     sm: '300px',
     md: '600px',
     lg: '1200px',
-    xl: '1920px',
+    xl: '1620px',
 };
 
 const theme = extendTheme({
     breakpoints,
     colors: {
-        customGreen: {
-            500: '#2db100',
-            600: '#259900',
-            700: '#1c8000',
+        customgreen: {
+            500: '#b1ff2e',
         },
     },
     fonts: {
-        body: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif',
+        heading: 'Inter, sans-serif',
+        body: 'Inter, sans-serif',
     },
     components: {
         Text: {

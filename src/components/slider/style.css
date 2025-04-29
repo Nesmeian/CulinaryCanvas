@@ -1,3 +1,5 @@
+@import 'swiper/css';
+@import 'swiper/css/navigation';
 .slider {
     width: 100%;
     padding: 35px 0 0;
@@ -18,7 +20,7 @@
 }
 
 .slider__list {
-    position: relative;
+    width: 100%;
 }
 
 .slider__item {
@@ -39,6 +41,9 @@
 }
 .slider__content-description {
     margin-bottom: 30px;
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
 
 .slider__item-content {
@@ -69,19 +74,17 @@
     }
 }
 
-.slider__right-arrow,
-.slider__left-arrow {
-    z-index: 1;
-    position: absolute;
-    transform: translate(0, -36px);
-    @media (max-width: 1440px) {
-        width: 40px;
-        height: 40px;
+.swiper-button-prev,
+.swiper-button-next {
+    width: 40px;
+    height: 40px;
+    @media (max-width: 768px) {
+        display: none;
     }
 }
-.slider__left-arrow {
-    left: 0;
+.swiper-button-next {
+    right: -8px;
 }
-.slider__right-arrow {
-    right: 0;
+.swiper-button-prev {
+    left: -8px;
 }

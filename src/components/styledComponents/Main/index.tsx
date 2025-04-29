@@ -3,7 +3,7 @@ import { styled, VStack } from '@chakra-ui/react';
 const MainStyled = styled(VStack, {
     baseStyle: {
         display: 'flex',
-        height: '100%',
+        height: '100vh',
         flexDirection: 'column',
         flex: 1,
         width: {
@@ -23,7 +23,9 @@ const MainStyled = styled(VStack, {
         },
         overflowY: 'scroll',
         '&::-webkit-scrollbar': {
-            display: 'none',
+            width: '0',
+            height: '0',
+            background: 'transparent',
         },
         justifyContent: 'flex-start',
         alignItems: 'center',

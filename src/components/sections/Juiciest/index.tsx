@@ -3,11 +3,13 @@ import './style.css';
 import { Heading, HStack, Link, VStack } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router';
 
+import filterRecipesOnData from '~/utils/filterOnData';
+
 import BigCardsList from '../../../components/bigCardsList';
 import GreenButton from '../../../components/styledComponents/greenButton';
-import DB from '../../../data/db.json';
 
 export default function Juiciest() {
+    const sortedOnTimeRecipes = filterRecipesOnData();
     return (
         <VStack
             as='section'
@@ -21,7 +23,7 @@ export default function Juiciest() {
                 </Heading>
                 <Link
                     as={RouterLink}
-                    to='juiciest'
+                    to='the-juiciest'
                     display={{ md: 'none', lg: 'block' }}
                     data-test-id='juiciest-link'
                 >
@@ -29,11 +31,11 @@ export default function Juiciest() {
                 </Link>
             </HStack>
 
-            <BigCardsList data={DB.juiciest} maxElems={4} />
+            <BigCardsList data={sortedOnTimeRecipes} maxElems={4} />
 
             <Link
                 as={RouterLink}
-                to='juiciest'
+                to='the-juiciest'
                 display={{ sm: 'flex', lg: 'none' }}
                 alignSelf='center'
                 data-test-id='juiciest-link-mobile'
