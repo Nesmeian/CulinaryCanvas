@@ -5,6 +5,7 @@ import { SearchState } from '~/types/userTypes';
 const initialState: SearchState = {
     search: '',
     allowSearch: false,
+    findElems: 'common',
 };
 export const searchSlice = createSlice({
     name: 'searchState',
@@ -16,9 +17,11 @@ export const searchSlice = createSlice({
         setAllowSearch: (state, action) => {
             state.allowSearch = action.payload;
         },
+        setFindState: (state, action) => {
+            state.findElems = action.payload;
+        },
     },
 });
 
-export const { setSearchState } = searchSlice.actions;
-export const { setAllowSearch } = searchSlice.actions;
+export const { setAllowSearch, setFindState, setSearchState } = searchSlice.actions;
 export default searchSlice.reducer;
