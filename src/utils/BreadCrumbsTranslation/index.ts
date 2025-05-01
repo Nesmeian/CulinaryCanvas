@@ -1,10 +1,10 @@
 import DB from '../../data/db.json';
 export default function translatePathSegment(segment: string) {
     const subcategories = DB.navMenu.categories.reduce(
-        (acc, { elems }) => {
-            Object.entries(elems).forEach(([key, value]) => {
-                if (!acc[value]) {
-                    acc[value] = key;
+        (acc, { subCategories }) => {
+            subCategories.forEach(({ category, title }) => {
+                if (!acc[category]) {
+                    acc[category] = title;
                 }
             });
             return acc;
@@ -12,8 +12,8 @@ export default function translatePathSegment(segment: string) {
         {} as Record<string, string>,
     );
     const categories = DB.navMenu.categories.reduce(
-        (acc, { name, routeName }) => {
-            acc[routeName] = name;
+        (acc, { category, title }) => {
+            acc[category] = title;
             return acc;
         },
         {} as Record<string, string>,
