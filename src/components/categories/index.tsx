@@ -47,7 +47,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const showFallback =
         !displayedCards.length && !allowSearch && !filtersApplied && !allergensActive;
 
-    const bottomSectionData = category === 'the-juiciest' ? 'vegan' : 'desserts';
+    const bottomSectionData = category === 'the-juiciest' ? 'vegan' : 'dessert';
     useEffect(() => {
         if (!allowSearch) {
             dispatch(setFindState('common'));

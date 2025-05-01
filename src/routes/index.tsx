@@ -6,11 +6,11 @@ import Recipe from '~/components/recipe';
 
 import DB from '../data/db.json';
 const AppRoutes = () => {
-    const categories: string[] = DB.navMenu.categories.map(({ routeName }) => routeName);
+    const categories: string[] = DB.navMenu.categories.map(({ category }) => category);
 
     const subcategories: Record<string, string[]> = DB.navMenu.categories.reduce(
-        (acc, { routeName, elems }) => {
-            acc[routeName] = Object.values(elems);
+        (acc, { category, subCategories }) => {
+            acc[category] = subCategories.map(({ category }) => category);
             return acc;
         },
         {} as Record<string, string[]>,

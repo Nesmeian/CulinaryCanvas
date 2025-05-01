@@ -13,11 +13,12 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router';
 
+import { IMG_PATH } from '~/constants';
+import { useFilteredCategories } from '~/Hooks/getFilteredCategories';
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 
-import * as navMenuIcons from '../../../assets/navMenuIcons/index';
 import DB from '../../../data/db.json';
 import GetCurrentPath from '../../../utils/getCurrentPath';
 
@@ -25,9 +26,12 @@ export default function NavMenuList() {
     const pathSegments = GetCurrentPath();
     const currentRoute = pathSegments[0];
     const currentSubRoute = pathSegments[1];
-    const categoryIndex = DB.navMenu.categories.findIndex(
-        (category) => category.routeName === currentRoute,
-    );
+    const { data, loading } = useFilteredCategories();
+
+    const initialCategories = DB.navMenu.categories;
+    const categoryData = loading ? initialCategories : data;
+
+    const categoryIndex = categoryData.findIndex((category) => category.category === currentRoute);
     const [activeCategoryIndex, setCategoryActiveIndex] = useState<number | undefined>(
         categoryIndex !== -1 ? categoryIndex : undefined,
     );
@@ -41,6 +45,7 @@ export default function NavMenuList() {
         dispatch(closeFilter());
         dispatch(cleanFilterData());
     };
+
     return (
         <Accordion
             allowToggle
@@ -49,18 +54,13 @@ export default function NavMenuList() {
             index={activeCategoryIndex}
             onChange={(index) => setCategoryActiveIndex(index as number | undefined)}
         >
-            {DB.navMenu.categories.map(({ elems, id, name, imgUrl, routeName }) => (
-                <AccordionItem key={id} className='navMenu__item' border='0'>
+            {categoryData.map(({ subCategories, _id, title, icon, category }) => (
+                <AccordionItem key={_id} className='navMenu__item' border='0'>
                     <AccordionButton
                         as={RouterLink}
-                        data-test-id={routeName === 'vegan' ? 'vegan-cuisine' : routeName}
+                        data-test-id={category === 'vegan' ? 'vegan-cuisine' : category}
                         to={{
-                            pathname: `/${routeName}/${
-                                Object.entries(elems)[0]
-                                    ? Object.entries(elems)[0][1] ||
-                                      encodeURIComponent(Object.entries(elems)[0][0])
-                                    : ''
-                            }`,
+                            pathname: `/${category}/${subCategories[0].category}`,
                         }}
                         onClick={() => {
                             cleanEffects();
@@ -83,18 +83,15 @@ export default function NavMenuList() {
                         }}
                     >
                         <HStack gap='12px' className='navMenu__item-inner'>
-                            <Image
-                                src={navMenuIcons[imgUrl as keyof typeof navMenuIcons]}
-                                alt={name}
-                            />
+                            <Image src={`${IMG_PATH}${icon}`} alt={title} />
                             <Text className='navMenu__item_text' variant='navMenuItems'>
-                                {name}
+                                {title}
                             </Text>
                         </HStack>
                         <AccordionIcon boxSize='24px' />
                     </AccordionButton>
-                    {Object.entries(elems).map(([rusTitle, engTitle], index) => {
-                        const expectedPath = engTitle || encodeURIComponent(rusTitle);
+                    {subCategories.map(({ title, category: cat, _id }, index) => {
+                        const expectedPath = cat;
                         const isActive = expectedPath === currentSubRoute;
 
                         return (
@@ -102,13 +99,13 @@ export default function NavMenuList() {
                                 data-test-id={
                                     isActive ? `${expectedPath}-active` : `${expectedPath}-${index}`
                                 }
-                                key={`${id}-${index}`}
+                                key={`${_id}-${index}`}
                                 p={isActive ? '0 0 10px 46px' : '0 0 10px 52px'}
                                 _hover={{ bg: 'gray.50' }}
                             >
                                 <HStack
                                     as={RouterLink}
-                                    to={`/${routeName}/${expectedPath}`}
+                                    to={`/${category}/${expectedPath}`}
                                     cursor='pointer'
                                     onClick={() => {
                                         cleanEffects();
@@ -124,7 +121,7 @@ export default function NavMenuList() {
                                         fontWeight={isActive ? 700 : 400}
                                         transition='font-weight 0.2s'
                                     >
-                                        {rusTitle}
+                                        {title}
                                     </Text>
                                 </HStack>
                             </AccordionPanel>

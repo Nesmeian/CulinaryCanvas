@@ -11,6 +11,7 @@ import NavMenuList from './navMenuList';
 
 export default function NavMenu({ isDrawer }: { isDrawer?: boolean }) {
     const { isTablet } = useBreakpoints();
+
     return (
         <VStack
             as='nav'
