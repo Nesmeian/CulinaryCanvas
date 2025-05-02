@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router';
 
 import { IMG_PATH } from '~/constants';
-import { useFilteredCategories } from '~/Hooks/getFilteredCategories';
+import { useFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
