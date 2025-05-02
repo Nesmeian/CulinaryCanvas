@@ -1,6 +1,6 @@
 import './style.css';
 
-import { Heading, Image, Text, VStack } from '@chakra-ui/react';
+import { Heading, Image, VStack } from '@chakra-ui/react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -10,12 +10,7 @@ import * as sliderArrows from '../../assets/sliderArrows/index';
 import { SlideItem } from './sliderItem';
 
 export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
-    const { data: recipes, loading } = useFilteredOnDataRecipes();
-    if (loading) {
-        return <Text>Loading</Text>;
-    } else {
-        console.log(recipes);
-    }
+    const { data: recipes } = useFilteredOnDataRecipes();
     return (
         <VStack
             align='flex-start'

@@ -39,6 +39,19 @@ export const getApiSlice = apiSlice
                 }),
                 providesTags: [Tags.RECIPES],
             }),
+            getSortedAtLikes: builder.query<ComingRecipeDataProps, void>({
+                query: () => ({
+                    url: ApiEndpoints.RECIPES,
+                    method: 'GET',
+                    apiGroupName: ApiGroupNames.RECIPES,
+                    name: EndpointNames.GET_RECIPES,
+                    params: {
+                        sortBy: 'likes',
+                        sortOrder: 'desc',
+                    },
+                }),
+                providesTags: [Tags.RECIPES],
+            }),
             getSortedAtTimeRecipes: builder.query<ComingRecipeDataProps, void>({
                 query: () => ({
                     url: ApiEndpoints.RECIPES,
@@ -59,4 +72,5 @@ export const {
     useGetSortedAtTimeRecipesQuery,
     useGetCategoryIdQuery,
     useGetRecipeByCategoryIdQuery,
+    useGetSortedAtLikesQuery,
 } = getApiSlice;

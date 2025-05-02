@@ -9,7 +9,6 @@ import TagsProps from '../../types/utilsTypes';
 
 export default function AddTags({ category, withText, color, size, newPosition }: TagsProps) {
     const { category: searchCategory } = useGetCategoryId(category);
-    console.log(category);
     return (
         <Stack flexWrap='wrap' direction={{ md: 'row', base: 'column' }}>
             <HStack
