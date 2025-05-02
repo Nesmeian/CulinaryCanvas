@@ -14,6 +14,6 @@ export function useFilteredCategories() {
         setFiltered(result);
         setLoading(false);
     }, [data]);
-
+    console.log(filtered);
     return { data: filtered, loading };
 }

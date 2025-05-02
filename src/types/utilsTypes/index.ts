@@ -6,9 +6,8 @@ export default interface TagsProps {
     color?: string;
     size?: string;
     withText: boolean;
-    tag: TagKey[];
     newPosition?: true;
-    category?: string;
+    category: string[];
     multi?: boolean;
 }
 
