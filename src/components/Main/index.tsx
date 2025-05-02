@@ -16,8 +16,8 @@ import BigCardsList from '../bigCardsList';
 import Footer from '../Footer';
 import Search from '../Search';
 // import BottomSection from '../sections/bottomsection';
-// import CulinaryBlogs from '../sections/culinaryBlogs';
-// import Juiciest from '../sections/Juiciest';
+import CulinaryBlogs from '../sections/culinaryBlogs';
+import Juiciest from '../sections/Juiciest';
 import Slider from '../slider';
 import MainStyled from '../styledComponents/Main';
 export default function Main() {
@@ -53,9 +53,9 @@ export default function Main() {
             {showFallback ? (
                 <>
                     <Slider />
-                    {/* <Juiciest />
+                    <Juiciest />
                     <CulinaryBlogs />
-                    <BottomSection data={DB.vegan} /> */}
+                    {/* <BottomSection data={DB.vegan} /> */}
                 </>
             ) : (
                 <BigCardsList data={displayedCards} />

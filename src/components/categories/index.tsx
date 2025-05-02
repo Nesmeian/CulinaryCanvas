@@ -13,10 +13,10 @@ import hasActiveFilters from '~/utils/hasActiveFilter';
 
 import DB from '../../data/db.json';
 import { CategoriesProps } from '../../types/dataTypes';
-import BigCardsList from '../bigCardsList';
+// import BigCardsList from '../bigCardsList';
 import Footer from '../Footer';
 import Search from '../Search';
-import BottomSection from '../sections/bottomsection';
+// import BottomSection from '../sections/bottomsection';
 import GreenButton from '../styledComponents/greenButton';
 import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
@@ -47,7 +47,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const showFallback =
         !displayedCards.length && !allowSearch && !filtersApplied && !allergensActive;
 
-    const bottomSectionData = category === 'the-juiciest' ? 'vegan' : 'dessert';
+    // const bottomSectionData = category === 'the-juiciest' ? 'vegan' : 'dessert';
     useEffect(() => {
         if (!allowSearch) {
             dispatch(setFindState('common'));
@@ -75,14 +75,15 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
             {category !== 'the-juiciest' && <AddTabList category={category} />}
             {showFallback ? (
                 <>
-                    <BigCardsList data={actualDB} maxElems={8} categoryTag={category} />
+                    {/* <BigCardsList data={actualDB} maxElems={8} categoryTag={category} /> */}
                     {actualDB.length > 8 && <GreenButton text='Загрузить еще' />}
                 </>
             ) : (
-                <BigCardsList data={displayedCards} />
+                <>Text</>
+                // <BigCardsList data={displayedCards} />
             )}
 
-            <BottomSection data={DB[bottomSectionData]} />
+            {/* <BottomSection data={DB[bottomSectionData]} /> */}
             <Footer />
         </MainStyled>
     );

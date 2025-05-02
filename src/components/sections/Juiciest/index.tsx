@@ -3,13 +3,16 @@ import './style.css';
 import { Heading, HStack, Link, VStack } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router';
 
-import filterRecipesOnData from '~/utils/filterOnData';
+import { useGetJuiciest } from '~/Hooks/useGetJuiciest';
 
 import BigCardsList from '../../../components/bigCardsList';
 import GreenButton from '../../../components/styledComponents/greenButton';
 
 export default function Juiciest() {
-    const sortedOnTimeRecipes = filterRecipesOnData();
+    const { data, loading } = useGetJuiciest();
+    if (loading) {
+        return <>LOADING</>;
+    }
     return (
         <VStack
             as='section'
@@ -31,7 +34,7 @@ export default function Juiciest() {
                 </Link>
             </HStack>
 
-            <BigCardsList data={sortedOnTimeRecipes} maxElems={4} />
+            <BigCardsList data={data?.data} maxElems={4} />
 
             <Link
                 as={RouterLink}

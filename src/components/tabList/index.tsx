@@ -59,7 +59,6 @@ export default function AddTabList({ category }: { category: string }) {
             >
                 {navList?.map(({ title, category }, index) => {
                     let toPath: string;
-                    console.log(title);
                     if (currentSub) {
                         const newSegs = [base, category];
                         toPath = '/' + newSegs.join('/');

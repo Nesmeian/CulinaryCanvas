@@ -14,7 +14,6 @@ export const SlideItem = ({ index, recipe }: { recipe: ComingRecipeData; index: 
     const { isTablet } = useBreakpoints();
     const { image, title, description, categoriesIds, bookmarks, likes } = recipe;
     const { subCategoryData, category } = useGetCategoryId(categoriesIds);
-    console.log(subCategoryData, category);
     return (
         <VStack as={Link} to={`/${category?.category}/${subCategoryData?.category}/${index}`}>
             <Image height={{ lg: '230px', sm: '128px' }} src={`${IMG_PATH}${image}`} alt={title} />

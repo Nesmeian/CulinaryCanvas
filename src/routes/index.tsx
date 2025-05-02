@@ -1,12 +1,15 @@
 import { Route, Routes } from 'react-router';
 
 import Categories from '~/components/categories';
+import { Loader } from '~/components/loader';
 import Main from '~/components/Main';
 import Recipe from '~/components/recipe';
+import { useFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 
 import DB from '../data/db.json';
 const AppRoutes = () => {
-    const categories: string[] = DB.navMenu.categories.map(({ category }) => category);
+    const { data, loading } = useFilteredCategories();
+    const categories: string[] = data.map(({ category }) => category);
 
     const subcategories: Record<string, string[]> = DB.navMenu.categories.reduce(
         (acc, { category, subCategories }) => {
@@ -31,7 +34,10 @@ const AppRoutes = () => {
         {} as Record<string, string[]>,
     );
     const mainRecipes = DB.card.map(({ id }) => id);
-    return (
+
+    return loading ? (
+        <Loader />
+    ) : (
         <Routes>
             <Route path='/' element={<Main />} />
             {mainRecipes.map((recipe) => (
