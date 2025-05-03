@@ -6,7 +6,6 @@ import GetCurrentPath from '~/utils/getCurrentPath';
 
 export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
     const pathSegments = GetCurrentPath();
-
     const generatePath = (index: number) => '/' + pathSegments.slice(0, index + 1).join('/');
     return (
         <Breadcrumb

@@ -3,6 +3,8 @@ import './style.css';
 import { HStack, Stack } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router';
 
+import Footer from '~/components/Footer';
+
 import Header from '../components/Header';
 import NavMenu from '../components/navMenu';
 import Sidebar from '../components/Sidebar';
@@ -21,6 +23,7 @@ function App() {
                     {!isTablet && <Sidebar />}
                 </HStack>
             </Stack>
+            <Footer />
         </BrowserRouter>
     );
 }

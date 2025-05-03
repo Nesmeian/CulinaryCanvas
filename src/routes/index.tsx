@@ -23,7 +23,6 @@ const AppRoutes = () => {
         },
         {} as Record<string, { category: string; id: string }>,
     );
-    console.log(subcategories);
     const juiciest = ['the-juiciest'];
     const juiciestRecipes: Record<string, string[]> = juiciest.reduce(
         (acum, e) => {

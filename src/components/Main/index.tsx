@@ -13,9 +13,8 @@ import hasActiveFilters from '~/utils/hasActiveFilter';
 
 import DB from '../../data/db.json';
 import BigCardsList from '../bigCardsList';
-import Footer from '../Footer';
 import Search from '../Search';
-// import BottomSection from '../sections/bottomsection';
+import BottomSection from '../sections/bottomsection';
 import CulinaryBlogs from '../sections/culinaryBlogs';
 import Juiciest from '../sections/Juiciest';
 import Slider from '../slider';
@@ -55,13 +54,11 @@ export default function Main() {
                     <Slider />
                     <Juiciest />
                     <CulinaryBlogs />
-                    {/* <BottomSection data={DB.vegan} /> */}
+                    <BottomSection data={DB.vegan} />
                 </>
             ) : (
                 <BigCardsList data={displayedCards} />
             )}
-
-            <Footer />
         </MainStyled>
     );
 }
