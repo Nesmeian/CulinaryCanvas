@@ -3,18 +3,16 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router';
 
+import { useFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { closeBurger } from '~/store/burgerSlice';
 import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
-import DB from '../../data/db.json';
-
 export default function AddTabList({ category }: { category: string }) {
-    const navList = DB.navMenu.categories.find(
-        ({ category: cat }) => cat === category,
-    )?.subCategories;
+    const { data } = useFilteredCategories();
+    const navList = data.find(({ category: cat }) => cat === category)?.subCategories;
     const paths = navList?.map(({ category }) => category);
     const segments = GetCurrentPath();
     const base = segments[0] || '';

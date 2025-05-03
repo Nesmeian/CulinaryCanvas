@@ -2,6 +2,7 @@ import { Heading, Text, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { useGetRecipesQuery } from '~/query/services/get';
 import { ApplicationState } from '~/store/configure-store';
 import { setFindState } from '~/store/searchSlice';
 import filterAllergens from '~/utils/filterAllergens';
@@ -13,7 +14,7 @@ import hasActiveFilters from '~/utils/hasActiveFilter';
 
 import DB from '../../data/db.json';
 import { CategoriesProps } from '../../types/dataTypes';
-// import BigCardsList from '../bigCardsList';
+import BigCardsList from '../bigCardsList';
 import Footer from '../Footer';
 import Search from '../Search';
 // import BottomSection from '../sections/bottomsection';
@@ -22,6 +23,8 @@ import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
     const dispatch = useDispatch();
+    const { data, isLoading } = useGetRecipesQuery(subcategory);
+
     const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
@@ -46,7 +49,6 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const displayedCards = allowSearch ? getSearchCards(searchQuery, baseCards) : baseCards;
     const showFallback =
         !displayedCards.length && !allowSearch && !filtersApplied && !allergensActive;
-
     // const bottomSectionData = category === 'the-juiciest' ? 'vegan' : 'dessert';
     useEffect(() => {
         if (!allowSearch) {
@@ -55,6 +57,9 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
             dispatch(setFindState(displayedCards.length > 0 ? 'find' : 'not found'));
         }
     }, [allowSearch, displayedCards, dispatch]);
+    if (isLoading) {
+        return <Text>Loading</Text>;
+    }
     return (
         <MainStyled as='main'>
             <VStack width={{ lg: '50%', base: '100%' }}>
@@ -75,12 +80,15 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
             {category !== 'the-juiciest' && <AddTabList category={category} />}
             {showFallback ? (
                 <>
-                    {/* <BigCardsList data={actualDB} maxElems={8} categoryTag={category} /> */}
-                    {actualDB.length > 8 && <GreenButton text='Загрузить еще' />}
+                    <BigCardsList data={data?.data} />
+                    <GreenButton text='Загрузить еще' />
                 </>
             ) : (
-                <>Text</>
-                // <BigCardsList data={displayedCards} />
+                <>
+                    <>Text</>
+                    {/* // <BigCardsList data={displayedCards} /> */}
+                    <GreenButton text='Загрузить еще' />
+                </>
             )}
 
             {/* <BottomSection data={DB[bottomSectionData]} /> */}

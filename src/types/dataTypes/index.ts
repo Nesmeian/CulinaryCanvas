@@ -56,7 +56,7 @@ export interface BottomSectionProps {
 }
 
 export interface CategoriesProps {
-    subcategory?: string;
+    subcategory: string;
     category: string;
 }
 export interface BigCardsListProps {
