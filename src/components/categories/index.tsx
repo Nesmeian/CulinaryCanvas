@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
-import { UseGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
+import { useGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
 import { useGetRecipesQuery } from '~/query/services/get';
 import { ApplicationState } from '~/store/configure-store';
 import { setFindState } from '~/store/searchSlice';
@@ -25,7 +25,6 @@ import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
     const dispatch = useDispatch();
     const { data, isLoading } = useGetRecipesQuery(subcategory);
-
     const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
@@ -61,7 +60,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
         categoryData: catData,
         recipes,
         isLoading: subcatLoading,
-    } = UseGetSubcategoryRecipesData(categoryData?.subCategories ?? []);
+    } = useGetSubcategoryRecipesData(categoryData?.subCategories ?? []);
     if (isLoading || loading || subcatLoading) {
         return <Text>Loading</Text>;
     }
