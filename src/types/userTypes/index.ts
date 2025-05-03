@@ -25,6 +25,12 @@ export type AllergensState = {
     isActive: boolean;
     allergens: string[];
 };
+export type CategoryState = {
+    subCategoryId: string;
+    categoryId: string;
+    category: string;
+    subCategory: string;
+};
 export type SearchState = {
     allowSearch: boolean;
     search: string;

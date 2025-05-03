@@ -5,23 +5,29 @@ import { Loader } from '~/components/loader';
 import Main from '~/components/Main';
 import Recipe from '~/components/recipe';
 import { useFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { useGetJuiciest } from '~/Hooks/useGetJuiciest';
 
 import DB from '../data/db.json';
+
 const AppRoutes = () => {
     const { data, loading } = useFilteredCategories();
+    const { data: juiciestData, loading: loadingLikes } = useGetJuiciest();
     const categories: string[] = data.map(({ category }) => category);
-
-    const subcategories: Record<string, string[]> = DB.navMenu.categories.reduce(
+    const subcategories: Record<string, { category: string; id: string }> = data.reduce(
         (acc, { category, subCategories }) => {
-            acc[category] = subCategories.map(({ category }) => category);
+            acc[category] = subCategories.map(({ category: sub, _id: id }) => ({
+                category: sub,
+                id,
+            }));
             return acc;
         },
-        {} as Record<string, string[]>,
+        {} as Record<string, { category: string; id: string }>,
     );
+    console.log(subcategories);
     const juiciest = ['the-juiciest'];
     const juiciestRecipes: Record<string, string[]> = juiciest.reduce(
         (acum, e) => {
-            acum[e] = DB.card.map(({ id }) => id);
+            acum[e] = juiciestData?.data.map(({ _id }) => _id);
             return acum;
         },
         {} as Record<string, string[]>,
@@ -35,7 +41,7 @@ const AppRoutes = () => {
     );
     const mainRecipes = DB.card.map(({ id }) => id);
 
-    return loading ? (
+    return loading && loadingLikes ? (
         <Loader />
     ) : (
         <Routes>
@@ -53,17 +59,15 @@ const AppRoutes = () => {
             ))}
             {categories.map((category) => (
                 <Route key={category} path={`/${category}`}>
-                    <Route index element={<Categories category={category} />} />
-
                     {subcategories[category]?.map((sub) => (
-                        <Route key={sub} path={sub}>
+                        <Route key={sub.id} path={sub.category}>
                             <Route
                                 index
-                                element={<Categories category={category} subcategory={sub} />}
+                                element={<Categories category={category} subcategory={sub.id} />}
                             />
                             {recipes[category]?.map((recipe) => (
                                 <Route
-                                    key={`${sub}-${recipe}`}
+                                    key={`${sub.category}-${recipe}`}
                                     path={recipe}
                                     element={<Recipe card={recipe} />}
                                 />

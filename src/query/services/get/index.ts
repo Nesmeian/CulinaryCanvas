@@ -30,10 +30,13 @@ export const getApiSlice = apiSlice
                 }),
                 providesTags: [Tags.CATEGORY],
             }),
-            getRecipeByCategoryId: builder.query<ComingCategoryData, string>({
-                query: () => ({
-                    url: `${ApiEndpoints.RECIPES_CATEGORY}${'67c4941eed67ca980917d653'}`,
+            getRecipes: builder.query<ComingCategoryData, string>({
+                query: (subcategory) => ({
+                    url: ApiEndpoints.RECIPES,
                     method: 'GET',
+                    params: {
+                        subcategoriesIds: subcategory,
+                    },
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPES,
                 }),
@@ -59,6 +62,7 @@ export const getApiSlice = apiSlice
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPES,
                     params: {
+                        limit: 10,
                         sortOrder: 'desc',
                     },
                 }),
@@ -71,6 +75,6 @@ export const {
     useGetCategoryQuery,
     useGetSortedAtTimeRecipesQuery,
     useGetCategoryIdQuery,
-    useGetRecipeByCategoryIdQuery,
+    useGetRecipesQuery,
     useGetSortedAtLikesQuery,
 } = getApiSlice;

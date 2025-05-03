@@ -30,7 +30,7 @@ export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
 
             {pathSegments.map((segment, index) => {
                 const isLast = index === pathSegments.length - 1;
-
+                console.log(segment);
                 return (
                     <BreadcrumbItem key={index} isCurrentPage={isLast}>
                         <BreadcrumbLink

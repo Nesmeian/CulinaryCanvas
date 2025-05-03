@@ -62,9 +62,7 @@ export default function NavMenuList() {
                         to={{
                             pathname: `/${category}/${subCategories[0].category}`,
                         }}
-                        onClick={() => {
-                            cleanEffects();
-                        }}
+                        onClick={cleanEffects}
                         transition='font-weight 0.2s'
                         display='flex'
                         justifyContent='space-between'
@@ -107,9 +105,7 @@ export default function NavMenuList() {
                                     as={RouterLink}
                                     to={`/${category}/${expectedPath}`}
                                     cursor='pointer'
-                                    onClick={() => {
-                                        cleanEffects();
-                                    }}
+                                    onClick={cleanEffects}
                                 >
                                     <Box
                                         width={isActive ? '8px' : '1px'}
