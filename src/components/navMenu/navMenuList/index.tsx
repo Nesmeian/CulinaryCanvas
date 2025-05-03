@@ -35,7 +35,6 @@ export default function NavMenuList() {
     const [activeCategoryIndex, setCategoryActiveIndex] = useState<number | undefined>(
         categoryIndex !== -1 ? categoryIndex : undefined,
     );
-    console.log(categoryData);
     const dispatch = useDispatch();
     const cleanEffects = () => {
         dispatch(cleanAllergens());
