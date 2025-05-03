@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
+import { useGetJuiciest } from '~/Hooks/useGetJuiciest';
 import { useGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
 import { useGetRecipesQuery } from '~/query/services/get';
 import { ApplicationState } from '~/store/configure-store';
@@ -24,6 +25,7 @@ import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
     const dispatch = useDispatch();
+    const { data: juiciestData } = useGetJuiciest();
     const { data, isLoading } = useGetRecipesQuery(subcategory);
     const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
@@ -91,7 +93,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
             ) : (
                 <>
                     <>Text</>
-                    {/* // <BigCardsList data={displayedCards} /> */}
+                    // <BigCardsList data={juiciestData?.data} />
                     <GreenButton text='Загрузить еще' />
                 </>
             )}

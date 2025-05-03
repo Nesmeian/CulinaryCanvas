@@ -2,6 +2,8 @@ import './style.css';
 
 import { Button, Grid, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 
+import { useFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { useGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
 import { ComingCategoryData, ComingRecipeData } from '~/types/comingData';
 
 import AddNotifications from '../../../utils/addNotifications';
@@ -10,16 +12,23 @@ import AddTags from '../../../utils/addTags';
 export default function BottomSection({
     recipes,
     randomCategory,
+    isMain,
 }: {
-    recipes: ComingRecipeData[];
-    randomCategory: ComingCategoryData;
+    recipes?: ComingRecipeData[];
+    randomCategory?: ComingCategoryData;
+    isMain?: boolean;
 }) {
-    const all = recipes ?? [];
+    const { data } = useFilteredCategories(true);
+    const { categoryData: mainCategory, recipes: mainRecipes } = useGetSubcategoryRecipesData(data);
+    const all: ComingRecipeData[] = isMain ? (mainRecipes?.data ?? []) : (recipes ?? []);
+    const title = isMain ? mainCategory?.title : randomCategory?.title;
+    const description = isMain ? mainCategory?.description : randomCategory?.description;
     const recipesLength = recipes?.length ?? 0;
     const bigCardLengthSlice = Math.min(recipesLength - 1, 2);
     const smallCardLengthSlice = Math.min(recipesLength - 1, 5);
-    const bigCards = all.length >= 2 ? all.slice(0, bigCardLengthSlice) : [];
-    const smallCards = all.length >= 5 ? all.slice(2, smallCardLengthSlice) : [];
+    const bigCards = all?.length >= 2 ? all.slice(0, bigCardLengthSlice) : [];
+    const smallCards = all?.length >= 5 ? all.slice(2, smallCardLengthSlice) : [];
+
     if (bigCards.length === 0) {
         return null;
     }
@@ -43,9 +52,9 @@ export default function BottomSection({
                 className='bottom-section__title-container'
             >
                 <Heading as='h2' size='h2' lineHeight='44px' className='bottom-section__title'>
-                    {randomCategory.title}
+                    {title}
                 </Heading>
-                <Text lineHeight='20px'>{randomCategory.description}</Text>
+                <Text lineHeight='20px'>{description}</Text>
             </Grid>
             <Grid
                 templateColumns={{

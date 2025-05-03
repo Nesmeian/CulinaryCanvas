@@ -54,7 +54,7 @@ export default function Main() {
                     <Slider />
                     <Juiciest />
                     <CulinaryBlogs />
-                    <BottomSection data={DB.vegan} />
+                    <BottomSection isMain />
                 </>
             ) : (
                 <BigCardsList data={displayedCards} />
