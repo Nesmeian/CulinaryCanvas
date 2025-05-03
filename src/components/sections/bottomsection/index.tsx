@@ -2,13 +2,27 @@ import './style.css';
 
 import { Button, Grid, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 
-import { BottomSectionProps } from '~/types/dataTypes';
+import { ComingCategoryData, ComingRecipeData } from '~/types/comingData';
 
-import { TagKey } from '../../../types/utilsTypes';
 import AddNotifications from '../../../utils/addNotifications';
 import AddTags from '../../../utils/addTags';
 
-export default function BottomSection({ data }: BottomSectionProps) {
+export default function BottomSection({
+    recipes,
+    randomCategory,
+}: {
+    recipes: ComingRecipeData[];
+    randomCategory: ComingCategoryData;
+}) {
+    const all = recipes ?? [];
+    const recipesLength = recipes?.length ?? 0;
+    const bigCardLengthSlice = Math.min(recipesLength - 1, 2);
+    const smallCardLengthSlice = Math.min(recipesLength - 1, 5);
+    const bigCards = all.length >= 2 ? all.slice(0, bigCardLengthSlice) : [];
+    const smallCards = all.length >= 5 ? all.slice(2, smallCardLengthSlice) : [];
+    if (bigCards.length === 0) {
+        return null;
+    }
     return (
         <VStack
             mt='auto'
@@ -29,9 +43,9 @@ export default function BottomSection({ data }: BottomSectionProps) {
                 className='bottom-section__title-container'
             >
                 <Heading as='h2' size='h2' lineHeight='44px' className='bottom-section__title'>
-                    {data.title}
+                    {randomCategory.title}
                 </Heading>
-                <Text lineHeight='20px'>{data.description}</Text>
+                <Text lineHeight='20px'>{randomCategory.description}</Text>
             </Grid>
             <Grid
                 templateColumns={{
@@ -46,81 +60,87 @@ export default function BottomSection({ data }: BottomSectionProps) {
                     gap={{ xl: '25px', sm: '10px' }}
                     templateColumns='repeat(auto-fit, minmax(232px, 1fr)) '
                 >
-                    {data.elems.smallCard?.map(
-                        ({ id, title, category, description, bookmarks, likes }) => (
-                            <VStack
-                                key={id}
-                                className='bottom-section__card-item'
+                    {bigCards?.length > 0 &&
+                        bigCards?.map(
+                            ({ _id, title, categoriesIds, description, bookmarks, likes }) => (
+                                <VStack
+                                    key={_id}
+                                    className='bottom-section__card-item'
+                                    _hover={{
+                                        boxShadow:
+                                            '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
+                                    }}
+                                >
+                                    <Heading
+                                        variant='veganCardHeadingStyles'
+                                        width='100%'
+                                        as='h4'
+                                        size='h4'
+                                    >
+                                        {title}
+                                    </Heading>
+                                    <Text variant='culinaryTextStyles' mb='18px' noOfLines={3}>
+                                        {description}
+                                    </Text>
+                                    <HStack
+                                        width='100%'
+                                        justify='space-between'
+                                        position='relative'
+                                    >
+                                        <AddTags
+                                            category={categoriesIds}
+                                            withText
+                                            size='14px'
+                                            color='#ffffd3;'
+                                            newPosition
+                                        />
+                                        <AddNotifications bookmarks={bookmarks} likes={likes} />
+                                    </HStack>
+                                </VStack>
+                            ),
+                        )}
+                </Grid>
+                <VStack gap={{ lg: '12px', md: '8px', sm: '15px' }} width='100%'>
+                    {smallCards?.length > 0 &&
+                        smallCards?.map(({ title, categoriesIds }) => (
+                            <HStack
                                 _hover={{
                                     boxShadow:
                                         '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
                                 }}
+                                key={title}
+                                className='bottom-section__recipe-item'
+                                width='100%'
+                                justify='space-between'
                             >
-                                <Heading
-                                    variant='veganCardHeadingStyles'
-                                    width='100%'
-                                    as='h4'
-                                    size='h4'
-                                >
-                                    {title}
-                                </Heading>
-                                <Text variant='culinaryTextStyles' mb='18px' noOfLines={3}>
-                                    {description}
-                                </Text>
-                                <HStack width='100%' justify='space-between' position='relative'>
+                                <HStack gap='0px' position='relative' width='70%'>
                                     <AddTags
-                                        tag={category as TagKey[]}
-                                        withText
-                                        size='14px'
-                                        color='#ffffd3;'
+                                        category={categoriesIds}
                                         newPosition
+                                        withText={false}
+                                        size='24px'
                                     />
-                                    <AddNotifications bookmarks={bookmarks} likes={likes} />
+                                    <Heading
+                                        variant='veganItemHeadingStyles'
+                                        noOfLines={1}
+                                        as='h4'
+                                        size='h4'
+                                    >
+                                        {title}
+                                    </Heading>
                                 </HStack>
-                            </VStack>
-                        ),
-                    )}
-                </Grid>
-                <VStack gap={{ lg: '12px', md: '8px', sm: '15px' }} width='100%'>
-                    {data.elems.recipes?.map(({ title, category }) => (
-                        <HStack
-                            _hover={{
-                                boxShadow:
-                                    '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
-                            }}
-                            key={title}
-                            className='bottom-section__recipe-item'
-                            width='100%'
-                            justify='space-between'
-                        >
-                            <HStack gap='0px' position='relative' width='70%'>
-                                <AddTags
-                                    tag={category as TagKey[]}
-                                    newPosition
-                                    withText={false}
-                                    size='24px'
-                                />
-                                <Heading
-                                    variant='veganItemHeadingStyles'
-                                    noOfLines={1}
-                                    as='h4'
-                                    size='h4'
+                                <Button
+                                    width='30%'
+                                    fontSize='15.5px'
+                                    fontWeight='600'
+                                    height='32px'
+                                    variant='outline'
+                                    colorScheme='customGreen'
                                 >
-                                    {title}
-                                </Heading>
+                                    Готовить
+                                </Button>
                             </HStack>
-                            <Button
-                                width='30%'
-                                fontSize='15.5px'
-                                fontWeight='600'
-                                height='32px'
-                                variant='outline'
-                                colorScheme='customGreen'
-                            >
-                                Готовить
-                            </Button>
-                        </HStack>
-                    ))}
+                        ))}
                 </VStack>
             </Grid>
         </VStack>

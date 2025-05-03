@@ -30,7 +30,7 @@ export const getApiSlice = apiSlice
                 }),
                 providesTags: [Tags.CATEGORY],
             }),
-            getRecipes: builder.query<ComingCategoryData, string>({
+            getRecipes: builder.query<ComingRecipeDataProps, string>({
                 query: (subcategory) => ({
                     url: ApiEndpoints.RECIPES,
                     method: 'GET',

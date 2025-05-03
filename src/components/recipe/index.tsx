@@ -1,10 +1,8 @@
 import { VStack } from '@chakra-ui/react';
 
-import useBreakpoints from '~/themes/chakraBreakPoints';
 import { AuthorData, NutritionValueData, RecipeData } from '~/types/recipesData/index.ts';
 
 import DB from '../../data/db.json';
-import Footer from '../Footer';
 import Slider from '../slider';
 import MainStyled from '../styledComponents/Main';
 import RecipeAuthor from './recipeAuthor';
@@ -13,7 +11,6 @@ import RecipeIngredients from './recipeIngredients';
 import RecipeNutritionValue from './recipenutrition';
 import RecipeSteps from './recipeSteps';
 export default function Recipe({ card }: { card: string }) {
-    const { isTablet } = useBreakpoints();
     const recipeItem = DB.card.find(({ id }) => card === id);
     const [
         recipeNutritionValueData,
@@ -51,7 +48,6 @@ export default function Recipe({ card }: { card: string }) {
                 <RecipeAuthor data={recipeAuthorData as AuthorData} />
             </VStack>
             <Slider isRecipePage />
-            {isTablet && <Footer />}
         </MainStyled>
     );
 }
