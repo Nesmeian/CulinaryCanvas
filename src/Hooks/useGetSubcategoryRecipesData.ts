@@ -1,15 +1,19 @@
 import { skipToken } from '@reduxjs/toolkit/query';
+import { useMemo } from 'react';
 
 import { useGetCategoryIdQuery, useGetRecipesQuery } from '~/query/services/get';
 import { SubCategoriesProps } from '~/types/comingData';
 
-export const UseGetSubcategoryRecipesData = (data: SubCategoriesProps[]) => {
-    const randomIndex = data?.length ? Math.floor(Math.random() * data.length) : undefined;
-    const randomCategory = randomIndex !== undefined ? data[randomIndex] : undefined;
+export const useGetSubcategoryRecipesData = (data: SubCategoriesProps[]) => {
+    const randomCategory = useMemo<SubCategoriesProps | undefined>(() => {
+        if (!data.length) return undefined;
+        const idx = Math.floor(Math.random() * data.length);
+        return data[idx];
+    }, [data]);
     const { data: categoryData } = useGetCategoryIdQuery(
         randomCategory?.rootCategoryId ?? skipToken,
     );
     const { data: recipes, isLoading } = useGetRecipesQuery(randomCategory?._id ?? skipToken);
-    console.log(categoryData);
+
     return { categoryData, recipes, isLoading };
 };
