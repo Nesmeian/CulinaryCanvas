@@ -2,7 +2,7 @@ import './style.css';
 
 import { Button, Grid, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 
-import { useFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { useGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
 import { ComingCategoryData, ComingRecipeData } from '~/types/comingData';
 
@@ -18,17 +18,16 @@ export default function BottomSection({
     randomCategory?: ComingCategoryData;
     isMain?: boolean;
 }) {
-    const { data } = useFilteredCategories(true);
+    const { data } = useGetFilteredCategories(true);
     const { categoryData: mainCategory, recipes: mainRecipes } = useGetSubcategoryRecipesData(data);
     const all: ComingRecipeData[] = isMain ? (mainRecipes?.data ?? []) : (recipes ?? []);
     const title = isMain ? mainCategory?.title : randomCategory?.title;
     const description = isMain ? mainCategory?.description : randomCategory?.description;
-    const recipesLength = recipes?.length ?? 0;
-    const bigCardLengthSlice = Math.min(recipesLength - 1, 2);
-    const smallCardLengthSlice = Math.min(recipesLength - 1, 5);
-    const bigCards = all?.length >= 2 ? all.slice(0, bigCardLengthSlice) : [];
-    const smallCards = all?.length >= 5 ? all.slice(2, smallCardLengthSlice) : [];
-
+    const recipesLength = all?.length ?? 0;
+    const bigCardLengthSlice = Math.min(recipesLength, 2);
+    const smallCardLengthSlice = Math.min(recipesLength, 5);
+    const bigCards = all?.length >= 1 ? all.slice(0, bigCardLengthSlice) : [];
+    const smallCards = all?.length >= 3 ? all.slice(2, smallCardLengthSlice) : [];
     if (bigCards.length === 0) {
         return null;
     }

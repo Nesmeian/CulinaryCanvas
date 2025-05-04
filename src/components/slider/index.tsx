@@ -7,10 +7,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useFilteredOnDataRecipes } from '~/Hooks/useGetRecipesForData';
 
 import * as sliderArrows from '../../assets/sliderArrows/index';
+import { Loader } from '../loader';
 import { SlideItem } from './sliderItem';
 
 export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
-    const { data: recipes } = useFilteredOnDataRecipes();
+    const { data: recipes, loading } = useFilteredOnDataRecipes();
+    if (loading) {
+        return <Loader />;
+    }
     return (
         <VStack
             align='flex-start'

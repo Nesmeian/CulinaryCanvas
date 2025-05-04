@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 
-import translatePathSegment from '~/utils/BreadCrumbsTranslation';
+import TranslatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
 export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
@@ -29,14 +29,13 @@ export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
 
             {pathSegments.map((segment, index) => {
                 const isLast = index === pathSegments.length - 1;
-                console.log(segment);
                 return (
                     <BreadcrumbItem key={index} isCurrentPage={isLast}>
                         <BreadcrumbLink
                             href={!isLast ? generatePath(index) : undefined}
                             color={isLast ? 'black' : 'rgba(0, 0, 0, 0.64)'}
                         >
-                            <Text>{translatePathSegment(segment)}</Text>
+                            <TranslatePathSegment segment={segment} />
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                 );
