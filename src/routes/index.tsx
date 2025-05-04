@@ -4,13 +4,13 @@ import Categories from '~/components/categories';
 import { Loader } from '~/components/loader';
 import Main from '~/components/Main';
 import Recipe from '~/components/recipe';
-import { useFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { useGetJuiciest } from '~/Hooks/useGetJuiciest';
 
 import DB from '../data/db.json';
 
 const AppRoutes = () => {
-    const { data, loading } = useFilteredCategories();
+    const { data, loading } = useGetFilteredCategories();
     const { data: juiciestData, loading: loadingLikes } = useGetJuiciest();
     const categories: string[] = data.map(({ category }) => category);
     const subcategories: Record<string, { category: string; id: string }> = data.reduce(
@@ -31,6 +31,7 @@ const AppRoutes = () => {
         },
         {} as Record<string, string[]>,
     );
+    console.log(juiciestRecipes);
     const recipes: Record<string, string[]> = categories.reduce(
         (acum, e) => {
             acum[e] = DB.card.filter(({ category }) => category.includes(e)).map(({ id }) => id);
@@ -40,7 +41,7 @@ const AppRoutes = () => {
     );
     const mainRecipes = DB.card.map(({ id }) => id);
 
-    return loading && loadingLikes ? (
+    return loading || loadingLikes ? (
         <Loader />
     ) : (
         <Routes>

@@ -3,6 +3,7 @@ import './style.css';
 import { Heading, HStack, Link, VStack } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router';
 
+import { Loader } from '~/components/loader';
 import { useGetJuiciest } from '~/Hooks/useGetJuiciest';
 
 import BigCardsList from '../../../components/bigCardsList';
@@ -11,7 +12,7 @@ import GreenButton from '../../../components/styledComponents/greenButton';
 export default function Juiciest() {
     const { data, loading } = useGetJuiciest();
     if (loading) {
-        return <>LOADING</>;
+        return <Loader />;
     }
     return (
         <VStack

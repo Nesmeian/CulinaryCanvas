@@ -1,22 +1,23 @@
 import { VStack } from '@chakra-ui/react';
 
-import { AuthorData, NutritionValueData, RecipeData } from '~/types/recipesData/index.ts';
+import { useGetRecipeByIdQuery } from '~/query/services/get';
+import { NutritionValueData } from '~/types/recipesData/index.ts';
 
-import DB from '../../data/db.json';
+import { Loader } from '../loader';
 import Slider from '../slider';
 import MainStyled from '../styledComponents/Main';
-import RecipeAuthor from './recipeAuthor';
+// import RecipeAuthor from './recipeAuthor';
 import RecipeCard from './recipeCard';
 import RecipeIngredients from './recipeIngredients';
 import RecipeNutritionValue from './recipenutrition';
 import RecipeSteps from './recipeSteps';
 export default function Recipe({ card }: { card: string }) {
-    const recipeItem = DB.card.find(({ id }) => card === id);
+    const { data: recipeItem, isLoading } = useGetRecipeByIdQuery(card);
     const [
         recipeNutritionValueData,
         recipeIngredientsData,
         recipeStepsData,
-        recipeAuthorData,
+        // recipeAuthorData,
         recipePortions,
     ] = [
         recipeItem?.nutritionValue,
@@ -26,8 +27,8 @@ export default function Recipe({ card }: { card: string }) {
         recipeItem?.portions ?? 1,
     ];
 
-    if (!recipeIngredientsData || !recipeStepsData) {
-        return <div>Ошибка: ингредиенты не указаны</div>;
+    if (isLoading) {
+        return <Loader />;
     }
     return (
         <MainStyled
@@ -36,7 +37,7 @@ export default function Recipe({ card }: { card: string }) {
             gap={0}
             overflowY='scroll'
         >
-            <RecipeCard recipeData={recipeItem as RecipeData} />
+            <RecipeCard recipeData={recipeItem} />
             <VStack
                 as='section'
                 width={{ xl: '49%', lg: '66%', md: '83%', base: '100%' }}
@@ -45,7 +46,7 @@ export default function Recipe({ card }: { card: string }) {
                 <RecipeNutritionValue data={recipeNutritionValueData as NutritionValueData} />
                 <RecipeIngredients data={recipeIngredientsData} recipePortions={recipePortions} />
                 <RecipeSteps data={recipeStepsData} />
-                <RecipeAuthor data={recipeAuthorData as AuthorData} />
+                {/* <RecipeAuthor data={recipeAuthorData as AuthorData} /> */}
             </VStack>
             <Slider isRecipePage />
         </MainStyled>

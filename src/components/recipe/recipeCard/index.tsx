@@ -1,23 +1,22 @@
 import { Button, ButtonGroup, Heading, HStack, Image, Stack, Text, VStack } from '@chakra-ui/react';
 
-import { RecipeData } from '~/types/recipesData';
-import { TagKey } from '~/types/utilsTypes';
+import { IMG_PATH } from '~/constants';
+import { ComingRecipeData } from '~/types/comingData';
 import AddNotifications from '~/utils/addNotifications';
 import AddTags from '~/utils/addTags';
 
 import alarmImg from '../../../assets/alarm.svg';
-import * as recipesDishesImg from '../../../assets/recipeImages/index';
 import * as socialIcons from '../../../assets/socialIcons/index';
 
-export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
-    const { title, id, description, category, imgUrl, bookmarks, likes, time } = recipeData;
+export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeData }) {
+    const { title, _id, description, categoriesIds, image, bookmarks, likes, time } = recipeData;
     return (
         <Stack
             as='section'
             flexDir={{ md: 'row', sm: 'column' }}
             mt={{ lg: '56px', sm: '4px' }}
             width='100%'
-            key={id}
+            key={_id}
             position='relative'
             _hover={{
                 boxShadow:
@@ -30,12 +29,7 @@ export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
                 overflow='hidden'
                 borderRadius='8px'
             >
-                <Image
-                    height='100%'
-                    width='100%'
-                    src={recipesDishesImg[imgUrl as keyof typeof recipesDishesImg]}
-                    alt={imgUrl}
-                />
+                <Image height='100%' width='100%' src={`${IMG_PATH}${image}`} alt={image} />
             </HStack>
             <VStack
                 alignSelf='flex-start'
@@ -54,7 +48,7 @@ export default function RecipeCard({ recipeData }: { recipeData: RecipeData }) {
                         alignItems='flex-start'
                     >
                         <AddTags
-                            tag={category as TagKey[]}
+                            category={categoriesIds}
                             withText={true}
                             color='#ffffd3'
                             size='16px'

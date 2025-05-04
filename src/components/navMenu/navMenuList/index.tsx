@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router';
 
 import { IMG_PATH } from '~/constants';
-import { useFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
@@ -26,7 +26,7 @@ export default function NavMenuList() {
     const pathSegments = GetCurrentPath();
     const currentRoute = pathSegments[0];
     const currentSubRoute = pathSegments[1];
-    const { data, loading } = useFilteredCategories();
+    const { data, loading } = useGetFilteredCategories();
 
     const initialCategories = DB.navMenu.categories;
     const categoryData = loading ? initialCategories : data;

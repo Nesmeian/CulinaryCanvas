@@ -3,7 +3,7 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
-import { ComingCategoryData, ComingRecipeDataProps } from '~/types/comingData';
+import { ComingCategoryData, ComingRecipeData, ComingRecipeDataProps } from '~/types/comingData';
 
 export const getApiSlice = apiSlice
     .enhanceEndpoints({
@@ -37,6 +37,15 @@ export const getApiSlice = apiSlice
                     params: {
                         subcategoriesIds: subcategory,
                     },
+                    apiGroupName: ApiGroupNames.RECIPES,
+                    name: EndpointNames.GET_RECIPES,
+                }),
+                providesTags: [Tags.RECIPES],
+            }),
+            getRecipeById: builder.query<ComingRecipeData, string>({
+                query: (id) => ({
+                    url: `${ApiEndpoints.RECIPES}${id}`,
+                    method: 'GET',
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPES,
                 }),
@@ -77,4 +86,5 @@ export const {
     useGetCategoryIdQuery,
     useGetRecipesQuery,
     useGetSortedAtLikesQuery,
+    useGetRecipeByIdQuery,
 } = getApiSlice;

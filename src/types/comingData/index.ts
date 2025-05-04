@@ -41,6 +41,7 @@ export type ComingRecipeData = {
     };
     portions: number;
     steps: {
+        image: string;
         stepNumber: number;
         description: string;
     };

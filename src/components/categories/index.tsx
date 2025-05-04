@@ -18,6 +18,7 @@ import hasActiveFilters from '~/utils/hasActiveFilter';
 import DB from '../../data/db.json';
 import { CategoriesProps } from '../../types/dataTypes';
 import BigCardsList from '../bigCardsList';
+import { Loader } from '../loader';
 import Search from '../Search';
 import BottomSection from '../sections/bottomsection';
 import GreenButton from '../styledComponents/greenButton';
@@ -64,7 +65,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
         isLoading: subcatLoading,
     } = useGetSubcategoryRecipesData(categoryData?.subCategories ?? []);
     if (isLoading || loading || subcatLoading) {
-        return <Text>Loading</Text>;
+        return <Loader />;
     }
 
     return (
@@ -92,9 +93,9 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                 </>
             ) : (
                 <>
-                    <>Text</>
-                    // <BigCardsList data={juiciestData?.data} />
+                    <BigCardsList data={juiciestData?.data} />
                     <GreenButton text='Загрузить еще' />
+                    <BottomSection isMain />
                 </>
             )}
 
