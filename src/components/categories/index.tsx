@@ -28,6 +28,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const dispatch = useDispatch();
     const { data: juiciestData } = useGetJuiciest();
     const { data, isLoading } = useGetRecipesQuery(subcategory);
+
     const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);

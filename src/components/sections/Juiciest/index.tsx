@@ -10,8 +10,8 @@ import BigCardsList from '../../../components/bigCardsList';
 import GreenButton from '../../../components/styledComponents/greenButton';
 
 export default function Juiciest() {
-    const { data, loading } = useGetJuiciest();
-    if (loading) {
+    const { data, isLoading } = useGetJuiciest();
+    if (isLoading) {
         return <Loader />;
     }
     return (

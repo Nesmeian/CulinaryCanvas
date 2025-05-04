@@ -2,17 +2,19 @@ import { VStack } from '@chakra-ui/react';
 
 import { useGetRecipeByIdQuery } from '~/query/services/get';
 import { NutritionValueData } from '~/types/recipesData/index.ts';
+import GetCurrentPath from '~/utils/getCurrentPath';
 
 import { Loader } from '../loader';
 import Slider from '../slider';
 import MainStyled from '../styledComponents/Main';
-// import RecipeAuthor from './recipeAuthor';
+import RecipeAuthor from './recipeAuthor';
 import RecipeCard from './recipeCard';
 import RecipeIngredients from './recipeIngredients';
 import RecipeNutritionValue from './recipenutrition';
 import RecipeSteps from './recipeSteps';
-export default function Recipe({ card }: { card: string }) {
-    const { data: recipeItem, isLoading } = useGetRecipeByIdQuery(card);
+export default function Recipe() {
+    const path = GetCurrentPath();
+    const { data: recipeItem, isLoading } = useGetRecipeByIdQuery(path[path.length - 1]);
     const [
         recipeNutritionValueData,
         recipeIngredientsData,
@@ -23,10 +25,16 @@ export default function Recipe({ card }: { card: string }) {
         recipeItem?.nutritionValue,
         recipeItem?.ingredients,
         recipeItem?.steps,
-        recipeItem?.author,
         recipeItem?.portions ?? 1,
     ];
-
+    const author = {
+        name: 'Сергей Разумов',
+        email: '@serge25',
+        imgUrl: 'sergeyRazumov',
+        notifications: {
+            views: 125,
+        },
+    };
     if (isLoading) {
         return <Loader />;
     }
@@ -46,7 +54,7 @@ export default function Recipe({ card }: { card: string }) {
                 <RecipeNutritionValue data={recipeNutritionValueData as NutritionValueData} />
                 <RecipeIngredients data={recipeIngredientsData} recipePortions={recipePortions} />
                 <RecipeSteps data={recipeStepsData} />
-                {/* <RecipeAuthor data={recipeAuthorData as AuthorData} /> */}
+                <RecipeAuthor data={author} />
             </VStack>
             <Slider isRecipePage />
         </MainStyled>

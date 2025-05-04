@@ -10,12 +10,12 @@ import { ComingRecipeData } from '~/types/comingData';
 import AddNotifications from '~/utils/addNotifications';
 import AddTags from '~/utils/addTags';
 
-export const SlideItem = ({ index, recipe }: { recipe: ComingRecipeData; index: number }) => {
+export const SlideItem = ({ recipe }: { recipe: ComingRecipeData }) => {
     const { isTablet } = useBreakpoints();
     const { image, title, description, categoriesIds, bookmarks, likes } = recipe;
     const { subCategoryData, category } = useGetCategoryId(categoriesIds);
     return (
-        <VStack as={Link} to={`/${category?.category}/${subCategoryData?.category}/${index}`}>
+        <VStack as={Link} to={`/${category?.category}/${subCategoryData?.category}/${recipe._id}`}>
             <Image height={{ lg: '230px', sm: '128px' }} src={`${IMG_PATH}${image}`} alt={title} />
             <VStack className='slider__item-content' align='flex-start' gap='6px'>
                 <VStack
