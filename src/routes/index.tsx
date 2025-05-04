@@ -5,13 +5,9 @@ import { Loader } from '~/components/loader';
 import Main from '~/components/Main';
 import Recipe from '~/components/recipe';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
-import { useGetJuiciest } from '~/Hooks/useGetJuiciest';
-
-import DB from '../data/db.json';
 
 const AppRoutes = () => {
     const { data, loading } = useGetFilteredCategories();
-    const { data: juiciestData, loading: loadingLikes } = useGetJuiciest();
     const categories: string[] = data.map(({ category }) => category);
     const subcategories: Record<string, { category: string; id: string }> = data.reduce(
         (acc, { category, subCategories }) => {
@@ -24,37 +20,17 @@ const AppRoutes = () => {
         {} as Record<string, { category: string; id: string }>,
     );
     const juiciest = ['the-juiciest'];
-    const juiciestRecipes: Record<string, string[]> = juiciest.reduce(
-        (acum, e) => {
-            acum[e] = juiciestData?.data.map(({ _id }) => _id);
-            return acum;
-        },
-        {} as Record<string, string[]>,
-    );
-    console.log(juiciestRecipes);
-    const recipes: Record<string, string[]> = categories.reduce(
-        (acum, e) => {
-            acum[e] = DB.card.filter(({ category }) => category.includes(e)).map(({ id }) => id);
-            return acum;
-        },
-        {} as Record<string, string[]>,
-    );
-    const mainRecipes = DB.card.map(({ id }) => id);
 
-    return loading || loadingLikes ? (
+    return loading ? (
         <Loader />
     ) : (
         <Routes>
             <Route path='/' element={<Main />} />
-            {mainRecipes.map((recipe) => (
-                <Route key={recipe} path={recipe} element={<Recipe card={recipe} />} />
-            ))}
+            <Route path=':id' element={<Recipe />} />
             {juiciest.map((category) => (
                 <Route key={category} path={`/${category}`}>
                     <Route index element={<Categories category={category} />} />
-                    {juiciestRecipes[category]?.map((recipe) => (
-                        <Route key={recipe} path={recipe} element={<Recipe card={recipe} />} />
-                    ))}
+                    <Route path=':id' element={<Recipe />} />
                 </Route>
             ))}
             {categories.map((category) => (
@@ -65,17 +41,8 @@ const AppRoutes = () => {
                                 index
                                 element={<Categories category={category} subcategory={sub.id} />}
                             />
-                            {recipes[category]?.map((recipe) => (
-                                <Route
-                                    key={`${sub.category}-${recipe}`}
-                                    path={recipe}
-                                    element={<Recipe card={recipe} />}
-                                />
-                            ))}
+                            <Route path=':id' element={<Recipe />} />
                         </Route>
-                    ))}
-                    {recipes[category]?.map((recipe) => (
-                        <Route key={recipe} path={recipe} element={<Recipe card={recipe} />} />
                     ))}
                 </Route>
             ))}

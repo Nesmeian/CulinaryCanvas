@@ -86,5 +86,6 @@ export const {
     useGetCategoryIdQuery,
     useGetRecipesQuery,
     useGetSortedAtLikesQuery,
+    useLazyGetSortedAtLikesQuery,
     useGetRecipeByIdQuery,
 } = getApiSlice;
