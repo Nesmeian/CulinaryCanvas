@@ -30,13 +30,30 @@ export const getApiSlice = apiSlice
                 }),
                 providesTags: [Tags.CATEGORY],
             }),
-            getRecipes: builder.query<ComingRecipeDataProps, string>({
-                query: (subcategory) => ({
+            getRecipes: builder.query<
+                ComingRecipeDataProps,
+                { limit: number; subcategory: string | undefined }
+            >({
+                query: ({ limit, subcategory }) => ({
                     url: ApiEndpoints.RECIPES,
                     method: 'GET',
                     params: {
                         subcategoriesIds: subcategory,
+                        limit: limit,
                     },
+                    apiGroupName: ApiGroupNames.RECIPES,
+                    name: EndpointNames.GET_RECIPES,
+                }),
+                providesTags: [Tags.RECIPES],
+            }),
+            getRecipesByCategory: builder.query<
+                ComingRecipeDataProps,
+                { limit: number; id?: string }
+            >({
+                query: ({ limit, id }) => ({
+                    url: `${ApiEndpoints.RECIPES_CATEGORY}${id}`,
+                    method: 'GET',
+                    params: { limit },
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPES,
                 }),
@@ -51,13 +68,14 @@ export const getApiSlice = apiSlice
                 }),
                 providesTags: [Tags.RECIPES],
             }),
-            getSortedAtLikes: builder.query<ComingRecipeDataProps, void>({
-                query: () => ({
+            getSortedAtLikes: builder.query<ComingRecipeDataProps, number>({
+                query: (limit) => ({
                     url: ApiEndpoints.RECIPES,
                     method: 'GET',
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPES,
                     params: {
+                        limit: limit,
                         sortBy: 'likes',
                         sortOrder: 'desc',
                     },
@@ -88,4 +106,5 @@ export const {
     useGetSortedAtLikesQuery,
     useLazyGetSortedAtLikesQuery,
     useGetRecipeByIdQuery,
+    useGetRecipesByCategoryQuery,
 } = getApiSlice;

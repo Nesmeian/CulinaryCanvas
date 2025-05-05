@@ -1,5 +1,7 @@
 import { Box, Center, Spinner } from '@chakra-ui/react';
 
+import { TEST_IDS } from '~/constants/testsIds';
+
 export const Loader = () => (
     <Center
         h='100vh'
@@ -9,6 +11,7 @@ export const Loader = () => (
         top={0}
         left={0}
         zIndex={9999}
+        data-test-id={TEST_IDS.APP_LOADER}
     >
         <Box
             h={{ lg: '206px', base: '136px' }}

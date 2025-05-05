@@ -1,4 +1,5 @@
 import { VStack } from '@chakra-ui/react';
+import { Navigate } from 'react-router';
 
 import { useGetRecipeByIdQuery } from '~/query/services/get';
 import { NutritionValueData } from '~/types/recipesData/index.ts';
@@ -12,9 +13,17 @@ import RecipeCard from './recipeCard';
 import RecipeIngredients from './recipeIngredients';
 import RecipeNutritionValue from './recipenutrition';
 import RecipeSteps from './recipeSteps';
+
 export default function Recipe() {
     const path = GetCurrentPath();
-    const { data: recipeItem, isLoading } = useGetRecipeByIdQuery(path[path.length - 1]);
+    const { data: recipeItem, isLoading, isError } = useGetRecipeByIdQuery(path[path.length - 1]);
+
+    if (isLoading) {
+        return <Loader />;
+    }
+    if (isError || !recipeItem) {
+        return <Navigate to='/not-found' replace />;
+    }
     const [
         recipeNutritionValueData,
         recipeIngredientsData,
@@ -35,9 +44,7 @@ export default function Recipe() {
             views: 125,
         },
     };
-    if (isLoading) {
-        return <Loader />;
-    }
+
     return (
         <MainStyled
             as='main'

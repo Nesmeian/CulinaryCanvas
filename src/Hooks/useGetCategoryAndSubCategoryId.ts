@@ -8,7 +8,6 @@ export const useGetCategoryId = (id: string[]) => {
             skip: !subCategoryData?.rootCategoryId,
         },
     );
-
     const loading = isSubLoading || isRootLoading;
     if (loading) {
         return { subCategoryData: null, category: null, loading: true };
