@@ -4,7 +4,7 @@ import { useGetCategoryQuery } from '~/query/services/get';
 import { ComingCategoryData } from '~/types/comingData';
 
 export function useGetFilteredCategories(subCategory?: boolean) {
-    const { data } = useGetCategoryQuery();
+    const { data, isError } = useGetCategoryQuery();
     const [loading, setLoading] = React.useState(true);
     const [filtered, setFiltered] = React.useState<ComingCategoryData[]>([]);
 
@@ -16,5 +16,5 @@ export function useGetFilteredCategories(subCategory?: boolean) {
         setFiltered(result);
         setLoading(false);
     }, [data]);
-    return { data: filtered, loading };
+    return { data: filtered, loading, isError };
 }
