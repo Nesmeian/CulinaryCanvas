@@ -2,10 +2,11 @@ import { Heading, Text, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
 import { useGetJuiciest } from '~/Hooks/useGetJuiciest';
+import { useGetRecipes } from '~/Hooks/useGetRecipes';
 import { useGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
-import { useGetRecipesQuery } from '~/query/services/get';
 import { ApplicationState } from '~/store/configure-store';
 import { setFindState } from '~/store/searchSlice';
 import filterAllergens from '~/utils/filterAllergens';
@@ -17,6 +18,7 @@ import hasActiveFilters from '~/utils/hasActiveFilter';
 
 import DB from '../../data/db.json';
 import { CategoriesProps } from '../../types/dataTypes';
+import { Alert } from '../alert';
 import BigCardsList from '../bigCardsList';
 import { Loader } from '../loader';
 import Search from '../Search';
@@ -26,15 +28,15 @@ import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
     const dispatch = useDispatch();
-    const { data: juiciestData } = useGetJuiciest();
-    const { data, isLoading } = useGetRecipesQuery(subcategory);
-
+    const { data: juiciestData, loadMore } = useGetJuiciest();
+    const { data, isLoading, loadMore: loadMoreRecipes, isError } = useGetRecipes(subcategory);
     const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const allergenList = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
     const filterState = useSelector((state: ApplicationState) => state.filterState.filterData);
     const { category: categoryData, loading } = useGetCategoryId([subcategory]);
+
     const categoryCards = DB.card.filter((card) => card.category.includes(category));
     const subCatCards = subcategory
         ? filterOnSubCategories(categoryCards, subcategory)
@@ -68,6 +70,9 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     if (isLoading || loading || subcatLoading) {
         return <Loader />;
     }
+    if (isError) {
+        return <Alert />;
+    }
 
     return (
         <MainStyled as='main'>
@@ -90,12 +95,24 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
             {showFallback ? (
                 <>
                     <BigCardsList data={data?.data} />
-                    <GreenButton text='Загрузить еще' />
+                    {data?.data.length < data?.meta.total && (
+                        <GreenButton
+                            text='Загрузить еще'
+                            onClick={loadMoreRecipes}
+                            data-test-id={TEST_IDS.LOAD_MORE_BTN}
+                        />
+                    )}
                 </>
             ) : (
                 <>
                     <BigCardsList data={juiciestData?.data} />
-                    <GreenButton text='Загрузить еще' />
+                    {juiciestData?.data.length < juiciestData?.meta.total && (
+                        <GreenButton
+                            text='Загрузить еще'
+                            onClick={loadMore}
+                            data-test-id={TEST_IDS.LOAD_MORE_BTN}
+                        />
+                    )}
                     <BottomSection isMain />
                 </>
             )}
