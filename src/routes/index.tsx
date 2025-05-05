@@ -1,13 +1,15 @@
-import { Route, Routes } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router';
 
+import { Alert } from '~/components/alert';
 import Categories from '~/components/categories';
 import { Loader } from '~/components/loader';
 import Main from '~/components/Main';
+import { NotFoundPage } from '~/components/notFoundPage';
 import Recipe from '~/components/recipe';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 
 const AppRoutes = () => {
-    const { data, loading } = useGetFilteredCategories();
+    const { data, loading, isError } = useGetFilteredCategories();
     const categories: string[] = data.map(({ category }) => category);
     const subcategories: Record<string, { category: string; id: string }> = data.reduce(
         (acc, { category, subCategories }) => {
@@ -20,7 +22,9 @@ const AppRoutes = () => {
         {} as Record<string, { category: string; id: string }>,
     );
     const juiciest = ['the-juiciest'];
-
+    if (isError) {
+        return <Alert />;
+    }
     return loading ? (
         <Loader />
     ) : (
@@ -46,8 +50,8 @@ const AppRoutes = () => {
                     ))}
                 </Route>
             ))}
-
-            {/* <Route path='*' element={<Navigate to='/' replace />} /> */}
+            <Route path='/not-found' element={<NotFoundPage />}></Route>
+            <Route path='*' element={<Navigate to='/not-found' replace />} />
         </Routes>
     );
 };
