@@ -3,6 +3,7 @@ import '../style.css';
 import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
+import { Loader } from '~/components/loader';
 import { IMG_PATH } from '~/constants';
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
 import useBreakpoints from '~/themes/chakraBreakPoints';
@@ -13,7 +14,10 @@ import AddTags from '~/utils/addTags';
 export const SlideItem = ({ recipe }: { recipe: ComingRecipeData }) => {
     const { isTablet } = useBreakpoints();
     const { image, title, description, categoriesIds, bookmarks, likes } = recipe;
-    const { subCategoryData, category } = useGetCategoryId(categoriesIds[0]);
+    const { subCategoryData, category, loading } = useGetCategoryId(categoriesIds[0]);
+    if (loading) {
+        return <Loader />;
+    }
     return (
         <VStack as={Link} to={`/${category?.category}/${subCategoryData?.category}/${recipe._id}`}>
             <Image height={{ lg: '230px', sm: '128px' }} src={`${IMG_PATH}${image}`} alt={title} />

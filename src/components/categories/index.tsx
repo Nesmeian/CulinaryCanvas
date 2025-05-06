@@ -1,4 +1,4 @@
-import { Alert, Heading, Text, VStack } from '@chakra-ui/react';
+import { Heading, Text, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,6 +18,7 @@ import hasActiveFilters from '~/utils/hasActiveFilter';
 
 import DB from '../../data/db.json';
 import { CategoriesProps } from '../../types/dataTypes';
+import { Alert } from '../alert';
 import BigCardsList from '../bigCardsList';
 import { Loader } from '../loader';
 import Search from '../Search';
@@ -65,11 +66,12 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
         categoryData: catData,
         recipes,
         isLoading: subcatLoading,
+        isError: Error,
     } = useGetSubcategoryRecipesData(categoryData?.subCategories ?? []);
     if (isLoading || loading || subcatLoading || juiciestLoading) {
         return <Loader />;
     }
-    if (isError) {
+    if (isError || Error) {
         return <Alert />;
     }
 

@@ -1,6 +1,7 @@
 import './style.css';
 
 import { Heading, Image, VStack } from '@chakra-ui/react';
+import { useEffect, useMemo, useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -12,7 +13,26 @@ import { SlideItem } from './sliderItem';
 
 export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
     const { data: recipes, loading } = useFilteredOnDataRecipes();
-    if (loading) {
+    const [showContent, setShowContent] = useState(false);
+    const swappedData = useMemo(() => {
+        if (!recipes?.data) return [];
+        const arr = [...recipes.data];
+        if (arr.length > 3) {
+            [arr[1], arr[3]] = [arr[3], arr[1]];
+        }
+        return arr;
+    }, [recipes?.data]);
+
+    useEffect(() => {
+        if (!loading) {
+            const timer = setTimeout(() => {
+                setShowContent(true);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+        setShowContent(false);
+    }, [loading]);
+    if (loading || !showContent) {
         return <Loader />;
     }
     return (
@@ -42,7 +62,7 @@ export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
                     360: { slidesPerView: 2, spaceBetween: 8 },
                 }}
             >
-                {recipes?.data.map((recipe, i) => (
+                {swappedData?.map((recipe, i) => (
                     <SwiperSlide
                         key={recipe._id}
                         className='slider__item'
