@@ -41,7 +41,7 @@ export const BigCardItem = memo(
                         gap={0}
                     >
                         <AddTags
-                            category={categoriesIds}
+                            category={categoriesIds[0]}
                             withText={true}
                             color='#ffffd3'
                             size='16px'

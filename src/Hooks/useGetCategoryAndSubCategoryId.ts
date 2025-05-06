@@ -1,7 +1,10 @@
+import { skipToken } from '@reduxjs/toolkit/query';
+
 import { useGetCategoryIdQuery } from '~/query/services/get';
 
-export const useGetCategoryId = (id: string[]) => {
-    const { data: subCategoryData, isLoading: isSubLoading } = useGetCategoryIdQuery(id[0]);
+export const useGetCategoryId = (id?: string) => {
+    const queryArg = id ? id : skipToken;
+    const { data: subCategoryData, isLoading: isSubLoading } = useGetCategoryIdQuery(queryArg);
     const { data: category, isLoading: isRootLoading } = useGetCategoryIdQuery(
         subCategoryData?.rootCategoryId ?? '',
         {

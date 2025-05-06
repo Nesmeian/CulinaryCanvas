@@ -16,6 +16,7 @@ import { Link as RouterLink } from 'react-router';
 import { IMG_PATH } from '~/constants';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
+import { closeBurger } from '~/store/burgerSlice';
 import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 
@@ -26,10 +27,10 @@ export default function NavMenuList() {
     const pathSegments = GetCurrentPath();
     const currentRoute = pathSegments[0];
     const currentSubRoute = pathSegments[1];
-    const { data, loading } = useGetFilteredCategories();
+    const { data, isLoading } = useGetFilteredCategories();
 
     const initialCategories = DB.navMenu.categories;
-    const categoryData = loading ? initialCategories : data;
+    const categoryData = isLoading ? initialCategories : data;
 
     const categoryIndex = categoryData.findIndex((category) => category.category === currentRoute);
     const [activeCategoryIndex, setCategoryActiveIndex] = useState<number | undefined>(
@@ -43,6 +44,7 @@ export default function NavMenuList() {
         dispatch(setAllowSearch(false));
         dispatch(closeFilter());
         dispatch(cleanFilterData());
+        dispatch(closeBurger());
     };
 
     return (
@@ -104,7 +106,7 @@ export default function NavMenuList() {
                                     as={RouterLink}
                                     to={`/${category}/${expectedPath}`}
                                     cursor='pointer'
-                                    onClick={cleanEffects}
+                                    onClick={() => cleanEffects}
                                 >
                                     <Box
                                         width={isActive ? '8px' : '1px'}

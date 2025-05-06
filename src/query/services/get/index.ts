@@ -23,7 +23,7 @@ export const getApiSlice = apiSlice
 
             getCategoryId: builder.query<ComingCategoryData, string>({
                 query: (id) => ({
-                    url: `${ApiEndpoints.CATEGORY}${id}`,
+                    url: `${ApiEndpoints.CATEGORY}/${id}`,
                     method: 'GET',
                     apiGroupName: ApiGroupNames.CATEGORY,
                     name: EndpointNames.GET_CATEGORY,
@@ -48,10 +48,10 @@ export const getApiSlice = apiSlice
             }),
             getRecipesByCategory: builder.query<
                 ComingRecipeDataProps,
-                { limit: number; id?: string }
+                { limit?: number; id?: string }
             >({
                 query: ({ limit, id }) => ({
-                    url: `${ApiEndpoints.RECIPES_CATEGORY}${id}`,
+                    url: `${ApiEndpoints.RECIPES_CATEGORY}/${id}`,
                     method: 'GET',
                     params: { limit },
                     apiGroupName: ApiGroupNames.RECIPES,
@@ -61,7 +61,7 @@ export const getApiSlice = apiSlice
             }),
             getRecipeById: builder.query<ComingRecipeData, string>({
                 query: (id) => ({
-                    url: `${ApiEndpoints.RECIPES}${id}`,
+                    url: `${ApiEndpoints.RECIPES}/${id}`,
                     method: 'GET',
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPES,
@@ -75,8 +75,9 @@ export const getApiSlice = apiSlice
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPES,
                     params: {
-                        limit: limit,
                         sortBy: 'likes',
+                        limit: limit,
+                        page: 1,
                         sortOrder: 'desc',
                     },
                 }),
@@ -90,6 +91,7 @@ export const getApiSlice = apiSlice
                     name: EndpointNames.GET_RECIPES,
                     params: {
                         limit: 10,
+                        sortBy: 'createdAt',
                         sortOrder: 'desc',
                     },
                 }),

@@ -48,7 +48,7 @@ export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeDat
                         alignItems='flex-start'
                     >
                         <AddTags
-                            category={categoriesIds}
+                            category={categoriesIds[0]}
                             withText={true}
                             color='#ffffd3'
                             size='16px'

@@ -57,7 +57,7 @@ export interface BottomSectionProps {
 
 export interface CategoriesProps {
     subcategory?: string;
-    category: string;
+    category?: string;
 }
 export interface BigCardsListProps {
     data: RecipeData[];
