@@ -13,7 +13,6 @@ type DrawerProps = {
 
 export default function Drawer({ isOpen, onClose, element, isFilter = false }: DrawerProps) {
     const isOpenStore = useSelector((state: ApplicationState) => state.drawerSlice.isOpen);
-    console.log(isOpenStore);
     return (
         <ChakraDrawer
             isOpen={isOpen || isOpenStore}

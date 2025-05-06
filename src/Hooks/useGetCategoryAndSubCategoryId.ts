@@ -12,8 +12,5 @@ export const useGetCategoryId = (id?: string) => {
         },
     );
     const loading = isSubLoading || isRootLoading;
-    if (loading) {
-        return { subCategoryData: null, category: null, loading: true };
-    }
-    return { subCategoryData, category, loading: false };
+    return { subCategoryData, category, loading };
 };

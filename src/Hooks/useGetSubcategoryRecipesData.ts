@@ -10,22 +10,22 @@ export const useGetSubcategoryRecipesData = (data: SubCategoriesProps[]) => {
         const idx = Math.floor(Math.random() * data.length);
         return data[idx];
     }, [data]);
-
     const {
         data: categoryData,
         isLoading: isCategoryLoading,
-        isSuccess: isCategoryLoaded,
+        isError: isErrorCategory,
     } = useGetCategoryIdQuery(randomCategory?.rootCategoryId ?? skipToken);
 
-    const recipesArg =
-        isCategoryLoaded && randomCategory?._id ? { limit: 5, id: randomCategory._id } : skipToken;
     const {
         data: recipes,
         isLoading: isRecipesLoading,
-        isError,
-    } = useGetRecipesByCategoryQuery(recipesArg);
+        isError: isErrorRecipe,
+    } = useGetRecipesByCategoryQuery(
+        { limit: 5, id: randomCategory?._id },
+        { skip: !randomCategory?._id },
+    );
 
     const isLoading = isCategoryLoading || isRecipesLoading;
-
+    const isError = isErrorCategory || isErrorRecipe;
     return { categoryData, recipes, isLoading, isError };
 };
