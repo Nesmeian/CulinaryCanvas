@@ -2,6 +2,7 @@ import './style.css';
 
 import { Button, Grid, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 
+import { Alert } from '~/components/alert';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { useGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
 import { ComingCategoryData, ComingRecipeData } from '~/types/comingData';
@@ -19,7 +20,11 @@ export default function BottomSection({
     isMain?: boolean;
 }) {
     const { data } = useGetFilteredCategories(true);
-    const { categoryData: mainCategory, recipes: mainRecipes } = useGetSubcategoryRecipesData(data);
+    const {
+        categoryData: mainCategory,
+        recipes: mainRecipes,
+        isError,
+    } = useGetSubcategoryRecipesData(data);
     const all: ComingRecipeData[] = isMain ? (mainRecipes?.data ?? []) : (recipes ?? []);
     const title = isMain ? mainCategory?.title : randomCategory?.title;
     const description = isMain ? mainCategory?.description : randomCategory?.description;
@@ -30,6 +35,9 @@ export default function BottomSection({
     const smallCards = all?.length >= 3 ? all.slice(2, smallCardLengthSlice) : [];
     if (bigCards.length === 0) {
         return null;
+    }
+    if (isError) {
+        return <Alert />;
     }
     return (
         <VStack
@@ -96,7 +104,7 @@ export default function BottomSection({
                                         position='relative'
                                     >
                                         <AddTags
-                                            category={categoriesIds}
+                                            category={categoriesIds[0]}
                                             withText
                                             size='14px'
                                             color='#ffffd3;'
@@ -123,7 +131,7 @@ export default function BottomSection({
                             >
                                 <HStack gap='0px' position='relative' width='70%'>
                                     <AddTags
-                                        category={categoriesIds}
+                                        category={categoriesIds[0]}
                                         newPosition
                                         withText={false}
                                         size='24px'

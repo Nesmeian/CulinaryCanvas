@@ -9,8 +9,9 @@ import Recipe from '~/components/recipe';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 
 const AppRoutes = () => {
-    const { data, loading, isError } = useGetFilteredCategories();
+    const { data, isLoading, isError } = useGetFilteredCategories();
     const categories: string[] = data.map(({ category }) => category);
+
     const subcategories: Record<string, { category: string; id: string }> = data.reduce(
         (acc, { category, subCategories }) => {
             acc[category] = subCategories.map(({ category: sub, _id: id }) => ({
@@ -21,22 +22,19 @@ const AppRoutes = () => {
         },
         {} as Record<string, { category: string; id: string }>,
     );
-    const juiciest = ['the-juiciest'];
     if (isError) {
         return <Alert />;
     }
-    return loading ? (
+    return isLoading ? (
         <Loader />
     ) : (
         <Routes>
             <Route path='/' element={<Main />} />
+            <Route path='/the-juiciest' element={<Categories />}>
+                <Route path=':id' element={<Recipe />} />
+            </Route>
             <Route path=':id' element={<Recipe />} />
-            {juiciest.map((category) => (
-                <Route key={category} path={`/${category}`}>
-                    <Route index element={<Categories category={category} />} />
-                    <Route path=':id' element={<Recipe />} />
-                </Route>
-            ))}
+
             {categories.map((category) => (
                 <Route key={category} path={`/${category}`}>
                     {subcategories[category]?.map((sub) => (

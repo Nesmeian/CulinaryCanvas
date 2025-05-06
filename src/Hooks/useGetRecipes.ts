@@ -1,12 +1,12 @@
+import { skipToken } from '@reduxjs/toolkit/query';
 import { useState } from 'react';
 
 import { useGetRecipesByCategoryQuery } from '~/query/services/get';
 
 export const useGetRecipes = (id?: string) => {
     const [limit, setLimit] = useState(8);
-
-    const { data, isLoading, isError } = useGetRecipesByCategoryQuery({ limit, id });
-    console.log(data);
+    const queryArg = id ? { limit, id } : skipToken;
+    const { data, isLoading, isError } = useGetRecipesByCategoryQuery(queryArg);
     const loadMore = () => setLimit((prev) => prev + 8);
 
     return { data, isLoading, loadMore, isError };

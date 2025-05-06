@@ -13,7 +13,7 @@ import AddTags from '~/utils/addTags';
 export const SlideItem = ({ recipe }: { recipe: ComingRecipeData }) => {
     const { isTablet } = useBreakpoints();
     const { image, title, description, categoriesIds, bookmarks, likes } = recipe;
-    const { subCategoryData, category } = useGetCategoryId(categoriesIds);
+    const { subCategoryData, category } = useGetCategoryId(categoriesIds[0]);
     return (
         <VStack as={Link} to={`/${category?.category}/${subCategoryData?.category}/${recipe._id}`}>
             <Image height={{ lg: '230px', sm: '128px' }} src={`${IMG_PATH}${image}`} alt={title} />
@@ -44,7 +44,7 @@ export const SlideItem = ({ recipe }: { recipe: ComingRecipeData }) => {
                     justify={{ lg: 'space-between', base: 'flex-start' }}
                     alignItems='flex-start'
                 >
-                    <AddTags category={categoriesIds} withText color='#d7ff94' size='16px' />
+                    <AddTags category={categoriesIds[0]} withText color='#d7ff94' size='16px' />
                     <AddNotifications bookmarks={bookmarks} likes={likes} />
                 </HStack>
             </VStack>

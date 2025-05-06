@@ -1,4 +1,4 @@
-import { Heading, Text, VStack } from '@chakra-ui/react';
+import { Alert, Heading, Text, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,7 +18,6 @@ import hasActiveFilters from '~/utils/hasActiveFilter';
 
 import DB from '../../data/db.json';
 import { CategoriesProps } from '../../types/dataTypes';
-import { Alert } from '../alert';
 import BigCardsList from '../bigCardsList';
 import { Loader } from '../loader';
 import Search from '../Search';
@@ -28,14 +27,14 @@ import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
     const dispatch = useDispatch();
-    const { data: juiciestData, loadMore } = useGetJuiciest();
+    const { data: juiciestData, loadMore, isLoading: juiciestLoading } = useGetJuiciest(8);
     const { data, isLoading, loadMore: loadMoreRecipes, isError } = useGetRecipes(subcategory);
+    const { category: categoryData, loading } = useGetCategoryId(subcategory);
     const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const allergenList = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
     const filterState = useSelector((state: ApplicationState) => state.filterState.filterData);
-    const { category: categoryData, loading } = useGetCategoryId([subcategory]);
 
     const categoryCards = DB.card.filter((card) => card.category.includes(category));
     const subCatCards = subcategory
@@ -53,8 +52,8 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
           ? allergenFiltered
           : actualDB;
     const displayedCards = allowSearch ? getSearchCards(searchQuery, baseCards) : baseCards;
-    const showFallback =
-        !displayedCards.length && !allowSearch && !filtersApplied && !allergensActive;
+    // const showFallback =
+    //     !data && !displayedCards.length && !allowSearch && !filtersApplied && !allergensActive;
     useEffect(() => {
         if (!allowSearch) {
             dispatch(setFindState('common'));
@@ -67,7 +66,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
         recipes,
         isLoading: subcatLoading,
     } = useGetSubcategoryRecipesData(categoryData?.subCategories ?? []);
-    if (isLoading || loading || subcatLoading) {
+    if (isLoading || loading || subcatLoading || juiciestLoading) {
         return <Loader />;
     }
     if (isError) {
@@ -92,7 +91,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
 
             <Search />
             {category !== 'the-juiciest' && <AddTabList category={category} />}
-            {showFallback ? (
+            {data ? (
                 <>
                     <BigCardsList data={data?.data} />
                     {data?.data.length < data?.meta.total && (

@@ -1,5 +1,8 @@
 import { Drawer as ChakraDrawer, DrawerBody, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
 import { JSX } from 'react';
+import { useSelector } from 'react-redux';
+
+import { ApplicationState } from '~/store/configure-store';
 
 type DrawerProps = {
     isOpen: boolean;
@@ -9,9 +12,11 @@ type DrawerProps = {
 };
 
 export default function Drawer({ isOpen, onClose, element, isFilter = false }: DrawerProps) {
+    const isOpenStore = useSelector((state: ApplicationState) => state.drawerSlice.isOpen);
+    console.log(isOpenStore);
     return (
         <ChakraDrawer
-            isOpen={isOpen}
+            isOpen={isOpen || isOpenStore}
             placement='right'
             onClose={onClose}
             closeOnOverlayClick

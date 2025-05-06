@@ -10,7 +10,7 @@ import BigCardsList from '../../../components/bigCardsList';
 import GreenButton from '../../../components/styledComponents/greenButton';
 
 export default function Juiciest() {
-    const { data, isLoading } = useGetJuiciest();
+    const { data, isLoading } = useGetJuiciest(6);
     if (isLoading) {
         return <Loader />;
     }
@@ -28,7 +28,7 @@ export default function Juiciest() {
                 <Link
                     as={RouterLink}
                     to='the-juiciest'
-                    display={{ md: 'none', lg: 'block' }}
+                    display={{ lg: 'block' }}
                     data-test-id='juiciest-link'
                 >
                     <GreenButton text='Вся Подборка' />
