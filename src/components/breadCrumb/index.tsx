@@ -6,7 +6,13 @@ import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import TranslatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
-export default function BreadCrumb({ isOpen, onClose }: { isOpen?: boolean; onClose: () => void }) {
+export default function BreadCrumb({
+    isOpen,
+    onClose,
+}: {
+    isOpen?: boolean;
+    onClose?: () => void;
+}) {
     const pathSegments = GetCurrentPath();
     const { data } = useGetFilteredCategories();
     return (

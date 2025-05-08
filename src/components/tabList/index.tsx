@@ -10,7 +10,7 @@ import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
-export default function AddTabList({ category }: { category: string }) {
+export default function AddTabList({ category }: { category?: string }) {
     const { data } = useGetFilteredCategories();
     const navList = data.find(({ category: cat }) => cat === category)?.subCategories;
     const paths = navList?.map(({ category }) => category);
