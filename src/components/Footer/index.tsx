@@ -26,7 +26,7 @@ export default function Footer() {
     const userData = useSelector((state: ApplicationState) => state.userData);
 
     return (
-        <Box as='footer' data-test-id='footer' className='footer'>
+        <Box as='footer' data-test-id='footer' className='footer' zIndex={100}>
             <HStack width='100%' height='100%' justify='space-between'>
                 <Button
                     sx={buttonStyles}

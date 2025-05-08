@@ -33,6 +33,7 @@ export default function TranslatePathSegment({ segment }: { segment: string }) {
         {} as Record<string, string>,
     );
     const juiciest = { 'the-juiciest': 'Самое сочное' } as Record<string, string>;
+    const notFound = { 'not-found': 'Страница не найдена' } as Record<string, string>;
     const recipeKey =
         recipeData?._id && recipeData?.title ? { [recipeData._id]: recipeData.title } : {};
     const mergedTranslations = {
@@ -41,6 +42,7 @@ export default function TranslatePathSegment({ segment }: { segment: string }) {
         ...dishes,
         ...juiciest,
         ...recipeKey,
+        ...notFound,
     };
     return <Text>{mergedTranslations[segment] || segment}</Text>;
 }
