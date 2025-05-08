@@ -2,6 +2,7 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { Link } from 'react-router';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import TranslatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
@@ -23,7 +24,7 @@ export default function BreadCrumb({
             alignSelf='baseline'
             separator={<ChevronRightIcon color='gray.500' />}
             fontSize='md'
-            data-test-id={isOpen ? '' : 'breadcrumbs'}
+            data-test-id={isOpen ? '' : TEST_IDS.BREADCRUMBS}
             color='gray.500'
             sx={{
                 '& > .chakra-breadcrumb__list': {

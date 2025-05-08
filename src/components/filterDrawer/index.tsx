@@ -3,6 +3,7 @@ import { Button, FormControl, Heading, HStack, Image, Text, VStack } from '@chak
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { ApplicationState } from '~/store/configure-store';
 import { addFilterData, cleanFilterData } from '~/store/filterSlice';
@@ -80,7 +81,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
     };
     return (
         <FormControl
-            data-test-id='filter-drawer'
+            data-test-id={TEST_IDS.FILTER_DRAWER}
             display='flex'
             flexDirection='column'
             height='100vh'
@@ -96,7 +97,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                 <Image
                     src={closeSvg}
                     alt='close Svg'
-                    data-test-id='close-filter-drawer'
+                    data-test-id={TEST_IDS.CLOSE_FILTER}
                     onClick={() => onClose()}
                 />
             </HStack>
@@ -137,7 +138,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                             background='#EAFFC7'
                             borderRadius='6px'
                             gap='8px'
-                            data-test-id='filter-tag'
+                            data-test-id={TEST_IDS.FILTER_TAG}
                         >
                             <Text fontSize='14px' color='#207e00' fontWeight='500'>
                                 {e}
@@ -160,7 +161,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                             borderColor: 'rgba(0, 0, 0, 0.6)',
                             transition: 'all 0.2s ease-in-out',
                         }}
-                        data-test-id='clear-filter-button'
+                        data-test-id={TEST_IDS.CLEAR_FILTER_BTN}
                         onClick={clearSearch}
                     >
                         Очистить фильтр
@@ -179,7 +180,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                         }}
                         onClick={searchRecipes}
                         pointerEvents={hasSelectedFilters ? 'auto' : 'none'}
-                        data-test-id='find-recipe-button'
+                        data-test-id={TEST_IDS.FIND_RECIPE}
                     >
                         Найти рецепт
                     </Button>

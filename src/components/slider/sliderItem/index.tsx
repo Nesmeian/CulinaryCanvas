@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 
 import { Loader } from '~/components/loader';
 import { IMG_PATH } from '~/constants';
+import { TEST_IDS } from '~/constants/testsIds';
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
 import useBreakpoints from '~/themes/chakraBreakPoints';
 import { ComingRecipeData } from '~/types/comingData';
@@ -22,7 +23,7 @@ export const SlideItem = ({ recipe, index }: { recipe: ComingRecipeData; index: 
         <VStack
             as={Link}
             to={`/${category?.category}/${subCategoryData?.category}/${recipe._id}`}
-            data-test-id={`carousel-card-${index}`}
+            data-test-id={`${TEST_IDS.CAROUSEL_CARD}${index}`}
         >
             <Image height={{ lg: '230px', sm: '128px' }} src={`${IMG_PATH}${image}`} alt={title} />
             <VStack className='slider__item-content' align='flex-start' gap='6px'>

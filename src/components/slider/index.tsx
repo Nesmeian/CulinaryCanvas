@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import { useFilteredOnDataRecipes } from '~/Hooks/useGetRecipesForData';
 
 import * as sliderArrows from '../../assets/sliderArrows/index';
@@ -37,7 +38,7 @@ export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
                 Новые рецепты
             </Heading>
             <Swiper
-                data-test-id='carousel'
+                data-test-id={TEST_IDS.CAROUSEL}
                 className='slider__list'
                 modules={[Navigation]}
                 navigation={{
@@ -60,12 +61,12 @@ export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
                 <Image
                     src={sliderArrows.leftArrow}
                     className='swiper-button-prev'
-                    data-test-id='carousel-back'
+                    data-test-id={TEST_IDS.CAROUSEL_BACK}
                 />
                 <Image
                     src={sliderArrows.rightArrow}
                     className='swiper-button-next'
-                    data-test-id='carousel-forward'
+                    data-test-id={TEST_IDS.CAROUSEL_FORWARD}
                 />
             </Swiper>
         </VStack>

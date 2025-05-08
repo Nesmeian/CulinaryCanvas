@@ -2,6 +2,7 @@ import './style.css';
 
 import { VStack } from '@chakra-ui/react';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import useBreakpoints from '~/themes/chakraBreakPoints';
 
 import BreadCrumb from '../breadCrumb';
@@ -21,7 +22,7 @@ export default function NavMenu({
     return (
         <VStack
             as='nav'
-            data-test-id='nav'
+            data-test-id={TEST_IDS.NAV}
             className='navMenu'
             alignItems='flex-start'
             justify='space-between'

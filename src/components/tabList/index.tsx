@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { closeBurger } from '~/store/burgerSlice';
@@ -68,7 +69,7 @@ export default function AddTabList({ category }: { category?: string }) {
 
                     return (
                         <Tab
-                            data-test-id={`tab-${category}-${index}`}
+                            data-test-id={`${TEST_IDS.TAB}${category}-${index}`}
                             key={title}
                             as={Link}
                             to={toPath}

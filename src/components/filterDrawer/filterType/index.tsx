@@ -1,5 +1,6 @@
 import { Checkbox, CheckboxIcon, Heading, VStack } from '@chakra-ui/react';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import lowerCaseFirstLetter from '~/utils/lowerCaseFirstLetter';
 export const FilterType = ({
     name,
@@ -19,7 +20,7 @@ export const FilterType = ({
         <VStack alignItems='flex-start'>
             {list.map((e) => (
                 <Checkbox
-                    data-test-id={`checkbox-${lowerCaseFirstLetter(e)}`}
+                    data-test-id={`${TEST_IDS.CHECKBOX}${lowerCaseFirstLetter(e)}`}
                     key={e}
                     borderColor='#D7FF94'
                     colorScheme='customgreen'
