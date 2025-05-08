@@ -20,8 +20,13 @@ export const searchSlice = createSlice({
         setFindState: (state, action) => {
             state.findElems = action.payload;
         },
+        cleanSearch: (state) => {
+            state.search = '';
+            state.allowSearch = false;
+            state.findElems = 'common';
+        },
     },
 });
 
-export const { setAllowSearch, setFindState, setSearchState } = searchSlice.actions;
+export const { setAllowSearch, setFindState, setSearchState, cleanSearch } = searchSlice.actions;
 export default searchSlice.reducer;

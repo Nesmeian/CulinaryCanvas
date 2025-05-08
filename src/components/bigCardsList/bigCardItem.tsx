@@ -68,7 +68,7 @@ export const BigCardItem = memo(
                                 size='h4'
                                 mt='-2px'
                             >
-                                {title}
+                                {renderColoredHeading(title, searchStr)}
                             </Heading>
 
                             <Text variant='sectionDescription'>{description}</Text>
