@@ -9,7 +9,7 @@ export const FilterType = ({
 }: {
     name: string;
     list: string[];
-    onChange: () => void;
+    onChange: React.Dispatch<React.SetStateAction<string[]>>;
     selectedItems: string[];
 }) => (
     <VStack width='100%' alignItems='flex-start'>

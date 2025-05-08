@@ -37,9 +37,11 @@ export const getApiSlice = apiSlice
                     subcategory?: string | undefined;
                     searchString?: string;
                     allergens?: string;
+                    meat?: string;
+                    garnish?: string;
                 }
             >({
-                query: ({ limit, subcategory, searchString, allergens }) => ({
+                query: ({ limit, subcategory, searchString, allergens, meat, garnish }) => ({
                     url: ApiEndpoints.RECIPES,
                     method: 'GET',
                     params: {
@@ -47,6 +49,8 @@ export const getApiSlice = apiSlice
                         searchString: searchString,
                         subcategoriesIds: subcategory,
                         limit: limit,
+                        meat: meat,
+                        garnish: garnish,
                     },
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPES,
