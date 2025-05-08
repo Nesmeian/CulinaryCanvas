@@ -4,11 +4,13 @@ import { Heading, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { useGetRecipesQuery } from '~/query/services/get';
 import { ApplicationState } from '~/store/configure-store';
 import { cleanSearch, setFindState } from '~/store/searchSlice';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
+import { Alert } from '../alert';
 import BigCardsList from '../bigCardsList';
 import { SearchLoader } from '../loader/searchLoader';
 import Search from '../Search';
@@ -29,15 +31,27 @@ export default function Main() {
     const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergenList = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
+    const filterData = useSelector((state: ApplicationState) => state.filterState.filterData);
+    const { allergens, sideDish, meat, category } = filterData;
+    const { data } = useGetFilteredCategories();
+    const categoryIds = data
+        .find(({ title }) => title === category[0])
+        ?.subCategories.map(({ _id }) => _id);
     const {
         data: searchData,
         isLoading,
         isFetching,
+        isError,
     } = useGetRecipesQuery(
         {
             limit: 8,
             searchString: searchQuery,
+
             ...(allergensActive && { allergens: allergenList.join('') }),
+            ...(allergens.length != 0 && { allergens: allergens.join('') }),
+            ...(sideDish.length != 0 && { garnish: sideDish.join('') }),
+            ...(meat.length != 0 && { meat: meat.join('') }),
+            ...(categoryIds?.length != 0 && { subcategory: categoryIds?.join(',') }),
         },
         { skip: !allowSearch },
     );
@@ -48,6 +62,9 @@ export default function Main() {
             dispatch(setFindState(searchData?.data.length > 0 ? 'find' : 'not found'));
         }
     }, [allowSearch, searchData, dispatch]);
+    if (isError) {
+        <Alert />;
+    }
     return (
         <MainStyled as='main'>
             <VStack

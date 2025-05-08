@@ -89,21 +89,21 @@ export default function AllergensControlsDrawer({
                     Выберите из списка аллергенов...
                 </MenuButton>
                 <MenuList w={{ lg: '399px', base: '308px' }} zIndex={30}>
-                    {Object.entries(allergensMap).map(([key, value], i) => (
+                    {allergensMap.map((e, i) => (
                         <MenuItem
-                            key={key}
+                            key={e}
                             background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
                         >
                             <Checkbox
                                 data-test-id={`allergen-${i}`}
                                 width='100%'
                                 borderColor='#b1ff2e'
-                                isChecked={allergens.includes(value)}
+                                isChecked={allergens.includes(e)}
                                 onChange={() =>
                                     setAllergens((prev) =>
-                                        prev.includes(value)
-                                            ? prev.filter((item) => item !== value)
-                                            : [...prev, value],
+                                        prev.includes(e)
+                                            ? prev.filter((item) => item !== e)
+                                            : [...prev, e],
                                     )
                                 }
                                 colorScheme='customgreen'
@@ -115,7 +115,7 @@ export default function AllergensControlsDrawer({
                                     />
                                 }
                             >
-                                {key}
+                                {e}
                             </Checkbox>
                         </MenuItem>
                     ))}

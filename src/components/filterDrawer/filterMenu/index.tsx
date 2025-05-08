@@ -51,6 +51,8 @@ export default function FilterCategories({
                             data-test-id={`checkbox-${lowerCaseFirstLetter(e)}`}
                             onChange={() => handleCheckboxChange(e)}
                             isChecked={selectedItems.includes(e)}
+                            borderColor='#D7FF94'
+                            colorScheme='customgreen'
                             width='100%'
                             pl='16px'
                         >

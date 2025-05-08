@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TEST_IDS } from '~/constants/testsIds';
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { useGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
 import {
     useGetRecipesByCategoryQuery,
@@ -26,6 +27,7 @@ import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
     const curentPath = GetCurrentPath();
+    const { data: filteredCategoies } = useGetFilteredCategories();
     const pathString = curentPath.join('/');
     const dispatch = useDispatch();
     useEffect(() => {
@@ -46,22 +48,31 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const allergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
     const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const search = useSelector((state: ApplicationState) => state.searchState.search);
+    const filterData = useSelector((state: ApplicationState) => state.filterState.filterData);
     const { data, isError } = useGetRecipesByCategoryQuery(
         { id: subcategory },
         { skip: !subcategory },
     );
+    const { allergens: filteredAllergens, sideDish, meat, category: filterCategory } = filterData;
 
+    const categoryIds = filteredCategoies
+        .find(({ title }) => title === filterCategory[0])
+        ?.subCategories.map(({ _id }) => _id);
     const { category: categoryData, loading } = useGetCategoryId(subcategory);
     const {
         data: searchData,
         isLoading: searchLoading,
         isFetching: searchFetching,
+        isError: searchError,
     } = useGetRecipesQuery(
         {
-            subcategory: subcategory,
             searchString: search,
             limit: 8,
             ...(allergensActive && { allergens: allergens.join('') }),
+            ...(filteredAllergens.length != 0 && { allergens: filteredAllergens.join('') }),
+            ...(sideDish.length != 0 && { garnish: sideDish.join('') }),
+            ...(meat.length != 0 && { meat: meat.join('') }),
+            subcategory: categoryIds?.length ? categoryIds.join(',') : subcategory,
         },
         { skip: !allowSearch },
     );
@@ -82,7 +93,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     if (loading || subcatLoading || juiciestLoading) {
         return <Loader />;
     }
-    if (isError || Error) {
+    if (isError || Error || searchError) {
         return <Alert />;
     }
     return (

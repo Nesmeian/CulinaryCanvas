@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { ApplicationState } from '~/store/configure-store';
 import { addFilterData, cleanFilterData } from '~/store/filterSlice';
+import { setAllowSearch } from '~/store/searchSlice';
 
 import closeSvg from '../../assets/closeSvg.svg';
 import DB from '../../data/db.json';
@@ -32,7 +33,6 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
     }, [category, auth, sideDish, meat, allowAllergens, allergens]);
     const tags = [...allergens, ...meat, ...sideDish, ...category, ...auth];
     const meatTypes = ['Курица', 'Свинина', 'Говядина', 'Индейка', 'Утка'];
-
     const garnishType = [
         'Картошка',
         'Гречка',
@@ -67,6 +67,16 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
             setAuth([]);
             dispatch(cleanFilterData());
         }
+    };
+    const searchRecipes = () => {
+        dispatch(setAllowSearch(true));
+        collectData();
+        onClose();
+    };
+    const clearSearch = () => {
+        dispatch(setAllowSearch(false));
+        cleanData();
+        onClose();
     };
     return (
         <FormControl
@@ -151,9 +161,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                             transition: 'all 0.2s ease-in-out',
                         }}
                         data-test-id='clear-filter-button'
-                        onClick={() => {
-                            cleanData();
-                        }}
+                        onClick={clearSearch}
                     >
                         Очистить фильтр
                     </Button>
@@ -169,10 +177,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                             transform: 'scale(1.02)',
                             transition: 'all 0.2s ease-in-out',
                         }}
-                        onClick={() => {
-                            collectData();
-                            onClose();
-                        }}
+                        onClick={searchRecipes}
                         pointerEvents={hasSelectedFilters ? 'auto' : 'none'}
                         data-test-id='find-recipe-button'
                     >
