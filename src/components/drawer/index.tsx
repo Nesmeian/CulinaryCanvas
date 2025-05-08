@@ -15,7 +15,7 @@ export default function Drawer({ isOpen, onClose, element, isFilter = false }: D
             placement='right'
             onClose={onClose}
             closeOnOverlayClick
-            size='md'
+            size={{ lg: 'md', base: 'sm' }}
         >
             <DrawerOverlay backdropFilter='blur(4px)' bg='blackAlpha.200' />
             <DrawerContent
