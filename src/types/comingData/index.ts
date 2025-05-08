@@ -1,3 +1,5 @@
+import { StepsData } from '../recipesData';
+
 export type ComingCategoryData = {
     category: string;
     description: string;
@@ -40,11 +42,7 @@ export type ComingRecipeData = {
         protein: number;
     };
     portions: number;
-    steps: {
-        image: string;
-        stepNumber: number;
-        description: string;
-    };
+    steps: StepsData[];
     time: number;
     title: string;
     views: number;
