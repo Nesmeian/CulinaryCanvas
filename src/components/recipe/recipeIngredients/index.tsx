@@ -1,6 +1,7 @@
 import { HStack, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import { IngredientsDataProps } from '~/types/recipesData';
 import StepperInput from '~/utils/stepperInput';
 export default function RecipeIngredients({ data, recipePortions }: IngredientsDataProps) {
@@ -39,7 +40,7 @@ export default function RecipeIngredients({ data, recipePortions }: IngredientsD
                         <Text fontSize='14px' fontWeight='500'>
                             {title}
                         </Text>
-                        <Text fontSize='14px' data-test-id={`ingredient-quantity-${i}`}>
+                        <Text fontSize='14px' data-test-id={`${TEST_IDS.INGREDIENT_QUANITITY}${i}`}>
                             {scaled} {measureUnit}
                         </Text>
                     </HStack>

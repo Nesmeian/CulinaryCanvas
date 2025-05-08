@@ -3,6 +3,7 @@ import { memo } from 'react';
 import { Link } from 'react-router';
 
 import { IMG_PATH } from '~/constants';
+import { TEST_IDS } from '~/constants/testsIds';
 import useBreakpoints from '~/themes/chakraBreakPoints';
 import { ComingRecipeData } from '~/types/comingData';
 import AddNotifications from '~/utils/addNotifications';
@@ -17,7 +18,7 @@ export const BigCardItem = memo(
 
         return (
             <HStack
-                data-test-id={`food-card-${i}`}
+                data-test-id={`${TEST_IDS.FOOD_CARD}${i}`}
                 className='card__item'
                 position='relative'
                 _hover={{

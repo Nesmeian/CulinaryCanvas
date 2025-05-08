@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { Link as RouterLink } from 'react-router';
 
 import { IMG_PATH } from '~/constants';
+import { TEST_IDS } from '~/constants/testsIds';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 
 import DB from '../../../data/db.json';
@@ -43,7 +44,7 @@ export default function NavMenuList() {
                         <AccordionButton
                             as={RouterLink}
                             to={`/${category}/${subCategories[0].category}`}
-                            data-test-id={category === 'vegan' ? 'vegan-cuisine' : category}
+                            data-test-id={category === 'vegan' ? TEST_IDS.VEGAN : category}
                             _expanded={{
                                 bg: '#EAffc7',
                                 fontWeight: 700,

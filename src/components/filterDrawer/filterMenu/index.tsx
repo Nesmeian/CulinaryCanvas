@@ -1,6 +1,7 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Button, Checkbox, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import lowerCaseFirstLetter from '~/utils/lowerCaseFirstLetter';
 
 export default function FilterCategories({
@@ -23,7 +24,7 @@ export default function FilterCategories({
     return (
         <Menu closeOnSelect={false}>
             <MenuButton
-                data-test-id={`filter-menu-button-${lowerCaseFirstLetter(name)}`}
+                data-test-id={`${TEST_IDS.FILTER_MENU_BTN}${lowerCaseFirstLetter(name)}`}
                 height='40px'
                 width='100%'
                 textAlign='left'

@@ -21,12 +21,9 @@ import Slider from '../slider';
 import MainStyled from '../styledComponents/Main';
 
 export default function Main() {
+    const dispatch = useDispatch();
     const curentPath = GetCurrentPath();
     const pathString = curentPath.join('/');
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(cleanSearch());
-    }, [dispatch, pathString]);
     const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
@@ -56,12 +53,16 @@ export default function Main() {
         { skip: !allowSearch },
     );
     useEffect(() => {
+        dispatch(cleanSearch());
+    }, [dispatch, pathString]);
+    useEffect(() => {
         if (!allowSearch) {
             dispatch(setFindState('common'));
         } else {
-            dispatch(setFindState(searchData?.data.length > 0 ? 'find' : 'not found'));
+            dispatch(setFindState((searchData?.data?.length ?? 0) > 0 ? 'find' : 'not found'));
         }
     }, [allowSearch, searchData, dispatch]);
+
     if (isError) {
         <Alert />;
     }
@@ -87,7 +88,7 @@ export default function Main() {
                     <BottomSection isRandom />
                 </>
             ) : (
-                !isLoading && <BigCardsList data={searchData?.data} />
+                !isLoading && searchData?.data && <BigCardsList data={searchData?.data} />
             )}
         </MainStyled>
     );

@@ -4,6 +4,7 @@ import { Heading, HStack, Link, VStack } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router';
 
 import { Loader } from '~/components/loader';
+import { TEST_IDS } from '~/constants/testsIds';
 import { useGetJuiciest } from '~/Hooks/useGetJuiciest';
 
 import BigCardsList from '../../../components/bigCardsList';
@@ -29,7 +30,7 @@ export default function Juiciest() {
                     as={RouterLink}
                     to='the-juiciest'
                     display={{ lg: 'block' }}
-                    data-test-id='juiciest-link'
+                    data-test-id={TEST_IDS.JUICIEST_LINK}
                 >
                     <GreenButton text='Вся Подборка' />
                 </Link>
@@ -42,7 +43,7 @@ export default function Juiciest() {
                 to='the-juiciest'
                 display={{ sm: 'flex', lg: 'none' }}
                 alignSelf='center'
-                data-test-id='juiciest-link-mobile'
+                data-test-id={TEST_IDS.JUICIEST_LINK_MOB}
             >
                 <GreenButton text='Вся Подборка' />
             </Link>

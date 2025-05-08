@@ -4,6 +4,8 @@ import { Box, HStack, Image, useDisclosure } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 
+import { TEST_IDS } from '~/constants/testsIds';
+
 import * as logoUrl from '../../assets/logo/index';
 import { ApplicationState } from '../../store/configure-store';
 import useBreakpoints from '../../themes/chakraBreakPoints';
@@ -23,7 +25,7 @@ export default function Header() {
         <HStack
             className='header'
             as='header'
-            data-test-id='header'
+            data-test-id={TEST_IDS.HEADER}
             background={isOpen ? '#ffffff' : '#ffffd3'}
             zIndex={isOpen ? 2000 : 40}
         >

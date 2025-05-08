@@ -22,6 +22,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import { cleanAllergens, toggleAllergen, toggleAllergenState } from '~/store/allergens';
 import { ApplicationState } from '~/store/configure-store';
 import { allergensMap } from '~/utils/allergensMap';
@@ -58,7 +59,7 @@ export default function AllergensControls() {
                     Исключить мои аллергены
                 </FormLabel>
                 <Switch
-                    data-test-id='allergens-switcher'
+                    data-test-id={TEST_IDS.ALLERGNES_SWITCHER}
                     isChecked={allergenState}
                     onChange={() => {
                         dispatch(toggleAllergenState());
@@ -86,7 +87,7 @@ export default function AllergensControls() {
                 closeOnSelect={false}
             >
                 <MenuButton
-                    data-test-id='allergens-menu-button'
+                    data-test-id={TEST_IDS.ALLERGENS_MENU_BTN}
                     height='100%'
                     w='234px'
                     isDisabled={!allergenState}
@@ -110,7 +111,7 @@ export default function AllergensControls() {
                         p='10px 0'
                         rowGap='4px'
                         columnGap='8px'
-                        data-test-id='allergens-menu'
+                        data-test-id={TEST_IDS.ALLERGENS_MENU}
                     >
                         {reduxAllergens.length !== 0 ? (
                             reduxAllergens.map((e) => (
@@ -137,7 +138,7 @@ export default function AllergensControls() {
                         <MenuItem
                             key={value}
                             background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
-                            data-test-id={isOpen ? `allergen-${i}` : ''}
+                            data-test-id={isOpen ? `${TEST_IDS.ALLERGEN_ITEM}${i}` : ''}
                         >
                             <Checkbox
                                 width='100%'
@@ -164,7 +165,7 @@ export default function AllergensControls() {
                             color='#134b00'
                             value={inputState}
                             placeholder='Другой аллерген'
-                            data-test-id={isOpen ? `add-other-allergen` : ''}
+                            data-test-id={isOpen ? TEST_IDS.ADD_OTHER_ALLERGEN : ''}
                             onChange={(e) => setInputState(e.target.value)}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
@@ -175,7 +176,7 @@ export default function AllergensControls() {
                         />
                         <Image
                             src={addIcon}
-                            data-test-id={isOpen ? `add-allergen-button` : ''}
+                            data-test-id={isOpen ? TEST_IDS.ADD_ALLERGEN_BTN : ''}
                             onClick={() => {
                                 handleAddCustomAllergen();
                             }}

@@ -3,6 +3,7 @@ import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import { ApplicationState } from '~/store/configure-store';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 export default function InputSearch() {
@@ -32,7 +33,7 @@ export default function InputSearch() {
         >
             <Input
                 placeholder='Название или ингредиент...'
-                data-test-id='search-input'
+                data-test-id={TEST_IDS.SEARCH_INPUT}
                 _placeholder={{ color: '#134b00', fontSize: { sm: '15px', lg: '19px' } }}
                 border='1px solid'
                 borderColor={
@@ -68,7 +69,7 @@ export default function InputSearch() {
                     />
                 )}
                 <SearchIcon
-                    data-test-id='search-button'
+                    data-test-id={TEST_IDS.SEARCH_BTN}
                     boxSize={{ sm: '14px', lg: '18px' }}
                     color={allowSearchInput ? 'gray.600' : 'gray.300'}
                     pointerEvents={allowSearchInput ? 'auto' : 'none'}

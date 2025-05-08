@@ -3,6 +3,8 @@ import './style.css';
 import { Box, Button, HStack, Image, Text } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 
+import { TEST_IDS } from '~/constants/testsIds';
+
 import * as btnImg from '../../assets/footerBtns/index';
 import { ApplicationState } from '../../store/configure-store';
 import CardAvatar from '../CardAvatar';
@@ -26,7 +28,7 @@ export default function Footer() {
     const userData = useSelector((state: ApplicationState) => state.userData);
 
     return (
-        <Box as='footer' data-test-id='footer' className='footer' zIndex={100}>
+        <Box as='footer' data-test-id={TEST_IDS.FOOTER} className='footer' zIndex={100}>
             <HStack width='100%' height='100%' justify='space-between'>
                 <Button
                     sx={buttonStyles}
