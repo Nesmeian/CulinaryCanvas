@@ -33,6 +33,7 @@ export default function BottomSection({
     const smallCardLengthSlice = Math.min(recipesLength, 5);
     const bigCards = all?.length >= 1 ? all.slice(0, bigCardLengthSlice) : [];
     const smallCards = all?.length >= 3 ? all.slice(2, smallCardLengthSlice) : [];
+    console.log(isError);
     if (isError) {
         return <Alert />;
     }

@@ -27,7 +27,6 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path='/' element={<Main />} />
-            <Route path='/' element={<Main />} />
             <Route path='the-juiciest'>
                 <Route index element={<Categories />} />
                 <Route path=':id' element={<Recipe />} />
@@ -39,8 +38,7 @@ const AppRoutes = () => {
 
                 return (
                     <Route key={category} path={category}>
-                        <Route index element={<Navigate to={`${firstSub.category}`} replace />} />
-
+                        <Route index element={<Navigate to={`${firstSub.category}`} />} />
                         {subs.map((sub) => (
                             <Route key={sub.id} path={sub.category}>
                                 <Route

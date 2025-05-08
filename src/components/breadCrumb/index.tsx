@@ -1,12 +1,15 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
+import { Link } from 'react-router';
 
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import TranslatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
 export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
     const pathSegments = GetCurrentPath();
-    const generatePath = (index: number) => '/' + pathSegments.slice(0, index + 1).join('/');
+    const { data } = useGetFilteredCategories();
+
     return (
         <Breadcrumb
             pt='16px'
@@ -24,15 +27,24 @@ export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
             }}
         >
             <BreadcrumbItem>
-                <BreadcrumbLink href='/'>Главная</BreadcrumbLink>
+                <BreadcrumbLink as={Link} to='/'>
+                    Главная
+                </BreadcrumbLink>
             </BreadcrumbItem>
 
             {pathSegments.map((segment, index) => {
+                const category = data.find(({ category }) => category === segment);
+                const routeTo =
+                    index !== 0
+                        ? `${pathSegments.slice(0, index + 1).join('/')}`
+                        : `/${pathSegments[0]}/${category?.subCategories[0].category}`;
                 const isLast = index === pathSegments.length - 1;
+
                 return (
                     <BreadcrumbItem key={index} isCurrentPage={isLast}>
                         <BreadcrumbLink
-                            href={!isLast ? generatePath(index) : undefined}
+                            as={Link}
+                            to={routeTo}
                             color={isLast ? 'black' : 'rgba(0, 0, 0, 0.64)'}
                         >
                             <TranslatePathSegment segment={segment} />

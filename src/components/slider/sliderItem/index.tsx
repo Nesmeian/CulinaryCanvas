@@ -11,7 +11,7 @@ import { ComingRecipeData } from '~/types/comingData';
 import AddNotifications from '~/utils/addNotifications';
 import AddTags from '~/utils/addTags';
 
-export const SlideItem = ({ recipe }: { recipe: ComingRecipeData }) => {
+export const SlideItem = ({ recipe, index }: { recipe: ComingRecipeData; index: number }) => {
     const { isTablet } = useBreakpoints();
     const { image, title, description, categoriesIds, bookmarks, likes } = recipe;
     const { subCategoryData, category, loading } = useGetCategoryId(categoriesIds[0]);
@@ -19,7 +19,11 @@ export const SlideItem = ({ recipe }: { recipe: ComingRecipeData }) => {
         return <Loader />;
     }
     return (
-        <VStack as={Link} to={`/${category?.category}/${subCategoryData?.category}/${recipe._id}`}>
+        <VStack
+            as={Link}
+            to={`/${category?.category}/${subCategoryData?.category}/${recipe._id}`}
+            data-test-id={`carousel-card-${index}`}
+        >
             <Image height={{ lg: '230px', sm: '128px' }} src={`${IMG_PATH}${image}`} alt={title} />
             <VStack className='slider__item-content' align='flex-start' gap='6px'>
                 <VStack
