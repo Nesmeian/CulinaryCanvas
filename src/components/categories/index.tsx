@@ -26,6 +26,7 @@ import GreenButton from '../styledComponents/greenButton';
 import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
+    const dispatch = useDispatch();
     const mainRef = useRef<HTMLDivElement>(null);
     const curentPath = GetCurrentPath();
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
@@ -33,9 +34,30 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const search = useSelector((state: ApplicationState) => state.searchState.search);
     const filterData = useSelector((state: ApplicationState) => state.filterState.filterData);
-    const { data: filteredCategoies } = useGetFilteredCategories();
+    const BigCardData = useSelector((state: ApplicationState) => state.bigCardSlice.cards);
+
+    const [page, setPage] = useState(1);
+    const LoadMore = () => {
+        setPage((prev) => ++prev);
+    };
     const pathString = curentPath.join('/');
-    const dispatch = useDispatch();
+
+    const { data: filteredCategoies } = useGetFilteredCategories();
+    const {
+        data,
+        isError,
+        isLoading: isDataLoading,
+    } = useGetRecipesByCategoryQuery({ id: subcategory }, { skip: !subcategory });
+
+    const {
+        data: juiciestData,
+        isLoading: juiciestLoading,
+        isFetching,
+    } = useGetSortedAtLikesQuery(
+        { limit: 8, page: page },
+        { skip: pathString[0] == 'the-juiciest' },
+    );
+
     useEffect(() => {
         dispatch(cleanBigCards());
         mainRef.current?.scrollTo(0, 0);
@@ -45,24 +67,14 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
             mainRef.current?.scrollTo(0, 0);
         }, 100);
     }, [allergens]);
-    const [page, setPage] = useState(1);
-    const BigCardData = useSelector((state: ApplicationState) => state.bigCardSlice.cards);
-    const {
-        data: juiciestData,
-        isLoading: juiciestLoading,
-        isFetching,
-    } = useGetSortedAtLikesQuery(
-        { limit: 8, page: page },
-        { skip: pathString[0] == 'the-juiciest' },
-    );
-    const isRandomBottom = juiciestData ? true : false;
+    useEffect(() => {
+        if (juiciestData?.data && juiciestData.data.length > 0) {
+            dispatch(addCards(juiciestData.data));
+        }
+    }, [juiciestData, dispatch]);
 
-    const {
-        data,
-        isError,
-        isLoading: isDataLoading,
-    } = useGetRecipesByCategoryQuery({ id: subcategory }, { skip: !subcategory });
     const { allergens: filteredAllergens, sideDish, meat, category: filterCategory } = filterData;
+    const isRandomBottom = juiciestData ? true : false;
 
     const categoryIds = filteredCategoies
         .find(({ title }) => title === filterCategory[0])
@@ -85,14 +97,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
         },
         { skip: !allowSearch },
     );
-    const LoadMore = () => {
-        setPage((prev) => ++prev);
-    };
-    useEffect(() => {
-        if (juiciestData?.data && juiciestData.data.length > 0) {
-            dispatch(addCards(juiciestData.data));
-        }
-    }, [juiciestData, dispatch]);
+
     const {
         categoryData: catData,
         recipes,

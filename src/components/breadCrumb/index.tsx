@@ -9,13 +9,7 @@ import GetCurrentPath from '~/utils/getCurrentPath';
 
 import { breadCrumbPath } from './breadCrumbPath';
 
-export default function BreadCrumb({
-    isOpen,
-    onClose,
-}: {
-    isOpen?: boolean;
-    onClose?: () => void;
-}) {
+export default function BreadCrumb({ isOpen, onClose }: BreadCrumbsTypes) {
     const pathSegments = GetCurrentPath();
     const { data } = useGetFilteredCategories();
     return (

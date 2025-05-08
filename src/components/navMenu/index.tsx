@@ -4,19 +4,14 @@ import { VStack } from '@chakra-ui/react';
 
 import { TEST_IDS } from '~/constants/testsIds';
 import useBreakpoints from '~/themes/chakraBreakPoints';
+import { isDrawerType } from '~/types/utilsTypes';
 
 import BreadCrumb from '../breadCrumb';
 import { StyledNav } from '../styledComponents/nav';
 import NavMenuFooter from './navMenuFooter';
 import NavMenuList from './navMenuList';
 
-export default function NavMenu({
-    isDrawer,
-    onClose,
-}: {
-    isDrawer?: boolean;
-    onClose: () => void;
-}) {
+export default function NavMenu({ isDrawer, onClose }: isDrawerType) {
     const { isTablet } = useBreakpoints();
 
     return (

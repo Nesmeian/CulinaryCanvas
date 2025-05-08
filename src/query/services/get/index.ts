@@ -4,6 +4,7 @@ import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
 import { ComingCategoryData, ComingRecipeData, ComingRecipeDataProps } from '~/types/comingData';
+import { QueryRecipesTypes } from '~/types/incomingDataTypes';
 
 export const getApiSlice = apiSlice
     .enhanceEndpoints({
@@ -30,17 +31,7 @@ export const getApiSlice = apiSlice
                 }),
                 providesTags: [Tags.CATEGORY],
             }),
-            getRecipes: builder.query<
-                ComingRecipeDataProps,
-                {
-                    limit: number;
-                    subcategory?: string | undefined;
-                    searchString?: string;
-                    allergens?: string;
-                    meat?: string;
-                    garnish?: string;
-                }
-            >({
+            getRecipes: builder.query<ComingRecipeDataProps, QueryRecipesTypes>({
                 query: ({ limit, subcategory, searchString, allergens, meat, garnish }) => ({
                     url: ApiEndpoints.RECIPES,
                     method: 'GET',

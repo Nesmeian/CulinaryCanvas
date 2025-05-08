@@ -21,7 +21,6 @@ import GetCurrentPath from '../../../utils/getCurrentPath';
 
 export default function NavMenuList() {
     const [mainRoute, subRoute] = GetCurrentPath();
-
     const { data, isLoading } = useGetFilteredCategories();
     const categories = isLoading ? DB.navMenu.categories : data;
 
