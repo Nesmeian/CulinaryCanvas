@@ -6,11 +6,8 @@ import { TEST_IDS } from '~/constants/testsIds';
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { useGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
-import {
-    useGetRecipesByCategoryQuery,
-    useGetRecipesQuery,
-    useGetSortedAtLikesQuery,
-} from '~/query/services/get';
+import { useSearchRecipesHook } from '~/Hooks/useRecipeSearchHook';
+import { useGetRecipesByCategoryQuery, useGetSortedAtLikesQuery } from '~/query/services/get';
 import { addCards, cleanBigCards } from '~/store/bigCardSlice';
 import { ApplicationState } from '~/store/configure-store';
 import GetCurrentPath from '~/utils/getCurrentPath';
@@ -31,8 +28,6 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const curentPath = GetCurrentPath();
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
-    const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
-    const search = useSelector((state: ApplicationState) => state.searchState.search);
     const filterData = useSelector((state: ApplicationState) => state.filterState.filterData);
     const BigCardData = useSelector((state: ApplicationState) => state.bigCardSlice.cards);
 
@@ -73,30 +68,18 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
         }
     }, [juiciestData, dispatch]);
 
-    const { allergens: filteredAllergens, sideDish, meat, category: filterCategory } = filterData;
+    const { category: filterCategory } = filterData;
     const isRandomBottom = juiciestData ? true : false;
 
     const categoryIds = filteredCategoies
         .find(({ title }) => title === filterCategory[0])
         ?.subCategories.map(({ _id }) => _id);
     const { category: categoryData, loading } = useGetCategoryId(subcategory);
-    const {
-        data: searchData,
-        isLoading: searchLoading,
-        isFetching: searchFetching,
-        isError: searchError,
-    } = useGetRecipesQuery(
-        {
-            searchString: search,
-            limit: 8,
-            ...(allergensActive && { allergens: allergens.join('') }),
-            ...(filteredAllergens.length != 0 && { allergens: filteredAllergens.join('') }),
-            ...(sideDish.length != 0 && { garnish: sideDish.join('') }),
-            ...(meat.length != 0 && { meat: meat.join('') }),
-            subcategory: categoryIds?.length ? categoryIds.join(',') : subcategory,
-        },
-        { skip: !allowSearch },
-    );
+    const { searchData, searchLoading, searchFetching, searchError } = useSearchRecipesHook({
+        subcategory,
+        categoryIds,
+        allowSearch,
+    });
 
     const {
         categoryData: catData,
