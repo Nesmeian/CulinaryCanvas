@@ -6,10 +6,9 @@ import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import TranslatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
-export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
+export default function BreadCrumb({ isOpen, onClose }: { isOpen?: boolean; onClose: () => void }) {
     const pathSegments = GetCurrentPath();
     const { data } = useGetFilteredCategories();
-
     return (
         <Breadcrumb
             pt='16px'
@@ -46,6 +45,7 @@ export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
                             as={Link}
                             to={routeTo}
                             color={isLast ? 'black' : 'rgba(0, 0, 0, 0.64)'}
+                            onClick={onClose}
                         >
                             <TranslatePathSegment segment={segment} />
                         </BreadcrumbLink>

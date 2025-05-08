@@ -9,7 +9,13 @@ import { StyledNav } from '../styledComponents/nav';
 import NavMenuFooter from './navMenuFooter';
 import NavMenuList from './navMenuList';
 
-export default function NavMenu({ isDrawer }: { isDrawer?: boolean }) {
+export default function NavMenu({
+    isDrawer,
+    onClose,
+}: {
+    isDrawer?: boolean;
+    onClose: () => void;
+}) {
     const { isTablet } = useBreakpoints();
 
     return (
@@ -23,8 +29,8 @@ export default function NavMenu({ isDrawer }: { isDrawer?: boolean }) {
             boxShadow={!isDrawer ? '1px 3px 0 rgba(0, 0, 0, 0.12)' : 'none'}
             borderRadius='12px'
         >
-            <StyledNav>
-                {isTablet && <BreadCrumb />}
+            <StyledNav display='flex' alignItems={isDrawer ? 'baseline' : 'center'}>
+                {isTablet && <BreadCrumb onClose={onClose} />}
                 <NavMenuList />
             </StyledNav>
             <NavMenuFooter />

@@ -56,7 +56,11 @@ export default function Header() {
                 <Burger onClick={onOpen} isOpen={isOpen} onClose={onClose} />
             </Box>
 
-            <Drawer isOpen={isOpen} onClose={onClose} element={<NavMenu isDrawer />} />
+            <Drawer
+                isOpen={isOpen}
+                onClose={onClose}
+                element={<NavMenu isDrawer onClose={onClose} />}
+            />
         </HStack>
     );
 }
