@@ -38,6 +38,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(cleanBigCards());
+        mainRef.current?.scrollTo(0, 0);
     }, [dispatch, pathString]);
     useEffect(() => {
         setTimeout(() => {
@@ -108,7 +109,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     return (
         <MainStyled as='main' ref={mainRef}>
             <VStack
-                p={{ lg: '30px', base: '16px ' }}
+                p={{ lg: '30px', md: '16px', base: '16px 0px' }}
                 gap='16px'
                 borderRadius='0  0 8px 8px'
                 boxShadow='0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 20px 25px -5px rgba(0, 0, 0, 0.1);'

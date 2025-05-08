@@ -6,6 +6,8 @@ import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import TranslatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
+import { breadCrumbPath } from './breadCrumbPath';
+
 export default function BreadCrumb({
     isOpen,
     onClose,
@@ -38,13 +40,12 @@ export default function BreadCrumb({
             </BreadcrumbItem>
 
             {pathSegments.map((segment, index) => {
-                const category = data.find(({ category }) => category === segment);
-                const routeTo =
-                    index !== 0
-                        ? `${pathSegments.slice(0, index + 1).join('/')}`
-                        : `/${pathSegments[0]}/${category?.subCategories[0].category}`;
-                const isLast = index === pathSegments.length - 1;
-
+                const { routeTo, isLast } = breadCrumbPath({
+                    segment: segment,
+                    index: index,
+                    data: data,
+                    pathSegments: pathSegments,
+                });
                 return (
                     <BreadcrumbItem key={index} isCurrentPage={isLast}>
                         <BreadcrumbLink
