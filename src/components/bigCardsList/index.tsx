@@ -7,7 +7,7 @@ import { ApplicationState } from '~/store/configure-store';
 import { ComingRecipeData } from '~/types/comingData';
 
 import { BigCardItem } from './bigCardItem';
-export default function BigCardsList({ data }: { data: ComingRecipeData[]; categoryTag: string }) {
+export default function BigCardsList({ data }: { data: ComingRecipeData[]; categoryTag?: string }) {
     const searchStr = useSelector((store: ApplicationState) => store.searchState.search).length;
 
     return (

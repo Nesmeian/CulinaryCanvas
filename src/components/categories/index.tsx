@@ -142,7 +142,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
             ) : (
                 <>
                     {BigCardData && <BigCardsList data={BigCardData} />}
-                    {page < juiciestData?.meta.totalPages && (
+                    {page < (juiciestData?.meta?.totalPages ?? 0) && (
                         <GreenButton
                             text={isFetching ? 'Загрузка' : 'Загрузить еще'}
                             onClick={LoadMore}
