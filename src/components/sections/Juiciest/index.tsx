@@ -10,7 +10,7 @@ import BigCardsList from '../../../components/bigCardsList';
 import GreenButton from '../../../components/styledComponents/greenButton';
 
 export default function Juiciest() {
-    const { data, isLoading } = useGetJuiciest(6);
+    const { data, isLoading } = useGetJuiciest(6, 1);
     if (isLoading) {
         return <Loader />;
     }
@@ -22,8 +22,8 @@ export default function Juiciest() {
             gap={{ xl: '10px', sm: '10px' }}
         >
             <HStack justifyContent='space-between' width='100%'>
-                <Heading as='h2' size='h2' className='juiciest__title'>
-                    Самое cочное
+                <Heading as='h1' size='h1' className='juiciest__title'>
+                    Самое сочное
                 </Heading>
                 <Link
                     as={RouterLink}

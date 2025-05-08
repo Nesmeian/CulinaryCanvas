@@ -20,6 +20,8 @@ export const Alert = () => {
         <AlertElem
             position='fixed'
             status='error'
+            left='50%'
+            transform='translateX(-50%)'
             w={{ lg: '400px', base: '328px' }}
             h='72px'
             bottom='100px'

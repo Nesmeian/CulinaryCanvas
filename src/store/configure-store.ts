@@ -3,6 +3,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '../query/create-api';
 import { allergensSlice } from './allergens';
 import appReducer, { appSlice } from './app-slice';
+import { bigCardSlice } from './bigCardSlice';
 import { burgerSlice } from './burgerSlice';
 import { categorySlice } from './category';
 import { drawerSlice } from './drawerSlice';
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     [allergensSlice.name]: allergensSlice.reducer,
     [categorySlice.name]: categorySlice.reducer,
     [drawerSlice.name]: drawerSlice.reducer,
+    [bigCardSlice.name]: bigCardSlice.reducer,
 });
 
 export type ApplicationState = ReturnType<typeof rootReducer>;

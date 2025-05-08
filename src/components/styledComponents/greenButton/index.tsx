@@ -5,7 +5,9 @@ export default function GreenButton({
     text,
     center,
     onClick,
+    test,
 }: {
+    test?: string;
     center?: boolean;
     text: string;
     onClick?: () => void;
@@ -13,6 +15,7 @@ export default function GreenButton({
     const alignCenter = center ? 'center' : 'auto';
     return (
         <Button
+            data-test-id={test ? test : ''}
             p='20px '
             size={{ xl: 'lg', sm: 'md' }}
             alignSelf={alignCenter}

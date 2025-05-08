@@ -48,7 +48,7 @@ export const getApiSlice = apiSlice
             }),
             getRecipesByCategory: builder.query<
                 ComingRecipeDataProps,
-                { limit?: number; id?: string }
+                { limit?: number; id?: string; page?: number }
             >({
                 query: ({ limit, id }) => ({
                     url: `${ApiEndpoints.RECIPES_CATEGORY}/${id}`,
@@ -68,21 +68,23 @@ export const getApiSlice = apiSlice
                 }),
                 providesTags: [Tags.RECIPES],
             }),
-            getSortedAtLikes: builder.query<ComingRecipeDataProps, number>({
-                query: (limit) => ({
-                    url: ApiEndpoints.RECIPES,
-                    method: 'GET',
-                    apiGroupName: ApiGroupNames.RECIPES,
-                    name: EndpointNames.GET_RECIPES,
-                    params: {
-                        sortBy: 'likes',
-                        limit: limit,
-                        page: 1,
-                        sortOrder: 'desc',
-                    },
-                }),
-                providesTags: [Tags.RECIPES],
-            }),
+            getSortedAtLikes: builder.query<ComingRecipeDataProps, { limit: number; page: number }>(
+                {
+                    query: ({ limit, page }) => ({
+                        url: ApiEndpoints.RECIPES,
+                        method: 'GET',
+                        apiGroupName: ApiGroupNames.RECIPES,
+                        name: EndpointNames.GET_RECIPES,
+                        params: {
+                            sortBy: 'likes',
+                            sortOrder: 'desc',
+                            limit,
+                            page,
+                        },
+                    }),
+                    providesTags: [Tags.RECIPES],
+                },
+            ),
             getSortedAtTimeRecipes: builder.query<ComingRecipeDataProps, void>({
                 query: () => ({
                     url: ApiEndpoints.RECIPES,
