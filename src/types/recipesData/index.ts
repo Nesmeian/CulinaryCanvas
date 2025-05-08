@@ -11,21 +11,18 @@ interface IngredientsData {
     count: string;
     measureUnit: string;
 }
-interface StepsData {
+export interface StepsData {
     stepNumber: number;
     description: string;
-    image?: string;
+    image: string;
 }
 export interface NutritionValueData {
     calories: number;
-    proteins: number;
+    protein: number;
     fats: number;
     carbohydrates: number;
 }
 
-export interface StepsDataProps {
-    data: StepsData[];
-}
 export interface IngredientsDataProps {
     data: IngredientsData[];
     recipePortions: number;

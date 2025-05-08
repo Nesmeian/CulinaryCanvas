@@ -17,19 +17,17 @@ import RecipeSteps from './recipeSteps';
 export default function Recipe() {
     const path = GetCurrentPath();
     const { data: recipeItem, isLoading, isError } = useGetRecipeByIdQuery(path[path.length - 1]);
-
     if (isLoading) {
         return <Loader />;
     }
     if (isError) {
         return <Alert />;
     }
-    const [recipeNutritionValueData, recipeIngredientsData, recipeStepsData, recipePortions] = [
-        recipeItem?.nutritionValue,
-        recipeItem?.ingredients,
-        recipeItem?.steps,
-        recipeItem?.portions ?? 1,
-    ];
+
+    const recipeNutritionValueData = recipeItem?.nutritionValue;
+    const recipeIngredientsData = recipeItem?.ingredients ?? [];
+    const recipeStepsData = recipeItem?.steps ?? [];
+    const recipePortions = recipeItem?.portions ?? 1;
     const author = {
         name: 'Сергей Разумов',
         email: '@serge25',
@@ -38,7 +36,6 @@ export default function Recipe() {
             views: 125,
         },
     };
-
     return (
         <MainStyled
             as='main'
@@ -46,7 +43,7 @@ export default function Recipe() {
             gap={0}
             overflowY='scroll'
         >
-            <RecipeCard recipeData={recipeItem} />
+            {recipeItem && <RecipeCard recipeData={recipeItem} />}
             <VStack
                 as='section'
                 width={{ xl: '49%', lg: '66%', md: '83%', base: '100%' }}
