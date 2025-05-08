@@ -10,22 +10,15 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router';
 
 import { IMG_PATH } from '~/constants';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
-import { cleanAllergens, stopAllergens } from '~/store/allergens';
-import { closeBurger } from '~/store/burgerSlice';
-import { cleanFilterData, closeFilter } from '~/store/filterSlice';
-import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 
 import DB from '../../../data/db.json';
 import GetCurrentPath from '../../../utils/getCurrentPath';
 
 export default function NavMenuList() {
-    const dispatch = useDispatch();
-
     const [mainRoute, subRoute] = GetCurrentPath();
 
     const { data, isLoading } = useGetFilteredCategories();
@@ -36,15 +29,6 @@ export default function NavMenuList() {
     const [activeIndex, setActiveIndex] = useState<number | undefined>(
         categoryIndex !== -1 ? categoryIndex : undefined,
     );
-    const cleanEffects = () => {
-        dispatch(cleanAllergens());
-        dispatch(stopAllergens());
-        dispatch(setSearchState(''));
-        dispatch(setAllowSearch(false));
-        dispatch(closeFilter());
-        dispatch(cleanFilterData());
-        dispatch(closeBurger());
-    };
 
     return (
         <Accordion
@@ -60,7 +44,6 @@ export default function NavMenuList() {
                             as={RouterLink}
                             to={`/${category}/${subCategories[0].category}`}
                             data-test-id={category === 'vegan' ? 'vegan-cuisine' : category}
-                            onClick={cleanEffects}
                             _expanded={{
                                 bg: '#EAffc7',
                                 fontWeight: 700,
@@ -89,7 +72,6 @@ export default function NavMenuList() {
                                         as={RouterLink}
                                         to={`/${category}/${subCat}`}
                                         cursor='pointer'
-                                        onClick={cleanEffects}
                                     >
                                         <Box
                                             width={isActive ? '8px' : '1px'}

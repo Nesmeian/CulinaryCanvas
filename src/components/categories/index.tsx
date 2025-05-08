@@ -1,5 +1,5 @@
 import { Heading, Text, VStack } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TEST_IDS } from '~/constants/testsIds';
@@ -26,13 +26,24 @@ import GreenButton from '../styledComponents/greenButton';
 import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
+    const mainRef = useRef<HTMLDivElement>(null);
     const curentPath = GetCurrentPath();
+    const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
+    const allergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
+    const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
+    const search = useSelector((state: ApplicationState) => state.searchState.search);
+    const filterData = useSelector((state: ApplicationState) => state.filterState.filterData);
     const { data: filteredCategoies } = useGetFilteredCategories();
     const pathString = curentPath.join('/');
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(cleanBigCards());
     }, [dispatch, pathString]);
+    useEffect(() => {
+        setTimeout(() => {
+            mainRef.current?.scrollTo(0, 0);
+        }, 100);
+    }, [allergens]);
     const [page, setPage] = useState(1);
     const BigCardData = useSelector((state: ApplicationState) => state.bigCardSlice.cards);
     const {
@@ -44,15 +55,12 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
         { skip: pathString[0] == 'the-juiciest' },
     );
     const isRandomBottom = juiciestData ? true : false;
-    const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
-    const allergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
-    const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
-    const search = useSelector((state: ApplicationState) => state.searchState.search);
-    const filterData = useSelector((state: ApplicationState) => state.filterState.filterData);
-    const { data, isError } = useGetRecipesByCategoryQuery(
-        { id: subcategory },
-        { skip: !subcategory },
-    );
+
+    const {
+        data,
+        isError,
+        isLoading: isDataLoading,
+    } = useGetRecipesByCategoryQuery({ id: subcategory }, { skip: !subcategory });
     const { allergens: filteredAllergens, sideDish, meat, category: filterCategory } = filterData;
 
     const categoryIds = filteredCategoies
@@ -90,14 +98,15 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
         isLoading: subcatLoading,
         isError: Error,
     } = useGetSubcategoryRecipesData(categoryData?.subCategories ?? []);
-    if (loading || subcatLoading || juiciestLoading) {
+
+    if (subcatLoading || loading || juiciestLoading || isDataLoading) {
         return <Loader />;
     }
     if (isError || Error || searchError) {
         return <Alert />;
     }
     return (
-        <MainStyled as='main'>
+        <MainStyled as='main' ref={mainRef}>
             <VStack
                 p={{ lg: '30px', base: '16px ' }}
                 gap='16px'
@@ -128,7 +137,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
             ) : data ? (
                 <>
                     <AddTabList category={category} />
-                    <BigCardsList data={data.data} />
+                    {data.data && <BigCardsList data={data.data} />}
                 </>
             ) : (
                 <>
