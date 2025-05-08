@@ -3,20 +3,21 @@ import { Button, FormControl, Heading, HStack, Image, Text, VStack } from '@chak
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { ApplicationState } from '~/store/configure-store';
 import { addFilterData, cleanFilterData } from '~/store/filterSlice';
-import { invertedAllergens } from '~/utils/allergensMap';
 
 import closeSvg from '../../assets/closeSvg.svg';
 import DB from '../../data/db.json';
 import AllergensControlsDrawer from './allergensControls';
 import FilterCategories from './filterMenu';
-import FilterType from './filterType';
+import { FilterType } from './filterType';
 export default function FilterDrawer({ onClose }: { onClose: () => void }) {
     const dispatch = useDispatch();
     const [allowAllergens, setAllowAllergens] = useState(false);
     const [allergens, setAllergens] = useState<string[]>([]);
-    const categories = DB.navMenu.categories.map(({ name }) => name);
+    const { data: categoryData } = useGetFilteredCategories();
+    const categories = categoryData.map(({ title }) => title);
     const [category, setCategory] = useState<string[]>([]);
     const [auth, setAuth] = useState<string[]>([]);
     const [sideDish, setSideDish] = useState<string[]>([]);
@@ -30,24 +31,18 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
         return arrayFilters || allergenFilter;
     }, [category, auth, sideDish, meat, allowAllergens, allergens]);
     const tags = [...allergens, ...meat, ...sideDish, ...category, ...auth];
-    const meatType: Record<string, string> = {
-        Курица: 'Chicken',
-        Свинина: 'Pork',
-        Говядина: 'Beef',
-        Индейка: 'Turkey',
-        Утка: 'Duck',
-    };
+    const meatTypes = ['Курица', 'Свинина', 'Говядина', 'Индейка', 'Утка'];
 
-    const garnishType: Record<string, string> = {
-        Картошка: 'Potato',
-        Гречка: 'Buckwheat',
-        Паста: 'Pasta',
-        Спагетти: 'Spaghetti',
-        Рис: 'Rice',
-        Капуста: 'Cabbage',
-        Фасоль: 'Beans',
-        'Другие овощи': 'Other vegetables',
-    };
+    const garnishType = [
+        'Картошка',
+        'Гречка',
+        'Паста',
+        'Спагетти',
+        'Рис',
+        'Капуста',
+        'Фасоль',
+        'Другие овощи',
+    ];
     const toggleAllowAllergens = () => {
         setAllowAllergens((prev) => !prev);
     };
@@ -109,7 +104,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                     onChange={setAuth}
                 />
             </VStack>
-            <FilterType list={meatType} name='Тип Мяса' onChange={setMeat} selectedItems={meat} />
+            <FilterType list={meatTypes} name='Тип Мяса' onChange={setMeat} selectedItems={meat} />
             <FilterType
                 list={garnishType}
                 name='Тип Гарнира'
@@ -135,7 +130,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                             data-test-id='filter-tag'
                         >
                             <Text fontSize='14px' color='#207e00' fontWeight='500'>
-                                {invertedAllergens[e] || e}
+                                {e}
                             </Text>
                             <CloseIcon boxSize='10px' color='#207e00' />
                         </HStack>

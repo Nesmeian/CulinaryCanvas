@@ -7,13 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetRecipesQuery } from '~/query/services/get';
 import { ApplicationState } from '~/store/configure-store';
 import { cleanSearch, setFindState } from '~/store/searchSlice';
-import filterAllergens from '~/utils/filterAllergens';
-import filterDrawerData from '~/utils/filterDrawerData';
 import GetCurrentPath from '~/utils/getCurrentPath';
-import getSearchCards from '~/utils/getSearchCards';
-import hasActiveFilters from '~/utils/hasActiveFilter';
 
-import DB from '../../data/db.json';
 import BigCardsList from '../bigCardsList';
 import { SearchLoader } from '../loader/searchLoader';
 import Search from '../Search';
@@ -34,26 +29,25 @@ export default function Main() {
     const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergenList = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
-    const filterState = useSelector((state: ApplicationState) => state.filterState.filterData);
-    const allCards = DB.card;
-    const filteredAllergens = filterAllergens(allergenList, allCards);
-    const filterData = filterDrawerData(filterState);
-    const filtersApplied = hasActiveFilters(filterState);
-    const baseCards = filtersApplied ? filterData : allergensActive ? filteredAllergens : allCards;
-    const displayedCards = allowSearch ? getSearchCards(searchQuery, baseCards) : baseCards;
-    const showFallback = !allowSearch && !filtersApplied && !allergensActive;
     const {
         data: searchData,
         isLoading,
         isFetching,
-    } = useGetRecipesQuery({ limit: 8, searchString: searchQuery }, { skip: !allowSearch });
+    } = useGetRecipesQuery(
+        {
+            limit: 8,
+            searchString: searchQuery,
+            ...(allergensActive && { allergens: allergenList.join('') }),
+        },
+        { skip: !allowSearch },
+    );
     useEffect(() => {
         if (!allowSearch) {
             dispatch(setFindState('common'));
         } else {
-            dispatch(setFindState(displayedCards.length > 0 ? 'find' : 'not found'));
+            dispatch(setFindState(searchData?.data.length > 0 ? 'find' : 'not found'));
         }
-    }, [allowSearch, displayedCards, dispatch]);
+    }, [allowSearch, searchData, dispatch]);
     return (
         <MainStyled as='main'>
             <VStack
@@ -68,7 +62,7 @@ export default function Main() {
                 {!isLoading || !isFetching ? <Search /> : <SearchLoader />}
             </VStack>
 
-            {showFallback ? (
+            {!allowSearch ? (
                 <>
                     <Slider />
                     <Juiciest />

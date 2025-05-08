@@ -19,12 +19,12 @@ import {
     Text,
     useDisclosure,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { cleanAllergens, toggleAllergen, toggleAllergenState } from '~/store/allergens';
 import { ApplicationState } from '~/store/configure-store';
-import { allergensMap, invertedAllergens } from '~/utils/allergensMap';
+import { allergensMap } from '~/utils/allergensMap';
 
 import addIcon from '../../../assets/addIcon.svg';
 export default function AllergensControls() {
@@ -41,6 +41,9 @@ export default function AllergensControls() {
         setInputState('');
         dispatch(toggleAllergen(inputState));
     };
+    useEffect(() => {
+        allergenState;
+    }, [allergenState, dispatch]);
     return (
         <FormControl
             display='flex'
@@ -56,7 +59,7 @@ export default function AllergensControls() {
                 </FormLabel>
                 <Switch
                     data-test-id='allergens-switcher'
-                    checked={allergenState}
+                    isChecked={allergenState}
                     onChange={() => {
                         dispatch(toggleAllergenState());
                         dispatch(cleanAllergens());
@@ -119,7 +122,7 @@ export default function AllergensControls() {
                                     border='1px solid #2db100'
                                     borderRadius='6px'
                                 >
-                                    {invertedAllergens[e] || e}
+                                    {e}
                                 </Box>
                             ))
                         ) : (
@@ -130,9 +133,9 @@ export default function AllergensControls() {
                     </HStack>
                 </MenuButton>
                 <MenuList w='auto' zIndex={30}>
-                    {Object.entries(allergensMap).map(([key, value], i) => (
+                    {allergensMap.map((value, i) => (
                         <MenuItem
-                            key={key}
+                            key={value}
                             background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
                             data-test-id={isOpen ? `allergen-${i}` : ''}
                         >
@@ -150,7 +153,7 @@ export default function AllergensControls() {
                                     />
                                 }
                             >
-                                {key}
+                                {value}
                             </Checkbox>
                         </MenuItem>
                     ))}
