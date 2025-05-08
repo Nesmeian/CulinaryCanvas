@@ -4,7 +4,6 @@ export const renderColoredHeading = (title: string, searchLength: number) => {
     if (searchLength === 0) {
         return title;
     }
-
     const chars = Array.from(title);
 
     return (

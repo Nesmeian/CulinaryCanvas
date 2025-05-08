@@ -32,12 +32,13 @@ export const getApiSlice = apiSlice
             }),
             getRecipes: builder.query<
                 ComingRecipeDataProps,
-                { limit: number; subcategory: string | undefined }
+                { limit: number; subcategory?: string | undefined; searchString: string }
             >({
-                query: ({ limit, subcategory }) => ({
+                query: ({ limit, subcategory, searchString }) => ({
                     url: ApiEndpoints.RECIPES,
                     method: 'GET',
                     params: {
+                        searchString: searchString,
                         subcategoriesIds: subcategory,
                         limit: limit,
                     },

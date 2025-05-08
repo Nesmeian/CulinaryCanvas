@@ -9,7 +9,6 @@ import { ComingRecipeData } from '~/types/comingData';
 
 import { BigCardItem } from './bigCardItem';
 export default function BigCardsList({ data }: { data: ComingRecipeData[]; categoryTag: string }) {
-    console.log(data);
     const searchStr = useSelector((store: ApplicationState) => store.searchState.search).length;
     const memoizedItems = useMemo(
         () =>
