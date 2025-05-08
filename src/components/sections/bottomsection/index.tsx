@@ -13,11 +13,11 @@ import AddTags from '../../../utils/addTags';
 export default function BottomSection({
     recipes,
     randomCategory,
-    isMain,
+    isRandom,
 }: {
     recipes?: ComingRecipeData[];
     randomCategory?: ComingCategoryData;
-    isMain?: boolean;
+    isRandom?: boolean;
 }) {
     const { data } = useGetFilteredCategories(true);
     const {
@@ -25,9 +25,9 @@ export default function BottomSection({
         recipes: mainRecipes,
         isError,
     } = useGetSubcategoryRecipesData(data);
-    const all: ComingRecipeData[] = isMain ? (mainRecipes?.data ?? []) : (recipes ?? []);
-    const title = isMain ? mainCategory?.title : randomCategory?.title;
-    const description = isMain ? mainCategory?.description : randomCategory?.description;
+    const all: ComingRecipeData[] = isRandom ? (mainRecipes?.data ?? []) : (recipes ?? []);
+    const title = isRandom ? mainCategory?.title : randomCategory?.title;
+    const description = isRandom ? mainCategory?.description : randomCategory?.description;
     const recipesLength = all?.length ?? 0;
     const bigCardLengthSlice = Math.min(recipesLength, 2);
     const smallCardLengthSlice = Math.min(recipesLength, 5);

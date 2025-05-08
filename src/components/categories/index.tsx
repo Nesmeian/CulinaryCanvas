@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TEST_IDS } from '~/constants/testsIds';
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
-import { useGetJuiciest } from '~/Hooks/useGetJuiciest';
-import { useGetRecipes } from '~/Hooks/useGetRecipes';
 import { useGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
+import {
+    useGetRecipesByCategoryQuery,
+    useGetRecipesQuery,
+    useGetSortedAtLikesQuery,
+} from '~/query/services/get';
 import { addCards, cleanBigCards } from '~/store/bigCardSlice';
 import { ApplicationState } from '~/store/configure-store';
 import GetCurrentPath from '~/utils/getCurrentPath';
@@ -15,6 +18,7 @@ import { CategoriesProps } from '../../types/dataTypes';
 import { Alert } from '../alert';
 import BigCardsList from '../bigCardsList';
 import { Loader } from '../loader';
+import { SearchLoader } from '../loader/searchLoader';
 import Search from '../Search';
 import BottomSection from '../sections/bottomsection';
 import GreenButton from '../styledComponents/greenButton';
@@ -29,10 +33,37 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     }, [dispatch, pathString]);
     const [page, setPage] = useState(1);
     const BigCardData = useSelector((state: ApplicationState) => state.bigCardSlice.cards);
-    const { data: juiciestData, isLoading: juiciestLoading, isFetching } = useGetJuiciest(8, page);
-    const { data, isError } = useGetRecipes(subcategory);
+    const {
+        data: juiciestData,
+        isLoading: juiciestLoading,
+        isFetching,
+    } = useGetSortedAtLikesQuery(
+        { limit: 8, page: page },
+        { skip: pathString[0] == 'the-juiciest' },
+    );
+    const isRandomBottom = juiciestData ? true : false;
+    const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
+    const allergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
+    console.log(allergens);
+    const search = useSelector((state: ApplicationState) => state.searchState.search);
+    const { data, isError } = useGetRecipesByCategoryQuery(
+        { id: subcategory },
+        { skip: !subcategory },
+    );
+
     const { category: categoryData, loading } = useGetCategoryId(subcategory);
-    const totalPage = 3;
+    const {
+        data: searchData,
+        isLoading: searchLoading,
+        isFetching: searchFetching,
+    } = useGetRecipesQuery(
+        {
+            subcategory: subcategory,
+            searchString: search,
+            limit: 8,
+        },
+        { skip: !allowSearch },
+    );
     const LoadMore = () => {
         setPage((prev) => ++prev);
     };
@@ -55,7 +86,12 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     }
     return (
         <MainStyled as='main'>
-            <VStack width={{ lg: '50%', base: '100%' }}>
+            <VStack
+                p={{ lg: '30px', base: '16px ' }}
+                gap='16px'
+                borderRadius='0  0 8px 8px'
+                boxShadow='0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 20px 25px -5px rgba(0, 0, 0, 0.1);'
+            >
                 <Heading as='h1' size='h1' pt={{ base: 0, md: 4 }} pb={{ base: '10px', md: 5 }}>
                     {curentPath[curentPath.length - 1] !== 'the-juiciest'
                         ? categoryData?.title
@@ -69,29 +105,37 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                 >
                     {categoryData?.description}
                 </Text>
+                {!searchLoading || !searchFetching ? <Search /> : <SearchLoader />}
             </VStack>
 
-            <Search />
-            {category !== 'the-juiciest' && <AddTabList category={category} />}
-            {data ? (
+            {allowSearch ? (
                 <>
+                    <AddTabList category={category} />
+                    {searchData && <BigCardsList data={searchData?.data} />}
+                </>
+            ) : data ? (
+                <>
+                    <AddTabList category={category} />
                     <BigCardsList data={data.data} />
                 </>
             ) : (
                 <>
                     {BigCardData && <BigCardsList data={BigCardData} />}
-                    {page < totalPage && (
+                    {page < juiciestData?.meta.totalPages && (
                         <GreenButton
                             text={isFetching ? 'Загрузка' : 'Загрузить еще'}
                             onClick={LoadMore}
                             test={TEST_IDS.LOAD_MORE_BTN}
                         />
                     )}
-                    <BottomSection isMain />
                 </>
             )}
 
-            <BottomSection recipes={recipes?.data} randomCategory={catData} />
+            <BottomSection
+                recipes={recipes?.data}
+                randomCategory={catData}
+                isRandom={isRandomBottom}
+            />
         </MainStyled>
     );
 }

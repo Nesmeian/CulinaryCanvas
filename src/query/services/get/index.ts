@@ -49,12 +49,12 @@ export const getApiSlice = apiSlice
             }),
             getRecipesByCategory: builder.query<
                 ComingRecipeDataProps,
-                { limit?: number; id?: string; page?: number }
+                { limit?: number; id?: string; searchString?: string }
             >({
-                query: ({ limit, id }) => ({
+                query: ({ limit, id, searchString }) => ({
                     url: `${ApiEndpoints.RECIPES_CATEGORY}/${id}`,
                     method: 'GET',
-                    params: { limit },
+                    params: { limit, searchString },
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPES,
                 }),
