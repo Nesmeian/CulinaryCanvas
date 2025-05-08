@@ -6,21 +6,11 @@ export type ComingCategoryData = {
     icon: string;
     _id: string;
     title: string;
-    subCategories: {
-        category: string;
-        rootCategoryId: string;
-        title: string;
-        _id: string;
-    }[];
+    subCategories: SubCategoriesValues[];
 };
 export type ComingRecipeDataProps = {
     data: ComingRecipeData[];
-    meta: {
-        total: number;
-        limit: number;
-        page: number;
-        totalPages: number;
-    };
+    meta: MetaValues;
 };
 export type ComingRecipeData = {
     authorId: string;
@@ -30,23 +20,32 @@ export type ComingRecipeData = {
     createdAt: string;
     description: string;
     image: string;
-    ingredients: {
-        title: string;
-        count: string;
-        measureUnit: string;
-    }[];
-    nutritionValue: {
-        calories: number;
-        carbohydrates: number;
-        fats: number;
-        protein: number;
-    };
+    ingredients: IngredientsValues[];
+    nutritionValue: NutritionValues;
     portions: number;
     steps: StepsData[];
     time: number;
     title: string;
     views: number;
     _id: string;
+};
+type SubCategoriesValues = {
+    category: string;
+    rootCategoryId: string;
+    title: string;
+    _id: string;
+};
+type IngredientsValues = {
+    title: string;
+    count: string;
+    measureUnit: string;
+};
+type MetaValues = { total: number; limit: number; page: number; totalPages: number };
+type NutritionValues = {
+    calories: number;
+    carbohydrates: number;
+    fats: number;
+    protein: number;
 };
 export type SubCategoriesProps = {
     category: string;
