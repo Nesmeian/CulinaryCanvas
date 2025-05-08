@@ -24,6 +24,7 @@ export const Alert = () => {
             transform='translateX(-50%)'
             w={{ lg: '400px', base: '328px' }}
             h='72px'
+            zIndex={1000}
             bottom='100px'
             data-test-id={TEST_IDS.ERROR_NOTIFICATION}
         >

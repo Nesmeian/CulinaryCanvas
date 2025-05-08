@@ -1,6 +1,6 @@
 import './style.css';
 
-import { Heading } from '@chakra-ui/react';
+import { Heading, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,7 +15,7 @@ import hasActiveFilters from '~/utils/hasActiveFilter';
 
 import DB from '../../data/db.json';
 import BigCardsList from '../bigCardsList';
-import { Loader } from '../loader';
+import { SearchLoader } from '../loader/searchLoader';
 import Search from '../Search';
 import BottomSection from '../sections/bottomsection';
 import CulinaryBlogs from '../sections/culinaryBlogs';
@@ -42,10 +42,11 @@ export default function Main() {
     const baseCards = filtersApplied ? filterData : allergensActive ? filteredAllergens : allCards;
     const displayedCards = allowSearch ? getSearchCards(searchQuery, baseCards) : baseCards;
     const showFallback = !allowSearch && !filtersApplied && !allergensActive;
-    const { data: searchData, isLoading } = useGetRecipesQuery(
-        { limit: 8, searchString: searchQuery },
-        { skip: !allowSearch },
-    );
+    const {
+        data: searchData,
+        isLoading,
+        isFetching,
+    } = useGetRecipesQuery({ limit: 8, searchString: searchQuery }, { skip: !allowSearch });
     useEffect(() => {
         if (!allowSearch) {
             dispatch(setFindState('common'));
@@ -53,16 +54,19 @@ export default function Main() {
             dispatch(setFindState(displayedCards.length > 0 ? 'find' : 'not found'));
         }
     }, [allowSearch, displayedCards, dispatch]);
-    if (isLoading) {
-        return <Loader />;
-    }
     return (
         <MainStyled as='main'>
-            <Heading as='h1' size='h1' className='title'>
-                Приятного аппетита!
-            </Heading>
+            <VStack
+                p={{ lg: '30px', base: '16px ' }}
+                borderRadius='0  0 8px 8px'
+                boxShadow='0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 20px 25px -5px rgba(0, 0, 0, 0.1);'
+            >
+                <Heading as='h1' size='h1' className='title'>
+                    Приятного аппетита!
+                </Heading>
 
-            <Search />
+                {!isLoading || !isFetching ? <Search /> : <SearchLoader />}
+            </VStack>
 
             {showFallback ? (
                 <>
@@ -72,7 +76,7 @@ export default function Main() {
                     <BottomSection isMain />
                 </>
             ) : (
-                <BigCardsList data={searchData?.data} />
+                !isLoading && <BigCardsList data={searchData?.data} />
             )}
         </MainStyled>
     );
