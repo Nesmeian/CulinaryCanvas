@@ -38,9 +38,8 @@ export default function AllergensControls() {
         dispatch(toggleAllergen(allergen));
     };
     const handleAddCustomAllergen = () => {
-        const trimmedValue = inputState.trim();
         setInputState('');
-        dispatch(toggleAllergen(trimmedValue));
+        dispatch(toggleAllergen(inputState));
     };
     return (
         <FormControl

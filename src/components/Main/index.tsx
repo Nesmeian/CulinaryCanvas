@@ -73,7 +73,7 @@ export default function Main() {
                     <Slider />
                     <Juiciest />
                     <CulinaryBlogs />
-                    <BottomSection isMain />
+                    <BottomSection isRandom />
                 </>
             ) : (
                 !isLoading && <BigCardsList data={searchData?.data} />
