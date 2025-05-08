@@ -11,7 +11,7 @@ export default function Search() {
     const { isTablet } = useBreakpoints();
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
-        <VStack className='search' gap='15px'>
+        <VStack className='search' gap='15px' pt='20px'>
             <HStack gap='10px' justify='center' align='center'>
                 <FilterButton onOpen={onOpen} isOpen={isOpen} onClose={onClose} />
                 <InputSearch />

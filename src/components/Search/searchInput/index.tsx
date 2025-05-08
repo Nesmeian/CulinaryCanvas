@@ -1,22 +1,20 @@
 import { CloseIcon, SearchIcon } from '@chakra-ui/icons';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { ApplicationState } from '~/store/configure-store';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 export default function InputSearch() {
     const dispatch = useDispatch();
     const searchState = useSelector((state: ApplicationState) => state.searchState.search);
     const searchFindElems = useSelector((state: ApplicationState) => state.searchState.findElems);
+    const allergenAllow = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const [search, setSearch] = useState(searchState);
     const [allowSearchInput, setAllowSearchInput] = useState(false);
     const handleSearch = () => {
         dispatch(setAllowSearch(true));
         dispatch(setSearchState(search.trim()));
-        dispatch(cleanAllergens());
-        dispatch(stopAllergens());
     };
 
     const blockSearch = () => {
@@ -24,7 +22,9 @@ export default function InputSearch() {
         dispatch(setSearchState(''));
         setSearch('');
     };
-
+    useEffect(() => {
+        allergenAllow ? setAllowSearchInput(true) : setAllowSearchInput(false);
+    }, [allergenAllow]);
     return (
         <InputGroup
             width={{ sm: '284px', md: '404px', lg: '458px' }}

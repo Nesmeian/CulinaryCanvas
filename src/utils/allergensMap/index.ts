@@ -1,36 +1,27 @@
-export const allergensMap: Record<string, string> = {
-    'Молочные продукты': 'Dairy products',
-    Яйцо: 'Egg',
-    Рыба: 'Fish',
-    Моллюски: 'Shellfish',
-    Орехи: 'Nuts',
-    'Томат (помидор)': 'Tomato',
-    Цитрусовые: 'Citrus',
-    'Клубника (ягоды)': 'Strawberry (berries)',
-    Шоколад: 'Chocolate',
-};
+export const allergensMap = [
+    'Молочные продукты',
+    'Яйцо',
+    'Рыба',
+    'Моллюски',
+    'Орехи',
+    'Томат (помидор)',
+    'Цитрусовые',
+    'Клубника (ягоды)',
+    'Шоколад',
+];
 
-export const otherTags: Record<string, string> = {
-    Курица: 'Chicken',
-    Свинина: 'Pork',
-    Говядина: 'Beef',
-    Индейка: 'Turkey',
-    Утка: 'Duck',
-    Картошка: 'Potato',
-    Гречка: 'Buckwheat',
-    Паста: 'Pasta',
-    Спагетти: 'Spaghetti',
-    Рис: 'Rice',
-    Капуста: 'Cabbage',
-    Фасоль: 'Beans',
-    'Другие овощи': 'Other vegetables',
-};
-
-export const tagsMap: Record<string, string> = {
-    ...allergensMap,
-    ...otherTags,
-};
-
-export const invertedAllergens = Object.fromEntries(
-    Object.entries(tagsMap).map(([rus, eng]) => [eng, rus]),
-);
+export const otherTags = [
+    'Курица',
+    'Свинина',
+    'Говядина',
+    'Индейка',
+    'Утка',
+    'Картошка',
+    'Гречка',
+    'Паста',
+    'Спагетти',
+    'Рис',
+    'Капуста',
+    'Фасоль',
+    'Другие овощи',
+];

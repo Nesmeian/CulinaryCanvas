@@ -44,7 +44,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const isRandomBottom = juiciestData ? true : false;
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
     const allergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
-    console.log(allergens);
+    const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
     const search = useSelector((state: ApplicationState) => state.searchState.search);
     const { data, isError } = useGetRecipesByCategoryQuery(
         { id: subcategory },
@@ -61,6 +61,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
             subcategory: subcategory,
             searchString: search,
             limit: 8,
+            ...(allergensActive && { allergens: allergens.join('') }),
         },
         { skip: !allowSearch },
     );
