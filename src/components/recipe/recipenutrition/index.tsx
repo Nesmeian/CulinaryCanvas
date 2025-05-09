@@ -7,13 +7,13 @@ export default function RecipeNutritionValue({ data }: { data: NutritionValueDat
         calories: 'калорийность',
         carbohydrates: 'углеводы',
         fats: 'жиры',
-        proteins: 'белки',
+        protein: 'белки',
     };
     const measureOfNutrion = {
         calories: 'ККАЛ',
         carbohydrates: 'ГРАММ',
         fats: 'ГРАММ',
-        proteins: 'ГРАММ',
+        protein: 'ГРАММ',
     };
     return (
         <Stack

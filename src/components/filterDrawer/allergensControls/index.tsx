@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import { allergensMap } from '~/utils/allergensMap';
 
 import addIcon from '../../../assets/addIcon.svg';
@@ -49,7 +50,7 @@ export default function AllergensControlsDrawer({
                     Исключить аллергены
                 </FormLabel>
                 <Switch
-                    data-test-id='allergens-switcher-filter'
+                    data-test-id={TEST_IDS.ALLERGENS_SWITCHER_FILTER}
                     onChange={() => toggleAllowAllergens()}
                     sx={{
                         'span.chakra-switch__track': {
@@ -67,7 +68,7 @@ export default function AllergensControlsDrawer({
             </HStack>
             <Menu closeOnSelect={false}>
                 <MenuButton
-                    data-test-id='allergens-menu-button-filter'
+                    data-test-id={TEST_IDS.ALLERGENS_MENU_BTN_FILTER}
                     w={{ lg: '399px', base: '308px' }}
                     background='white'
                     border='1px solid rgba(0, 0, 0, 0.08)'
@@ -89,21 +90,21 @@ export default function AllergensControlsDrawer({
                     Выберите из списка аллергенов...
                 </MenuButton>
                 <MenuList w={{ lg: '399px', base: '308px' }} zIndex={30}>
-                    {Object.entries(allergensMap).map(([key, value], i) => (
+                    {allergensMap.map((e, i) => (
                         <MenuItem
-                            key={key}
+                            key={e}
                             background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
                         >
                             <Checkbox
-                                data-test-id={`allergen-${i}`}
+                                data-test-id={`${TEST_IDS.ALLERGEN_ITEM}${i}`}
                                 width='100%'
                                 borderColor='#b1ff2e'
-                                isChecked={allergens.includes(value)}
+                                isChecked={allergens.includes(e)}
                                 onChange={() =>
                                     setAllergens((prev) =>
-                                        prev.includes(value)
-                                            ? prev.filter((item) => item !== value)
-                                            : [...prev, value],
+                                        prev.includes(e)
+                                            ? prev.filter((item) => item !== e)
+                                            : [...prev, e],
                                     )
                                 }
                                 colorScheme='customgreen'
@@ -115,7 +116,7 @@ export default function AllergensControlsDrawer({
                                     />
                                 }
                             >
-                                {key}
+                                {e}
                             </Checkbox>
                         </MenuItem>
                     ))}
@@ -134,11 +135,11 @@ export default function AllergensControlsDrawer({
                                 }
                             }}
                             _placeholder={{ color: '#134b00' }}
-                            data-test-id='add-other-allergen'
+                            data-test-id={TEST_IDS.ADD_OTHER_ALLERGEN}
                         />
                         <Image
                             src={addIcon}
-                            data-test-id='add-allergen-button'
+                            data-test-id={TEST_IDS.ADD_ALLERGEN_BTN}
                             onClick={addOtherAllergen}
                         />
                     </HStack>

@@ -1,9 +1,8 @@
 import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
-import { StepsDataProps } from '~/types/recipesData';
-
-import * as recipeSteps from '../../../assets/recipeImages/index';
-export default function RecipeSteps({ data }: StepsDataProps) {
+import { IMG_PATH } from '~/constants';
+import { StepsData } from '~/types/recipesData';
+export default function RecipeSteps({ data }: { data: StepsData[] }) {
     return (
         <VStack width='100%' alignItems='flex-start' mt={{ lg: '16px', base: '14px' }}>
             <Heading
@@ -31,7 +30,7 @@ export default function RecipeSteps({ data }: StepsDataProps) {
                             <Image
                                 height={{ lg: 'auto', base: '100%' }}
                                 w={{ lg: '346px', base: '158px' }}
-                                src={recipeSteps[image as keyof typeof recipeSteps]}
+                                src={`${IMG_PATH}${image}`}
                             />
                         )}
                         <HStack

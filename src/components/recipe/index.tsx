@@ -1,10 +1,11 @@
 import { VStack } from '@chakra-ui/react';
 
-import useBreakpoints from '~/themes/chakraBreakPoints';
-import { AuthorData, NutritionValueData, RecipeData } from '~/types/recipesData/index.ts';
+import { useGetRecipeByIdQuery } from '~/query/services/get';
+import { NutritionValueData } from '~/types/recipesData/index.ts';
+import GetCurrentPath from '~/utils/getCurrentPath';
 
-import DB from '../../data/db.json';
-import Footer from '../Footer';
+import { Alert } from '../alert';
+import { Loader } from '../loader';
 import Slider from '../slider';
 import MainStyled from '../styledComponents/Main';
 import RecipeAuthor from './recipeAuthor';
@@ -12,26 +13,29 @@ import RecipeCard from './recipeCard';
 import RecipeIngredients from './recipeIngredients';
 import RecipeNutritionValue from './recipenutrition';
 import RecipeSteps from './recipeSteps';
-export default function Recipe({ card }: { card: string }) {
-    const { isTablet } = useBreakpoints();
-    const recipeItem = DB.card.find(({ id }) => card === id);
-    const [
-        recipeNutritionValueData,
-        recipeIngredientsData,
-        recipeStepsData,
-        recipeAuthorData,
-        recipePortions,
-    ] = [
-        recipeItem?.nutritionValue,
-        recipeItem?.ingredients,
-        recipeItem?.steps,
-        recipeItem?.author,
-        recipeItem?.portions ?? 1,
-    ];
 
-    if (!recipeIngredientsData || !recipeStepsData) {
-        return <div>Ошибка: ингредиенты не указаны</div>;
+export default function Recipe() {
+    const path = GetCurrentPath();
+    const { data: recipeItem, isLoading, isError } = useGetRecipeByIdQuery(path[path.length - 1]);
+    if (isLoading) {
+        return <Loader />;
     }
+    if (isError) {
+        return <Alert />;
+    }
+
+    const recipeNutritionValueData = recipeItem?.nutritionValue;
+    const recipeIngredientsData = recipeItem?.ingredients ?? [];
+    const recipeStepsData = recipeItem?.steps ?? [];
+    const recipePortions = recipeItem?.portions ?? 1;
+    const author = {
+        name: 'Сергей Разумов',
+        email: '@serge25',
+        imgUrl: 'sergeyRazumov',
+        notifications: {
+            views: 125,
+        },
+    };
     return (
         <MainStyled
             as='main'
@@ -39,7 +43,7 @@ export default function Recipe({ card }: { card: string }) {
             gap={0}
             overflowY='scroll'
         >
-            <RecipeCard recipeData={recipeItem as RecipeData} />
+            {recipeItem && <RecipeCard recipeData={recipeItem} />}
             <VStack
                 as='section'
                 width={{ xl: '49%', lg: '66%', md: '83%', base: '100%' }}
@@ -48,10 +52,9 @@ export default function Recipe({ card }: { card: string }) {
                 <RecipeNutritionValue data={recipeNutritionValueData as NutritionValueData} />
                 <RecipeIngredients data={recipeIngredientsData} recipePortions={recipePortions} />
                 <RecipeSteps data={recipeStepsData} />
-                <RecipeAuthor data={recipeAuthorData as AuthorData} />
+                <RecipeAuthor data={author} />
             </VStack>
             <Slider isRecipePage />
-            {isTablet && <Footer />}
         </MainStyled>
     );
 }

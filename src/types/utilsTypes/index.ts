@@ -1,4 +1,7 @@
+import { JSX } from 'react';
+
 import tagsKeys from '../../utils/addTags/tagsImgData';
+import { ComingCategoryData } from '../comingData';
 
 export type TagKey = keyof typeof tagsKeys;
 
@@ -6,17 +9,11 @@ export default interface TagsProps {
     color?: string;
     size?: string;
     withText: boolean;
-    tag: TagKey[];
     newPosition?: true;
-    category?: string;
+    category: string;
     multi?: boolean;
 }
 
-export interface addNotificationsProps {
-    isRecipe?: boolean;
-    bookmarks?: number;
-    likes?: number;
-}
 interface UserRecommendation {
     imgUrl: string;
     user: string;
@@ -30,27 +27,30 @@ export type Breakpoints = {
     isTablet: boolean;
     isDesktop: boolean;
 };
-export const meatType = {
-    Курица: 'Chicken',
-    Свинина: 'Pork',
-    Говядина: 'Beef',
-    Индейка: 'Turkey',
-    Утка: 'Duck',
-} as const;
 
-export type MeatTypeKey = keyof typeof meatType;
-export type MeatTypeMap = Record<MeatTypeKey, string>;
-
-export const garnishType = {
-    Картошка: 'Potato',
-    Гречка: 'Buckwheat',
-    Паста: 'Pasta',
-    Спагетти: 'Spaghetti',
-    Рис: 'Rice',
-    Капуста: 'Cabbage',
-    Фасоль: 'Beans',
-    'Другие овощи': 'Other vegetables',
-} as const;
-
-export type GarnishTypeKey = keyof typeof garnishType;
-export type GarnishTypeMap = Record<GarnishTypeKey, string>;
+export type breadCrumbType = {
+    data: ComingCategoryData[];
+    segment: string;
+    index: number;
+    pathSegments: string[];
+};
+export type DrawerProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    element: JSX.Element;
+    isFilter?: boolean;
+};
+export type isDrawerType = {
+    isDrawer?: boolean;
+    onClose: () => void;
+};
+export type BreadCrumbsTypes = {
+    isOpen?: boolean;
+    onClose?: () => void;
+};
+export type greenButtonType = {
+    test?: string;
+    center?: boolean;
+    text: string;
+    onClick?: () => void;
+};

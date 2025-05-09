@@ -3,20 +3,23 @@ import { Button, FormControl, Heading, HStack, Image, Text, VStack } from '@chak
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { TEST_IDS } from '~/constants/testsIds';
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { ApplicationState } from '~/store/configure-store';
 import { addFilterData, cleanFilterData } from '~/store/filterSlice';
-import { invertedAllergens } from '~/utils/allergensMap';
+import { setAllowSearch } from '~/store/searchSlice';
 
 import closeSvg from '../../assets/closeSvg.svg';
 import DB from '../../data/db.json';
 import AllergensControlsDrawer from './allergensControls';
 import FilterCategories from './filterMenu';
-import FilterType from './filterType';
+import { FilterType } from './filterType';
 export default function FilterDrawer({ onClose }: { onClose: () => void }) {
     const dispatch = useDispatch();
     const [allowAllergens, setAllowAllergens] = useState(false);
     const [allergens, setAllergens] = useState<string[]>([]);
-    const categories = DB.navMenu.categories.map(({ name }) => name);
+    const { data: categoryData } = useGetFilteredCategories();
+    const categories = categoryData.map(({ title }) => title);
     const [category, setCategory] = useState<string[]>([]);
     const [auth, setAuth] = useState<string[]>([]);
     const [sideDish, setSideDish] = useState<string[]>([]);
@@ -30,24 +33,17 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
         return arrayFilters || allergenFilter;
     }, [category, auth, sideDish, meat, allowAllergens, allergens]);
     const tags = [...allergens, ...meat, ...sideDish, ...category, ...auth];
-    const meatType: Record<string, string> = {
-        Курица: 'Chicken',
-        Свинина: 'Pork',
-        Говядина: 'Beef',
-        Индейка: 'Turkey',
-        Утка: 'Duck',
-    };
-
-    const garnishType: Record<string, string> = {
-        Картошка: 'Potato',
-        Гречка: 'Buckwheat',
-        Паста: 'Pasta',
-        Спагетти: 'Spaghetti',
-        Рис: 'Rice',
-        Капуста: 'Cabbage',
-        Фасоль: 'Beans',
-        'Другие овощи': 'Other vegetables',
-    };
+    const meatTypes = ['Курица', 'Свинина', 'Говядина', 'Индейка', 'Утка'];
+    const garnishType = [
+        'Картошка',
+        'Гречка',
+        'Паста',
+        'Спагетти',
+        'Рис',
+        'Капуста',
+        'Фасоль',
+        'Другие овощи',
+    ];
     const toggleAllowAllergens = () => {
         setAllowAllergens((prev) => !prev);
     };
@@ -73,13 +69,23 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
             dispatch(cleanFilterData());
         }
     };
+    const searchRecipes = () => {
+        dispatch(setAllowSearch(true));
+        collectData();
+        onClose();
+    };
+    const clearSearch = () => {
+        dispatch(setAllowSearch(false));
+        cleanData();
+        onClose();
+    };
     return (
         <FormControl
-            data-test-id='filter-drawer'
+            data-test-id={TEST_IDS.FILTER_DRAWER}
             display='flex'
             flexDirection='column'
             height='100vh'
-            width={{ base: '344px', lg: '463px' }}
+            width='100%'
             p={{ base: '16px', lg: '32px' }}
             gap='24px'
             overflowY='scroll'
@@ -91,7 +97,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                 <Image
                     src={closeSvg}
                     alt='close Svg'
-                    data-test-id='close-filter-drawer'
+                    data-test-id={TEST_IDS.CLOSE_FILTER}
                     onClick={() => onClose()}
                 />
             </HStack>
@@ -109,7 +115,7 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                     onChange={setAuth}
                 />
             </VStack>
-            <FilterType list={meatType} name='Тип Мяса' onChange={setMeat} selectedItems={meat} />
+            <FilterType list={meatTypes} name='Тип Мяса' onChange={setMeat} selectedItems={meat} />
             <FilterType
                 list={garnishType}
                 name='Тип Гарнира'
@@ -132,10 +138,10 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                             background='#EAFFC7'
                             borderRadius='6px'
                             gap='8px'
-                            data-test-id='filter-tag'
+                            data-test-id={TEST_IDS.FILTER_TAG}
                         >
                             <Text fontSize='14px' color='#207e00' fontWeight='500'>
-                                {invertedAllergens[e] || e}
+                                {e}
                             </Text>
                             <CloseIcon boxSize='10px' color='#207e00' />
                         </HStack>
@@ -155,10 +161,8 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                             borderColor: 'rgba(0, 0, 0, 0.6)',
                             transition: 'all 0.2s ease-in-out',
                         }}
-                        data-test-id='clear-filter-button'
-                        onClick={() => {
-                            cleanData();
-                        }}
+                        data-test-id={TEST_IDS.CLEAR_FILTER_BTN}
+                        onClick={clearSearch}
                     >
                         Очистить фильтр
                     </Button>
@@ -174,12 +178,9 @@ export default function FilterDrawer({ onClose }: { onClose: () => void }) {
                             transform: 'scale(1.02)',
                             transition: 'all 0.2s ease-in-out',
                         }}
-                        onClick={() => {
-                            collectData();
-                            onClose();
-                        }}
+                        onClick={searchRecipes}
                         pointerEvents={hasSelectedFilters ? 'auto' : 'none'}
-                        data-test-id='find-recipe-button'
+                        data-test-id={TEST_IDS.FIND_RECIPE}
                     >
                         Найти рецепт
                     </Button>

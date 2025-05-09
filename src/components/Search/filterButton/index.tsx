@@ -3,6 +3,7 @@ import './style.css';
 import { Box, VStack } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 export default function FilterButton({
@@ -21,7 +22,7 @@ export default function FilterButton({
             className='unknown-block'
             justify='center'
             gap='2.4px'
-            data-test-id='filter-button'
+            data-test-id={TEST_IDS.FILTER_BTN}
             onClick={() => {
                 onOpen();
                 if (isOpen) {

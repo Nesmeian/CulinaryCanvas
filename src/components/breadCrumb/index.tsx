@@ -1,20 +1,24 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Text } from '@chakra-ui/react';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
+import { Link } from 'react-router';
 
-import translatePathSegment from '~/utils/BreadCrumbsTranslation';
+import { TEST_IDS } from '~/constants/testsIds';
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import TranslatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
-export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
-    const pathSegments = GetCurrentPath();
+import { breadCrumbPath } from './breadCrumbPath';
 
-    const generatePath = (index: number) => '/' + pathSegments.slice(0, index + 1).join('/');
+export default function BreadCrumb({ isOpen, onClose }: BreadCrumbsTypes) {
+    const pathSegments = GetCurrentPath();
+    const { data } = useGetFilteredCategories();
     return (
         <Breadcrumb
             pt='16px'
             alignSelf='baseline'
             separator={<ChevronRightIcon color='gray.500' />}
             fontSize='md'
-            data-test-id={isOpen ? '' : 'breadcrumbs'}
+            data-test-id={isOpen ? '' : TEST_IDS.BREADCRUMBS}
             color='gray.500'
             sx={{
                 '& > .chakra-breadcrumb__list': {
@@ -25,19 +29,27 @@ export default function BreadCrumb({ isOpen }: { isOpen?: boolean }) {
             }}
         >
             <BreadcrumbItem>
-                <BreadcrumbLink href='/'>Главная</BreadcrumbLink>
+                <BreadcrumbLink as={Link} to='/'>
+                    Главная
+                </BreadcrumbLink>
             </BreadcrumbItem>
 
             {pathSegments.map((segment, index) => {
-                const isLast = index === pathSegments.length - 1;
-
+                const { routeTo, isLast } = breadCrumbPath({
+                    segment: segment,
+                    index: index,
+                    data: data,
+                    pathSegments: pathSegments,
+                });
                 return (
                     <BreadcrumbItem key={index} isCurrentPage={isLast}>
                         <BreadcrumbLink
-                            href={!isLast ? generatePath(index) : undefined}
+                            as={Link}
+                            to={routeTo}
                             color={isLast ? 'black' : 'rgba(0, 0, 0, 0.64)'}
+                            onClick={onClose}
                         >
-                            <Text>{translatePathSegment(segment)}</Text>
+                            <TranslatePathSegment segment={segment} />
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                 );

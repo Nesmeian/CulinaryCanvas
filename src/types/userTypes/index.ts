@@ -1,3 +1,5 @@
+import { ComingRecipeData } from '../comingData';
+
 export interface UserProps {
     userData: UserData;
     isLogo?: boolean;
@@ -24,6 +26,15 @@ export type FilterState = {
 export type AllergensState = {
     isActive: boolean;
     allergens: string[];
+};
+export type CategoryState = {
+    subCategoryId: string;
+    categoryId: string;
+    category: string;
+    subCategory: string;
+};
+export type BigCardsProps = {
+    cards: ComingRecipeData[] | string[];
 };
 export type SearchState = {
     allowSearch: boolean;

@@ -10,128 +10,82 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router';
 
-import { cleanAllergens, stopAllergens } from '~/store/allergens';
-import { cleanFilterData, closeFilter } from '~/store/filterSlice';
-import { setAllowSearch, setSearchState } from '~/store/searchSlice';
+import { IMG_PATH } from '~/constants';
+import { TEST_IDS } from '~/constants/testsIds';
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 
-import * as navMenuIcons from '../../../assets/navMenuIcons/index';
 import DB from '../../../data/db.json';
 import GetCurrentPath from '../../../utils/getCurrentPath';
 
 export default function NavMenuList() {
-    const pathSegments = GetCurrentPath();
-    const currentRoute = pathSegments[0];
-    const currentSubRoute = pathSegments[1];
-    const categoryIndex = DB.navMenu.categories.findIndex(
-        (category) => category.routeName === currentRoute,
-    );
-    const [activeCategoryIndex, setCategoryActiveIndex] = useState<number | undefined>(
+    const [mainRoute, subRoute] = GetCurrentPath();
+    const { data, isLoading } = useGetFilteredCategories();
+    const categories = isLoading ? DB.navMenu.categories : data;
+
+    const categoryIndex = categories.findIndex((c) => c.category === mainRoute);
+
+    const [activeIndex, setActiveIndex] = useState<number | undefined>(
         categoryIndex !== -1 ? categoryIndex : undefined,
     );
 
-    const dispatch = useDispatch();
-    const cleanEffects = () => {
-        dispatch(cleanAllergens());
-        dispatch(stopAllergens());
-        dispatch(setSearchState(''));
-        dispatch(setAllowSearch(false));
-        dispatch(closeFilter());
-        dispatch(cleanFilterData());
-    };
     return (
         <Accordion
-            allowToggle
-            className='navMenu__list'
-            width='100%'
-            index={activeCategoryIndex}
-            onChange={(index) => setCategoryActiveIndex(index as number | undefined)}
+            index={activeIndex}
+            onChange={(idx) => setActiveIndex(idx as number | undefined)}
         >
-            {DB.navMenu.categories.map(({ elems, id, name, imgUrl, routeName }) => (
-                <AccordionItem key={id} className='navMenu__item' border='0'>
-                    <AccordionButton
-                        as={RouterLink}
-                        data-test-id={routeName === 'vegan' ? 'vegan-cuisine' : routeName}
-                        to={{
-                            pathname: `/${routeName}/${
-                                Object.entries(elems)[0]
-                                    ? Object.entries(elems)[0][1] ||
-                                      encodeURIComponent(Object.entries(elems)[0][0])
-                                    : ''
-                            }`,
-                        }}
-                        onClick={() => {
-                            cleanEffects();
-                        }}
-                        transition='font-weight 0.2s'
-                        display='flex'
-                        justifyContent='space-between'
-                        pb='16px'
-                        pl='0'
-                        _expanded={{
-                            bg: '#EAffc7',
-                            '& .navMenu__item_text': {
-                                color: 'black.700',
-                                fontWeight: 700,
-                            },
-                            '& .accordion-icon': {
-                                transform: 'rotate(180deg)',
-                                color: 'black.700',
-                            },
-                        }}
-                    >
-                        <HStack gap='12px' className='navMenu__item-inner'>
-                            <Image
-                                src={navMenuIcons[imgUrl as keyof typeof navMenuIcons]}
-                                alt={name}
-                            />
-                            <Text className='navMenu__item_text' variant='navMenuItems'>
-                                {name}
-                            </Text>
-                        </HStack>
-                        <AccordionIcon boxSize='24px' />
-                    </AccordionButton>
-                    {Object.entries(elems).map(([rusTitle, engTitle], index) => {
-                        const expectedPath = engTitle || encodeURIComponent(rusTitle);
-                        const isActive = expectedPath === currentSubRoute;
+            {categories.map(({ _id, icon, title, category, subCategories }) => {
+                const isParentActive = category === mainRoute;
 
-                        return (
-                            <AccordionPanel
-                                data-test-id={
-                                    isActive ? `${expectedPath}-active` : `${expectedPath}-${index}`
-                                }
-                                key={`${id}-${index}`}
-                                p={isActive ? '0 0 10px 46px' : '0 0 10px 52px'}
-                                _hover={{ bg: 'gray.50' }}
-                            >
-                                <HStack
-                                    as={RouterLink}
-                                    to={`/${routeName}/${expectedPath}`}
-                                    cursor='pointer'
-                                    onClick={() => {
-                                        cleanEffects();
-                                    }}
+                return (
+                    <AccordionItem key={_id} border='0'>
+                        <AccordionButton
+                            as={RouterLink}
+                            to={`/${category}/${subCategories[0].category}`}
+                            data-test-id={category === 'vegan' ? TEST_IDS.VEGAN : category}
+                            _expanded={{
+                                bg: '#EAffc7',
+                                fontWeight: 700,
+                            }}
+                        >
+                            <HStack>
+                                <Image src={`${IMG_PATH}${icon}`} alt={title} />
+                                <Text fontWeight={isParentActive ? 700 : 400}>{title}</Text>
+                            </HStack>
+                            <AccordionIcon />
+                        </AccordionButton>
+
+                        {subCategories.map(({ _id: subId, title: subTitle, category: subCat }) => {
+                            const isActive = subCat === subRoute;
+
+                            return (
+                                <AccordionPanel
+                                    key={subId}
+                                    data-test-id={
+                                        isActive ? `${subCat}-active` : `${subCat}-${subId}`
+                                    }
+                                    p={isActive ? '0 0 10px 46px' : '0 0 10px 52px'}
+                                    _hover={{ bg: 'gray.50' }}
                                 >
-                                    <Box
-                                        width={isActive ? '8px' : '1px'}
-                                        height='24px'
-                                        background='#c4ff61'
-                                        transition='width 0.2s ease'
-                                    />
-                                    <Text
-                                        fontWeight={isActive ? 700 : 400}
-                                        transition='font-weight 0.2s'
+                                    <HStack
+                                        as={RouterLink}
+                                        to={`/${category}/${subCat}`}
+                                        cursor='pointer'
                                     >
-                                        {rusTitle}
-                                    </Text>
-                                </HStack>
-                            </AccordionPanel>
-                        );
-                    })}
-                </AccordionItem>
-            ))}
+                                        <Box
+                                            width={isActive ? '8px' : '1px'}
+                                            height='24px'
+                                            bg='#c4ff61'
+                                        />
+                                        <Text fontWeight={isActive ? 700 : 400}>{subTitle}</Text>
+                                    </HStack>
+                                </AccordionPanel>
+                            );
+                        })}
+                    </AccordionItem>
+                );
+            })}
         </Accordion>
     );
 }

@@ -1,20 +1,22 @@
 import { Heading, Text, VStack } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { TEST_IDS } from '~/constants/testsIds';
+import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { useGetSubcategoryRecipesData } from '~/Hooks/useGetSubcategoryRecipesData';
+import { useSearchRecipesHook } from '~/Hooks/useRecipeSearchHook';
+import { useGetRecipesByCategoryQuery, useGetSortedAtLikesQuery } from '~/query/services/get';
+import { addCards, cleanBigCards } from '~/store/bigCardSlice';
 import { ApplicationState } from '~/store/configure-store';
-import { setFindState } from '~/store/searchSlice';
-import filterAllergens from '~/utils/filterAllergens';
-import filterDrawerData from '~/utils/filterDrawerData';
-import filterRecipesOnData from '~/utils/filterOnData';
-import filterOnSubCategories from '~/utils/filterOnsubcategorys';
-import getSearchCards from '~/utils/getSearchCards';
-import hasActiveFilters from '~/utils/hasActiveFilter';
+import GetCurrentPath from '~/utils/getCurrentPath';
 
-import DB from '../../data/db.json';
 import { CategoriesProps } from '../../types/dataTypes';
+import { Alert } from '../alert';
 import BigCardsList from '../bigCardsList';
-import Footer from '../Footer';
+import { Loader } from '../loader';
+import { SearchLoader } from '../loader/searchLoader';
 import Search from '../Search';
 import BottomSection from '../sections/bottomsection';
 import GreenButton from '../styledComponents/greenButton';
@@ -22,44 +24,88 @@ import MainStyled from '../styledComponents/Main';
 import AddTabList from '../tabList';
 export default function Categories({ category, subcategory }: CategoriesProps) {
     const dispatch = useDispatch();
-    const searchQuery = useSelector((state: ApplicationState) => state.searchState.search);
+    const mainRef = useRef<HTMLDivElement>(null);
+    const curentPath = GetCurrentPath();
     const allowSearch = useSelector((state: ApplicationState) => state.searchState.allowSearch);
-    const allergensActive = useSelector((state: ApplicationState) => state.allergensSlice.isActive);
-    const allergenList = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
-    const filterState = useSelector((state: ApplicationState) => state.filterState.filterData);
+    const allergens = useSelector((state: ApplicationState) => state.allergensSlice.allergens);
+    const filterData = useSelector((state: ApplicationState) => state.filterState.filterData);
+    const BigCardData = useSelector((state: ApplicationState) => state.bigCardSlice.cards);
 
-    const categoryCards = DB.card.filter((card) => card.category.includes(category));
-    const subCatCards = subcategory
-        ? filterOnSubCategories(categoryCards, subcategory)
-        : categoryCards;
-    const sortedTimeCards = filterRecipesOnData();
-    const actualDB = category === 'the-juiciest' ? sortedTimeCards : subCatCards;
-    const allergenFiltered = filterAllergens(allergenList, actualDB);
-    const drawerFiltered = filterDrawerData(filterState);
-    const filtersApplied = hasActiveFilters(filterState);
+    const [page, setPage] = useState(1);
+    const LoadMore = () => {
+        setPage((prev) => ++prev);
+    };
+    const pathString = curentPath.join('/');
 
-    const baseCards = filtersApplied
-        ? drawerFiltered
-        : allergensActive
-          ? allergenFiltered
-          : actualDB;
-    const displayedCards = allowSearch ? getSearchCards(searchQuery, baseCards) : baseCards;
-    const showFallback =
-        !displayedCards.length && !allowSearch && !filtersApplied && !allergensActive;
+    const { data: filteredCategoies } = useGetFilteredCategories();
+    const {
+        data,
+        isError,
+        isLoading: isDataLoading,
+    } = useGetRecipesByCategoryQuery({ id: subcategory }, { skip: !subcategory });
 
-    const bottomSectionData = category === 'the-juiciest' ? 'vegan' : 'desserts';
+    const {
+        data: juiciestData,
+        isLoading: juiciestLoading,
+        isFetching,
+    } = useGetSortedAtLikesQuery(
+        { limit: 8, page: page },
+        { skip: pathString[0] == 'the-juiciest' },
+    );
+
     useEffect(() => {
-        if (!allowSearch) {
-            dispatch(setFindState('common'));
-        } else {
-            dispatch(setFindState(displayedCards.length > 0 ? 'find' : 'not found'));
+        dispatch(cleanBigCards());
+        mainRef.current?.scrollTo(0, 0);
+    }, [dispatch, pathString]);
+    useEffect(() => {
+        setTimeout(() => {
+            mainRef.current?.scrollTo(0, 0);
+        }, 100);
+    }, [allergens]);
+    useEffect(() => {
+        if (juiciestData?.data && juiciestData.data.length > 0) {
+            dispatch(addCards(juiciestData.data));
         }
-    }, [allowSearch, displayedCards, dispatch]);
+    }, [juiciestData, dispatch]);
+
+    const { category: filterCategory } = filterData;
+    const isRandomBottom = juiciestData ? true : false;
+
+    const categoryIds = filteredCategoies
+        .find(({ title }) => title === filterCategory[0])
+        ?.subCategories.map(({ _id }) => _id);
+    const { category: categoryData, loading } = useGetCategoryId(subcategory);
+    const { searchData, searchLoading, searchFetching, searchError } = useSearchRecipesHook({
+        subcategory,
+        categoryIds,
+        allowSearch,
+    });
+
+    const {
+        categoryData: catData,
+        recipes,
+        isLoading: subcatLoading,
+        isError: Error,
+    } = useGetSubcategoryRecipesData(categoryData?.subCategories ?? []);
+
+    if (subcatLoading || loading || juiciestLoading || isDataLoading) {
+        return <Loader />;
+    }
+    if (isError || Error || searchError) {
+        return <Alert />;
+    }
     return (
-        <MainStyled as='main'>
-            <VStack width={{ lg: '50%', base: '100%' }}>
+        <MainStyled as='main' ref={mainRef}>
+            <VStack
+                p={{ lg: '30px', md: '16px', base: '16px 0px' }}
+                gap='16px'
+                borderRadius='0  0 8px 8px'
+                boxShadow='0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 20px 25px -5px rgba(0, 0, 0, 0.1);'
+            >
                 <Heading as='h1' size='h1' pt={{ base: 0, md: 4 }} pb={{ base: '10px', md: 5 }}>
-                    {DB[category].title}
+                    {curentPath[curentPath.length - 1] !== 'the-juiciest'
+                        ? categoryData?.title
+                        : 'Самое Сочное'}
                 </Heading>
                 <Text
                     textAlign='center'
@@ -67,23 +113,39 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                     fontWeight='500'
                     color='rgba(0, 0, 0, 0.48)'
                 >
-                    {DB[category].description}
+                    {categoryData?.description}
                 </Text>
+                {!searchLoading || !searchFetching ? <Search /> : <SearchLoader />}
             </VStack>
 
-            <Search />
-            {category !== 'the-juiciest' && <AddTabList category={category} />}
-            {showFallback ? (
+            {allowSearch ? (
                 <>
-                    <BigCardsList data={actualDB} maxElems={8} categoryTag={category} />
-                    {actualDB.length > 8 && <GreenButton text='Загрузить еще' />}
+                    <AddTabList category={category} />
+                    {searchData && <BigCardsList data={searchData?.data} />}
+                </>
+            ) : data ? (
+                <>
+                    <AddTabList category={category} />
+                    {data.data && <BigCardsList data={data.data} />}
                 </>
             ) : (
-                <BigCardsList data={displayedCards} />
+                <>
+                    {BigCardData && <BigCardsList data={BigCardData} />}
+                    {page < (juiciestData?.meta?.totalPages ?? 0) && (
+                        <GreenButton
+                            text={isFetching ? 'Загрузка' : 'Загрузить еще'}
+                            onClick={LoadMore}
+                            test={TEST_IDS.LOAD_MORE_BTN}
+                        />
+                    )}
+                </>
             )}
 
-            <BottomSection data={DB[bottomSectionData]} />
-            <Footer />
+            <BottomSection
+                recipes={recipes?.data}
+                randomCategory={catData}
+                isRandom={isRandomBottom}
+            />
         </MainStyled>
     );
 }

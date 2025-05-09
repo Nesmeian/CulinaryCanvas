@@ -3,21 +3,22 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router';
 
+import { TEST_IDS } from '~/constants/testsIds';
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { cleanAllergens, stopAllergens } from '~/store/allergens';
 import { closeBurger } from '~/store/burgerSlice';
 import { cleanFilterData, closeFilter } from '~/store/filterSlice';
 import { setAllowSearch, setSearchState } from '~/store/searchSlice';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
-import DB from '../../data/db.json';
-
-export default function AddTabList({ category }: { category: string }) {
-    const navList = DB.navMenu.categories.find(({ routeName }) => routeName === category)?.elems;
-    const paths = Object.values(navList);
+export default function AddTabList({ category }: { category?: string }) {
+    const { data } = useGetFilteredCategories();
+    const navList = data.find(({ category: cat }) => cat === category)?.subCategories;
+    const paths = navList?.map(({ category }) => category);
     const segments = GetCurrentPath();
     const base = segments[0] || '';
     const currentSub = segments[1] || '';
-    const startIndex = currentSub && paths.includes(currentSub) ? paths.indexOf(currentSub) : -1;
+    const startIndex = currentSub && paths?.includes(currentSub) ? paths.indexOf(currentSub) : -1;
     const dispatch = useDispatch();
     const [tabIndex, setTabIndex] = useState(startIndex);
     const cleanEffects = () => {
@@ -30,7 +31,7 @@ export default function AddTabList({ category }: { category: string }) {
         dispatch(cleanFilterData());
     };
     useEffect(() => {
-        const newIndex = currentSub && paths.includes(currentSub) ? paths.indexOf(currentSub) : -1;
+        const newIndex = currentSub && paths?.includes(currentSub) ? paths.indexOf(currentSub) : -1;
         setTabIndex(newIndex);
     }, [currentSub, paths]);
     return (
@@ -55,22 +56,21 @@ export default function AddTabList({ category }: { category: string }) {
                     },
                 }}
             >
-                {Object.entries(navList).map(([name, path], index) => {
+                {navList?.map(({ title, category }, index) => {
                     let toPath: string;
-
                     if (currentSub) {
-                        const newSegs = [base, path];
+                        const newSegs = [base, category];
                         toPath = '/' + newSegs.join('/');
                     } else if (base) {
-                        toPath = `/${base}/${path}`;
+                        toPath = `/${base}/${category}`;
                     } else {
-                        toPath = `/${path}`;
+                        toPath = `/${category}`;
                     }
 
                     return (
                         <Tab
-                            data-test-id={`tab-${path}-${index}`}
-                            key={name}
+                            data-test-id={`${TEST_IDS.TAB}${category}-${index}`}
+                            key={title}
                             as={Link}
                             to={toPath}
                             color='#134B00'
@@ -91,7 +91,7 @@ export default function AddTabList({ category }: { category: string }) {
                                 color: 'green.500',
                             }}
                         >
-                            {name}
+                            {title}
                         </Tab>
                     );
                 })}

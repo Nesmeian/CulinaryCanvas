@@ -1,78 +1,62 @@
-import { Route, Routes } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router';
 
+import { Alert } from '~/components/alert';
 import Categories from '~/components/categories';
+import { Loader } from '~/components/loader';
 import Main from '~/components/Main';
+import { NotFoundPage } from '~/components/notFoundPage';
 import Recipe from '~/components/recipe';
+import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 
-import DB from '../data/db.json';
 const AppRoutes = () => {
-    const categories: string[] = DB.navMenu.categories.map(({ routeName }) => routeName);
+    const { data, isLoading, isError } = useGetFilteredCategories();
+    if (isError) return <Alert />;
+    if (isLoading) return <Loader />;
 
-    const subcategories: Record<string, string[]> = DB.navMenu.categories.reduce(
-        (acc, { routeName, elems }) => {
-            acc[routeName] = Object.values(elems);
+    const subcategories = data.reduce<Record<string, { id: string; category: string }[]>>(
+        (acc, { category, subCategories }) => {
+            acc[category] = subCategories.map(({ _id: id, category: sub }) => ({
+                id,
+                category: sub,
+            }));
             return acc;
         },
-        {} as Record<string, string[]>,
+        {},
     );
-    const juiciest = ['the-juiciest'];
-    const juiciestRecipes: Record<string, string[]> = juiciest.reduce(
-        (acum, e) => {
-            acum[e] = DB.card.map(({ id }) => id);
-            return acum;
-        },
-        {} as Record<string, string[]>,
-    );
-    const recipes: Record<string, string[]> = categories.reduce(
-        (acum, e) => {
-            acum[e] = DB.card.filter(({ category }) => category.includes(e)).map(({ id }) => id);
-            return acum;
-        },
-        {} as Record<string, string[]>,
-    );
-    const mainRecipes = DB.card.map(({ id }) => id);
+
     return (
         <Routes>
             <Route path='/' element={<Main />} />
-            {mainRecipes.map((recipe) => (
-                <Route key={recipe} path={recipe} element={<Recipe card={recipe} />} />
-            ))}
-            {juiciest.map((category) => (
-                <Route key={category} path={`/${category}`}>
-                    <Route index element={<Categories category={category} />} />
-                    {juiciestRecipes[category]?.map((recipe) => (
-                        <Route key={recipe} path={recipe} element={<Recipe card={recipe} />} />
-                    ))}
-                </Route>
-            ))}
-            {categories.map((category) => (
-                <Route key={category} path={`/${category}`}>
-                    <Route index element={<Categories category={category} />} />
+            <Route path='the-juiciest'>
+                <Route index element={<Categories />} />
+                <Route path=':id' element={<Recipe />} />
+            </Route>
+            <Route path=':id' element={<Recipe />} />
+            {data.map(({ category }) => {
+                const subs = subcategories[category]!;
+                const firstSub = subs[0]!;
 
-                    {subcategories[category]?.map((sub) => (
-                        <Route key={sub} path={sub}>
-                            <Route
-                                index
-                                element={<Categories category={category} subcategory={sub} />}
-                            />
-                            {recipes[category]?.map((recipe) => (
+                return (
+                    <Route key={category} path={category}>
+                        <Route index element={<Navigate to={`${firstSub.category}`} />} />
+                        {subs.map((sub) => (
+                            <Route key={sub.id} path={sub.category}>
                                 <Route
-                                    key={`${sub}-${recipe}`}
-                                    path={recipe}
-                                    element={<Recipe card={recipe} />}
+                                    index
+                                    element={
+                                        <Categories category={category} subcategory={sub.id} />
+                                    }
                                 />
-                            ))}
-                        </Route>
-                    ))}
-                    {recipes[category]?.map((recipe) => (
-                        <Route key={recipe} path={recipe} element={<Recipe card={recipe} />} />
-                    ))}
-                </Route>
-            ))}
 
-            {/* <Route path='*' element={<Navigate to='/' replace />} /> */}
+                                <Route path=':id' element={<Recipe />} />
+                            </Route>
+                        ))}
+                    </Route>
+                );
+            })}
+            <Route path='/not-found' element={<NotFoundPage />} />
+            <Route path='*' element={<Navigate to='/not-found' replace />} />
         </Routes>
     );
 };
-
 export default AppRoutes;
