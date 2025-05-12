@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
 import { RegFields } from '~/types/LoginTypes';
 import { registrationProgress } from '~/utils/LoginPageUtils/RegistationProgress';
 
@@ -34,11 +35,11 @@ export const RegTab = () => {
     };
     const watchedValues = watch();
     const progressState = registrationProgress(watchedValues);
-    const steps = ['Шаг 1. Личная информация', 'Шаг 2. Логин и пароль'];
+    const steps = ['Шаг 1.Личная информация', 'Шаг 2. Логин и пароль'];
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack>
-                <Text>{steps[activeIndex]}</Text>
+            <VStack gap={0} mb='24px'>
+                <Text w='100%'>{steps[activeIndex]}</Text>
                 <Progress
                     value={progressState}
                     w='100%'
@@ -55,37 +56,52 @@ export const RegTab = () => {
                 navigation={{ nextEl: '.btn-next' }}
             >
                 <SwiperSlide>
-                    <FormControl>
-                        <FormLabel>Ваше имя</FormLabel>
-                        <Input placeholder='Имя' {...register('name', { required: true })} />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Ваша фамилия</FormLabel>
-                        <Input
-                            placeholder='Фамилия'
-                            {...register('lastName', { required: true })}
-                        />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Ваш e-mail</FormLabel>
-                        <Input
-                            type='email'
-                            placeholder='e-mail'
-                            {...register('email', { required: true })}
-                        />
-                    </FormControl>
-                    <Button variant='commonLoginBtn' className='btn-next'>
+                    <VStack gap='24px' mb='48px'>
+                        <FormControl>
+                            <FormLabel {...LoginFormLabel}>Ваше имя</FormLabel>
+                            <Input
+                                placeholder='Имя'
+                                {...LoginInputStyles}
+                                {...register('name', { required: true })}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel {...LoginFormLabel}>Ваша фамилия</FormLabel>
+                            <Input
+                                placeholder='Фамилия'
+                                {...LoginInputStyles}
+                                {...register('lastName', { required: true })}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel {...LoginFormLabel}>Ваш e-mail</FormLabel>
+                            <Input
+                                type='email'
+                                {...LoginInputStyles}
+                                placeholder='e-mail'
+                                {...register('email', { required: true })}
+                            />
+                        </FormControl>
+                    </VStack>
+                    <Button size='lg' variant='commonLoginBtn' className='btn-next'>
                         Дальше
                     </Button>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <FormControl>
-                        <FormLabel>Логин для входа на сайт</FormLabel>
-                        <Input placeholder='Логин' {...register('login', { required: true })} />
-                    </FormControl>
-                    <PasswordInput {...register('password', { required: true })} />
-                    <PasswordInput repeat {...register('rePassword', { required: true })} />
+                    <VStack gap='24px' mb='28px'>
+                        <FormControl>
+                            <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
+                            <Input
+                                placeholder='Логин'
+                                {...LoginInputStyles}
+                                {...register('login', { required: true })}
+                            />
+                        </FormControl>
+                        <PasswordInput {...register('password', { required: true })} />
+                        <PasswordInput repeat {...register('rePassword', { required: true })} />
+                    </VStack>
                     <Button
+                        size='lg'
                         variant='commonLoginBtn'
                         type='submit'
                         isDisabled={!isDirty || !isValid}

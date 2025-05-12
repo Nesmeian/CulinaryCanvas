@@ -9,19 +9,22 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
+
 import * as passwordIcons from '../../../../assets/passwordIcons/index';
 export const PasswordInput = ({ repeat, ...rest }: { repeat?: boolean }) => {
-    const title = !repeat ? 'Повторить пароль' : 'Пароль';
+    const title = !repeat ? 'Пароль' : 'Повторить пароль';
     const placeholder = !repeat ? 'Пароль для сайта' : 'Повторить пароль для сайта';
     const [showPassword, setShowPassword] = useState(false);
     const handleToggle = () => setShowPassword(!showPassword);
     return (
         <FormControl>
-            <FormLabel>{title}</FormLabel>
-            <InputGroup>
+            <FormLabel {...LoginFormLabel}>{title}</FormLabel>
+            <InputGroup size='lg'>
                 <Input
                     type={showPassword ? 'text' : 'password'}
                     placeholder={placeholder}
+                    {...LoginInputStyles}
                     {...rest}
                 />
                 <InputRightElement>
