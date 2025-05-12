@@ -1,10 +1,12 @@
-import { Navigate, Route, Routes } from 'react-router';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
 import { Alert } from '~/components/alert';
 import Categories from '~/components/categories';
 import { Loader } from '~/components/loader';
 import Main from '~/components/Main';
 import { NotFoundPage } from '~/components/notFoundPage';
+import { Login } from '~/components/Pages/Login';
+import { MainPage } from '~/components/Pages/MainPage';
 import Recipe from '~/components/recipe';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 
@@ -25,38 +27,52 @@ const AppRoutes = () => {
     );
 
     return (
-        <Routes>
-            <Route path='/' element={<Main />} />
-            <Route path='the-juiciest'>
-                <Route index element={<Categories />} />
-                <Route path=':id' element={<Recipe />} />
-            </Route>
-            <Route path=':id' element={<Recipe />} />
-            {data.map(({ category }) => {
-                const subs = subcategories[category]!;
-                const firstSub = subs[0]!;
-
-                return (
-                    <Route key={category} path={category}>
-                        <Route index element={<Navigate to={`${firstSub.category}`} />} />
-                        {subs.map((sub) => (
-                            <Route key={sub.id} path={sub.category}>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<MainPage />}>
+                    <Route index element={<Main />} />
+                    <Route path='the-juiciest'>
+                        <Route index element={<Categories />} />
+                        <Route path=':id' element={<Recipe />} />
+                    </Route>
+                    <Route path=':id' element={<Recipe />} />
+                    {data.map(({ category }) => {
+                        const subs = subcategories[category]!;
+                        const firstSub = subs[0]!;
+                        return (
+                            <Route key={category} path={category}>
                                 <Route
                                     index
                                     element={
-                                        <Categories category={category} subcategory={sub.id} />
+                                        <Navigate
+                                            to={`/${category}/${firstSub.category}`}
+                                            replace
+                                        />
                                     }
                                 />
-
-                                <Route path=':id' element={<Recipe />} />
+                                {subs.map((sub) => (
+                                    <Route key={sub.id} path={sub.category}>
+                                        <Route
+                                            index
+                                            element={
+                                                <Categories
+                                                    category={category}
+                                                    subcategory={sub.id}
+                                                />
+                                            }
+                                        />
+                                        <Route path=':id' element={<Recipe />} />
+                                    </Route>
+                                ))}
                             </Route>
-                        ))}
-                    </Route>
-                );
-            })}
-            <Route path='/not-found' element={<NotFoundPage />} />
-            <Route path='*' element={<Navigate to='/not-found' replace />} />
-        </Routes>
+                        );
+                    })}
+                    <Route path='not-found' element={<NotFoundPage />} />
+                    <Route path='*' element={<Navigate to='/not-found' replace />} />
+                </Route>
+                <Route path='login' element={<Login />}></Route>
+            </Routes>
+        </BrowserRouter>
     );
 };
 export default AppRoutes;
