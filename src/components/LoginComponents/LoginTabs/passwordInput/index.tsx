@@ -10,7 +10,7 @@ import {
 import { useState } from 'react';
 
 import * as passwordIcons from '../../../../assets/passwordIcons/index';
-export const PassWordInput = ({ repeat }: { repeat?: boolean }) => {
+export const PasswordInput = ({ repeat, ...rest }: { repeat?: boolean }) => {
     const title = !repeat ? 'Повторить пароль' : 'Пароль';
     const placeholder = !repeat ? 'Пароль для сайта' : 'Повторить пароль для сайта';
     const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +19,11 @@ export const PassWordInput = ({ repeat }: { repeat?: boolean }) => {
         <FormControl>
             <FormLabel>{title}</FormLabel>
             <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} placeholder={placeholder} />
+                <Input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder={placeholder}
+                    {...rest}
+                />
                 <InputRightElement>
                     <IconButton
                         icon={
