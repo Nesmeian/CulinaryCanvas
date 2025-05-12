@@ -1,10 +1,28 @@
-import { HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { HStack, Image, VStack } from '@chakra-ui/react';
 
-export const Login = () => (
-    <HStack>
-        <VStack>
-            <Text>Jac</Text>
-        </VStack>
-        <Image />
-    </HStack>
-);
+import { LoginTabs } from '~/components/LoginComponents/LoginTabs';
+import useBreakpoints from '~/themes/chakraBreakPoints';
+
+import LoginImg from '../../../assets/loginImg.png';
+import * as logoImg from '../../../assets/loginLogs/index';
+export const Login = () => {
+    const { isTablet } = useBreakpoints();
+    const logo = isTablet ? logoImg.LoginLogMob : logoImg.LoginLogDesc;
+    return (
+        <HStack width='100vw' height='100vh' gap='0'>
+            <VStack
+                width={{ lg: '50%', base: '100%' }}
+                height='100%'
+                background='linear-gradient(208deg, #eaffc7 0%, #29813f 100%);'
+            >
+                <VStack>
+                    <Image src={logo} />
+                    <LoginTabs />
+                </VStack>
+            </VStack>
+            <VStack width='51%' height='100%' display={{ base: 'none', lg: 'block' }}>
+                <Image src={LoginImg} alt='login img' w='100%' h='100%' />
+            </VStack>
+        </HStack>
+    );
+};
