@@ -2,15 +2,32 @@ import './style.css';
 
 import { Button, FormControl, FormLabel, Input, Progress, Text, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { PassWordInput } from '../passwordInput';
+import { PasswordInput } from '../passwordInput';
+type RegFields = {
+    name: string;
+    lastName: string;
+    email: string;
+    login: string;
+    password: string;
+    rePassword: string;
+};
 export const RegTab = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { isDirty, isValid },
+    } = useForm<RegFields>({ mode: 'onChange' });
     const [activeIndex, setActiveIndex] = useState(0);
+    const onSubmit: SubmitHandler<RegFields> = (data) => {
+        console.log(data);
+    };
     const steps = ['Шаг 1. Личная информация', 'Шаг 2. Логин и пароль'];
     return (
-        <VStack width='100%'>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <VStack>
                 <Text>{steps[activeIndex]}</Text>
                 <Progress
@@ -29,36 +46,45 @@ export const RegTab = () => {
                 navigation={{ nextEl: '.btn-next' }}
             >
                 <SwiperSlide>
-                    <form>
-                        <FormControl>
-                            <FormLabel>Ваше имя</FormLabel>
-                            <Input placeholder='Имя' />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>Ваша фамилия</FormLabel>
-                            <Input placeholder='Фамилия' />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>Ваш e-mail</FormLabel>
-                            <Input type='email' placeholder='e-mail' />
-                        </FormControl>
-                        <Button variant='commonLoginBtn' className='btn-next'>
-                            Дальше
-                        </Button>
-                    </form>
+                    <FormControl>
+                        <FormLabel>Ваше имя</FormLabel>
+                        <Input placeholder='Имя' {...register('name', { required: true })} />
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel>Ваша фамилия</FormLabel>
+                        <Input
+                            placeholder='Фамилия'
+                            {...register('lastName', { required: true })}
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel>Ваш e-mail</FormLabel>
+                        <Input
+                            type='email'
+                            placeholder='e-mail'
+                            {...register('email', { required: true })}
+                        />
+                    </FormControl>
+                    <Button variant='commonLoginBtn' className='btn-next'>
+                        Дальше
+                    </Button>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <form>
-                        <FormControl>
-                            <FormLabel>Логин для входа на сайт</FormLabel>
-                            <Input placeholder='Логин' />
-                        </FormControl>
-                        <PassWordInput />
-                        <PassWordInput repeat />
-                        <Button variant='commonLoginBtn'>Зарегистрироваться</Button>
-                    </form>
+                    <FormControl>
+                        <FormLabel>Логин для входа на сайт</FormLabel>
+                        <Input placeholder='Логин' {...register('login', { required: true })} />
+                    </FormControl>
+                    <PasswordInput {...register('password', { required: true })} />
+                    <PasswordInput repeat {...register('rePassword', { required: true })} />
+                    <Button
+                        variant='commonLoginBtn'
+                        type='submit'
+                        isDisabled={!isDirty || !isValid}
+                    >
+                        Зарегистрироваться
+                    </Button>
                 </SwiperSlide>
             </Swiper>
-        </VStack>
+        </form>
     );
 };
