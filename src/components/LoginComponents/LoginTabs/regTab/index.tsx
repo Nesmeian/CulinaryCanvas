@@ -6,32 +6,41 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { RegFields } from '~/types/LoginTypes';
+import { registrationProgress } from '~/utils/LoginPageUtils/RegistationProgress';
+
 import { PasswordInput } from '../passwordInput';
-type RegFields = {
-    name: string;
-    lastName: string;
-    email: string;
-    login: string;
-    password: string;
-    rePassword: string;
-};
+
 export const RegTab = () => {
     const {
         register,
         handleSubmit,
         formState: { isDirty, isValid },
-    } = useForm<RegFields>({ mode: 'onChange' });
+        watch,
+    } = useForm<RegFields>({
+        mode: 'onChange',
+        defaultValues: {
+            name: '',
+            lastName: '',
+            email: '',
+            login: '',
+            password: '',
+            rePassword: '',
+        },
+    });
     const [activeIndex, setActiveIndex] = useState(0);
     const onSubmit: SubmitHandler<RegFields> = (data) => {
         console.log(data);
     };
+    const watchedValues = watch();
+    const progressState = registrationProgress(watchedValues);
     const steps = ['Шаг 1. Личная информация', 'Шаг 2. Логин и пароль'];
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <VStack>
                 <Text>{steps[activeIndex]}</Text>
                 <Progress
-                    value={40}
+                    value={progressState}
                     w='100%'
                     h='8px'
                     background=' rgba(0, 0, 0, 0.06)'

@@ -1,11 +1,10 @@
 import { Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import { LoginFields } from '~/types/LoginTypes';
+
 import { PasswordInput } from '../passwordInput';
-type LoginFields = {
-    login: string;
-    password: string;
-};
+
 export const LoginTab = () => {
     const {
         register,
