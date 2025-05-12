@@ -16,6 +16,11 @@ const breakpoints = {
 
 const theme = extendTheme({
     breakpoints,
+    layerStyles: {
+        tabStyles: {
+            fontSize: '100px',
+        },
+    },
     colors: {
         customgreen: {
             500: '#b1ff2e',
