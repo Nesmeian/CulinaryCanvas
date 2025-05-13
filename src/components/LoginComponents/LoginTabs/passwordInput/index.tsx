@@ -1,5 +1,6 @@
 import {
     FormControl,
+    FormErrorMessage,
     FormLabel,
     IconButton,
     Image,
@@ -8,17 +9,25 @@ import {
     InputRightElement,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { FieldError } from 'react-hook-form';
 
 import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
 
 import * as passwordIcons from '../../../../assets/passwordIcons/index';
-export const PasswordInput = ({ repeat, ...rest }: { repeat?: boolean }) => {
+export const PasswordInput = ({
+    repeat,
+    errors,
+    ...rest
+}: {
+    errors?: FieldError;
+    repeat?: boolean;
+}) => {
     const title = !repeat ? 'Пароль' : 'Повторить пароль';
     const placeholder = !repeat ? 'Пароль для сайта' : 'Повторить пароль для сайта';
     const [showPassword, setShowPassword] = useState(false);
     const handleToggle = () => setShowPassword(!showPassword);
     return (
-        <FormControl>
+        <FormControl isInvalid={!!errors}>
             <FormLabel {...LoginFormLabel}>{title}</FormLabel>
             <InputGroup size='lg'>
                 <Input
@@ -30,6 +39,7 @@ export const PasswordInput = ({ repeat, ...rest }: { repeat?: boolean }) => {
                 <InputRightElement>
                     <IconButton
                         background='white'
+                        _hover={{ background: 'none' }}
                         icon={
                             <Image
                                 src={
@@ -41,9 +51,10 @@ export const PasswordInput = ({ repeat, ...rest }: { repeat?: boolean }) => {
                         }
                         aria-label={showPassword ? 'Скрыть пароль' : 'показать пароль'}
                         onClick={handleToggle}
-                    ></IconButton>
+                    />
                 </InputRightElement>
             </InputGroup>
+            <FormErrorMessage> {errors && errors.message}</FormErrorMessage>
         </FormControl>
     );
 };
