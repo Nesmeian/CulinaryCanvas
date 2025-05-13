@@ -26,10 +26,12 @@ import { RegFields } from '~/types/LoginTypes';
 import { registrationProgress } from '~/utils/LoginPageUtils/RegistationProgress';
 import { regSchema } from '~/utils/validationRules/yupSheme';
 
+import { EmailVerification } from '../../emailVeritification';
 import { PasswordInput } from '../passwordInput';
 
 export const RegTab = () => {
-    const [postAuthSignUp, { isLoading, isError, error }] = usePostAuthSignUpMutation();
+    const [postAuthSignUp, { isLoading, isError, error, isSuccess }] = usePostAuthSignUpMutation();
+    const [verEmail, setVerEmail] = useState('');
     const swiperRef = useRef<SwiperType>(null);
     const {
         register,
@@ -44,6 +46,7 @@ export const RegTab = () => {
 
     const onSubmit: SubmitHandler<RegFields> = (data) => {
         const { rePassword, ...dataToSend } = data;
+        setVerEmail(data.email);
         postAuthSignUp(dataToSend);
     };
     const watchedValues = watch();
@@ -167,6 +170,7 @@ export const RegTab = () => {
             </Swiper>
             {isLoading && <Loader />}
             {isError && <Alert error={error.data.message} />}
+            {isSuccess && <EmailVerification email={verEmail} />}
         </form>
     );
 };

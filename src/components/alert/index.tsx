@@ -39,7 +39,7 @@ export const Alert = ({ error }: { error?: string[] }) => {
             <HStack>
                 <AlertIcon />
                 {error ? (
-                    <AlertTitle>{error[0]}</AlertTitle>
+                    <AlertTitle>{error}</AlertTitle>
                 ) : (
                     <VStack>
                         <AlertTitle> Ошибка сервера</AlertTitle>

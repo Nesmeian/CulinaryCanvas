@@ -71,6 +71,7 @@ const AppRoutes = () => {
                     <Route path='*' element={<Navigate to='/not-found' replace />} />
                 </Route>
                 <Route path='login' element={<Login />}></Route>
+                <Route path='registration' element={<Login />}></Route>
             </Routes>
         </BrowserRouter>
     );
