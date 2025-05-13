@@ -1,9 +1,10 @@
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, VStack } from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
 import { LoginFields } from '~/types/LoginTypes';
-import { authLoginValidation, authPasswordValidation } from '~/utils/validationRules';
+import { loginSchema } from '~/utils/validationRules/yupSheme';
 
 import { PasswordInput } from '../passwordInput';
 
@@ -12,7 +13,7 @@ export const LoginTab = () => {
         register,
         handleSubmit,
         formState: { isDirty, isValid, errors },
-    } = useForm<LoginFields>({ mode: 'onChange' });
+    } = useForm<LoginFields>({ mode: 'onChange', resolver: yupResolver(loginSchema) });
     const onSubmit: SubmitHandler<LoginFields> = (data) => {
         console.log(data);
     };
@@ -22,17 +23,14 @@ export const LoginTab = () => {
                 <FormControl isInvalid={!!errors.login}>
                     <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
                     <Input
-                        {...register('login', authLoginValidation)}
+                        {...register('login')}
                         {...LoginInputStyles}
                         placeholder='Введите логин'
                     />
                     <FormErrorMessage> {errors.login && errors.login.message}</FormErrorMessage>
                 </FormControl>
                 <FormControl>
-                    <PasswordInput
-                        errors={errors.password}
-                        {...register('password', authPasswordValidation)}
-                    />
+                    <PasswordInput errors={errors.password} {...register('password')} />
                 </FormControl>
             </VStack>
             <Button
