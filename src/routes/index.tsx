@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import { Alert } from '~/components/alert';
 import Categories from '~/components/categories';
 import { Loader } from '~/components/loader';
+import { VerificationRedirect } from '~/components/LoginComponents/veritificationRedirect';
 import Main from '~/components/Main';
 import { NotFoundPage } from '~/components/notFoundPage';
 import { Login } from '~/components/Pages/Login';
@@ -72,6 +73,7 @@ const AppRoutes = () => {
                 </Route>
                 <Route path='login' element={<Login />}></Route>
                 <Route path='registration' element={<Login />}></Route>
+                <Route path='verification' element={<VerificationRedirect />} />
             </Routes>
         </BrowserRouter>
     );

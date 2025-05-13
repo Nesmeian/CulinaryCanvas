@@ -84,6 +84,7 @@ export const RegTab = () => {
                 onSwiper={(swiper) => (swiperRef.current = swiper)}
                 navigation={false}
                 allowTouchMove={false}
+                spaceBetween={2}
                 onSlideChange={(s) => setActiveIndex(s.activeIndex)}
             >
                 <SwiperSlide>
