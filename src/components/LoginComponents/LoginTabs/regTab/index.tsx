@@ -1,6 +1,15 @@
 import './style.css';
 
-import { Button, FormControl, FormLabel, Input, Progress, Text, VStack } from '@chakra-ui/react';
+import {
+    Button,
+    FormControl,
+    FormErrorMessage,
+    FormLabel,
+    Input,
+    Progress,
+    Text,
+    VStack,
+} from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import type { Swiper as SwiperType } from 'swiper';
@@ -67,13 +76,16 @@ export const RegTab = () => {
             >
                 <SwiperSlide>
                     <VStack gap={{ lg: '24px', base: '44px' }} mb='48px'>
-                        <FormControl>
+                        <FormControl isInvalid={!!errors.name}>
                             <FormLabel {...LoginFormLabel}>Ваше имя</FormLabel>
                             <Input
                                 placeholder='Имя'
                                 {...LoginInputStyles}
-                                {...register('name', { required: true })}
+                                {...register('name', { required: 'Ваше имя' })}
                             />
+                            <FormErrorMessage>
+                                {errors.name && errors.name?.message}
+                            </FormErrorMessage>
                         </FormControl>
                         <FormControl>
                             <FormLabel {...LoginFormLabel}>Ваша фамилия</FormLabel>
@@ -112,8 +124,15 @@ export const RegTab = () => {
                                 {...register('login', { required: true })}
                             />
                         </FormControl>
-                        <PasswordInput {...register('password', { required: true })} />
-                        <PasswordInput repeat {...register('rePassword', { required: true })} />
+                        <PasswordInput
+                            errors={errors.password}
+                            {...register('password', { required: true })}
+                        />
+                        <PasswordInput
+                            errors={errors.rePassword}
+                            repeat
+                            {...register('rePassword', { required: true })}
+                        />
                     </VStack>
                     <Button
                         size='lg'
