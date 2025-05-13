@@ -1,5 +1,5 @@
 export enum ApiGroupNames {
-    POSTS = 'posts',
+    AUTH = 'auth',
     RECIPES = 'recipes',
     CATEGORY = 'category',
 }

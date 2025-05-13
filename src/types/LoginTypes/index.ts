@@ -1,5 +1,5 @@
 export type RegFields = {
-    name: string;
+    firstName: string;
     lastName: string;
     email: string;
     login: string;
