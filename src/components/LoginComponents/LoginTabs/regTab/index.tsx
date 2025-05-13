@@ -14,6 +14,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useLocation } from 'react-router';
 import type { Swiper as SwiperType } from 'swiper';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -26,7 +27,8 @@ import { RegFields } from '~/types/LoginTypes';
 import { registrationProgress } from '~/utils/LoginPageUtils/RegistationProgress';
 import { regSchema } from '~/utils/validationRules/yupSheme';
 
-import { EmailVerification } from '../../emailVeritification';
+import { EmailVerificationFailed } from '../../emailVeritification/verificationFailed';
+import { EmailVerificationSuccess } from '../../emailVeritification/verificationSuccess';
 import { PasswordInput } from '../passwordInput';
 
 export const RegTab = () => {
@@ -67,6 +69,10 @@ export const RegTab = () => {
     const noEmpty = currentValues.every((v) => typeof v === 'string' && v.trim() !== '');
     const noErrors = stepFields[activeIndex].every((f) => !errors[f]);
     const canProceed = noEmpty && noErrors;
+    const location = useLocation();
+    const isEmailVerified =
+        (location.state && location.state.emailVerified) ?? location.state.emailVerified;
+    console.log(isEmailVerified);
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <VStack gap={0} mb='24px'>
@@ -171,7 +177,8 @@ export const RegTab = () => {
             </Swiper>
             {isLoading && <Loader />}
             {isError && <Alert error={error.data.message} />}
-            {isSuccess && <EmailVerification email={verEmail} />}
+            {isSuccess && <EmailVerificationSuccess email={verEmail} />}
+            {!isEmailVerified && <EmailVerificationFailed />}
         </form>
     );
 };
