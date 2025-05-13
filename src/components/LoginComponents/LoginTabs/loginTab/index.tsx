@@ -13,7 +13,7 @@ import { PasswordInput } from '../passwordInput';
 export const LoginTab = () => {
     const location = useLocation();
     const isEmailVerified =
-        location.state && location?.state.emailVerified ? location?.state.emailVerified : '';
+        (location.state && location.state.emailVerified) ?? location.state.emailVerified;
     const {
         register,
         handleSubmit,
@@ -22,7 +22,6 @@ export const LoginTab = () => {
     const onSubmit: SubmitHandler<LoginFields> = (data) => {
         console.log(data);
     };
-    console.log(location);
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <VStack gap='24px' mb='112px'>

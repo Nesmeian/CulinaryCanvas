@@ -1,8 +1,8 @@
 import { Center, Heading, Image, Text, useDisclosure, VStack } from '@chakra-ui/react';
 
-import * as loginImgs from '../../../assets/LoginImg/index';
-import closeBtn from '../../../assets/verificationCloseImg.svg';
-export const EmailVerification = ({ email }: { email: string }) => {
+import * as loginImgs from '../../../../assets/LoginImg/index';
+import closeBtn from '../../../../assets/verificationCloseImg.svg';
+export const EmailVerificationFailed = () => {
     const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
 
     if (!isOpen) return null;
@@ -18,15 +18,16 @@ export const EmailVerification = ({ email }: { email: string }) => {
         >
             <VStack
                 w='400px'
-                h='550px'
                 background='white'
                 borderRadius='16px'
                 p='32px'
                 gap='24px'
                 position='relative'
             >
-                {' '}
-                <Image src={loginImgs.regVerification} alt='registration image verification' />
+                <Image
+                    src={loginImgs.regVerificationFailed}
+                    alt='registration image verification'
+                />
                 <Heading
                     as='h2'
                     size='h2'
@@ -36,21 +37,17 @@ export const EmailVerification = ({ email }: { email: string }) => {
                     textAlign='center'
                     letterSpacing='0.5px'
                 >
-                    Остался последний шаг. Нужно верифицировать ваш e-mail
+                    Упс! Что-то пошло не так
                 </Heading>
-                <Text fontSize='16px' textAlign='center' px='50px'>
-                    Мы отправили вам на почту&nbsp;
-                    <Text as='span' fontWeight='600'>
-                        {email}
-                    </Text>
-                    &nbsp;ссылку для верификации.
+                <Text fontSize='16px' textAlign='center'>
+                    Ваша ссылка для верификации недействительна. Попробуйте зарегистрироваться
+                    снова.
                 </Text>
                 <VStack gap={0}>
-                    <Text fontSize='12px'>Не пришло письмо? Проверьте папку Спам.</Text>
-                    <Text fontSize='12px'>
-                        По другим вопросам свяжитесь с
+                    <Text fontSize='12px' color='rgba(0, 0, 0, 0.48)'>
+                        Остались вопросы? Свяжитесь с
                         <Text fontSize='12px' as='span' textDecoration='underline'>
-                            поддержкой
+                            {` поддержкой`}
                         </Text>
                     </Text>
                 </VStack>
