@@ -20,7 +20,6 @@ export const LoginTabs = () => {
         setTabIndex(index);
         navigate(index === 0 ? '/login' : '/registration');
     };
-    console.log(tabIndex);
     return (
         <Tabs
             index={tabIndex}

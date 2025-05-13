@@ -12,41 +12,57 @@ import { useEffect } from 'react';
 
 import { TEST_IDS } from '~/constants/testsIds';
 
-export const Alert = ({ error }: { error?: string[] }) => {
+export const Alert = ({
+    error,
+    isSuccessVerification,
+}: {
+    error?: string[];
+    isSuccessVerification?: boolean;
+}) => {
     const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
     useEffect(() => {
         if (isOpen) {
-            const timer = setTimeout(onClose, 17_000);
+            const timer = setTimeout(onClose, 15_000);
             return () => clearTimeout(timer);
         }
     }, [isOpen, onClose]);
     if (!isOpen) {
         return null;
     }
-
+    const status = isSuccessVerification ? 'success' : 'error';
     return (
         <AlertElem
             position='fixed'
-            status='error'
+            status={status}
+            color='white'
+            background={isSuccessVerification ? '#38a169;' : ' #e53e3e'}
             left='50%'
             transform='translateX(-50%)'
             w={{ lg: '400px', base: '328px' }}
-            h='72px'
             zIndex={1000}
             bottom='100px'
             data-test-id={TEST_IDS.ERROR_NOTIFICATION}
         >
             <HStack>
-                <AlertIcon />
-                {error ? (
+                <AlertIcon color='white' />
+                {isSuccessVerification ? (
+                    <AlertTitle>Верификация прошла успешно</AlertTitle>
+                ) : error ? (
                     <AlertTitle>{error}</AlertTitle>
                 ) : (
-                    <VStack>
-                        <AlertTitle> Ошибка сервера</AlertTitle>
-                        <AlertDescription> Попробуйте поискать снова попозже</AlertDescription>
+                    <VStack alignItems='flex-start' gap={0}>
+                        <AlertTitle>Ошибка сервера</AlertTitle>
+                        <AlertDescription>Попробуйте поискать снова попозже</AlertDescription>
                     </VStack>
                 )}
-                <CloseButton data-test-id={TEST_IDS.CLOSE_NOTIFICATION} onClick={onClose} />
+                <CloseButton
+                    color='white'
+                    data-test-id={TEST_IDS.CLOSE_NOTIFICATION}
+                    onClick={onClose}
+                    position='absolute'
+                    top='0px'
+                    right={0}
+                />
             </HStack>
         </AlertElem>
     );
