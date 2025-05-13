@@ -4,6 +4,7 @@ import {
     Button,
     FormControl,
     FormErrorMessage,
+    FormHelperText,
     FormLabel,
     Input,
     Progress,
@@ -135,6 +136,9 @@ export const RegTab = () => {
                                 {...LoginInputStyles}
                                 {...register('login', { required: true })}
                             />
+                            <FormHelperText>
+                                Логин не менее 5 символов, только латиница
+                            </FormHelperText>
                             <FormErrorMessage>
                                 {errors.login && errors.login?.message}
                             </FormErrorMessage>

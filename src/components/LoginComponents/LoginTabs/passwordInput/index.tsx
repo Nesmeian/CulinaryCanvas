@@ -1,6 +1,7 @@
 import {
     FormControl,
     FormErrorMessage,
+    FormHelperText,
     FormLabel,
     IconButton,
     Image,
@@ -54,6 +55,7 @@ export const PasswordInput = ({
                     />
                 </InputRightElement>
             </InputGroup>
+            <FormHelperText>Пароль не менее 8 символов, с заглавной буквой и цифрой</FormHelperText>
             <FormErrorMessage> {errors && errors.message}</FormErrorMessage>
         </FormControl>
     );
