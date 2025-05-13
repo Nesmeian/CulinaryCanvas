@@ -18,6 +18,8 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { Alert } from '~/components/alert';
+import { Loader } from '~/components/loader';
 import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
 import { usePostAuthSignUpMutation } from '~/query/services/post';
 import { RegFields } from '~/types/LoginTypes';
@@ -27,7 +29,7 @@ import { regSchema } from '~/utils/validationRules/yupSheme';
 import { PasswordInput } from '../passwordInput';
 
 export const RegTab = () => {
-    const [postAuthSignUp] = usePostAuthSignUpMutation();
+    const [postAuthSignUp, { isLoading, isError, error }] = usePostAuthSignUpMutation();
     const swiperRef = useRef<SwiperType>(null);
     const {
         register,
@@ -163,6 +165,8 @@ export const RegTab = () => {
                     </Button>
                 </SwiperSlide>
             </Swiper>
+            {isLoading && <Loader />}
+            {isError && <Alert error={error.data.message} />}
         </form>
     );
 };
