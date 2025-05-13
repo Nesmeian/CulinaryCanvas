@@ -10,6 +10,7 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import type { Swiper as SwiperType } from 'swiper';
@@ -19,6 +20,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
 import { RegFields } from '~/types/LoginTypes';
 import { registrationProgress } from '~/utils/LoginPageUtils/RegistationProgress';
+import { regSchema } from '~/utils/validationRules/yupSheme';
 
 import { PasswordInput } from '../passwordInput';
 
@@ -32,13 +34,14 @@ export const RegTab = () => {
         watch,
     } = useForm<RegFields>({
         mode: 'onChange',
+        resolver: yupResolver(regSchema),
     });
 
     const onSubmit: SubmitHandler<RegFields> = (data) => {
         console.log(data);
     };
     const watchedValues = watch();
-    const progressState = registrationProgress(watchedValues);
+    const progressState = registrationProgress(watchedValues, errors);
     const steps = ['Шаг 1.Личная информация', 'Шаг 2. Логин и пароль'];
     const stepFields: Record<number, (keyof RegFields)[]> = {
         0: ['name', 'lastName', 'email'],
@@ -87,15 +90,18 @@ export const RegTab = () => {
                                 {errors.name && errors.name?.message}
                             </FormErrorMessage>
                         </FormControl>
-                        <FormControl>
+                        <FormControl isInvalid={!!errors.lastName}>
                             <FormLabel {...LoginFormLabel}>Ваша фамилия</FormLabel>
                             <Input
                                 placeholder='Фамилия'
                                 {...LoginInputStyles}
                                 {...register('lastName', { required: true })}
                             />
+                            <FormErrorMessage>
+                                {errors.lastName && errors.lastName?.message}
+                            </FormErrorMessage>
                         </FormControl>
-                        <FormControl>
+                        <FormControl isInvalid={!!errors.email}>
                             <FormLabel {...LoginFormLabel}>Ваш e-mail</FormLabel>
                             <Input
                                 type='email'
@@ -103,6 +109,9 @@ export const RegTab = () => {
                                 placeholder='e-mail'
                                 {...register('email', { required: true })}
                             />
+                            <FormErrorMessage>
+                                {errors.email && errors.email?.message}
+                            </FormErrorMessage>
                         </FormControl>
                     </VStack>
                     <Button
@@ -116,13 +125,16 @@ export const RegTab = () => {
                 </SwiperSlide>
                 <SwiperSlide>
                     <VStack gap={{ lg: '24px', base: '44px' }} mb='28px'>
-                        <FormControl>
+                        <FormControl isInvalid={!!errors.login}>
                             <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
                             <Input
                                 placeholder='Логин'
                                 {...LoginInputStyles}
                                 {...register('login', { required: true })}
                             />
+                            <FormErrorMessage>
+                                {errors.login && errors.login?.message}
+                            </FormErrorMessage>
                         </FormControl>
                         <PasswordInput
                             errors={errors.password}
