@@ -18,6 +18,7 @@ import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
+import { usePostAuthSignUpMutation } from '~/query/services/post';
 import { RegFields } from '~/types/LoginTypes';
 import { registrationProgress } from '~/utils/LoginPageUtils/RegistationProgress';
 import { regSchema } from '~/utils/validationRules/yupSheme';
@@ -25,6 +26,7 @@ import { regSchema } from '~/utils/validationRules/yupSheme';
 import { PasswordInput } from '../passwordInput';
 
 export const RegTab = () => {
+    const [postAuthSignUp] = usePostAuthSignUpMutation();
     const swiperRef = useRef<SwiperType>(null);
     const {
         register,
@@ -38,13 +40,14 @@ export const RegTab = () => {
     });
 
     const onSubmit: SubmitHandler<RegFields> = (data) => {
-        console.log(data);
+        const { rePassword, ...dataToSend } = data;
+        postAuthSignUp(dataToSend);
     };
     const watchedValues = watch();
     const progressState = registrationProgress(watchedValues, errors);
     const steps = ['Шаг 1.Личная информация', 'Шаг 2. Логин и пароль'];
     const stepFields: Record<number, (keyof RegFields)[]> = {
-        0: ['name', 'lastName', 'email'],
+        0: ['firstName', 'lastName', 'email'],
         1: ['login', 'password', 'rePassword'],
     };
     const [activeIndex, setActiveIndex] = useState(0);
@@ -79,15 +82,15 @@ export const RegTab = () => {
             >
                 <SwiperSlide>
                     <VStack gap={{ lg: '24px', base: '44px' }} mb='48px'>
-                        <FormControl isInvalid={!!errors.name}>
+                        <FormControl isInvalid={!!errors.firstName}>
                             <FormLabel {...LoginFormLabel}>Ваше имя</FormLabel>
                             <Input
                                 placeholder='Имя'
                                 {...LoginInputStyles}
-                                {...register('name', { required: 'Ваше имя' })}
+                                {...register('firstName', { required: 'Ваше имя' })}
                             />
                             <FormErrorMessage>
-                                {errors.name && errors.name?.message}
+                                {errors.firstName && errors.firstName?.message}
                             </FormErrorMessage>
                         </FormControl>
                         <FormControl isInvalid={!!errors.lastName}>

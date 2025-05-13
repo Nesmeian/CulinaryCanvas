@@ -3,6 +3,7 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
+import { PostAuthRegType } from '~/types/postData';
 
 export const postsApiSlice = apiSlice
     .enhanceEndpoints({
@@ -10,16 +11,17 @@ export const postsApiSlice = apiSlice
     })
     .injectEndpoints({
         endpoints: (builder) => ({
-            getPosts: builder.query<void, void>({
-                query: () => ({
+            postAuthSignUp: builder.mutation<void, PostAuthRegType>({
+                query: (body) => ({
                     url: ApiEndpoints.POSTS,
-                    method: 'GET',
-                    apiGroupName: ApiGroupNames.POSTS,
-                    name: EndpointNames.GET_POSTS,
+                    method: 'POST',
+                    body,
+                    apiGroupName: ApiGroupNames.AUTH,
+                    name: EndpointNames.POST_AUTH,
                 }),
-                providesTags: [Tags.POSTS],
+                invalidatesTags: [Tags.POSTS],
             }),
         }),
     });
 
-export const { useGetPostsQuery } = postsApiSlice;
+export const { usePostAuthSignUpMutation } = postsApiSlice;
