@@ -66,7 +66,7 @@ export const RegTab = () => {
                 onSlideChange={(s) => setActiveIndex(s.activeIndex)}
             >
                 <SwiperSlide>
-                    <VStack gap='24px' mb='48px'>
+                    <VStack gap={{ lg: '24px', base: '44px' }} mb='48px'>
                         <FormControl>
                             <FormLabel {...LoginFormLabel}>Ваше имя</FormLabel>
                             <Input
@@ -103,7 +103,7 @@ export const RegTab = () => {
                     </Button>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <VStack gap='24px' mb='28px'>
+                    <VStack gap={{ lg: '24px', base: '44px' }} mb='28px'>
                         <FormControl>
                             <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
                             <Input

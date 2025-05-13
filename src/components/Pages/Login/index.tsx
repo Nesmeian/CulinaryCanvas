@@ -16,8 +16,8 @@ export const Login = () => {
                 background='linear-gradient(208deg, #eaffc7 0%, #29813f 100%);'
                 alignItems='center'
             >
-                <VStack mt='170px'>
-                    <Image src={logo} pb='80px' />
+                <VStack mt={{ lg: '170px', md: '140px', base: '70px' }}>
+                    <Image src={logo} pb={{ lg: '80px', base: '56px' }} />
                     <LoginTabs />
                 </VStack>
             </VStack>
