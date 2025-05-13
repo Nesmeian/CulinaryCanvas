@@ -29,6 +29,7 @@ export const PasswordInput = ({ repeat, ...rest }: { repeat?: boolean }) => {
                 />
                 <InputRightElement>
                     <IconButton
+                        background='white'
                         icon={
                             <Image
                                 src={

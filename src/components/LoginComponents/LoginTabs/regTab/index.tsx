@@ -1,8 +1,9 @@
 import './style.css';
 
 import { Button, FormControl, FormLabel, Input, Progress, Text, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import type { Swiper as SwiperType } from 'swiper';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -13,29 +14,38 @@ import { registrationProgress } from '~/utils/LoginPageUtils/RegistationProgress
 import { PasswordInput } from '../passwordInput';
 
 export const RegTab = () => {
+    const swiperRef = useRef<SwiperType>(null);
     const {
         register,
         handleSubmit,
-        formState: { isDirty, isValid },
+        formState: { isDirty, isValid, errors },
+        trigger,
         watch,
     } = useForm<RegFields>({
         mode: 'onChange',
-        defaultValues: {
-            name: '',
-            lastName: '',
-            email: '',
-            login: '',
-            password: '',
-            rePassword: '',
-        },
     });
-    const [activeIndex, setActiveIndex] = useState(0);
+
     const onSubmit: SubmitHandler<RegFields> = (data) => {
         console.log(data);
     };
     const watchedValues = watch();
     const progressState = registrationProgress(watchedValues);
     const steps = ['Шаг 1.Личная информация', 'Шаг 2. Логин и пароль'];
+    const stepFields: Record<number, (keyof RegFields)[]> = {
+        0: ['name', 'lastName', 'email'],
+        1: ['login', 'password', 'rePassword'],
+    };
+    const [activeIndex, setActiveIndex] = useState(0);
+    const handleNext = async () => {
+        const valid = await trigger(stepFields[activeIndex]);
+        if (valid) {
+            swiperRef.current?.slideNext();
+        }
+    };
+    const currentValues = watch(stepFields[activeIndex]) as (string | undefined)[];
+    const noEmpty = currentValues.every((v) => typeof v === 'string' && v.trim() !== '');
+    const noErrors = stepFields[activeIndex].every((f) => !errors[f]);
+    const canProceed = noEmpty && noErrors;
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <VStack gap={0} mb='24px'>
@@ -49,11 +59,11 @@ export const RegTab = () => {
                 />
             </VStack>
             <Swiper
-                onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
                 modules={[Navigation]}
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
+                navigation={false}
                 allowTouchMove={false}
-                className='swiper__list'
-                navigation={{ nextEl: '.btn-next' }}
+                onSlideChange={(s) => setActiveIndex(s.activeIndex)}
             >
                 <SwiperSlide>
                     <VStack gap='24px' mb='48px'>
@@ -83,7 +93,12 @@ export const RegTab = () => {
                             />
                         </FormControl>
                     </VStack>
-                    <Button size='lg' variant='commonLoginBtn' className='btn-next'>
+                    <Button
+                        size='lg'
+                        variant='commonLoginBtn'
+                        onClick={handleNext}
+                        isDisabled={!canProceed}
+                    >
                         Дальше
                     </Button>
                 </SwiperSlide>
