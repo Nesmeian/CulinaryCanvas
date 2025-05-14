@@ -12,11 +12,13 @@ import { useEffect } from 'react';
 
 import { TEST_IDS } from '~/constants/testsIds';
 
+import { alertErrors } from './alertErrors';
+
 export const Alert = ({
     error,
     isSuccessVerification,
 }: {
-    error?: string[];
+    error?: string;
     isSuccessVerification?: boolean;
 }) => {
     const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
@@ -48,7 +50,10 @@ export const Alert = ({
                 {isSuccessVerification ? (
                     <AlertTitle>Верификация прошла успешно</AlertTitle>
                 ) : error ? (
-                    <AlertTitle>{error}</AlertTitle>
+                    <VStack alignItems='flex-start' gap={0}>
+                        <AlertTitle>{error}</AlertTitle>
+                        <AlertDescription>{alertErrors[error] || ''}</AlertDescription>
+                    </VStack>
                 ) : (
                     <VStack alignItems='flex-start' gap={0}>
                         <AlertTitle>Ошибка сервера</AlertTitle>

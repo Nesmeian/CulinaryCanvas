@@ -70,9 +70,7 @@ export const RegTab = () => {
     const noErrors = stepFields[activeIndex].every((f) => !errors[f]);
     const canProceed = noEmpty && noErrors;
     const location = useLocation();
-    const isEmailVerified =
-        (location.state && location.state.emailVerified) ?? location.state.emailVerified;
-    console.log(isEmailVerified);
+    const isEmailVerified = location.state?.emailVerified;
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <VStack gap={0} mb='24px'>
@@ -178,7 +176,7 @@ export const RegTab = () => {
             {isLoading && <Loader />}
             {isError && <Alert error={error.data.message} />}
             {isSuccess && <EmailVerificationSuccess email={verEmail} />}
-            {!isEmailVerified && <EmailVerificationFailed />}
+            {!isEmailVerified == false && <EmailVerificationFailed />}
         </form>
     );
 };
