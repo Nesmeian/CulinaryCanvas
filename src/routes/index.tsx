@@ -10,12 +10,14 @@ import { Login } from '~/components/Pages/Login';
 import { MainPage } from '~/components/Pages/MainPage';
 import Recipe from '~/components/recipe';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { useGetRefreshTokenQuery } from '~/query/services/get/getRefreshToken';
 
 const AppRoutes = () => {
     const { data, isLoading, isError } = useGetFilteredCategories();
+    const { data: check } = useGetRefreshTokenQuery();
+    console.log(check);
     if (isError) return <Alert />;
     if (isLoading) return <Loader />;
-
     const subcategories = data.reduce<Record<string, { id: string; category: string }[]>>(
         (acc, { category, subCategories }) => {
             acc[category] = subCategories.map(({ _id: id, category: sub }) => ({

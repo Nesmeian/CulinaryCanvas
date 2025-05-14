@@ -13,7 +13,9 @@ import { loginSchema } from '~/utils/validationRules/yupSheme';
 import { PasswordInput } from '../passwordInput';
 
 export const LoginTab = () => {
-    const [postAuthLogin, { isLoading, isSuccess, isError, error }] = usePostAuthLoginMutation();
+    const [postAuthLogin, { data, isLoading, isSuccess, isError, error }] =
+        usePostAuthLoginMutation();
+
     const location = useLocation();
     const isEmailVerified = location.state?.emailVerified;
     const navigate = useNavigate();
@@ -25,6 +27,7 @@ export const LoginTab = () => {
     const onSubmit: SubmitHandler<LoginFields> = (data) => {
         postAuthLogin(data);
     };
+    console.log(data);
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <VStack gap='24px' mb='112px'>
