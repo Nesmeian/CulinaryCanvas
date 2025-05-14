@@ -26,9 +26,12 @@ export const postsApiSlice = apiSlice
                     url: ApiEndpoints.LOGIN,
                     method: 'POST',
                     body,
-                    apiGroupName: ApiGroupNames.AUTH,
-                    name: EndpointNames.POST_AUTH,
                 }),
+                transformResponse: (returnValue: PostsResponse, meta) => {
+                    console.log(returnValue);
+                    if (!meta) return [];
+                    localStorage.setItem('authToken', JSON.stringify(returnValue));
+                },
                 invalidatesTags: [Tags.POSTS],
             }),
         }),
