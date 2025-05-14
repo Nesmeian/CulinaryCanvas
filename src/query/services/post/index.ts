@@ -27,10 +27,11 @@ export const postsApiSlice = apiSlice
                     method: 'POST',
                     body,
                 }),
-                transformResponse: (returnValue: PostsResponse, meta) => {
-                    console.log(returnValue);
-                    if (!meta) return [];
-                    localStorage.setItem('authToken', JSON.stringify(returnValue));
+                transformResponse: (_responseBody: unknown, meta) => {
+                    const token = meta?.response?.headers.get('Authentication-Access');
+                    if (token) {
+                        localStorage.setItem('accessToken', token);
+                    }
                 },
                 invalidatesTags: [Tags.POSTS],
             }),

@@ -1,5 +1,6 @@
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -13,8 +14,7 @@ import { loginSchema } from '~/utils/validationRules/yupSheme';
 import { PasswordInput } from '../passwordInput';
 
 export const LoginTab = () => {
-    const [postAuthLogin, { data, isLoading, isSuccess, isError, error }] =
-        usePostAuthLoginMutation();
+    const [postAuthLogin, { isLoading, isSuccess, isError, error }] = usePostAuthLoginMutation();
 
     const location = useLocation();
     const isEmailVerified = location.state?.emailVerified;
@@ -27,7 +27,11 @@ export const LoginTab = () => {
     const onSubmit: SubmitHandler<LoginFields> = (data) => {
         postAuthLogin(data);
     };
-    console.log(data);
+    useEffect(() => {
+        if (isSuccess) {
+            navigate('/', { replace: true });
+        }
+    }, [isSuccess, navigate]);
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <VStack gap='24px' mb='112px'>
@@ -57,7 +61,6 @@ export const LoginTab = () => {
             </Button>
             {isLoading && <Loader />}
             {isEmailVerified && <Alert isSuccessVerification />}
-            {isSuccess && navigate('/')}
             {isError && <Alert error={error.data.message} />}
         </form>
     );
