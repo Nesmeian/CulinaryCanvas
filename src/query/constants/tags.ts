@@ -1,5 +1,5 @@
 export enum Tags {
-    REFRESH = 'REFRESH',
+    AUTH_TOKEN = 'auth-token',
     POSTS = 'posts',
     RECIPES = 'recipe',
     CATEGORY = 'category',
