@@ -11,6 +11,7 @@ import { usePostAuthLoginMutation } from '~/query/services/post';
 import { LoginFields } from '~/types/LoginTypes';
 import { loginSchema } from '~/utils/validationRules/yupSheme';
 
+import { ForgetModal } from '../../forgetModal';
 import { PasswordInput } from '../passwordInput';
 
 export const LoginTab = () => {
@@ -33,35 +34,38 @@ export const LoginTab = () => {
         }
     }, [isSuccess, navigate]);
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack gap='24px' mb='112px'>
-                <FormControl isInvalid={!!errors.login}>
-                    <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
-                    <Input
-                        {...register('login')}
-                        {...LoginInputStyles}
-                        placeholder='Введите логин'
-                    />
-                    <FormErrorMessage> {errors.login && errors.login.message}</FormErrorMessage>
-                </FormControl>
-                <FormControl>
-                    <PasswordInput errors={errors.password} {...register('password')} />
-                </FormControl>
-            </VStack>
-            <Button
-                size='lg'
-                variant='commonLoginBtn'
-                type='submit'
-                isDisabled={!isDirty || !isValid}
-            >
-                Войти
-            </Button>
-            <Button size='lg' width='100%' variant='plain'>
-                Забыли логин или пароль?
-            </Button>
+        <VStack>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <VStack gap='24px' mb='112px'>
+                    <FormControl isInvalid={!!errors.login}>
+                        <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
+                        <Input
+                            {...register('login')}
+                            {...LoginInputStyles}
+                            placeholder='Введите логин'
+                        />
+                        <FormErrorMessage> {errors.login && errors.login.message}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl>
+                        <PasswordInput errors={errors.password} {...register('password')} />
+                    </FormControl>
+                </VStack>
+                <Button
+                    size='lg'
+                    variant='commonLoginBtn'
+                    type='submit'
+                    isDisabled={!isDirty || !isValid}
+                >
+                    Войти
+                </Button>
+                <Button size='lg' width='100%' variant='plain'>
+                    Забыли логин или пароль?
+                </Button>
+            </form>
+            <ForgetModal />
             {isLoading && <Loader />}
             {isEmailVerified && <Alert isSuccessVerification />}
             {isError && <Alert error={error.data.message} />}
-        </form>
+        </VStack>
     );
 };

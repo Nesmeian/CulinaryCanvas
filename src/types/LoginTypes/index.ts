@@ -10,3 +10,6 @@ export type LoginFields = {
     login: string;
     password: string;
 };
+export type VerifyField = {
+    email: string;
+};

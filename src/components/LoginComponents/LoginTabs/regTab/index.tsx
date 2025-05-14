@@ -72,111 +72,113 @@ export const RegTab = () => {
     const location = useLocation();
     const isEmailVerified = location.state?.emailVerified;
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack gap={0} mb='24px'>
-                <Text w='100%'>{steps[activeIndex]}</Text>
-                <Progress
-                    value={progressState}
-                    w='100%'
-                    h='8px'
-                    background=' rgba(0, 0, 0, 0.06)'
-                    colorScheme='progressColor'
-                />
-            </VStack>
-            <Swiper
-                modules={[Navigation]}
-                onSwiper={(swiper) => (swiperRef.current = swiper)}
-                navigation={false}
-                allowTouchMove={false}
-                spaceBetween={2}
-                onSlideChange={(s) => setActiveIndex(s.activeIndex)}
-            >
-                <SwiperSlide>
-                    <VStack gap={{ lg: '24px', base: '44px' }} mb='48px'>
-                        <FormControl isInvalid={!!errors.firstName}>
-                            <FormLabel {...LoginFormLabel}>Ваше имя</FormLabel>
-                            <Input
-                                placeholder='Имя'
-                                {...LoginInputStyles}
-                                {...register('firstName', { required: 'Ваше имя' })}
+        <VStack>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <VStack gap={0} mb='24px'>
+                    <Text w='100%'>{steps[activeIndex]}</Text>
+                    <Progress
+                        value={progressState}
+                        w='100%'
+                        h='8px'
+                        background=' rgba(0, 0, 0, 0.06)'
+                        colorScheme='progressColor'
+                    />
+                </VStack>
+                <Swiper
+                    modules={[Navigation]}
+                    onSwiper={(swiper) => (swiperRef.current = swiper)}
+                    navigation={false}
+                    allowTouchMove={false}
+                    spaceBetween={2}
+                    onSlideChange={(s) => setActiveIndex(s.activeIndex)}
+                >
+                    <SwiperSlide>
+                        <VStack gap={{ lg: '24px', base: '44px' }} mb='48px'>
+                            <FormControl isInvalid={!!errors.firstName}>
+                                <FormLabel {...LoginFormLabel}>Ваше имя</FormLabel>
+                                <Input
+                                    placeholder='Имя'
+                                    {...LoginInputStyles}
+                                    {...register('firstName', { required: 'Ваше имя' })}
+                                />
+                                <FormErrorMessage>
+                                    {errors.firstName && errors.firstName?.message}
+                                </FormErrorMessage>
+                            </FormControl>
+                            <FormControl isInvalid={!!errors.lastName}>
+                                <FormLabel {...LoginFormLabel}>Ваша фамилия</FormLabel>
+                                <Input
+                                    placeholder='Фамилия'
+                                    {...LoginInputStyles}
+                                    {...register('lastName', { required: true })}
+                                />
+                                <FormErrorMessage>
+                                    {errors.lastName && errors.lastName?.message}
+                                </FormErrorMessage>
+                            </FormControl>
+                            <FormControl isInvalid={!!errors.email}>
+                                <FormLabel {...LoginFormLabel}>Ваш e-mail</FormLabel>
+                                <Input
+                                    type='email'
+                                    {...LoginInputStyles}
+                                    placeholder='e-mail'
+                                    {...register('email', { required: true })}
+                                />
+                                <FormErrorMessage>
+                                    {errors.email && errors.email?.message}
+                                </FormErrorMessage>
+                            </FormControl>
+                        </VStack>
+                        <Button
+                            size='lg'
+                            variant='commonLoginBtn'
+                            onClick={handleNext}
+                            isDisabled={!canProceed}
+                        >
+                            Дальше
+                        </Button>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <VStack gap={{ lg: '24px', base: '44px' }} mb='28px'>
+                            <FormControl isInvalid={!!errors.login}>
+                                <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
+                                <Input
+                                    placeholder='Логин'
+                                    {...LoginInputStyles}
+                                    {...register('login', { required: true })}
+                                />
+                                <FormHelperText>
+                                    Логин не менее 5 символов, только латиница
+                                </FormHelperText>
+                                <FormErrorMessage>
+                                    {errors.login && errors.login?.message}
+                                </FormErrorMessage>
+                            </FormControl>
+                            <PasswordInput
+                                errors={errors.password}
+                                {...register('password', { required: true })}
                             />
-                            <FormErrorMessage>
-                                {errors.firstName && errors.firstName?.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                        <FormControl isInvalid={!!errors.lastName}>
-                            <FormLabel {...LoginFormLabel}>Ваша фамилия</FormLabel>
-                            <Input
-                                placeholder='Фамилия'
-                                {...LoginInputStyles}
-                                {...register('lastName', { required: true })}
+                            <PasswordInput
+                                errors={errors.rePassword}
+                                repeat
+                                {...register('rePassword', { required: true })}
                             />
-                            <FormErrorMessage>
-                                {errors.lastName && errors.lastName?.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                        <FormControl isInvalid={!!errors.email}>
-                            <FormLabel {...LoginFormLabel}>Ваш e-mail</FormLabel>
-                            <Input
-                                type='email'
-                                {...LoginInputStyles}
-                                placeholder='e-mail'
-                                {...register('email', { required: true })}
-                            />
-                            <FormErrorMessage>
-                                {errors.email && errors.email?.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                    </VStack>
-                    <Button
-                        size='lg'
-                        variant='commonLoginBtn'
-                        onClick={handleNext}
-                        isDisabled={!canProceed}
-                    >
-                        Дальше
-                    </Button>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <VStack gap={{ lg: '24px', base: '44px' }} mb='28px'>
-                        <FormControl isInvalid={!!errors.login}>
-                            <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
-                            <Input
-                                placeholder='Логин'
-                                {...LoginInputStyles}
-                                {...register('login', { required: true })}
-                            />
-                            <FormHelperText>
-                                Логин не менее 5 символов, только латиница
-                            </FormHelperText>
-                            <FormErrorMessage>
-                                {errors.login && errors.login?.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                        <PasswordInput
-                            errors={errors.password}
-                            {...register('password', { required: true })}
-                        />
-                        <PasswordInput
-                            errors={errors.rePassword}
-                            repeat
-                            {...register('rePassword', { required: true })}
-                        />
-                    </VStack>
-                    <Button
-                        size='lg'
-                        variant='commonLoginBtn'
-                        type='submit'
-                        isDisabled={!isDirty || !isValid}
-                    >
-                        Зарегистрироваться
-                    </Button>
-                </SwiperSlide>
-            </Swiper>
+                        </VStack>
+                        <Button
+                            size='lg'
+                            variant='commonLoginBtn'
+                            type='submit'
+                            isDisabled={!isDirty || !isValid}
+                        >
+                            Зарегистрироваться
+                        </Button>
+                    </SwiperSlide>
+                </Swiper>
+            </form>
             {isLoading && <Loader />}
             {isError && <Alert error={error.data.message} />}
             {isSuccess && <EmailVerificationSuccess email={verEmail} />}
             {!isEmailVerified == false && <EmailVerificationFailed />}
-        </form>
+        </VStack>
     );
 };

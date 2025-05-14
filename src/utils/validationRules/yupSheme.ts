@@ -3,6 +3,12 @@ export const loginSchema = Yup.object({
     login: Yup.string().required('Введите логин').max(50, 'Максимальная длина 50 символов'),
     password: Yup.string().required('Введите пароль').max(50, 'Максимальная длина 50 символов'),
 });
+export const verifySchema = Yup.object({
+    email: Yup.string()
+        .required('Введите e-mail')
+        .matches(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, 'Введите корректный e-mail')
+        .max(50, 'Максимальная длина 50 символов'),
+});
 export const regSchema = Yup.object({
     firstName: Yup.string()
         .required('Введите имя')
