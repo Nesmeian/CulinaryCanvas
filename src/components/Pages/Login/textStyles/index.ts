@@ -20,8 +20,12 @@ export const LoginFormLabel = {
 export const LoginInputStyles = {
     h: '48px',
     background: 'white',
+    borderColor: '#d7ff94',
     color: '#134B00',
     fontSize: '18px',
     lineHeight: '24px',
     letterSpacing: '0.5px',
+    _placeholder: {
+        color: '#134b00',
+    },
 };

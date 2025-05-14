@@ -3,7 +3,7 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
-import { PostAuthRegType, PostLoginType } from '~/types/postData';
+import { forgotPassword, PostAuthRegType, PostLoginType } from '~/types/postData';
 
 export const postsApiSlice = apiSlice
     .enhanceEndpoints({
@@ -26,6 +26,8 @@ export const postsApiSlice = apiSlice
                     url: ApiEndpoints.LOGIN,
                     method: 'POST',
                     body,
+                    apiGroupName: ApiGroupNames.AUTH,
+                    name: EndpointNames.POST_AUTH,
                 }),
                 transformResponse: (_responseBody: unknown, meta) => {
                     const token = meta?.response?.headers.get('Authentication-Access');
@@ -35,7 +37,17 @@ export const postsApiSlice = apiSlice
                 },
                 invalidatesTags: [Tags.POSTS],
             }),
+            forgotPassword: builder.mutation<void, forgotPassword>({
+                query: (body) => ({
+                    url: ApiEndpoints.FORGOT_PASSWORD,
+                    method: 'POST',
+                    body,
+                    apiGroupName: ApiGroupNames.FORGOT_PASSWORD,
+                    name: EndpointNames.FORGOT_PASSWORD,
+                }),
+            }),
         }),
     });
 
-export const { usePostAuthSignUpMutation, usePostAuthLoginMutation } = postsApiSlice;
+export const { usePostAuthSignUpMutation, usePostAuthLoginMutation, useForgotPasswordMutation } =
+    postsApiSlice;

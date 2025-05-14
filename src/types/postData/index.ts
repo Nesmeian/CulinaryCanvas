@@ -9,3 +9,6 @@ export type PostLoginType = {
     login: string;
     password: string;
 };
+export type forgotPassword = {
+    email: string;
+};
