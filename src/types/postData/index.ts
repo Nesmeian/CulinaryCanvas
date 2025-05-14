@@ -5,3 +5,7 @@ export type PostAuthRegType = {
     firstName?: string;
     lastName?: string;
 };
+export type PostLoginType = {
+    login: string;
+    password: string;
+};

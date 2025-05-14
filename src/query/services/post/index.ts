@@ -3,7 +3,7 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
-import { PostAuthRegType } from '~/types/postData';
+import { PostAuthRegType, PostLoginType } from '~/types/postData';
 
 export const postsApiSlice = apiSlice
     .enhanceEndpoints({
@@ -13,7 +13,17 @@ export const postsApiSlice = apiSlice
         endpoints: (builder) => ({
             postAuthSignUp: builder.mutation<void, PostAuthRegType>({
                 query: (body) => ({
-                    url: ApiEndpoints.POSTS,
+                    url: ApiEndpoints.SIGNUP,
+                    method: 'POST',
+                    body,
+                    apiGroupName: ApiGroupNames.AUTH,
+                    name: EndpointNames.POST_AUTH,
+                }),
+                invalidatesTags: [Tags.POSTS],
+            }),
+            postAuthLogin: builder.mutation<void, PostLoginType>({
+                query: (body) => ({
+                    url: ApiEndpoints.LOGIN,
                     method: 'POST',
                     body,
                     apiGroupName: ApiGroupNames.AUTH,
@@ -24,4 +34,4 @@ export const postsApiSlice = apiSlice
         }),
     });
 
-export const { usePostAuthSignUpMutation } = postsApiSlice;
+export const { usePostAuthSignUpMutation, usePostAuthLoginMutation } = postsApiSlice;

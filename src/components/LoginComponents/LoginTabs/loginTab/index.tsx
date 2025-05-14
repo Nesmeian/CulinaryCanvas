@@ -1,26 +1,29 @@
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, VStack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 import { Alert } from '~/components/alert';
+import { Loader } from '~/components/loader';
 import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
+import { usePostAuthLoginMutation } from '~/query/services/post';
 import { LoginFields } from '~/types/LoginTypes';
 import { loginSchema } from '~/utils/validationRules/yupSheme';
 
 import { PasswordInput } from '../passwordInput';
 
 export const LoginTab = () => {
+    const [postAuthLogin, { isLoading, isSuccess, isError, error }] = usePostAuthLoginMutation();
     const location = useLocation();
-    const isEmailVerified =
-        (location.state && location.state.emailVerified) ?? location.state.emailVerified;
+    const isEmailVerified = location.state?.emailVerified;
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
         formState: { isDirty, isValid, errors },
     } = useForm<LoginFields>({ mode: 'onChange', resolver: yupResolver(loginSchema) });
     const onSubmit: SubmitHandler<LoginFields> = (data) => {
-        console.log(data);
+        postAuthLogin(data);
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -49,7 +52,10 @@ export const LoginTab = () => {
             <Button size='lg' width='100%' variant='plain'>
                 Забыли логин или пароль?
             </Button>
+            {isLoading && <Loader />}
             {isEmailVerified && <Alert isSuccessVerification />}
+            {isSuccess && navigate('/')}
+            {isError && <Alert error={error.data.message} />}
         </form>
     );
 };
