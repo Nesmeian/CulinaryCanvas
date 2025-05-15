@@ -1,4 +1,8 @@
 export const alertErrors = {
+    400: {
+        title: 'Пользователь с таким login уже существует.',
+        description: 'Попробуйте снова.',
+    },
     401: {
         title: 'Неверный логин или пароль',
         description: 'Попробуйте снова.',
@@ -6,5 +10,9 @@ export const alertErrors = {
     403: {
         title: 'E-mail не верифицирован',
         description: 'Проверьте почту и перейдите по ссылке',
+    },
+    500: {
+        title: 'Ошибка сервера',
+        description: 'Попробуйте немного позже',
     },
 };

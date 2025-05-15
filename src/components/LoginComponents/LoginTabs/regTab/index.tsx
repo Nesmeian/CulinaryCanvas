@@ -125,7 +125,6 @@ export const RegTab = () => {
                             <FormControl isInvalid={!!errors.email}>
                                 <FormLabel {...LoginFormLabel}>Ваш e-mail</FormLabel>
                                 <Input
-                                    onInput={(e) => trimInput(e)}
                                     data-test-id={TEST_IDS.EMAIL_INPUT}
                                     type='email'
                                     {...LoginInputStyles}
@@ -187,7 +186,7 @@ export const RegTab = () => {
                 </Swiper>
             </form>
             {isLoading && <Loader />}
-            {isError && <Alert error={error.data.message} />}
+            {isError && <Alert errorStatus={error.status} errorData={error.data.message} />}
             {isSuccess && <EmailVerificationSuccess email={verEmail} />}
             {!isEmailVerified == false && <EmailVerificationFailed />}
         </VStack>
