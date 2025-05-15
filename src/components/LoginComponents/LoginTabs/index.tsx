@@ -1,5 +1,5 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { tabStyles } from '~/components/Pages/Login/textStyles';
@@ -11,15 +11,21 @@ import { RegTab } from './regTab';
 export const LoginTabs = () => {
     const navigate = useNavigate();
     const currentPath = GetCurrentPath();
-    const getTabIndex = () => {
-        if (currentPath.includes('login')) return 0;
-        return 1;
-    };
-    const [tabIndex, setTabIndex] = useState(getTabIndex);
+
+    const getTabIndex = (segments: string[]) => (segments.includes('login') ? 0 : 1);
+    const [tabIndex, setTabIndex] = useState(() => getTabIndex(currentPath));
+    useEffect(() => {
+        const newIndex = getTabIndex(currentPath);
+        if (newIndex !== tabIndex) {
+            setTabIndex(newIndex);
+        }
+    }, [currentPath.join('/')]);
+
     const handleTabsChange = (index: number) => {
         setTabIndex(index);
         navigate(index === 0 ? '/login' : '/registration');
     };
+
     return (
         <Tabs
             isLazy

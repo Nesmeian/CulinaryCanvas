@@ -16,9 +16,11 @@ import { alertErrors } from './alertErrors';
 
 export const Alert = ({
     errorStatus,
+    errorData,
     isSuccessVerification,
 }: {
-    errorStatus?: string;
+    errorStatus?: number;
+    errorData?: string;
     isSuccessVerification?: boolean;
 }) => {
     const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
@@ -49,17 +51,22 @@ export const Alert = ({
                 <AlertIcon color='white' />
                 {isSuccessVerification ? (
                     <AlertTitle>Верификация прошла успешно</AlertTitle>
-                ) : errorStatus ? (
+                ) : errorStatus !== 400 ? (
                     <VStack alignItems='flex-start' gap={0}>
-                        <AlertTitle>{alertErrors[errorStatus].title || ''}</AlertTitle>
+                        <AlertTitle>{alertErrors[errorStatus]?.title || 'Ошибка'}</AlertTitle>
                         <AlertDescription>
-                            {alertErrors[errorStatus].description || ''}
+                            {alertErrors[errorStatus]?.description || 'Произошла ошибка'}
                         </AlertDescription>
+                    </VStack>
+                ) : errorData ? (
+                    <VStack alignItems='flex-start' gap={0}>
+                        <AlertTitle>Ошибка</AlertTitle>
+                        <AlertDescription>{errorData}</AlertDescription>
                     </VStack>
                 ) : (
                     <VStack alignItems='flex-start' gap={0}>
                         <AlertTitle>Ошибка сервера</AlertTitle>
-                        <AlertDescription>Попробуйте поискать снова попозже</AlertDescription>
+                        <AlertDescription>Попробуйте снова позже</AlertDescription>
                     </VStack>
                 )}
                 <CloseButton

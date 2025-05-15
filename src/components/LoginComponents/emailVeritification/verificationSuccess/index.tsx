@@ -1,4 +1,5 @@
 import { Center, Heading, Image, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import { useNavigate } from 'react-router';
 
 import { TEST_IDS } from '~/constants/testsIds';
 
@@ -6,8 +7,12 @@ import * as loginImgs from '../../../../assets/LoginImg/index';
 import closeBtn from '../../../../assets/verificationCloseImg.svg';
 export const EmailVerificationSuccess = ({ email }: { email: string }) => {
     const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
-
+    const navigate = useNavigate();
     if (!isOpen) return null;
+    const onClick = () => {
+        navigate('/login', { replace: true });
+        onClose();
+    };
     return (
         <Center
             data-test-id={TEST_IDS.SIGN_UP_SUCCESS_MODAL}
@@ -62,7 +67,7 @@ export const EmailVerificationSuccess = ({ email }: { email: string }) => {
                     right='24px'
                     src={closeBtn}
                     alt='close img'
-                    onClick={onClose}
+                    onClick={onClick}
                 />
             </VStack>
         </Center>
