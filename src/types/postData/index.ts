@@ -12,3 +12,7 @@ export type PostLoginType = {
 export type forgotPassword = {
     email: string;
 };
+export type VerifyOTP = {
+    email: string;
+    otpToken: string;
+};
