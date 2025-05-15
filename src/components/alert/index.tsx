@@ -31,8 +31,6 @@ export const Alert = ({
     if (!isOpen) {
         return null;
     }
-    console.log(errorStatus);
-    console.log(alertErrors);
     const status = isSuccessVerification ? 'success' : 'error';
     return (
         <AlertElem
