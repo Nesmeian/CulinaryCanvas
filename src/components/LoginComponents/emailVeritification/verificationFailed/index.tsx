@@ -1,5 +1,7 @@
 import { Center, Heading, Image, Text, useDisclosure, VStack } from '@chakra-ui/react';
 
+import { TEST_IDS } from '~/constants/testsIds';
+
 import * as loginImgs from '../../../../assets/LoginImg/index';
 import closeBtn from '../../../../assets/verificationCloseImg.svg';
 export const EmailVerificationFailed = () => {
@@ -8,6 +10,7 @@ export const EmailVerificationFailed = () => {
     if (!isOpen) return null;
     return (
         <Center
+            data-test-id={TEST_IDS.EMAIL_VERIFICATION_FAILED_MODAL}
             h='100vh'
             w='100vw'
             bg='rgba(0, 0, 0, 0.7)'
@@ -52,6 +55,7 @@ export const EmailVerificationFailed = () => {
                     </Text>
                 </VStack>
                 <Image
+                    data-test-id={TEST_IDS.CLOSE_BTN}
                     position='absolute'
                     right='24px'
                     src={closeBtn}

@@ -4,6 +4,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
+import { TEST_IDS } from '~/constants/testsIds';
 import { useVerifyOtkMutation } from '~/query/services/post';
 import { verifyCode } from '~/types/LoginTypes';
 
@@ -39,6 +40,7 @@ export const SendForgetCodeModal = ({
     };
     return isOpen ? (
         <Center
+            data-test-id={TEST_IDS.VERIFICATION_CODE_MODAL}
             h='100vh'
             w='100vw'
             bg='rgba(0, 0, 0, 0.7)'
@@ -70,9 +72,10 @@ export const SendForgetCodeModal = ({
                         name='otpToken'
                         control={control}
                         rules={{ minLength: 6 }}
-                        render={({ field }) => (
+                        render={({ field }, i) => (
                             <HStack gap='6px'>
                                 <PinInput
+                                    data-test-id={`${TEST_IDS.VERIFICATION_CODE_INPUT}${i}`}
                                     size='md'
                                     otp
                                     onComplete={(value) => {
@@ -94,6 +97,7 @@ export const SendForgetCodeModal = ({
                     </Text>
                 </VStack>
                 <Image
+                    data-test-id={TEST_IDS.CLOSE_BTN}
                     position='absolute'
                     right='24px'
                     src={closeBtn}
