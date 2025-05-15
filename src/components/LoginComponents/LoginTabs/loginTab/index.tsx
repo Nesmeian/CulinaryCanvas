@@ -18,6 +18,7 @@ import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textS
 import { TEST_IDS } from '~/constants/testsIds';
 import { usePostAuthLoginMutation } from '~/query/services/post';
 import { LoginFields } from '~/types/LoginTypes';
+import { trimInput } from '~/utils/trimInput';
 import { loginSchema } from '~/utils/validationRules/yupSheme';
 
 import { ErrorServerModal } from '../../errorServerModal';
@@ -26,7 +27,7 @@ import { ResetPasswordModal } from '../../resetPassword';
 import { SendForgetCodeModal } from '../../sendForgetCode';
 import { PasswordInput } from '../passwordInput';
 
-export const LoginTab = ({ isActive }: { isActive: boolean }) => {
+export const LoginTab = () => {
     const [postAuthLogin, { isLoading, isSuccess, isError, error }] = usePostAuthLoginMutation();
     const { isOpen: isForgetOpen, onOpen: openForget, onClose: closeForget } = useDisclosure();
     const { isOpen: isSendOpen, onOpen: openSend, onClose: closeSend } = useDisclosure();
@@ -58,13 +59,10 @@ export const LoginTab = ({ isActive }: { isActive: boolean }) => {
                     <FormControl isInvalid={!!errors.login}>
                         <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
                         <Input
-                            onInput={(e) => {
-                                const tgt = e.currentTarget as HTMLInputElement;
-                                tgt.value = tgt.value.replace(/^\s+|\s+$/g, '');
-                            }}
+                            onInput={(e) => trimInput(e)}
                             {...register('login')}
                             {...LoginInputStyles}
-                            data-test-id={isActive ? TEST_IDS.LOGIN_INPUT : ''}
+                            data-test-id={TEST_IDS.LOGIN_INPUT}
                             placeholder='Введите логин'
                         />
                         <FormErrorMessage> {errors.login && errors.login.message}</FormErrorMessage>
@@ -78,7 +76,7 @@ export const LoginTab = ({ isActive }: { isActive: boolean }) => {
                     </FormControl>
                 </VStack>
                 <Button
-                    data-test-id={isActive ? TEST_IDS.SUBMIT_BTN : ''}
+                    data-test-id={TEST_IDS.SUBMIT_BTN}
                     size='lg'
                     variant='commonLoginBtn'
                     type='submit'
@@ -90,7 +88,7 @@ export const LoginTab = ({ isActive }: { isActive: boolean }) => {
                     width='100%'
                     variant='plain'
                     onClick={openForget}
-                    data-test-id={isActive ? TEST_IDS.FORGOT_PASSWORD : ''}
+                    data-test-id={TEST_IDS.FORGOT_PASSWORD}
                 >
                     Забыли логин или пароль?
                 </Button>

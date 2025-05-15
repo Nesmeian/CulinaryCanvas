@@ -22,6 +22,7 @@ export const LoginTabs = () => {
     };
     return (
         <Tabs
+            isLazy
             index={tabIndex}
             onChange={handleTabsChange}
             isFitted
@@ -34,10 +35,10 @@ export const LoginTabs = () => {
             </TabList>
             <TabPanels>
                 <TabPanel p={0}>
-                    <LoginTab isActive={tabIndex === 0} />
+                    <LoginTab />
                 </TabPanel>
                 <TabPanel p={0}>
-                    <RegTab isActive={tabIndex === 1} />
+                    <RegTab />
                 </TabPanel>
             </TabPanels>
         </Tabs>

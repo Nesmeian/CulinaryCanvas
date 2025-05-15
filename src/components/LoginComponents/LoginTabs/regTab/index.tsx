@@ -32,7 +32,7 @@ import { EmailVerificationFailed } from '../../emailVeritification/verificationF
 import { EmailVerificationSuccess } from '../../emailVeritification/verificationSuccess';
 import { PasswordInput } from '../passwordInput';
 
-export const RegTab = ({ isActive }: { isActive: boolean }) => {
+export const RegTab = () => {
     const [postAuthSignUp, { isLoading, isError, error, isSuccess }] = usePostAuthSignUpMutation();
     const [verEmail, setVerEmail] = useState('');
     const swiperRef = useRef<SwiperType>(null);
@@ -66,10 +66,6 @@ export const RegTab = ({ isActive }: { isActive: boolean }) => {
             swiperRef.current?.slideNext();
         }
     };
-    const currentValues = watch(stepFields[activeIndex]) as (string | undefined)[];
-    const noEmpty = currentValues.every((v) => typeof v === 'string' && v.trim() !== '');
-    const noErrors = stepFields[activeIndex].every((f) => !errors[f]);
-    const canProceed = noEmpty && noErrors;
     const location = useLocation();
     const isEmailVerified = location.state?.emailVerified;
     return (
@@ -103,10 +99,11 @@ export const RegTab = ({ isActive }: { isActive: boolean }) => {
                             <FormControl isInvalid={!!errors.firstName}>
                                 <FormLabel {...LoginFormLabel}>Ваше имя</FormLabel>
                                 <Input
-                                    data-test-id={isActive ? TEST_IDS.FIRST_NAME_INPUT : ''}
+                                    data-test-id={TEST_IDS.FIRST_NAME_INPUT}
                                     placeholder='Имя'
                                     {...LoginInputStyles}
                                     {...register('firstName', { required: 'Ваше имя' })}
+                                    onBlur={(e) => (e.target.value = e.target.value.trim())}
                                 />
                                 <FormErrorMessage>
                                     {errors.firstName && errors.firstName?.message}
@@ -115,10 +112,11 @@ export const RegTab = ({ isActive }: { isActive: boolean }) => {
                             <FormControl isInvalid={!!errors.lastName}>
                                 <FormLabel {...LoginFormLabel}>Ваша фамилия</FormLabel>
                                 <Input
-                                    data-test-id={isActive ? TEST_IDS.LAST_NAME_INPUT : ''}
+                                    data-test-id={TEST_IDS.LAST_NAME_INPUT}
                                     placeholder='Фамилия'
                                     {...LoginInputStyles}
-                                    {...register('lastName', { required: true })}
+                                    {...register('lastName')}
+                                    onBlur={(e) => (e.target.value = e.target.value.trim())}
                                 />
                                 <FormErrorMessage>
                                     {errors.lastName && errors.lastName?.message}
@@ -127,11 +125,12 @@ export const RegTab = ({ isActive }: { isActive: boolean }) => {
                             <FormControl isInvalid={!!errors.email}>
                                 <FormLabel {...LoginFormLabel}>Ваш e-mail</FormLabel>
                                 <Input
-                                    data-test-id={isActive ? TEST_IDS.EMAIL_INPUT : ''}
+                                    onInput={(e) => trimInput(e)}
+                                    data-test-id={TEST_IDS.EMAIL_INPUT}
                                     type='email'
                                     {...LoginInputStyles}
                                     placeholder='e-mail'
-                                    {...register('email', { required: true })}
+                                    {...register('email')}
                                 />
                                 <FormErrorMessage>
                                     {errors.email && errors.email?.message}
@@ -139,10 +138,10 @@ export const RegTab = ({ isActive }: { isActive: boolean }) => {
                             </FormControl>
                         </VStack>
                         <Button
+                            data-test-id={activeIndex === 0 ? TEST_IDS.SUBMIT_BTN : ''}
                             size='lg'
                             variant='commonLoginBtn'
                             onClick={handleNext}
-                            isDisabled={!canProceed}
                         >
                             Дальше
                         </Button>
@@ -152,10 +151,10 @@ export const RegTab = ({ isActive }: { isActive: boolean }) => {
                             <FormControl isInvalid={!!errors.login}>
                                 <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
                                 <Input
-                                    data-test-id={isActive ? TEST_IDS.LOGIN_INPUT : ''}
+                                    data-test-id={TEST_IDS.LOGIN_INPUT}
                                     placeholder='Логин'
                                     {...LoginInputStyles}
-                                    {...register('login', { required: true })}
+                                    {...register('login')}
                                 />
                                 <FormHelperText>
                                     Логин не менее 5 символов, только латиница
@@ -165,19 +164,19 @@ export const RegTab = ({ isActive }: { isActive: boolean }) => {
                                 </FormErrorMessage>
                             </FormControl>
                             <PasswordInput
-                                test={isActive ? TEST_IDS.PASSWORD : ''}
+                                test={TEST_IDS.PASSWORD}
                                 errors={errors.password}
-                                {...register('password', { required: true })}
+                                {...register('password')}
                             />
                             <PasswordInput
-                                test={isActive ? TEST_IDS.CONFIRM_PASSWORD : ''}
+                                test={TEST_IDS.CONFIRM_PASSWORD}
                                 errors={errors.rePassword}
                                 repeat
-                                {...register('rePassword', { required: true })}
+                                {...register('rePassword')}
                             />
                         </VStack>
                         <Button
-                            data-test-id={isActive ? TEST_IDS.SUBMIT_BTN : ''}
+                            data-test-id={activeIndex === 1 ? TEST_IDS.SUBMIT_BTN : ''}
                             size='lg'
                             variant='commonLoginBtn'
                             type='submit'
