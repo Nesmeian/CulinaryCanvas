@@ -1,6 +1,14 @@
-import { Button, FormControl, FormErrorMessage, FormLabel, Input, VStack } from '@chakra-ui/react';
+import {
+    Button,
+    FormControl,
+    FormErrorMessage,
+    FormLabel,
+    Input,
+    useDisclosure,
+    VStack,
+} from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -12,11 +20,16 @@ import { LoginFields } from '~/types/LoginTypes';
 import { loginSchema } from '~/utils/validationRules/yupSheme';
 
 import { ForgetModal } from '../../forgetModal';
+import { ResetPasswordModal } from '../../resetPassword';
+import { SendForgetCodeModal } from '../../sendForgetCode';
 import { PasswordInput } from '../passwordInput';
 
 export const LoginTab = () => {
     const [postAuthLogin, { isLoading, isSuccess, isError, error }] = usePostAuthLoginMutation();
-
+    const { isOpen: isForgetOpen, onOpen: openForget, onClose: closeForget } = useDisclosure();
+    const { isOpen: isSendOpen, onOpen: openSend, onClose: closeSend } = useDisclosure();
+    const { isOpen: isResetOpen, onOpen: openReset, onClose: closeReset } = useDisclosure();
+    const [verEmail, setVerEmail] = useState('');
     const location = useLocation();
     const isEmailVerified = location.state?.emailVerified;
     const navigate = useNavigate();
@@ -58,11 +71,23 @@ export const LoginTab = () => {
                 >
                     Войти
                 </Button>
-                <Button size='lg' width='100%' variant='plain'>
+                <Button size='lg' width='100%' variant='plain' onClick={openForget}>
                     Забыли логин или пароль?
                 </Button>
             </form>
-            <ForgetModal />
+            <ForgetModal
+                isOpen={isForgetOpen}
+                onClose={closeForget}
+                onSuccess={openSend}
+                setVerEmail={setVerEmail}
+            />
+            <SendForgetCodeModal
+                isOpen={isSendOpen}
+                onClose={closeSend}
+                onSuccess={openReset}
+                email={verEmail}
+            />
+            <ResetPasswordModal isOpen={isResetOpen} onClose={closeReset} />
             {isLoading && <Loader />}
             {isEmailVerified && <Alert isSuccessVerification />}
             {isError && <Alert error={error.data.message} />}

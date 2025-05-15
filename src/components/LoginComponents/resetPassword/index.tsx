@@ -3,52 +3,46 @@ import {
     Center,
     FormControl,
     FormErrorMessage,
+    FormHelperText,
     FormLabel,
+    Heading,
     Image,
     Input,
-    Text,
     VStack,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
 import { LoginInputStyles } from '~/components/Pages/Login/textStyles';
-import { useForgotPasswordMutation } from '~/query/services/post';
-import { VerifyField } from '~/types/LoginTypes';
-import { verifySchema } from '~/utils/validationRules/yupSheme';
+import { useResetPasswordMutation } from '~/query/services/post';
+import { ResetPasswordType } from '~/types/LoginTypes';
+import { resetPasswordSchema } from '~/utils/validationRules/yupSheme';
 
 import closeBtn from '../../../assets/closeSvg.svg';
-import * as loginImgs from '../../../assets/LoginImg/index';
-export const ForgetModal = ({
+import { PasswordInput } from '../LoginTabs/passwordInput';
+export const ResetPasswordModal = ({
     isOpen,
     onClose,
-    onSuccess,
-    setVerEmail,
 }: {
     isOpen: boolean;
     onClose: () => void;
-    onSuccess: () => void;
-    setVerEmail: (email: string) => void;
 }) => {
-    const [verifyEmail, { isSuccess, isError, error, isLoading }] = useForgotPasswordMutation();
-
+    const [resetPassword, { isSuccess, isLoading, isError, error }] = useResetPasswordMutation();
     const {
         register,
         handleSubmit,
         formState: { isDirty, isValid, errors },
-    } = useForm<VerifyField>({ mode: 'onChange', resolver: yupResolver(verifySchema) });
-    useEffect(() => {
-        if (isSuccess) {
-            onClose();
-            onSuccess();
-        }
-    }, [isSuccess, onClose, onSuccess]);
-    const onSubmit: SubmitHandler<VerifyField> = (data) => {
-        verifyEmail(data);
-        setVerEmail(data.email);
+    } = useForm<ResetPasswordType>({
+        mode: 'onChange',
+        resolver: yupResolver(resetPasswordSchema),
+    });
+    if (isSuccess) {
+        return <Alert isSuccessVerification />;
+    }
+    const onSubmit: SubmitHandler<ResetPasswordType> = (data) => {
+        resetPassword(data);
     };
 
     return isOpen ? (
@@ -62,31 +56,39 @@ export const ForgetModal = ({
             zIndex={9999}
         >
             <VStack
-                w='332px'
+                w='396px'
                 background='white'
                 borderRadius='16px'
                 p='32px'
                 gap='24px'
                 position='relative'
             >
-                <Image src={loginImgs.forgetModal} alt='forget modal img' />
-                <Text fontSize='16px' textAlign='center'>
-                    Для восстановления входа введите ваш e-mail, куда можно отправить уникальный код
-                </Text>
+                <Heading fontSize='24px' fontWeight='700' textAlign='center'>
+                    Восстановление <br /> аккаунта
+                </Heading>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <VStack gap='24px'>
-                        <FormControl isInvalid={!!errors.email}>
-                            <FormLabel>Ваш email</FormLabel>
+                        <FormControl isInvalid={!!errors.login}>
+                            <FormLabel>Логин для входа на сайт</FormLabel>
                             <Input
                                 {...LoginInputStyles}
-                                {...register('email')}
-                                placeholder='e-mail'
+                                {...register('login')}
+                                placeholder='Введите Логин'
                                 borderColor={isError ? 'red' : '#d7ff94'}
                             />
+                            <FormHelperText>
+                                Логин не менее 5 символов, только латиница
+                            </FormHelperText>
                             <FormErrorMessage>
-                                {errors.email && errors.email.message}
+                                {errors.login && errors.login.message}
                             </FormErrorMessage>
                         </FormControl>
+                        <PasswordInput errors={errors.password} {...register('password')} />
+                        <PasswordInput
+                            errors={errors.passwordConfirm}
+                            repeat
+                            {...register('passwordConfirm')}
+                        />
                         <Button
                             type='submit'
                             variant='commonLoginBtn'
@@ -96,11 +98,6 @@ export const ForgetModal = ({
                         </Button>
                     </VStack>
                 </form>
-                <VStack gap={0}>
-                    <Text fontSize='12px' color='rgba(0, 0, 0, 0.48)'>
-                        Не пришло письмо? Проверьте папку Спам.
-                    </Text>
-                </VStack>
                 <Image
                     position='absolute'
                     right='24px'

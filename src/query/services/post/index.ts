@@ -3,7 +3,8 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
-import { forgotPassword, PostAuthRegType, PostLoginType } from '~/types/postData';
+import { ResetPasswordType } from '~/types/LoginTypes';
+import { forgotPassword, PostAuthRegType, PostLoginType, VerifyOTP } from '~/types/postData';
 
 export const postsApiSlice = apiSlice
     .enhanceEndpoints({
@@ -46,8 +47,31 @@ export const postsApiSlice = apiSlice
                     name: EndpointNames.FORGOT_PASSWORD,
                 }),
             }),
+            verifyOtk: builder.mutation<void, VerifyOTP>({
+                query: (body) => ({
+                    url: ApiEndpoints.VERIFY_OTP,
+                    method: 'POST',
+                    body,
+                    apiGroupName: ApiGroupNames.VERIFY_OTP,
+                    name: EndpointNames.VERIFY_OTP,
+                }),
+            }),
+            resetPassword: builder.mutation<void, ResetPasswordType>({
+                query: (body) => ({
+                    url: ApiEndpoints.RESET_PASSWORD,
+                    method: 'POST',
+                    body,
+                    apiGroupName: ApiGroupNames.RESET_PASSWORD,
+                    name: EndpointNames.RESET_PASSWORD,
+                }),
+            }),
         }),
     });
 
-export const { usePostAuthSignUpMutation, usePostAuthLoginMutation, useForgotPasswordMutation } =
-    postsApiSlice;
+export const {
+    usePostAuthSignUpMutation,
+    usePostAuthLoginMutation,
+    useForgotPasswordMutation,
+    useVerifyOtkMutation,
+    useResetPasswordMutation,
+} = postsApiSlice;
