@@ -20,6 +20,7 @@ import { usePostAuthLoginMutation } from '~/query/services/post';
 import { LoginFields } from '~/types/LoginTypes';
 import { loginSchema } from '~/utils/validationRules/yupSheme';
 
+import { ErrorServerModal } from '../../errorServerModal';
 import { ForgetModal } from '../../forgetModal';
 import { ResetPasswordModal } from '../../resetPassword';
 import { SendForgetCodeModal } from '../../sendForgetCode';
@@ -31,6 +32,7 @@ export const LoginTab = ({ isActive }: { isActive: boolean }) => {
     const { isOpen: isSendOpen, onOpen: openSend, onClose: closeSend } = useDisclosure();
     const { isOpen: isResetOpen, onOpen: openReset, onClose: closeReset } = useDisclosure();
     const [verEmail, setVerEmail] = useState('');
+    const [sendData, setSendData] = useState<LoginFields | []>([]);
     const location = useLocation();
     const isEmailVerified = location.state?.emailVerified;
     const navigate = useNavigate();
@@ -41,10 +43,12 @@ export const LoginTab = ({ isActive }: { isActive: boolean }) => {
     } = useForm<LoginFields>({ mode: 'onChange', resolver: yupResolver(loginSchema) });
     const onSubmit: SubmitHandler<LoginFields> = (data) => {
         postAuthLogin(data);
+        setSendData(data);
     };
     useEffect(() => {
         if (isSuccess) {
             navigate('/', { replace: true });
+            setSendData([]);
         }
     }, [isSuccess, navigate]);
     return (
@@ -106,7 +110,13 @@ export const LoginTab = ({ isActive }: { isActive: boolean }) => {
             <ResetPasswordModal isOpen={isResetOpen} onClose={closeReset} />
             {isLoading && <Loader />}
             {isEmailVerified && <Alert isSuccessVerification />}
-            {isError && <Alert error={error.data.message} />}
+            {isError ? (
+                error.status !== 500 ? (
+                    <Alert errorStatus={error.status} />
+                ) : (
+                    <ErrorServerModal repeatSend={sendData} />
+                )
+            ) : null}
         </VStack>
     );
 };

@@ -15,10 +15,10 @@ import { TEST_IDS } from '~/constants/testsIds';
 import { alertErrors } from './alertErrors';
 
 export const Alert = ({
-    error,
+    errorStatus,
     isSuccessVerification,
 }: {
-    error?: string;
+    errorStatus?: string;
     isSuccessVerification?: boolean;
 }) => {
     const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
@@ -31,6 +31,8 @@ export const Alert = ({
     if (!isOpen) {
         return null;
     }
+    console.log(errorStatus);
+    console.log(alertErrors);
     const status = isSuccessVerification ? 'success' : 'error';
     return (
         <AlertElem
@@ -49,10 +51,12 @@ export const Alert = ({
                 <AlertIcon color='white' />
                 {isSuccessVerification ? (
                     <AlertTitle>Верификация прошла успешно</AlertTitle>
-                ) : error ? (
+                ) : errorStatus ? (
                     <VStack alignItems='flex-start' gap={0}>
-                        <AlertTitle>{error}</AlertTitle>
-                        <AlertDescription>{alertErrors[error] || ''}</AlertDescription>
+                        <AlertTitle>{alertErrors[errorStatus].title || ''}</AlertTitle>
+                        <AlertDescription>
+                            {alertErrors[errorStatus].description || ''}
+                        </AlertDescription>
                     </VStack>
                 ) : (
                     <VStack alignItems='flex-start' gap={0}>
