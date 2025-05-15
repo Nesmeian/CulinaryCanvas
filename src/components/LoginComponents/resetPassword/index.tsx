@@ -16,6 +16,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
 import { LoginInputStyles } from '~/components/Pages/Login/textStyles';
+import { TEST_IDS } from '~/constants/testsIds';
 import { useResetPasswordMutation } from '~/query/services/post';
 import { ResetPasswordType } from '~/types/LoginTypes';
 import { resetPasswordSchema } from '~/utils/validationRules/yupSheme';
@@ -62,6 +63,7 @@ export const ResetPasswordModal = ({
                 p='32px'
                 gap='24px'
                 position='relative'
+                data-test-id={TEST_IDS.RESET_CREDENTIALS_MODAL}
             >
                 <Heading fontSize='24px' fontWeight='700' textAlign='center'>
                     Восстановление <br /> аккаунта
@@ -71,6 +73,7 @@ export const ResetPasswordModal = ({
                         <FormControl isInvalid={!!errors.login}>
                             <FormLabel>Логин для входа на сайт</FormLabel>
                             <Input
+                                data-test-id={TEST_IDS.LOGIN_INPUT}
                                 {...LoginInputStyles}
                                 {...register('login')}
                                 placeholder='Введите Логин'
@@ -83,13 +86,19 @@ export const ResetPasswordModal = ({
                                 {errors.login && errors.login.message}
                             </FormErrorMessage>
                         </FormControl>
-                        <PasswordInput errors={errors.password} {...register('password')} />
                         <PasswordInput
+                            test={TEST_IDS.PASSWORD}
+                            errors={errors.password}
+                            {...register('password')}
+                        />
+                        <PasswordInput
+                            test={TEST_IDS.CONFIRM_PASSWORD}
                             errors={errors.passwordConfirm}
                             repeat
                             {...register('passwordConfirm')}
                         />
                         <Button
+                            data-test-id={TEST_IDS.SUBMIT_BTN}
                             type='submit'
                             variant='commonLoginBtn'
                             isDisabled={!isDirty || !isValid}
@@ -99,6 +108,7 @@ export const ResetPasswordModal = ({
                     </VStack>
                 </form>
                 <Image
+                    data-test-id={TEST_IDS.CLOSE_BTN}
                     position='absolute'
                     right='24px'
                     src={closeBtn}

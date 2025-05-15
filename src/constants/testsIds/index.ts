@@ -39,6 +39,28 @@ const CAROUSEL_BACK = 'carousel-back';
 const CAROUSEL_FORWARD = 'carousel-forward';
 const CAROUSEL_CARD = 'carousel-card-';
 const TAB = 'tab-';
+
+//Login tests
+const SING_IN = 'sign-in-form';
+const PASSWORD = 'password-input';
+const CONFIRM_PASSWORD = 'confirm-password-input';
+const PASSWORD_VISIBILITY_BTN = 'password-visibility-button';
+const SUBMIT_BTN = 'submit-button';
+const FORGOT_PASSWORD = 'forgot-password';
+const CLOSE_BTN = 'close-button';
+const SIGN_IN_ERROR_MODAL = 'sign-in-error-modal';
+const REPEAT_BTN = 'repeat-button';
+const SIGN_UP_PROGRESS = 'sign-up-progress';
+const SIGN_UP_FORM = 'sign-up-form';
+const FIRST_NAME_INPUT = 'first-name-input';
+const LAST_NAME_INPUT = 'last-name-input';
+const EMAIL_INPUT = 'email-input';
+const LOGIN_INPUT = 'login-input';
+const SIGN_UP_SUCCESS_MODAL = 'sign-up-success-modal';
+const EMAIL_VERIFICATION_FAILED_MODAL = 'email-verification-failed-modal';
+const VERIFICATION_CODE_MODAL = 'verification-code-modal';
+const VERIFICATION_CODE_INPUT = 'verification-code-input-';
+const RESET_CREDENTIALS_MODAL = 'reset-credentials-modal';
 export const TEST_IDS = {
     ALLERGENS_MENU,
     CLEAR_FILTER_BTN,
@@ -81,4 +103,24 @@ export const TEST_IDS = {
     LOAD_MORE_BTN,
     LOADER_SEARCH_BLOCK,
     ERROR_PAGE,
+    SING_IN,
+    PASSWORD,
+    CONFIRM_PASSWORD,
+    PASSWORD_VISIBILITY_BTN,
+    SUBMIT_BTN,
+    FORGOT_PASSWORD,
+    CLOSE_BTN,
+    SIGN_IN_ERROR_MODAL,
+    REPEAT_BTN,
+    SIGN_UP_PROGRESS,
+    SIGN_UP_FORM,
+    FIRST_NAME_INPUT,
+    LAST_NAME_INPUT,
+    EMAIL_INPUT,
+    LOGIN_INPUT,
+    SIGN_UP_SUCCESS_MODAL,
+    EMAIL_VERIFICATION_FAILED_MODAL,
+    VERIFICATION_CODE_MODAL,
+    VERIFICATION_CODE_INPUT,
+    RESET_CREDENTIALS_MODAL,
 };

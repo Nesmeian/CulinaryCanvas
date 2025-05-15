@@ -34,10 +34,10 @@ export const LoginTabs = () => {
             </TabList>
             <TabPanels>
                 <TabPanel p={0}>
-                    <LoginTab />
+                    <LoginTab isActive={tabIndex === 0} />
                 </TabPanel>
                 <TabPanel p={0}>
-                    <RegTab />
+                    <RegTab isActive={tabIndex === 1} />
                 </TabPanel>
             </TabPanels>
         </Tabs>

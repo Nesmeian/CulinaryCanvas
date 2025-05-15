@@ -24,6 +24,7 @@ const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
 };
 const AppRoutes = () => {
     const { data, isLoading, isError } = useGetFilteredCategories();
+
     if (isError) return <Alert />;
     if (isLoading) return <Loader />;
     const subcategories = data.reduce<Record<string, { id: string; category: string }[]>>(
@@ -40,7 +41,6 @@ const AppRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
-                {/* Все маршруты, требующие авторизации */}
                 <Route
                     path='/'
                     element={

@@ -22,6 +22,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
 import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
+import { TEST_IDS } from '~/constants/testsIds';
 import { usePostAuthSignUpMutation } from '~/query/services/post';
 import { RegFields } from '~/types/LoginTypes';
 import { registrationProgress } from '~/utils/LoginPageUtils/RegistationProgress';
@@ -31,14 +32,14 @@ import { EmailVerificationFailed } from '../../emailVeritification/verificationF
 import { EmailVerificationSuccess } from '../../emailVeritification/verificationSuccess';
 import { PasswordInput } from '../passwordInput';
 
-export const RegTab = () => {
+export const RegTab = ({ isActive }: { isActive: boolean }) => {
     const [postAuthSignUp, { isLoading, isError, error, isSuccess }] = usePostAuthSignUpMutation();
     const [verEmail, setVerEmail] = useState('');
     const swiperRef = useRef<SwiperType>(null);
     const {
         register,
         handleSubmit,
-        formState: { isDirty, isValid, errors },
+        formState: { errors },
         trigger,
         watch,
     } = useForm<RegFields>({
@@ -73,10 +74,15 @@ export const RegTab = () => {
     const isEmailVerified = location.state?.emailVerified;
     return (
         <VStack>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <VStack gap={0} mb='24px'>
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                data-test-id={TEST_IDS.SIGN_UP_FORM}
+                className='registration_form'
+            >
+                <VStack gap={0} mb='24px' width='100%'>
                     <Text w='100%'>{steps[activeIndex]}</Text>
                     <Progress
+                        data-test-id={TEST_IDS.SIGN_UP_PROGRESS}
                         value={progressState}
                         w='100%'
                         h='8px'
@@ -97,6 +103,7 @@ export const RegTab = () => {
                             <FormControl isInvalid={!!errors.firstName}>
                                 <FormLabel {...LoginFormLabel}>Ваше имя</FormLabel>
                                 <Input
+                                    data-test-id={isActive ? TEST_IDS.FIRST_NAME_INPUT : ''}
                                     placeholder='Имя'
                                     {...LoginInputStyles}
                                     {...register('firstName', { required: 'Ваше имя' })}
@@ -108,6 +115,7 @@ export const RegTab = () => {
                             <FormControl isInvalid={!!errors.lastName}>
                                 <FormLabel {...LoginFormLabel}>Ваша фамилия</FormLabel>
                                 <Input
+                                    data-test-id={isActive ? TEST_IDS.LAST_NAME_INPUT : ''}
                                     placeholder='Фамилия'
                                     {...LoginInputStyles}
                                     {...register('lastName', { required: true })}
@@ -119,6 +127,7 @@ export const RegTab = () => {
                             <FormControl isInvalid={!!errors.email}>
                                 <FormLabel {...LoginFormLabel}>Ваш e-mail</FormLabel>
                                 <Input
+                                    data-test-id={isActive ? TEST_IDS.EMAIL_INPUT : ''}
                                     type='email'
                                     {...LoginInputStyles}
                                     placeholder='e-mail'
@@ -143,6 +152,7 @@ export const RegTab = () => {
                             <FormControl isInvalid={!!errors.login}>
                                 <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
                                 <Input
+                                    data-test-id={isActive ? TEST_IDS.LOGIN_INPUT : ''}
                                     placeholder='Логин'
                                     {...LoginInputStyles}
                                     {...register('login', { required: true })}
@@ -155,20 +165,22 @@ export const RegTab = () => {
                                 </FormErrorMessage>
                             </FormControl>
                             <PasswordInput
+                                test={isActive ? TEST_IDS.PASSWORD : ''}
                                 errors={errors.password}
                                 {...register('password', { required: true })}
                             />
                             <PasswordInput
+                                test={isActive ? TEST_IDS.CONFIRM_PASSWORD : ''}
                                 errors={errors.rePassword}
                                 repeat
                                 {...register('rePassword', { required: true })}
                             />
                         </VStack>
                         <Button
+                            data-test-id={isActive ? TEST_IDS.SUBMIT_BTN : ''}
                             size='lg'
                             variant='commonLoginBtn'
                             type='submit'
-                            isDisabled={!isDirty || !isValid}
                         >
                             Зарегистрироваться
                         </Button>

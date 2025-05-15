@@ -16,6 +16,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
 import { LoginInputStyles } from '~/components/Pages/Login/textStyles';
+import { TEST_IDS } from '~/constants/testsIds';
 import { useForgotPasswordMutation } from '~/query/services/post';
 import { VerifyField } from '~/types/LoginTypes';
 import { verifySchema } from '~/utils/validationRules/yupSheme';
@@ -53,6 +54,7 @@ export const ForgetModal = ({
 
     return isOpen ? (
         <Center
+            data-test-id={TEST_IDS.SIGN_UP_SUCCESS_MODAL}
             h='100vh'
             w='100vw'
             bg='rgba(0, 0, 0, 0.7)'
@@ -78,6 +80,7 @@ export const ForgetModal = ({
                         <FormControl isInvalid={!!errors.email}>
                             <FormLabel>Ваш email</FormLabel>
                             <Input
+                                data-test-id={TEST_IDS.EMAIL_INPUT}
                                 {...LoginInputStyles}
                                 {...register('email')}
                                 placeholder='e-mail'
@@ -88,6 +91,7 @@ export const ForgetModal = ({
                             </FormErrorMessage>
                         </FormControl>
                         <Button
+                            data-test-id={TEST_IDS.SUBMIT_BTN}
                             type='submit'
                             variant='commonLoginBtn'
                             isDisabled={!isDirty || !isValid}
@@ -102,6 +106,7 @@ export const ForgetModal = ({
                     </Text>
                 </VStack>
                 <Image
+                    data-test-id={TEST_IDS.CLOSE_BTN}
                     position='absolute'
                     right='24px'
                     src={closeBtn}
