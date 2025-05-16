@@ -13,15 +13,22 @@ import { useEffect } from 'react';
 import { TEST_IDS } from '~/constants/testsIds';
 
 import { alertErrors } from './alertErrors';
-
+type errorMessageType = {
+    title: string;
+    description: string;
+};
 export const Alert = ({
     errorStatus,
     errorData,
-    isSuccessVerification,
+    errorMessage,
+    isSuccessCheck,
+    successMessage,
 }: {
+    errorMessage?: errorMessageType;
     errorStatus?: number;
     errorData?: string;
-    isSuccessVerification?: boolean;
+    isSuccessCheck?: boolean;
+    successMessage?: string;
 }) => {
     const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
     useEffect(() => {
@@ -33,13 +40,14 @@ export const Alert = ({
     if (!isOpen) {
         return null;
     }
-    const status = isSuccessVerification ? 'success' : 'error';
+    console.log(isSuccessCheck, 'check');
+    const status = isSuccessCheck ? 'success' : 'error';
     return (
         <AlertElem
             position='fixed'
             status={status}
             color='white'
-            background={isSuccessVerification ? '#38a169;' : ' #e53e3e'}
+            background={isSuccessCheck ? '#38a169;' : ' #e53e3e'}
             left='50%'
             transform='translateX(-50%)'
             w={{ lg: '400px', base: '328px' }}
@@ -49,8 +57,15 @@ export const Alert = ({
         >
             <HStack>
                 <AlertIcon color='white' />
-                {isSuccessVerification ? (
-                    <AlertTitle>Верификация прошла успешно</AlertTitle>
+                {isSuccessCheck ? (
+                    <AlertTitle>{successMessage || ''}</AlertTitle>
+                ) : errorMessage ? (
+                    <VStack alignItems='flex-start' gap={0}>
+                        <AlertTitle>{errorMessage[errorStatus].title || 'Ошибка'}</AlertTitle>
+                        <AlertDescription>
+                            {errorMessage[errorStatus].description || 'Произошла ошибка'}
+                        </AlertDescription>
+                    </VStack>
                 ) : errorStatus !== 400 ? (
                     <VStack alignItems='flex-start' gap={0}>
                         <AlertTitle>{alertErrors[errorStatus]?.title || 'Ошибка'}</AlertTitle>

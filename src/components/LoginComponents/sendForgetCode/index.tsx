@@ -10,6 +10,7 @@ import { verifyCode } from '~/types/LoginTypes';
 
 import closeBtn from '../../../assets/closeSvg.svg';
 import * as loginImgs from '../../../assets/LoginImg/index';
+
 export const SendForgetCodeModal = ({
     isOpen,
     onClose,
@@ -23,7 +24,9 @@ export const SendForgetCodeModal = ({
 }) => {
     const [verifyOTK, { isLoading, isSuccess, isError, error }] = useVerifyOtkMutation();
     const formRef = useRef<HTMLFormElement>(null);
-    const { control, handleSubmit } = useForm<verifyCode>();
+    const { control, handleSubmit, reset } = useForm<verifyCode>({
+        defaultValues: { otpToken: '' },
+    });
 
     useEffect(() => {
         if (isSuccess) {
@@ -32,12 +35,21 @@ export const SendForgetCodeModal = ({
         }
     }, [isSuccess, onClose, onSuccess]);
     const onSubmit: SubmitHandler<verifyCode> = ({ otpToken }) => {
-        const data = {
-            email: email,
-            otpToken: otpToken,
-        };
-        verifyOTK(data);
+        const payload = { email, otpToken };
+        reset();
+        verifyOTK(payload);
     };
+    const errorMessage = {
+        403: {
+            title: 'Неверный код',
+            description: 'Попоробуйте еще раз',
+        },
+        500: {
+            title: 'Ошибка сервера',
+            description: 'Попробуйте немного позже',
+        },
+    };
+    console.log(error);
     return isOpen ? (
         <Center
             data-test-id={TEST_IDS.VERIFICATION_CODE_MODAL}
@@ -71,20 +83,24 @@ export const SendForgetCodeModal = ({
                     <Controller
                         name='otpToken'
                         control={control}
+                        defaultValue=''
                         rules={{ minLength: 6 }}
-                        render={({ field }, i) => (
+                        render={({ field }) => (
                             <HStack gap='6px'>
                                 <PinInput
-                                    data-test-id={`${TEST_IDS.VERIFICATION_CODE_INPUT}${i}`}
                                     size='md'
                                     otp
-                                    onComplete={(value) => {
-                                        field.onChange(value);
+                                    value={field.value}
+                                    onChange={(val) => {
+                                        field.onChange(val);
                                         formRef.current?.requestSubmit();
                                     }}
                                 >
-                                    {[...Array(6)].map((_, idx) => (
-                                        <PinInputField key={idx} />
+                                    {Array.from({ length: 6 }).map((_, idx) => (
+                                        <PinInputField
+                                            key={idx}
+                                            data-test-id={`${TEST_IDS.VERIFICATION_CODE_INPUT}${idx + 1}`}
+                                        />
                                     ))}
                                 </PinInput>
                             </HStack>
@@ -106,8 +122,14 @@ export const SendForgetCodeModal = ({
                 />
             </VStack>
             {isLoading && <Loader />}
-            {isError && <Alert error={error.data.message} />}
-            {isSuccess && <Alert isSuccessVerification />}
+            {isError && (
+                <Alert
+                    error={error.data.message}
+                    errorStatus={error.status}
+                    errorMessage={errorMessage}
+                />
+            )}
+            {isSuccess && <Alert isSuccessCheck />}
         </Center>
     ) : null;
 };

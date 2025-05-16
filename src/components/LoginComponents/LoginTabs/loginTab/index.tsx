@@ -18,7 +18,6 @@ import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textS
 import { TEST_IDS } from '~/constants/testsIds';
 import { usePostAuthLoginMutation } from '~/query/services/post';
 import { LoginFields } from '~/types/LoginTypes';
-import { trimInput } from '~/utils/trimInput';
 import { loginSchema } from '~/utils/validationRules/yupSheme';
 
 import { ErrorServerModal } from '../../errorServerModal';
@@ -59,10 +58,10 @@ export const LoginTab = () => {
                     <FormControl isInvalid={!!errors.login}>
                         <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
                         <Input
-                            onInput={(e) => trimInput(e)}
                             {...register('login')}
                             {...LoginInputStyles}
                             data-test-id={TEST_IDS.LOGIN_INPUT}
+                            onBlur={(e) => (e.target.value = e.target.value.trim())}
                             placeholder='Введите логин'
                         />
                         <FormErrorMessage> {errors.login && errors.login.message}</FormErrorMessage>
@@ -105,9 +104,11 @@ export const LoginTab = () => {
                 onSuccess={openReset}
                 email={verEmail}
             />
-            <ResetPasswordModal isOpen={isResetOpen} onClose={closeReset} />
+            <ResetPasswordModal isOpen={isResetOpen} onClose={closeReset} email={verEmail} />
             {isLoading && <Loader />}
-            {isEmailVerified && <Alert isSuccessVerification />}
+            {isEmailVerified && (
+                <Alert isSuccessCheck successMessage='Верификация прошла успешно' />
+            )}
             {isError ? (
                 error.status !== 500 ? (
                     <Alert errorStatus={error.status} />
