@@ -57,6 +57,7 @@ const LAST_NAME_INPUT = 'last-name-input';
 const EMAIL_INPUT = 'email-input';
 const LOGIN_INPUT = 'login-input';
 const SIGN_UP_SUCCESS_MODAL = 'sign-up-success-modal';
+const SEND_EMAIL_MODAL = 'send-email-modal';
 const EMAIL_VERIFICATION_FAILED_MODAL = 'email-verification-failed-modal';
 const VERIFICATION_CODE_MODAL = 'verification-code-modal';
 const VERIFICATION_CODE_INPUT = 'verification-code-input-';
@@ -123,4 +124,5 @@ export const TEST_IDS = {
     VERIFICATION_CODE_MODAL,
     VERIFICATION_CODE_INPUT,
     RESET_CREDENTIALS_MODAL,
+    SEND_EMAIL_MODAL,
 };

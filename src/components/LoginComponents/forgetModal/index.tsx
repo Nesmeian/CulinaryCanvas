@@ -21,8 +21,8 @@ import { useForgotPasswordMutation } from '~/query/services/post';
 import { VerifyField } from '~/types/LoginTypes';
 import { verifySchema } from '~/utils/validationRules/yupSheme';
 
-import closeBtn from '../../../assets/closeSvg.svg';
 import * as loginImgs from '../../../assets/LoginImg/index';
+import closeBtn from '../../../assets/verificationCloseImg.svg';
 export const ForgetModal = ({
     isOpen,
     onClose,
@@ -39,7 +39,8 @@ export const ForgetModal = ({
     const {
         register,
         handleSubmit,
-        formState: { isDirty, isValid, errors },
+        reset,
+        formState: { errors },
     } = useForm<VerifyField>({ mode: 'onChange', resolver: yupResolver(verifySchema) });
     useEffect(() => {
         if (isSuccess) {
@@ -50,11 +51,26 @@ export const ForgetModal = ({
     const onSubmit: SubmitHandler<VerifyField> = (data) => {
         verifyEmail(data);
         setVerEmail(data.email);
+        reset();
     };
-
+    const closeHandle = () => {
+        onClose();
+        setVerEmail('');
+        reset();
+    };
+    const errorMessage = {
+        403: {
+            title: 'Такого e-mail нет',
+            description: 'Попробуйте другой e-mail или проверьте правильность его написания',
+        },
+        500: {
+            title: 'Ошибка сервера',
+            description: 'Попробуйте немного позже',
+        },
+    };
     return isOpen ? (
         <Center
-            data-test-id={TEST_IDS.SIGN_UP_SUCCESS_MODAL}
+            data-test-id={TEST_IDS.SEND_EMAIL_MODAL}
             h='100vh'
             w='100vw'
             bg='rgba(0, 0, 0, 0.7)'
@@ -84,6 +100,7 @@ export const ForgetModal = ({
                                 {...LoginInputStyles}
                                 {...register('email')}
                                 placeholder='e-mail'
+                                onBlur={(e) => (e.target.value = e.target.value.trim())}
                                 borderColor={isError ? 'red' : '#d7ff94'}
                             />
                             <FormErrorMessage>
@@ -94,7 +111,6 @@ export const ForgetModal = ({
                             data-test-id={TEST_IDS.SUBMIT_BTN}
                             type='submit'
                             variant='commonLoginBtn'
-                            isDisabled={!isDirty || !isValid}
                         >
                             Получить код
                         </Button>
@@ -111,12 +127,11 @@ export const ForgetModal = ({
                     right='24px'
                     src={closeBtn}
                     alt='close img'
-                    onClick={onClose}
+                    onClick={closeHandle}
                 />
             </VStack>
             {isLoading && <Loader />}
-            {isError && <Alert error={error.data.message} />}
-            {isSuccess && <Alert isSuccessVerification />}
+            {isError && <Alert errorStatus={error.status} errorMessage={errorMessage} />}
         </Center>
     ) : null;
 };

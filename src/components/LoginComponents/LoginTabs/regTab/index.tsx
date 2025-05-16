@@ -188,7 +188,7 @@ export const RegTab = () => {
             {isLoading && <Loader />}
             {isError && <Alert errorStatus={error.status} errorData={error.data.message} />}
             {isSuccess && <EmailVerificationSuccess email={verEmail} />}
-            {!isEmailVerified == false && <EmailVerificationFailed />}
+            {isEmailVerified == false && <EmailVerificationFailed />}
         </VStack>
     );
 };

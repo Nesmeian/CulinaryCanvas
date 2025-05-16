@@ -14,6 +14,7 @@ export type VerifyField = {
     email: string;
 };
 export type ResetPasswordType = {
+    email?: string;
     login: string;
     password: string;
     passwordConfirm: string;

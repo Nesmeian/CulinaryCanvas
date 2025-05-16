@@ -26,26 +26,38 @@ import { PasswordInput } from '../LoginTabs/passwordInput';
 export const ResetPasswordModal = ({
     isOpen,
     onClose,
+    email,
 }: {
     isOpen: boolean;
     onClose: () => void;
+    email: string;
 }) => {
     const [resetPassword, { isSuccess, isLoading, isError, error }] = useResetPasswordMutation();
     const {
         register,
         handleSubmit,
-        formState: { isDirty, isValid, errors },
+        formState: { errors },
     } = useForm<ResetPasswordType>({
         mode: 'onChange',
         resolver: yupResolver(resetPasswordSchema),
     });
     if (isSuccess) {
-        return <Alert isSuccessVerification />;
+        return <Alert isSuccessCheck successMessage='Восстановление данных успешно' />;
     }
     const onSubmit: SubmitHandler<ResetPasswordType> = (data) => {
+        data.email = email;
         resetPassword(data);
     };
-
+    const errorMessage = {
+        403: {
+            title: 'Такого e-mail нет',
+            description: 'Попробуйте другой e-mail или проверьте правильность его написания',
+        },
+        500: {
+            title: 'Ошибка сервера',
+            description: 'Попробуйте немного позже',
+        },
+    };
     return isOpen ? (
         <Center
             h='100vh'
@@ -101,7 +113,6 @@ export const ResetPasswordModal = ({
                             data-test-id={TEST_IDS.SUBMIT_BTN}
                             type='submit'
                             variant='commonLoginBtn'
-                            isDisabled={!isDirty || !isValid}
                         >
                             Получить код
                         </Button>
@@ -117,8 +128,13 @@ export const ResetPasswordModal = ({
                 />
             </VStack>
             {isLoading && <Loader />}
-            {isError && <Alert error={error.data.message} />}
-            {isSuccess && <Alert isSuccessVerification />}
+            {isError && (
+                <Alert
+                    error={error.data.message}
+                    errorStatus={error.status}
+                    errorMessage={errorMessage}
+                />
+            )}
         </Center>
     ) : null;
 };

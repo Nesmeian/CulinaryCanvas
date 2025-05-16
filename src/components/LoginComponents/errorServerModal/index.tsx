@@ -83,7 +83,6 @@ export const ErrorServerModal = ({ repeatSend }: { repeatSend: LoginFields | [] 
                 />
             </VStack>
             {isLoading && <Loader />}
-            {isError && <Alert errorStatus={error.statusCode} />}
         </Center>
     );
 };
