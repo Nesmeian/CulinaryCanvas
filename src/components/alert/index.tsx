@@ -60,16 +60,22 @@ export const Alert = ({
                     <AlertTitle>{successMessage || ''}</AlertTitle>
                 ) : errorMessage ? (
                     <VStack alignItems='flex-start' gap={0}>
-                        <AlertTitle>{errorMessage[errorStatus].title || 'Ошибка'}</AlertTitle>
+                        <AlertTitle>
+                            {errorMessage[errorStatus].title || 'Ошибка сервера'}
+                        </AlertTitle>
                         <AlertDescription>
-                            {errorMessage[errorStatus].description || 'Произошла ошибка'}
+                            {errorMessage[errorStatus].description ||
+                                'Попробуйте поискать снова попозже'}
                         </AlertDescription>
                     </VStack>
                 ) : errorStatus !== 400 ? (
                     <VStack alignItems='flex-start' gap={0}>
-                        <AlertTitle>{alertErrors[errorStatus]?.title || 'Ошибка'}</AlertTitle>
+                        <AlertTitle>
+                            {alertErrors[errorStatus]?.title || 'Ошибка сервера'}
+                        </AlertTitle>
                         <AlertDescription>
-                            {alertErrors[errorStatus]?.description || 'Произошла ошибка'}
+                            {alertErrors[errorStatus]?.description ||
+                                'Попробуйте поискать снова попозже'}
                         </AlertDescription>
                     </VStack>
                 ) : errorData ? (
