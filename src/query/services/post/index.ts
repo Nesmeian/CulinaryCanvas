@@ -3,6 +3,7 @@ import { ApiGroupNames } from '~/query/constants/api-group-names.ts';
 import { EndpointNames } from '~/query/constants/endpoint-names.ts';
 import { Tags } from '~/query/constants/tags.ts';
 import { apiSlice } from '~/query/create-api.ts';
+import { setIsAuth } from '~/store/app-slice';
 import { ResetPasswordType } from '~/types/LoginTypes';
 import { forgotPassword, PostAuthRegType, PostLoginType, VerifyOTP } from '~/types/postData';
 
@@ -37,6 +38,11 @@ export const postsApiSlice = apiSlice
                     }
                 },
                 invalidatesTags: [Tags.LOGIN],
+                onQueryStarted: (_, { queryFulfilled, dispatch }) => {
+                    queryFulfilled.then(() => {
+                        dispatch(setIsAuth(true));
+                    });
+                },
             }),
             forgotPassword: builder.mutation<void, forgotPassword>({
                 query: (body) => ({

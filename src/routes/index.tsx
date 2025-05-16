@@ -12,21 +12,20 @@ import { MainPage } from '~/components/Pages/MainPage';
 import Recipe from '~/components/recipe';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { useCheckAuthTokenQuery } from '~/query/services/get/getAuthToken';
+import { useAppSelector } from '~/store/hooks';
 const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
-    const { isError: authError, isLoading: authLoading } = useCheckAuthTokenQuery();
-    if (authLoading) {
-        return <Loader />;
-    }
-    if (authError) {
+    const isAuth = useAppSelector((state) => state.app.isAuth);
+    if (!isAuth) {
         return <Navigate to='/login' replace />;
     }
     return children;
 };
 const AppRoutes = () => {
-    const { data, isLoading, isError } = useGetFilteredCategories();
+    const { isLoading: isCheckAuhtLoading } = useCheckAuthTokenQuery();
+    const { data, isLoading: isCategoriesLoading, isError } = useGetFilteredCategories();
 
     if (isError) return <Alert />;
-    if (isLoading) return <Loader />;
+    if (isCheckAuhtLoading || isCategoriesLoading) return <Loader />;
     const subcategories = data.reduce<Record<string, { id: string; category: string }[]>>(
         (acc, { category, subCategories }) => {
             acc[category] = subCategories.map(({ _id: id, category: sub }) => ({
