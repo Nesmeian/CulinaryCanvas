@@ -8,7 +8,7 @@ import { forgotPassword, PostAuthRegType, PostLoginType, VerifyOTP } from '~/typ
 
 export const postsApiSlice = apiSlice
     .enhanceEndpoints({
-        addTagTypes: [Tags.POSTS],
+        addTagTypes: [Tags.POSTS, Tags.AUTH_TOKEN, Tags.LOGIN],
     })
     .injectEndpoints({
         endpoints: (builder) => ({
@@ -20,23 +20,23 @@ export const postsApiSlice = apiSlice
                     apiGroupName: ApiGroupNames.AUTH,
                     name: EndpointNames.POST_AUTH,
                 }),
-                invalidatesTags: [Tags.POSTS],
+                invalidatesTags: [Tags.AUTH_TOKEN],
             }),
             postAuthLogin: builder.mutation<void, PostLoginType>({
                 query: (body) => ({
                     url: ApiEndpoints.LOGIN,
                     method: 'POST',
                     body,
-                    apiGroupName: ApiGroupNames.AUTH,
-                    name: EndpointNames.POST_AUTH,
+                    apiGroupName: ApiGroupNames.LOGIN,
+                    name: EndpointNames.LOGIN,
                 }),
-                transformResponse: (_responseBody: unknown, meta) => {
+                transformResponse: (_responseBody, meta) => {
                     const token = meta?.response?.headers.get('Authentication-Access');
                     if (token) {
                         localStorage.setItem('accessToken', token);
                     }
                 },
-                invalidatesTags: [Tags.POSTS],
+                invalidatesTags: [Tags.LOGIN],
             }),
             forgotPassword: builder.mutation<void, forgotPassword>({
                 query: (body) => ({

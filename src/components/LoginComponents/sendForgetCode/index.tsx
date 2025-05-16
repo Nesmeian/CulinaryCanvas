@@ -49,7 +49,7 @@ export const SendForgetCodeModal = ({
             description: 'Попробуйте немного позже',
         },
     };
-    console.log(error);
+
     return isOpen ? (
         <Center
             data-test-id={TEST_IDS.VERIFICATION_CODE_MODAL}

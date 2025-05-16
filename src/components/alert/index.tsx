@@ -40,7 +40,6 @@ export const Alert = ({
     if (!isOpen) {
         return null;
     }
-    console.log(isSuccessCheck, 'check');
     const status = isSuccessCheck ? 'success' : 'error';
     return (
         <AlertElem
