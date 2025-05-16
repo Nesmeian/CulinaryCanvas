@@ -61,10 +61,12 @@ export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
                 <Image
                     src={sliderArrows.leftArrow}
                     className='swiper-button-prev'
+                    display={{ lg: 'block', base: 'none' }}
                     data-test-id={TEST_IDS.CAROUSEL_BACK}
                 />
                 <Image
                     src={sliderArrows.rightArrow}
+                    display={{ lg: 'block', base: 'none' }}
                     className='swiper-button-next'
                     data-test-id={TEST_IDS.CAROUSEL_FORWARD}
                 />
