@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import { TEST_IDS } from '~/constants/testsIds';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { BreadCrumbsTypes } from '~/types/utilsTypes';
 import TranslatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
 

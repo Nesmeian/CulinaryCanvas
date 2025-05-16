@@ -8,7 +8,8 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -16,6 +17,7 @@ import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
 import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
 import { TEST_IDS } from '~/constants/testsIds';
+import { useCheckAuthTokenQuery } from '~/query/services/get/getAuthToken';
 import { usePostAuthLoginMutation } from '~/query/services/post';
 import { LoginFields } from '~/types/LoginTypes';
 import { loginSchema } from '~/utils/validationRules/yupSheme';
@@ -28,9 +30,14 @@ import { PasswordInput } from '../passwordInput';
 
 export const LoginTab = () => {
     const [postAuthLogin, { isLoading, isSuccess, isError, error }] = usePostAuthLoginMutation();
+    const { data: _check, refetch } = useCheckAuthTokenQuery(isSuccess ? undefined : skipToken, {
+        skip: !isSuccess,
+    });
+
     const { isOpen: isForgetOpen, onOpen: openForget, onClose: closeForget } = useDisclosure();
     const { isOpen: isSendOpen, onOpen: openSend, onClose: closeSend } = useDisclosure();
     const { isOpen: isResetOpen, onOpen: openReset, onClose: closeReset } = useDisclosure();
+
     const [verEmail, setVerEmail] = useState('');
     const [sendData, setSendData] = useState<LoginFields | []>([]);
     const location = useLocation();
@@ -41,16 +48,16 @@ export const LoginTab = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<LoginFields>({ mode: 'onChange', resolver: yupResolver(loginSchema) });
-    const onSubmit: SubmitHandler<LoginFields> = (data) => {
-        postAuthLogin(data);
-        setSendData(data);
-    };
-    useEffect(() => {
-        if (isSuccess) {
+    const onSubmit: SubmitHandler<LoginFields> = async (data) => {
+        try {
+            await postAuthLogin(data).unwrap();
+            await refetch();
             navigate('/', { replace: true });
             setSendData([]);
+        } catch (err) {
+            console.error('Login failed:', err);
         }
-    }, [isSuccess, navigate]);
+    };
     return (
         <VStack>
             <form onSubmit={handleSubmit(onSubmit)} data-test-id={TEST_IDS.SING_IN}>
