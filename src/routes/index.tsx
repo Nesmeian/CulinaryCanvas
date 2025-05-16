@@ -86,14 +86,13 @@ const AppRoutes = () => {
                             </Route>
                         );
                     })}
-
-                    <Route path='not-found' element={<NotFoundPage />} />
-                    <Route path='*' element={<Navigate to='/not-found' replace />} />
                 </Route>
 
                 <Route path='/login' element={<Login />} />
                 <Route path='/registration' element={<Login />} />
                 <Route path='/verification' element={<VerificationRedirect />} />
+                <Route path='not-found' element={<NotFoundPage />} />
+                <Route path='*' element={<Navigate to='/not-found' replace />} />
             </Routes>
         </BrowserRouter>
     );

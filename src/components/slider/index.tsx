@@ -1,7 +1,6 @@
 import './style.css';
 
 import { Heading, Image, VStack } from '@chakra-ui/react';
-import { useMemo } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -14,14 +13,6 @@ import { SlideItem } from './sliderItem';
 
 export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
     const { data: recipes, loading } = useFilteredOnDataRecipes();
-    const swappedData = useMemo(() => {
-        if (!recipes?.data) return [];
-        const arr = [...recipes.data];
-        if (arr.length > 3) {
-            [arr[1], arr[3]] = [arr[3], arr[1]];
-        }
-        return arr;
-    }, [recipes?.data]);
 
     if (loading) {
         return <Loader />;
@@ -53,11 +44,12 @@ export default function Slider({ isRecipePage }: { isRecipePage?: boolean }) {
                     360: { slidesPerView: 2, spaceBetween: 8 },
                 }}
             >
-                {swappedData?.map((recipe, i) => (
-                    <SwiperSlide key={recipe._id} className='slider__item'>
-                        <SlideItem key={recipe._id} index={i} recipe={recipe} />
-                    </SwiperSlide>
-                ))}
+                {recipes &&
+                    recipes.data.map((recipe, i) => (
+                        <SwiperSlide key={recipe._id} className='slider__item'>
+                            <SlideItem key={recipe._id} index={i} recipe={recipe} />
+                        </SwiperSlide>
+                    ))}
                 <Image
                     src={sliderArrows.leftArrow}
                     className='swiper-button-prev'
