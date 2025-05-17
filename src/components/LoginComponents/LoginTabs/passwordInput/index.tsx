@@ -26,10 +26,14 @@ export const PasswordInput = ({
     errors?: FieldError;
     repeat?: boolean;
 }) => {
-    const title = !repeat ? 'Пароль' : 'Повторить пароль';
-    const placeholder = !repeat ? 'Пароль для сайта' : 'Повторить пароль для сайта';
+    const fieldConfigs = {
+        password: { title: 'Пароль', placeholder: 'Пароль для сайта' },
+        rePassword: { title: 'Повторить пароль', placeholder: 'Повторить пароль для сайта' },
+    } as const;
+    const key = repeat ? 'rePassword' : 'password';
+    const { title, placeholder } = fieldConfigs[key];
+    const showPasswordMessage = { show: 'Скрыть пароль', hide: 'Показать пароль' };
     const [showPassword, setShowPassword] = useState(false);
-
     return (
         <FormControl isInvalid={!!errors}>
             <FormLabel {...LoginFormLabel}>{title}</FormLabel>
@@ -53,10 +57,16 @@ export const PasswordInput = ({
                                         ? passwordIcons.showPassword
                                         : passwordIcons.hidePassword
                                 }
-                                alt={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
+                                alt={
+                                    showPassword
+                                        ? showPasswordMessage.hide
+                                        : showPasswordMessage.show
+                                }
                             />
                         }
-                        aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
+                        aria-label={
+                            showPassword ? showPasswordMessage.hide : showPasswordMessage.show
+                        }
                         onMouseDown={() => setShowPassword(true)}
                         onMouseUp={() => setShowPassword(false)}
                         onMouseLeave={() => setShowPassword(false)}
