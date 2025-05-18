@@ -172,6 +172,7 @@ export const RegTab = () => {
                                 errors={errors.password}
                                 {...register('password')}
                             />
+
                             <PasswordInput
                                 test={TEST_IDS.CONFIRM_PASSWORD}
                                 errors={errors.rePassword}
