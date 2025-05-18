@@ -39,7 +39,11 @@ export const LoginModalHeader = {
     letterSpacing: '0.5px',
 } as const;
 export const LoginDescriptionStyles = { fontSize: '16px', textAlign: 'center' } as const;
-export const LoginCheckTextStyles = { fontSize: '12px', color: 'rgba(0, 0, 0, 0.48)' } as const;
+export const LoginCheckTextStyles = {
+    fontSize: '12px',
+    color: 'rgba(0, 0, 0, 0.48)',
+    textAlign: 'center',
+} as const;
 export const helperTextStyles = {
     fontWeight: 400,
     color: 'rgba(0, 0, 0, 0.64)',
@@ -58,4 +62,21 @@ export const loginImageText = {
     bottom: '0',
     right: '0',
     p: '30px',
+} as const;
+
+export const loginModalWrapperStyles = {
+    h: '100vh',
+    w: '100vw',
+    bg: 'rgba(0, 0, 0, 0.7)',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    zIndex: 9999,
+} as const;
+export const loginModalContentStyles = {
+    background: 'white',
+    borderRadius: '16px',
+    p: '32px',
+    gap: '24px',
+    position: 'relative',
 } as const;

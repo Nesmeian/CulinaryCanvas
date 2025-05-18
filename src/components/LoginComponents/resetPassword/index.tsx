@@ -15,14 +15,19 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
-import { LoginInputStyles, LoginModalHeader } from '~/components/Pages/Login/textStyles';
+import {
+    LoginInputStyles,
+    loginModalContentStyles,
+    LoginModalHeader,
+    loginModalWrapperStyles,
+} from '~/components/Pages/Login/styles';
 import { errorResetPasswordMessage } from '~/constants/LoginTextModals/errorTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useResetPasswordMutation } from '~/query/services/post';
 import { ResetPasswordType } from '~/types/LoginTypes';
 import { resetPasswordSchema } from '~/utils/validationRules/yupSheme';
 
-import closeBtn from '../../../assets/closeSvg.svg';
+import closeBtn from '../../../assets/verificationCloseImg.svg';
 import { PasswordInput } from '../LoginTabs/passwordInput';
 
 export const ResetPasswordModal = ({
@@ -52,22 +57,10 @@ export const ResetPasswordModal = ({
     };
 
     return isOpen ? (
-        <Center
-            h='100vh'
-            w='100vw'
-            bg='rgba(0, 0, 0, 0.7)'
-            position='fixed'
-            top={0}
-            left={0}
-            zIndex={9999}
-        >
+        <Center {...loginModalWrapperStyles}>
             <VStack
-                w='396px'
-                background='white'
-                borderRadius='16px'
-                p='32px'
-                gap='24px'
-                position='relative'
+                w={{ lg: '396px', base: '316px' }}
+                {...loginModalContentStyles}
                 data-test-id={TEST_IDS.RESET_CREDENTIALS_MODAL}
             >
                 <Heading {...LoginModalHeader}>

@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
-import { LoginCheckTextStyles, LoginModalHeader } from '~/components/Pages/Login/textStyles';
+import {
+    LoginCheckTextStyles,
+    loginModalContentStyles,
+    LoginModalHeader,
+    loginModalWrapperStyles,
+} from '~/components/Pages/Login/styles';
 import { TEST_IDS } from '~/constants/testsIds';
 import { usePostAuthLoginMutation } from '~/query/services/post';
 import { LoginFields } from '~/types/LoginTypes';
@@ -31,25 +36,13 @@ export const ErrorServerModal = ({ repeatSend }: { repeatSend: LoginFields | [] 
     }
 
     return (
-        <Center
-            data-test-id={TEST_IDS.SIGN_IN_ERROR_MODAL}
-            h='100vh'
-            w='100vw'
-            bg='rgba(0, 0, 0, 0.7)'
-            position='fixed'
-            top={0}
-            left={0}
-            zIndex={9999}
-        >
-            <VStack
-                w='400px'
-                background='white'
-                borderRadius='16px'
-                p='32px'
-                gap='24px'
-                position='relative'
-            >
-                <Image src={loginImgs.forgetModal} alt='registration image verification' />
+        <Center data-test-id={TEST_IDS.SIGN_IN_ERROR_MODAL} {...loginModalWrapperStyles}>
+            <VStack w={{ lg: '400px', base: '316px' }} {...loginModalContentStyles}>
+                <Image
+                    src={loginImgs.forgetModal}
+                    boxSize={{ lg: 'auto', base: '108px' }}
+                    alt='registration image verification'
+                />
                 <Heading {...LoginModalHeader}>Вход не выполнен</Heading>
                 <VStack gap={0}>
                     <Text {...LoginCheckTextStyles}>

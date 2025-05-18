@@ -6,7 +6,7 @@ import useBreakpoints from '~/themes/chakraBreakPoints';
 
 import LoginImg from '../../../assets/loginImg.png';
 import * as logoImg from '../../../assets/loginLogs/index';
-import { loginImageText, loginProtectedTextStyles } from './textStyles';
+import { loginImageText, loginProtectedTextStyles } from './styles';
 export const Login = () => {
     const { isTablet } = useBreakpoints();
     const logo = isTablet ? logoImg.LoginLogMob : logoImg.LoginLogDesc;

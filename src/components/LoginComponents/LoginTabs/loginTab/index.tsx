@@ -15,7 +15,7 @@ import { useLocation, useNavigate } from 'react-router';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
-import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
+import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/styles';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useCheckAuthTokenQuery } from '~/query/services/get/getAuthToken';
 import { usePostAuthLoginMutation } from '~/query/services/post';
