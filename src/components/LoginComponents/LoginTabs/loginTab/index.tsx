@@ -78,6 +78,7 @@ export const LoginTab = () => {
                         <PasswordInput
                             test={TEST_IDS.PASSWORD}
                             errors={errors.password}
+                            isLogin
                             {...register('password')}
                         />
                     </FormControl>
@@ -100,6 +101,7 @@ export const LoginTab = () => {
                     Забыли логин или пароль?
                 </Button>
             </form>
+
             <ForgetModal
                 isOpen={isForgetOpen}
                 onClose={closeForget}

@@ -21,7 +21,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
-import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
+import {
+    helperTextStyles,
+    LoginFormLabel,
+    LoginInputStyles,
+} from '~/components/Pages/Login/textStyles';
 import { TEST_IDS } from '~/constants/testsIds';
 import { usePostAuthSignUpMutation } from '~/query/services/post';
 import { RegFields } from '~/types/LoginTypes';
@@ -96,7 +100,7 @@ export const RegTab = () => {
                     onSlideChange={(s) => setActiveIndex(s.activeIndex)}
                 >
                     <SwiperSlide>
-                        <VStack gap={{ lg: '24px', base: '44px' }} mb='48px'>
+                        <VStack gap='24px' mb='48px'>
                             <FormControl isInvalid={!!errors.firstName}>
                                 <FormLabel {...LoginFormLabel}>Ваше имя</FormLabel>
                                 <Input
@@ -147,7 +151,7 @@ export const RegTab = () => {
                         </Button>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <VStack gap={{ lg: '24px', base: '44px' }} mb='28px'>
+                        <VStack gap='24px' mb='28px'>
                             <FormControl isInvalid={!!errors.login}>
                                 <FormLabel {...LoginFormLabel}>Логин для входа на сайт</FormLabel>
                                 <Input
@@ -156,7 +160,7 @@ export const RegTab = () => {
                                     {...LoginInputStyles}
                                     {...register('login')}
                                 />
-                                <FormHelperText>
+                                <FormHelperText {...helperTextStyles}>
                                     Логин не менее 5 символов, только латиница
                                 </FormHelperText>
                                 <FormErrorMessage>

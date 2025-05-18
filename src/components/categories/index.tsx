@@ -88,7 +88,9 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
         isLoading: subcatLoading,
         isError: Error,
     } = useGetSubcategoryRecipesData(categoryData?.subCategories ?? []);
-
+    const isLoadingCheck =
+        subcatLoading || loading || juiciestLoading || isDataLoading || isFetchingRecipes;
+    const isErrorCheck = isError || Error || searchError;
     return (
         <MainStyled as='main' ref={mainRef}>
             <VStack
@@ -141,12 +143,8 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
                 randomCategory={catData}
                 isRandom={isRandomBottom}
             />
-            {(subcatLoading ||
-                loading ||
-                juiciestLoading ||
-                isDataLoading ||
-                isFetchingRecipes) && <Loader />}
-            {(isError || Error || searchError) && <Alert />}
+            {isLoadingCheck && <Loader />}
+            {isErrorCheck && <Alert />}
         </MainStyled>
     );
 }

@@ -10,22 +10,17 @@ import {
     InputRightElement,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { FieldError } from 'react-hook-form';
 
-import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textStyles';
+import {
+    helperTextStyles,
+    LoginFormLabel,
+    LoginInputStyles,
+} from '~/components/Pages/Login/textStyles';
 import { TEST_IDS } from '~/constants/testsIds';
+import { passwordInputType } from '~/types/LoginTypes';
 
 import * as passwordIcons from '../../../../assets/passwordIcons/index';
-export const PasswordInput = ({
-    repeat,
-    errors,
-    test,
-    ...rest
-}: {
-    test: string;
-    errors?: FieldError;
-    repeat?: boolean;
-}) => {
+export const PasswordInput = ({ repeat, errors, test, isLogin, ...rest }: passwordInputType) => {
     const fieldConfigs = {
         password: { title: 'Пароль', placeholder: 'Пароль для сайта' },
         rePassword: { title: 'Повторить пароль', placeholder: 'Повторить пароль для сайта' },
@@ -73,7 +68,11 @@ export const PasswordInput = ({
                     />
                 </InputRightElement>
             </InputGroup>
-            <FormHelperText>Пароль не менее 8 символов, с заглавной буквой и цифрой</FormHelperText>
+            {!isLogin && (
+                <FormHelperText {...helperTextStyles}>
+                    Пароль не менее 8 символов, с заглавной буквой и цифрой
+                </FormHelperText>
+            )}
             <FormErrorMessage>{errors && errors.message}</FormErrorMessage>
         </FormControl>
     );
