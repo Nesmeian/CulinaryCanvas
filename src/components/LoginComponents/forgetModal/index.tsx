@@ -21,6 +21,7 @@ import {
     LoginInputStyles,
 } from '~/components/Pages/Login/textStyles';
 import { ForgetModalTexts } from '~/constants/LoginTextModals';
+import { errorForgetModalMessage } from '~/constants/LoginTextModals/errorTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useForgotPasswordMutation } from '~/query/services/post';
 import { VerifyField } from '~/types/LoginTypes';
@@ -28,16 +29,6 @@ import { verifySchema } from '~/utils/validationRules/yupSheme';
 
 import * as loginImgs from '../../../assets/LoginImg/index';
 import closeBtn from '../../../assets/verificationCloseImg.svg';
-const errorMessage = {
-    403: {
-        title: 'Такого e-mail нет',
-        description: 'Попробуйте другой e-mail или проверьте правильность его написания',
-    },
-    500: {
-        title: 'Ошибка сервера',
-        description: 'Попробуйте немного позже',
-    },
-};
 
 export const ForgetModal = ({
     isOpen,
@@ -133,7 +124,7 @@ export const ForgetModal = ({
                 />
             </VStack>
             {isLoading && <Loader />}
-            {isError && <Alert errorStatus={error.status} errorMessage={errorMessage} />}
+            {isError && <Alert errorStatus={error.status} errorMessage={errorForgetModalMessage} />}
         </Center>
     ) : null;
 };

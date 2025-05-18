@@ -16,6 +16,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
 import { LoginInputStyles, LoginModalHeader } from '~/components/Pages/Login/textStyles';
+import { errorResetPasswordMessage } from '~/constants/LoginTextModals/errorTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useResetPasswordMutation } from '~/query/services/post';
 import { ResetPasswordType } from '~/types/LoginTypes';
@@ -23,16 +24,7 @@ import { resetPasswordSchema } from '~/utils/validationRules/yupSheme';
 
 import closeBtn from '../../../assets/closeSvg.svg';
 import { PasswordInput } from '../LoginTabs/passwordInput';
-const errorMessage = {
-    403: {
-        title: 'Такого e-mail нет',
-        description: 'Попробуйте другой e-mail или проверьте правильность его написания',
-    },
-    500: {
-        title: 'Ошибка сервера',
-        description: 'Попробуйте немного позже',
-    },
-};
+
 export const ResetPasswordModal = ({
     isOpen,
     onClose,
@@ -133,7 +125,7 @@ export const ResetPasswordModal = ({
                 <Alert
                     error={error.data.message}
                     errorStatus={error.status}
-                    errorMessage={errorMessage}
+                    errorMessage={errorResetPasswordMessage}
                 />
             )}
         </Center>

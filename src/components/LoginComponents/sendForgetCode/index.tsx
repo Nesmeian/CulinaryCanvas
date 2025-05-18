@@ -5,6 +5,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
 import { LoginCheckTextStyles, LoginDescriptionStyles } from '~/components/Pages/Login/textStyles';
+import { errorSendForgetCodeMessage } from '~/constants/LoginTextModals/errorTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useVerifyOtkMutation } from '~/query/services/post';
 import { verifyCode } from '~/types/LoginTypes';
@@ -39,16 +40,6 @@ export const SendForgetCodeModal = ({
         const payload = { email, otpToken };
         reset();
         verifyOTK(payload);
-    };
-    const errorMessage = {
-        403: {
-            title: 'Неверный код',
-            description: 'Попоробуйте еще раз',
-        },
-        500: {
-            title: 'Ошибка сервера',
-            description: 'Попробуйте немного позже',
-        },
     };
 
     return isOpen ? (
@@ -125,7 +116,7 @@ export const SendForgetCodeModal = ({
                 <Alert
                     error={error.data.message}
                     errorStatus={error.status}
-                    errorMessage={errorMessage}
+                    errorMessage={errorSendForgetCodeMessage}
                 />
             )}
             {isSuccess && <Alert isSuccessCheck />}
