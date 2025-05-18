@@ -11,25 +11,17 @@ import {
 import { useEffect } from 'react';
 
 import { TEST_IDS } from '~/constants/testsIds';
+import { AlertTypes } from '~/types/AlertTypes';
 
 import { alertErrors } from './alertErrors';
-type errorMessageType = {
-    title: string;
-    description: string;
-};
+
 export const Alert = ({
     errorStatus,
     errorData,
     errorMessage,
     isSuccessCheck,
     successMessage,
-}: {
-    errorMessage?: errorMessageType;
-    errorStatus?: number;
-    errorData?: string;
-    isSuccessCheck?: boolean;
-    successMessage?: string;
-}) => {
+}: AlertTypes) => {
     const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
     useEffect(() => {
         if (isOpen) {

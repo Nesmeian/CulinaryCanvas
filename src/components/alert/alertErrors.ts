@@ -1,4 +1,6 @@
-export const alertErrors = {
+import { ErrorMessageType } from '~/types/AlertTypes';
+
+export const alertErrors: Record<number, ErrorMessageType> = {
     400: {
         title: 'Пользователь с таким login уже существует.',
         description: 'Попробуйте снова.',
