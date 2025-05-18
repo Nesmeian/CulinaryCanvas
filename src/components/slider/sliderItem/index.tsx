@@ -22,7 +22,7 @@ export const SlideItem = ({ recipe, index }: { recipe: ComingRecipeData; index: 
     return (
         <VStack
             as={Link}
-            to={`/${category?.category}/${subCategoryData?.category}/${recipe._id}`}
+            to={`/${category?.category || 'snacks'}/${subCategoryData?.category || 'meat-snacks'}/${recipe._id}`}
             data-test-id={`${TEST_IDS.CAROUSEL_CARD}${index}`}
         >
             <Image height={{ lg: '230px', sm: '128px' }} src={`${IMG_PATH}${image}`} alt={title} />
