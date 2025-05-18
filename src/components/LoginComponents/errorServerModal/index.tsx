@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
+import { LoginCheckTextStyles, LoginModalHeader } from '~/components/Pages/Login/textStyles';
 import { TEST_IDS } from '~/constants/testsIds';
 import { usePostAuthLoginMutation } from '~/query/services/post';
 import { LoginFields } from '~/types/LoginTypes';
@@ -49,19 +50,9 @@ export const ErrorServerModal = ({ repeatSend }: { repeatSend: LoginFields | [] 
                 position='relative'
             >
                 <Image src={loginImgs.forgetModal} alt='registration image verification' />
-                <Heading
-                    as='h2'
-                    size='h2'
-                    fontSize='24px'
-                    lineHeight='32px'
-                    fontWeight='700'
-                    textAlign='center'
-                    letterSpacing='0.5px'
-                >
-                    Вход не выполнен
-                </Heading>
+                <Heading {...LoginModalHeader}>Вход не выполнен</Heading>
                 <VStack gap={0}>
-                    <Text fontSize='16px' color='rgba(0, 0, 0, 0.48)'>
+                    <Text {...LoginCheckTextStyles}>
                         Что-то пошло не так.
                         <br /> Попробуйте еще раз
                     </Text>

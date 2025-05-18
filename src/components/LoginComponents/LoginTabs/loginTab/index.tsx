@@ -20,6 +20,7 @@ import { TEST_IDS } from '~/constants/testsIds';
 import { useCheckAuthTokenQuery } from '~/query/services/get/getAuthToken';
 import { usePostAuthLoginMutation } from '~/query/services/post';
 import { LoginFields } from '~/types/LoginTypes';
+import { handleTrimBlur } from '~/utils/LoginPageUtils/handleTrimBlur';
 import { loginSchema } from '~/utils/validationRules/yupSheme';
 
 import { ErrorServerModal } from '../../errorServerModal';
@@ -68,7 +69,7 @@ export const LoginTab = () => {
                             {...register('login')}
                             {...LoginInputStyles}
                             data-test-id={TEST_IDS.LOGIN_INPUT}
-                            onBlur={(e) => (e.target.value = e.target.value.trim())}
+                            onBlur={(e) => handleTrimBlur(e)}
                             placeholder='Введите логин'
                         />
                         <FormErrorMessage> {errors.login && errors.login.message}</FormErrorMessage>

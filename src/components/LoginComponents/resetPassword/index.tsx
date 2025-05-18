@@ -15,7 +15,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
-import { LoginInputStyles } from '~/components/Pages/Login/textStyles';
+import { LoginInputStyles, LoginModalHeader } from '~/components/Pages/Login/textStyles';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useResetPasswordMutation } from '~/query/services/post';
 import { ResetPasswordType } from '~/types/LoginTypes';
@@ -23,6 +23,16 @@ import { resetPasswordSchema } from '~/utils/validationRules/yupSheme';
 
 import closeBtn from '../../../assets/closeSvg.svg';
 import { PasswordInput } from '../LoginTabs/passwordInput';
+const errorMessage = {
+    403: {
+        title: 'Такого e-mail нет',
+        description: 'Попробуйте другой e-mail или проверьте правильность его написания',
+    },
+    500: {
+        title: 'Ошибка сервера',
+        description: 'Попробуйте немного позже',
+    },
+};
 export const ResetPasswordModal = ({
     isOpen,
     onClose,
@@ -48,16 +58,7 @@ export const ResetPasswordModal = ({
         data.email = email;
         resetPassword(data);
     };
-    const errorMessage = {
-        403: {
-            title: 'Такого e-mail нет',
-            description: 'Попробуйте другой e-mail или проверьте правильность его написания',
-        },
-        500: {
-            title: 'Ошибка сервера',
-            description: 'Попробуйте немного позже',
-        },
-    };
+
     return isOpen ? (
         <Center
             h='100vh'
@@ -77,7 +78,7 @@ export const ResetPasswordModal = ({
                 position='relative'
                 data-test-id={TEST_IDS.RESET_CREDENTIALS_MODAL}
             >
-                <Heading fontSize='24px' fontWeight='700' textAlign='center'>
+                <Heading {...LoginModalHeader}>
                     Восстановление <br /> аккаунта
                 </Heading>
                 <form onSubmit={handleSubmit(onSubmit)}>

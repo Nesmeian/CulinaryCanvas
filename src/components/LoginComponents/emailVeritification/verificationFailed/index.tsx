@@ -1,9 +1,16 @@
 import { Center, Heading, Image, Text, useDisclosure, VStack } from '@chakra-ui/react';
 
+import {
+    LoginCheckTextStyles,
+    LoginDescriptionStyles,
+    LoginModalHeader,
+} from '~/components/Pages/Login/textStyles';
+import { EmailVerificationFailedText } from '~/constants/LoginTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
 
 import * as loginImgs from '../../../../assets/LoginImg/index';
 import closeBtn from '../../../../assets/verificationCloseImg.svg';
+
 export const EmailVerificationFailed = () => {
     const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
 
@@ -31,24 +38,11 @@ export const EmailVerificationFailed = () => {
                     src={loginImgs.regVerificationFailed}
                     alt='registration image verification'
                 />
-                <Heading
-                    as='h2'
-                    size='h2'
-                    fontSize='24px'
-                    lineHeight='32px'
-                    fontWeight='700'
-                    textAlign='center'
-                    letterSpacing='0.5px'
-                >
-                    Упс! Что-то пошло не так
-                </Heading>
-                <Text fontSize='16px' textAlign='center'>
-                    Ваша ссылка для верификации недействительна. Попробуйте зарегистрироваться
-                    снова.
-                </Text>
+                <Heading {...LoginModalHeader}>Упс! Что-то пошло не так</Heading>
+                <Text {...LoginDescriptionStyles}>{EmailVerificationFailedText.description}</Text>
                 <VStack gap={0}>
-                    <Text fontSize='12px' color='rgba(0, 0, 0, 0.48)'>
-                        Остались вопросы? Свяжитесь с
+                    <Text {...LoginCheckTextStyles}>
+                        {EmailVerificationFailedText.check}
                         <Text fontSize='12px' as='span' textDecoration='underline'>
                             {` поддержкой`}
                         </Text>

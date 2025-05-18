@@ -29,3 +29,14 @@ export const LoginInputStyles = {
         color: '#134b00',
     },
 };
+export const LoginModalHeader = {
+    as: 'h2',
+    size: 'h2',
+    fontSize: '24px',
+    lineHeight: '32px',
+    fontWeight: '700',
+    textAlign: 'center',
+    letterSpacing: '0.5px',
+} as const;
+export const LoginDescriptionStyles = { fontSize: '16px', textAlign: 'center' } as const;
+export const LoginCheckTextStyles = { fontSize: '12px', color: 'rgba(0, 0, 0, 0.48)' } as const;
