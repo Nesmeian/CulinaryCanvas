@@ -14,8 +14,9 @@ export const Login = () => {
         <HStack width='100vw' height='100vh' gap='0'>
             <VStack
                 width={{ lg: '50%', base: '100%' }}
-                height='100%'
+                height={{ lg: '100%', base: 'auto' }}
                 background='linear-gradient(208deg, #eaffc7 0%, #29813f 100%);'
+                justifyContent='space-between'
             >
                 <VStack
                     m={{ lg: 'auto 0', base: '72px 0' }}
