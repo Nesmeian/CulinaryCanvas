@@ -114,6 +114,7 @@ export const LoginTab = () => {
                 onSuccess={openReset}
                 email={verEmail}
             />
+
             <ResetPasswordModal isOpen={isResetOpen} onClose={closeReset} email={verEmail} />
             {isLoading && <Loader />}
             {isEmailVerified && (
