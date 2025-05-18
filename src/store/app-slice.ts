@@ -6,11 +6,15 @@ export type AppState = typeof initialState;
 const initialState = {
     isLoading: false,
     error: '' as string | null,
+    isAuth: false,
 };
 export const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
+        setIsAuth(state, { payload }: PayloadAction<boolean>) {
+            state.isAuth = payload;
+        },
         setAppError(state, { payload: error }: PayloadAction<string | null>) {
             state.error = error;
         },
@@ -22,5 +26,5 @@ export const appSlice = createSlice({
 export const userLoadingSelector = (state: ApplicationState) => state.app.isLoading;
 export const userErrorSelector = (state: ApplicationState) => state.app.error;
 
-export const { setAppError, setAppLoader } = appSlice.actions;
+export const { setAppError, setAppLoader, setIsAuth } = appSlice.actions;
 export default appSlice.reducer;

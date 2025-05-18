@@ -42,7 +42,7 @@ export type DrawerProps = {
 };
 export type isDrawerType = {
     isDrawer?: boolean;
-    onClose: () => void;
+    onClose?: () => void;
 };
 export type BreadCrumbsTypes = {
     isOpen?: boolean;

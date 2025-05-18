@@ -9,12 +9,19 @@ export function useGetFilteredCategories(subCategory?: boolean) {
     const [filtered, setFiltered] = useState<ComingCategoryData[]>([]);
 
     useEffect(() => {
-        if (!data) return;
+        if (!data || !Array.isArray(data)) {
+            setFiltered([]);
+            setLoading(false);
+            return;
+        }
+
         const result = subCategory
             ? data.filter((item: ComingCategoryData) => !('subCategories' in item))
             : data.filter((item: ComingCategoryData) => 'subCategories' in item);
+
         setFiltered(result);
         setLoading(false);
-    }, [data]);
+    }, [data, subCategory]);
+
     return { data: filtered, isLoading, isError };
 }

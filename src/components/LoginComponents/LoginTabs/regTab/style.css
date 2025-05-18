@@ -1,0 +1,9 @@
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+
+.swiper__list {
+    width: 100%;
+}
+.registration_form {
+    width: 100%;
+}

@@ -4,14 +4,19 @@ import { Link } from 'react-router';
 
 import { TEST_IDS } from '~/constants/testsIds';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { BreadCrumbsTypes } from '~/types/utilsTypes';
 import TranslatePathSegment from '~/utils/BreadCrumbsTranslation';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
+import { Loader } from '../loader';
 import { breadCrumbPath } from './breadCrumbPath';
 
 export default function BreadCrumb({ isOpen, onClose }: BreadCrumbsTypes) {
     const pathSegments = GetCurrentPath();
-    const { data } = useGetFilteredCategories();
+    const { data, isLoading } = useGetFilteredCategories();
+    if (isLoading) {
+        return <Loader />;
+    }
     return (
         <Breadcrumb
             pt='16px'
@@ -44,10 +49,10 @@ export default function BreadCrumb({ isOpen, onClose }: BreadCrumbsTypes) {
                 return (
                     <BreadcrumbItem key={index} isCurrentPage={isLast}>
                         <BreadcrumbLink
+                            onClick={onClose}
                             as={Link}
                             to={routeTo}
                             color={isLast ? 'black' : 'rgba(0, 0, 0, 0.64)'}
-                            onClick={onClose}
                         >
                             <TranslatePathSegment segment={segment} />
                         </BreadcrumbLink>

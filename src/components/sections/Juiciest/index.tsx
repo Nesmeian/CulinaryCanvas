@@ -29,19 +29,19 @@ export default function Juiciest() {
                 <Link
                     as={RouterLink}
                     to='the-juiciest'
-                    display={{ lg: 'block' }}
+                    display={{ lg: 'block', base: 'none' }}
                     data-test-id={TEST_IDS.JUICIEST_LINK}
                 >
                     <GreenButton text='Вся Подборка' />
                 </Link>
             </HStack>
 
-            <BigCardsList data={data?.data} maxElems={4} />
+            {data && <BigCardsList data={data.data} maxElems={4} />}
 
             <Link
                 as={RouterLink}
                 to='the-juiciest'
-                display={{ sm: 'flex', lg: 'none' }}
+                display={{ base: 'flex', lg: 'none' }}
                 alignSelf='center'
                 data-test-id={TEST_IDS.JUICIEST_LINK_MOB}
             >

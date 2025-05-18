@@ -16,9 +16,17 @@ const breakpoints = {
 
 const theme = extendTheme({
     breakpoints,
+    layerStyles: {
+        tabStyles: {
+            fontSize: '100px',
+        },
+    },
     colors: {
         customgreen: {
             500: '#b1ff2e',
+        },
+        progressColor: {
+            500: ' #c4ff61;',
         },
     },
     fonts: {
@@ -95,6 +103,16 @@ const theme = extendTheme({
             defaultProps: {
                 size: 'h1',
                 as: 'h1',
+            },
+        },
+        Button: {
+            variants: {
+                commonLoginBtn: {
+                    borderRadius: '6px',
+                    background: 'rgba(0, 0, 0, 0.92)',
+                    w: '100%',
+                    color: 'white',
+                },
             },
         },
     },
