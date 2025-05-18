@@ -2,7 +2,7 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import { tabStyles } from '~/components/Pages/Login/textStyles';
+import { tabStyles } from '~/components/Pages/Login/styles';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
 import { LoginTab } from './loginTab';

@@ -25,7 +25,7 @@ import {
     helperTextStyles,
     LoginFormLabel,
     LoginInputStyles,
-} from '~/components/Pages/Login/textStyles';
+} from '~/components/Pages/Login/styles';
 import { TEST_IDS } from '~/constants/testsIds';
 import { usePostAuthSignUpMutation } from '~/query/services/post';
 import { RegFields } from '~/types/LoginTypes';

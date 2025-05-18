@@ -3,8 +3,10 @@ import { Center, Heading, Image, Text, useDisclosure, VStack } from '@chakra-ui/
 import {
     LoginCheckTextStyles,
     LoginDescriptionStyles,
+    loginModalContentStyles,
     LoginModalHeader,
-} from '~/components/Pages/Login/textStyles';
+    loginModalWrapperStyles,
+} from '~/components/Pages/Login/styles';
 import { EmailVerificationFailedText } from '~/constants/LoginTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
 
@@ -18,24 +20,12 @@ export const EmailVerificationFailed = () => {
     return (
         <Center
             data-test-id={TEST_IDS.EMAIL_VERIFICATION_FAILED_MODAL}
-            h='100vh'
-            w='100vw'
-            bg='rgba(0, 0, 0, 0.7)'
-            position='fixed'
-            top={0}
-            left={0}
-            zIndex={9999}
+            {...loginModalWrapperStyles}
         >
-            <VStack
-                w='400px'
-                background='white'
-                borderRadius='16px'
-                p='32px'
-                gap='24px'
-                position='relative'
-            >
+            <VStack w={{ lg: '400px', base: '316px' }} {...loginModalContentStyles}>
                 <Image
                     src={loginImgs.regVerificationFailed}
+                    boxSize={{ lg: 'auto', base: '108px' }}
                     alt='registration image verification'
                 />
                 <Heading {...LoginModalHeader}>Упс! Что-то пошло не так</Heading>

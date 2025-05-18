@@ -15,7 +15,7 @@ import {
     helperTextStyles,
     LoginFormLabel,
     LoginInputStyles,
-} from '~/components/Pages/Login/textStyles';
+} from '~/components/Pages/Login/styles';
 import { TEST_IDS } from '~/constants/testsIds';
 import { passwordInputType } from '~/types/LoginTypes';
 

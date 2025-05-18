@@ -4,7 +4,12 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
-import { LoginCheckTextStyles, LoginDescriptionStyles } from '~/components/Pages/Login/textStyles';
+import {
+    LoginCheckTextStyles,
+    LoginDescriptionStyles,
+    loginModalContentStyles,
+    loginModalWrapperStyles,
+} from '~/components/Pages/Login/styles';
 import { errorSendForgetCodeMessage } from '~/constants/LoginTextModals/errorTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useVerifyOtkMutation } from '~/query/services/post';
@@ -43,25 +48,13 @@ export const SendForgetCodeModal = ({
     };
 
     return isOpen ? (
-        <Center
-            data-test-id={TEST_IDS.VERIFICATION_CODE_MODAL}
-            h='100vh'
-            w='100vw'
-            bg='rgba(0, 0, 0, 0.7)'
-            position='fixed'
-            top={0}
-            left={0}
-            zIndex={9999}
-        >
-            <VStack
-                w='396px'
-                background='white'
-                borderRadius='16px'
-                p='32px'
-                gap='24px'
-                position='relative'
-            >
-                <Image src={loginImgs.sendForgetKey} alt='forget modal img' />
+        <Center data-test-id={TEST_IDS.VERIFICATION_CODE_MODAL} {...loginModalWrapperStyles}>
+            <VStack {...loginModalContentStyles} w={{ lg: '396px', base: '316px' }}>
+                <Image
+                    src={loginImgs.sendForgetKey}
+                    alt='forget modal img'
+                    boxSize={{ lg: 'auto', base: '108px' }}
+                />
                 <Text {...LoginDescriptionStyles}>
                     Мы отправили вам на e-mail
                     <br />
@@ -100,7 +93,11 @@ export const SendForgetCodeModal = ({
                     />
                 </form>
                 <VStack gap={0}>
-                    <Text {...LoginCheckTextStyles}>Не пришло письмо? Проверьте папку Спам.</Text>
+                    <Text {...LoginCheckTextStyles}>
+                        Не пришло письмо?
+                        <br />
+                        Проверьте папку Спам.
+                    </Text>
                 </VStack>
                 <Image
                     data-test-id={TEST_IDS.CLOSE_BTN}

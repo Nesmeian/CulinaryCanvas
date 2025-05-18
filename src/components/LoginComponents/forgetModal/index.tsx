@@ -19,7 +19,8 @@ import {
     LoginCheckTextStyles,
     LoginDescriptionStyles,
     LoginInputStyles,
-} from '~/components/Pages/Login/textStyles';
+    loginModalContentStyles,
+} from '~/components/Pages/Login/styles';
 import { ForgetModalTexts } from '~/constants/LoginTextModals';
 import { errorForgetModalMessage } from '~/constants/LoginTextModals/errorTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
@@ -66,25 +67,13 @@ export const ForgetModal = ({
     };
 
     return isOpen ? (
-        <Center
-            data-test-id={TEST_IDS.SEND_EMAIL_MODAL}
-            h='100vh'
-            w='100vw'
-            bg='rgba(0, 0, 0, 0.7)'
-            position='fixed'
-            top={0}
-            left={0}
-            zIndex={9999}
-        >
-            <VStack
-                w='332px'
-                background='white'
-                borderRadius='16px'
-                p='32px'
-                gap='24px'
-                position='relative'
-            >
-                <Image src={loginImgs.forgetModal} alt='forget modal img' />
+        <Center data-test-id={TEST_IDS.SEND_EMAIL_MODAL}>
+            <VStack w={{ lg: '332px', base: '316px' }} {...loginModalContentStyles}>
+                <Image
+                    src={loginImgs.forgetModal}
+                    boxSize={{ lg: 'auto', base: '108px' }}
+                    alt='forget modal img'
+                />
                 <Text {...LoginDescriptionStyles}>{ForgetModalTexts.description}</Text>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <VStack gap='24px'>

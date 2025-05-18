@@ -1,7 +1,13 @@
 import { Center, Heading, Image, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
-import { LoginDescriptionStyles, LoginModalHeader } from '~/components/Pages/Login/textStyles';
+import {
+    LoginCheckTextStyles,
+    LoginDescriptionStyles,
+    loginModalContentStyles,
+    LoginModalHeader,
+    loginModalWrapperStyles,
+} from '~/components/Pages/Login/styles';
 import { TEST_IDS } from '~/constants/testsIds';
 
 import * as loginImgs from '../../../../assets/LoginImg/index';
@@ -15,26 +21,13 @@ export const EmailVerificationSuccess = ({ email }: { email: string }) => {
         onClose();
     };
     return (
-        <Center
-            data-test-id={TEST_IDS.SIGN_UP_SUCCESS_MODAL}
-            h='100vh'
-            w='100vw'
-            bg='rgba(0, 0, 0, 0.7)'
-            position='fixed'
-            top={0}
-            left={0}
-            zIndex={9999}
-        >
-            <VStack
-                w='400px'
-                h='550px'
-                background='white'
-                borderRadius='16px'
-                p='32px'
-                gap='24px'
-                position='relative'
-            >
-                <Image src={loginImgs.regVerification} alt='registration image verification' />
+        <Center data-test-id={TEST_IDS.SIGN_UP_SUCCESS_MODAL} {...loginModalWrapperStyles}>
+            <VStack w={{ lg: '400px', base: '316px' }} {...loginModalContentStyles}>
+                <Image
+                    src={loginImgs.regVerification}
+                    alt='registration image verification'
+                    boxSize={{ lg: 'auto', base: '108px' }}
+                />
                 <Heading {...LoginModalHeader}>
                     Остался последний шаг. Нужно верифицировать ваш e-mail
                 </Heading>
@@ -46,11 +39,10 @@ export const EmailVerificationSuccess = ({ email }: { email: string }) => {
                     ссылку для верификации.
                 </Text>
                 <VStack gap={0}>
-                    <Text fontSize='12px'>Не пришло письмо? Проверьте папку Спам.</Text>
-                    <Text fontSize='12px'>
-                        По другим вопросам свяжитесь с
+                    <Text p='0 40px' {...LoginCheckTextStyles}>
+                        Не пришло письмо? Проверьте папку Спам. По другим вопросам свяжитесь с
                         <Text fontSize='12px' as='span' textDecoration='underline'>
-                            поддержкой
+                            {` поддержкой`}
                         </Text>
                     </Text>
                 </VStack>
