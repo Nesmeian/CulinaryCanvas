@@ -33,7 +33,6 @@ export const LoginTabs = () => {
             onChange={handleTabsChange}
             isFitted
             width={{ lg: '461px', md: '355px', base: '328px' }}
-            ml='22px'
         >
             <TabList gap='12px' mb='40px'>
                 <Tab {...tabStyles}>Вход на сайт</Tab>

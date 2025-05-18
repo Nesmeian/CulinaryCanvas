@@ -1,3 +1,5 @@
+import { FieldError } from 'react-hook-form';
+
 export type RegFields = {
     firstName: string;
     lastName: string;
@@ -21,4 +23,10 @@ export type ResetPasswordType = {
 };
 export type verifyCode = {
     otpToken: string;
+};
+export type passwordInputType = {
+    test: string;
+    errors?: FieldError;
+    repeat?: boolean;
+    isLogin?: boolean;
 };
