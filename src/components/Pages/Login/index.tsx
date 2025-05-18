@@ -11,11 +11,23 @@ export const Login = () => {
     const { isTablet } = useBreakpoints();
     const logo = isTablet ? logoImg.LoginLogMob : logoImg.LoginLogDesc;
     return (
-        <HStack width='100vw' height='100vh' gap='0'>
+        <HStack
+            width='100vw'
+            height='100vh'
+            gap='0'
+            background='linear-gradient(208deg, #eaffc7 0%, #29813f 100%);'
+            overflowY='scroll'
+            sx={{
+                '&::-webkit-scrollbar': {
+                    width: '0',
+                    height: '0',
+                    background: 'transparent',
+                },
+            }}
+        >
             <VStack
                 width={{ lg: '50%', base: '100%' }}
-                height={{ lg: '100%', base: 'auto' }}
-                background='linear-gradient(208deg, #eaffc7 0%, #29813f 100%);'
+                height='100%'
                 justifyContent='space-between'
             >
                 <VStack

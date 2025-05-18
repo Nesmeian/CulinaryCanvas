@@ -20,6 +20,7 @@ import {
     LoginDescriptionStyles,
     LoginInputStyles,
     loginModalContentStyles,
+    loginModalWrapperStyles,
 } from '~/components/Pages/Login/styles';
 import { ForgetModalTexts } from '~/constants/LoginTextModals';
 import { errorForgetModalMessage } from '~/constants/LoginTextModals/errorTextModals';
@@ -67,7 +68,7 @@ export const ForgetModal = ({
     };
 
     return isOpen ? (
-        <Center data-test-id={TEST_IDS.SEND_EMAIL_MODAL}>
+        <Center {...loginModalWrapperStyles} data-test-id={TEST_IDS.SEND_EMAIL_MODAL}>
             <VStack w={{ lg: '332px', base: '316px' }} {...loginModalContentStyles}>
                 <Image
                     src={loginImgs.forgetModal}
