@@ -4,6 +4,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
+import { LoginCheckTextStyles, LoginDescriptionStyles } from '~/components/Pages/Login/textStyles';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useVerifyOtkMutation } from '~/query/services/post';
 import { verifyCode } from '~/types/LoginTypes';
@@ -70,7 +71,7 @@ export const SendForgetCodeModal = ({
                 position='relative'
             >
                 <Image src={loginImgs.sendForgetKey} alt='forget modal img' />
-                <Text fontSize='16px' textAlign='center'>
+                <Text {...LoginDescriptionStyles}>
                     Мы отправили вам на e-mail
                     <br />
                     <Text as='span' fontWeight='600' fontSize='16px'>
@@ -108,9 +109,7 @@ export const SendForgetCodeModal = ({
                     />
                 </form>
                 <VStack gap={0}>
-                    <Text fontSize='12px' color='rgba(0, 0, 0, 0.48)'>
-                        Не пришло письмо? Проверьте папку Спам.
-                    </Text>
+                    <Text {...LoginCheckTextStyles}>Не пришло письмо? Проверьте папку Спам.</Text>
                 </VStack>
                 <Image
                     data-test-id={TEST_IDS.CLOSE_BTN}

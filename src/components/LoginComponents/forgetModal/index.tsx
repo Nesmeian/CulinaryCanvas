@@ -15,7 +15,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
-import { LoginInputStyles } from '~/components/Pages/Login/textStyles';
+import {
+    LoginCheckTextStyles,
+    LoginDescriptionStyles,
+    LoginInputStyles,
+} from '~/components/Pages/Login/textStyles';
+import { ForgetModalTexts } from '~/constants/LoginTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useForgotPasswordMutation } from '~/query/services/post';
 import { VerifyField } from '~/types/LoginTypes';
@@ -23,6 +28,17 @@ import { verifySchema } from '~/utils/validationRules/yupSheme';
 
 import * as loginImgs from '../../../assets/LoginImg/index';
 import closeBtn from '../../../assets/verificationCloseImg.svg';
+const errorMessage = {
+    403: {
+        title: 'Такого e-mail нет',
+        description: 'Попробуйте другой e-mail или проверьте правильность его написания',
+    },
+    500: {
+        title: 'Ошибка сервера',
+        description: 'Попробуйте немного позже',
+    },
+};
+
 export const ForgetModal = ({
     isOpen,
     onClose,
@@ -35,7 +51,6 @@ export const ForgetModal = ({
     setVerEmail: (email: string) => void;
 }) => {
     const [verifyEmail, { isSuccess, isError, error, isLoading }] = useForgotPasswordMutation();
-
     const {
         register,
         handleSubmit,
@@ -58,16 +73,7 @@ export const ForgetModal = ({
         setVerEmail('');
         reset();
     };
-    const errorMessage = {
-        403: {
-            title: 'Такого e-mail нет',
-            description: 'Попробуйте другой e-mail или проверьте правильность его написания',
-        },
-        500: {
-            title: 'Ошибка сервера',
-            description: 'Попробуйте немного позже',
-        },
-    };
+
     return isOpen ? (
         <Center
             data-test-id={TEST_IDS.SEND_EMAIL_MODAL}
@@ -88,9 +94,7 @@ export const ForgetModal = ({
                 position='relative'
             >
                 <Image src={loginImgs.forgetModal} alt='forget modal img' />
-                <Text fontSize='16px' textAlign='center'>
-                    Для восстановления входа введите ваш e-mail, куда можно отправить уникальный код
-                </Text>
+                <Text {...LoginDescriptionStyles}>{ForgetModalTexts.description}</Text>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <VStack gap='24px'>
                         <FormControl isInvalid={!!errors.email}>
@@ -117,9 +121,7 @@ export const ForgetModal = ({
                     </VStack>
                 </form>
                 <VStack gap={0}>
-                    <Text fontSize='12px' color='rgba(0, 0, 0, 0.48)'>
-                        Не пришло письмо? Проверьте папку Спам.
-                    </Text>
+                    <Text {...LoginCheckTextStyles}>{ForgetModalTexts.check}</Text>
                 </VStack>
                 <Image
                     data-test-id={TEST_IDS.CLOSE_BTN}

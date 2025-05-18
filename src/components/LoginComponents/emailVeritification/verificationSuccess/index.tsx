@@ -1,6 +1,7 @@
 import { Center, Heading, Image, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router';
 
+import { LoginDescriptionStyles, LoginModalHeader } from '~/components/Pages/Login/textStyles';
 import { TEST_IDS } from '~/constants/testsIds';
 
 import * as loginImgs from '../../../../assets/LoginImg/index';
@@ -34,23 +35,15 @@ export const EmailVerificationSuccess = ({ email }: { email: string }) => {
                 position='relative'
             >
                 <Image src={loginImgs.regVerification} alt='registration image verification' />
-                <Heading
-                    as='h2'
-                    size='h2'
-                    fontSize='24px'
-                    lineHeight='32px'
-                    fontWeight='700'
-                    textAlign='center'
-                    letterSpacing='0.5px'
-                >
+                <Heading {...LoginModalHeader}>
                     Остался последний шаг. Нужно верифицировать ваш e-mail
                 </Heading>
-                <Text fontSize='16px' textAlign='center' px='50px'>
-                    Мы отправили вам на почту&nbsp;
+                <Text {...LoginDescriptionStyles} px='50px'>
+                    Мы отправили вам на почту
                     <Text as='span' fontWeight='600'>
-                        {email}
+                        {` ${email || ''} `}
                     </Text>
-                    &nbsp;ссылку для верификации.
+                    ссылку для верификации.
                 </Text>
                 <VStack gap={0}>
                     <Text fontSize='12px'>Не пришло письмо? Проверьте папку Спам.</Text>

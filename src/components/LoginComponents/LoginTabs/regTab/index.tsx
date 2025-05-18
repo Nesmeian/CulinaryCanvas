@@ -25,13 +25,18 @@ import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/textS
 import { TEST_IDS } from '~/constants/testsIds';
 import { usePostAuthSignUpMutation } from '~/query/services/post';
 import { RegFields } from '~/types/LoginTypes';
+import { handleTrimBlur } from '~/utils/LoginPageUtils/handleTrimBlur';
 import { registrationProgress } from '~/utils/LoginPageUtils/RegistationProgress';
 import { regSchema } from '~/utils/validationRules/yupSheme';
 
 import { EmailVerificationFailed } from '../../emailVeritification/verificationFailed';
 import { EmailVerificationSuccess } from '../../emailVeritification/verificationSuccess';
 import { PasswordInput } from '../passwordInput';
-
+const steps = ['Шаг 1.Личная информация', 'Шаг 2. Логин и пароль'];
+const stepFields: Record<number, (keyof RegFields)[]> = {
+    0: ['firstName', 'lastName', 'email'],
+    1: ['login', 'password', 'rePassword'],
+};
 export const RegTab = () => {
     const [postAuthSignUp, { isLoading, isError, error, isSuccess }] = usePostAuthSignUpMutation();
     const [verEmail, setVerEmail] = useState('');
@@ -54,11 +59,7 @@ export const RegTab = () => {
     };
     const watchedValues = watch();
     const progressState = registrationProgress(watchedValues, errors);
-    const steps = ['Шаг 1.Личная информация', 'Шаг 2. Логин и пароль'];
-    const stepFields: Record<number, (keyof RegFields)[]> = {
-        0: ['firstName', 'lastName', 'email'],
-        1: ['login', 'password', 'rePassword'],
-    };
+
     const [activeIndex, setActiveIndex] = useState(0);
     const handleNext = async () => {
         const valid = await trigger(stepFields[activeIndex]);
@@ -103,7 +104,7 @@ export const RegTab = () => {
                                     placeholder='Имя'
                                     {...LoginInputStyles}
                                     {...register('firstName', { required: 'Ваше имя' })}
-                                    onBlur={(e) => (e.target.value = e.target.value.trim())}
+                                    onBlur={(e) => handleTrimBlur(e)}
                                 />
                                 <FormErrorMessage>
                                     {errors.firstName && errors.firstName?.message}
@@ -116,7 +117,7 @@ export const RegTab = () => {
                                     placeholder='Фамилия'
                                     {...LoginInputStyles}
                                     {...register('lastName')}
-                                    onBlur={(e) => (e.target.value = e.target.value.trim())}
+                                    onBlur={(e) => handleTrimBlur(e)}
                                 />
                                 <FormErrorMessage>
                                     {errors.lastName && errors.lastName?.message}
