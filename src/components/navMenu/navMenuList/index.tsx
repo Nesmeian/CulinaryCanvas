@@ -34,6 +34,8 @@ export default function NavMenuList() {
         <Accordion
             index={activeIndex}
             onChange={(idx) => setActiveIndex(idx as number | undefined)}
+            width='100%'
+            pt={{ lg: '40px', base: '0' }}
         >
             {categories.map(({ _id, icon, title, category, subCategories }) => {
                 const isParentActive = category === mainRoute;
@@ -41,6 +43,8 @@ export default function NavMenuList() {
                 return (
                     <AccordionItem key={_id} border='0'>
                         <AccordionButton
+                            display='flex'
+                            justifyContent='space-between'
                             as={RouterLink}
                             to={`/${category}/${subCategories[0].category}`}
                             data-test-id={category === 'vegan' ? TEST_IDS.VEGAN : category}
