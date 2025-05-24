@@ -2,6 +2,7 @@ export const newRecipeHeadingStyle = {
     fontSize: '16px',
     lineHeight: '16px',
     fontWeight: '600',
+    letterSpacing: '0.5',
 };
 
 export const hiddenStyles = {
@@ -21,3 +22,11 @@ export const tagStyles = {
     borderRadius: '6px',
     whiteSpace: 'nowrap' as const,
 };
+export const menuText = {
+    whiteSpace: 'nowrap',
+    flex: '1',
+    textAlign: 'left',
+    mr: 2,
+    fontSize: '16px',
+    fontWeight: '400',
+} as const;

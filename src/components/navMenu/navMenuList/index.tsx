@@ -52,6 +52,7 @@ export default function NavMenuList() {
                                 bg: '#EAffc7',
                                 fontWeight: 700,
                             }}
+                            pl='0'
                         >
                             <HStack>
                                 <Image src={`${IMG_PATH}${icon}`} alt={title} />

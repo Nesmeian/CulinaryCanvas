@@ -6,19 +6,6 @@
     }
 }
 
-.navMenu__item {
-    justify-content: space-between;
-    width: 100%;
-}
-.navMenu__item:first-child {
-    margin-top: 12px;
-}
-
-.navMenu__item_text {
-    font-weight: 500;
-    line-height: 150%;
-}
-
 .navMenu__version {
     font-weight: 500;
     color: rgba(0, 0, 0, 0.24);

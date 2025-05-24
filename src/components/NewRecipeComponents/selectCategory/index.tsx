@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { AddCategory } from '~/utils/newRecipeUtils/addCategoryBox';
 
-import { newRecipeHeadingStyle } from '../componentStyles';
+import { menuText, newRecipeHeadingStyle } from '../componentStyles';
 
 export const SelectCategory = () => {
     const subCategories = useGetFilteredCategories(true).data;
@@ -27,14 +27,14 @@ export const SelectCategory = () => {
         );
     };
     return (
-        <HStack w='100%'>
+        <HStack w='100%' gap={{ lg: '84px', base: '16px' }} mb='6px'>
             <Heading as='h3' size='h3' {...newRecipeHeadingStyle}>
                 Выберите не менее 3-х тегов
             </Heading>
             <Menu closeOnSelect={false}>
                 <MenuButton
                     as={Button}
-                    w={{ lg: '399px', base: '308px' }}
+                    w={{ lg: '350px', md: '232px', base: '196px' }}
                     background='white'
                     border='1px solid rgba(0,0,0,0.08)'
                     display='flex'
@@ -55,9 +55,7 @@ export const SelectCategory = () => {
                     }}
                 >
                     {selectCategory.length === 0 ? (
-                        <Text noOfLines={1} whiteSpace='nowrap' flex='1' textAlign='left' mr={2}>
-                            Выберите из списка …
-                        </Text>
+                        <Text {...menuText}>Выберите из списка...</Text>
                     ) : (
                         <AddCategory selectCategory={selectCategory} width={350} />
                     )}
