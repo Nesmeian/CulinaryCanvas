@@ -2,6 +2,7 @@ import './style.css';
 
 import { Box, Button, HStack, Image, Text } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router';
 
 import { TEST_IDS } from '~/constants/testsIds';
 
@@ -44,7 +45,7 @@ export default function Footer() {
                     <Text fontSize='10px'>Поиск</Text>
                 </Button>
 
-                <Button sx={buttonStyles} variant='plain'>
+                <Button as={Link} to='/new-recipe' sx={buttonStyles} variant='plain'>
                     <Image src={btnImg.writeBtn} boxSize='48px' />
                     <Text fontSize='10px'>Записать</Text>
                 </Button>

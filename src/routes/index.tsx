@@ -9,6 +9,7 @@ import Main from '~/components/Main';
 import { NotFoundPage } from '~/components/notFoundPage';
 import { Login } from '~/components/Pages/Login';
 import { MainPage } from '~/components/Pages/MainPage';
+import { NewRecipe } from '~/components/Pages/NewRecipe';
 import Recipe from '~/components/recipe';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
 import { useCheckAuthTokenQuery } from '~/query/services/get/getAuthToken';
@@ -49,6 +50,7 @@ const AppRoutes = () => {
                     }
                 >
                     <Route index element={<Main />} />
+                    <Route path='new-recipe' element={<NewRecipe />} />
                     <Route path='the-juiciest'>
                         <Route index element={<Categories />} />
                         <Route path=':id' element={<Recipe />} />
