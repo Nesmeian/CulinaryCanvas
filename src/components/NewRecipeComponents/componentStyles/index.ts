@@ -30,3 +30,25 @@ export const menuText = {
     fontSize: '16px',
     fontWeight: '400',
 } as const;
+export const IngredientsDescriptionStyles = {
+    fontWeight: '700',
+    fontSize: '12px',
+    color: '#2db100',
+    letterSpacing: '0',
+};
+export const chooseMeasureMenuStyle = {
+    w: { md: '215px', base: '192px' },
+    height: '40px',
+    textAlign: 'left',
+    background: 'white',
+    fontSize: '16px',
+    color: 'rgba(0, 0, 0, 0.64)',
+    _active: {
+        background: 'white',
+        border: '1px solid #c4ff61',
+        '& svg': {
+            transform: 'rotate(180deg)',
+        },
+    },
+    _hover: { background: 'white' },
+} as const;
