@@ -13,6 +13,7 @@ import {
     MenuItem,
     MenuList,
     Switch,
+    Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -36,6 +37,11 @@ export default function AllergensControlsDrawer({
         setInputState('');
     };
     const [inputState, setInputState] = useState('');
+    const setAllergenHandler = (e: string) => {
+        setAllergens((prev) =>
+            prev.includes(e) ? prev.filter((item) => item !== e) : [...prev, e],
+        );
+    };
     return (
         <FormControl
             display='flex'
@@ -77,7 +83,6 @@ export default function AllergensControlsDrawer({
                     fontSize='16px'
                     fontWeight='400 '
                     textAlign='left'
-                    rightIcon={<ChevronDownIcon transition='transform 0.1s' />}
                     _active={{
                         background: 'white',
                         border: '1px solid #c4ff61',
@@ -86,8 +91,20 @@ export default function AllergensControlsDrawer({
                         },
                     }}
                     _hover={{ background: 'white' }}
+                    sx={{
+                        '> span': {
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            width: '100%',
+                            flexWrap: 'nowrap',
+                        },
+                    }}
                 >
-                    Выберите из списка аллергенов...
+                    <Text noOfLines={1} whiteSpace='nowrap' flex='1' textAlign='left' mr={2}>
+                        Выберите из списка аллергенов...
+                    </Text>
+                    <ChevronDownIcon transition='transform 0.1s' />
                 </MenuButton>
                 <MenuList w={{ lg: '399px', base: '308px' }} zIndex={30}>
                     {allergensMap.map((e, i) => (
@@ -100,13 +117,7 @@ export default function AllergensControlsDrawer({
                                 width='100%'
                                 borderColor='#b1ff2e'
                                 isChecked={allergens.includes(e)}
-                                onChange={() =>
-                                    setAllergens((prev) =>
-                                        prev.includes(e)
-                                            ? prev.filter((item) => item !== e)
-                                            : [...prev, e],
-                                    )
-                                }
+                                onChange={() => setAllergenHandler(e)}
                                 colorScheme='customgreen'
                                 icon={
                                     <CheckboxIcon
