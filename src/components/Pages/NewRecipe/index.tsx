@@ -1,6 +1,6 @@
-import { HStack, Image, VStack } from '@chakra-ui/react';
+import { HStack, Image } from '@chakra-ui/react';
 
-import { SelectCategory } from '~/components/NewRecipeComponents/selectCategory';
+import { RecipeMainInf } from '~/components/NewRecipeComponents/RecipeMainInf';
 import MainStyled from '~/components/styledComponents/Main';
 
 import emptyImg from '../../../assets/emptyImage.png';
@@ -8,13 +8,11 @@ export const NewRecipe = () => {
     console.log('jack');
     return (
         <MainStyled>
-            <HStack w='100%'>
+            <HStack w='100%' mt='56px'>
                 <form>
-                    <HStack>
+                    <HStack alignItems='flex-start' gap={5} h='410px'>
                         <Image src={emptyImg} alt='recipeImg' />
-                        <VStack>
-                            <SelectCategory />
-                        </VStack>
+                        <RecipeMainInf />
                     </HStack>
                 </form>
             </HStack>
