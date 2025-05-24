@@ -8,14 +8,16 @@ export const NewRecipe = () => {
     console.log('jack');
     return (
         <MainStyled>
-            <form>
-                <HStack>
-                    <Image src={emptyImg} alt='recipeImg' />
-                    <VStack>
-                        <SelectCategory />
-                    </VStack>
-                </HStack>
-            </form>
+            <HStack w='100%'>
+                <form>
+                    <HStack>
+                        <Image src={emptyImg} alt='recipeImg' />
+                        <VStack>
+                            <SelectCategory />
+                        </VStack>
+                    </HStack>
+                </form>
+            </HStack>
         </MainStyled>
     );
 };
