@@ -10,7 +10,7 @@ export const ChooseMeasure = ({
 }: {
     value: string;
     onChange: React.Dispatch<React.SetStateAction<string>>;
-    isInvalid: boolean;
+    isInvalid?: boolean;
 }) => {
     const measures = ['грамм', 'мл', 'литр'];
     const SelectHandler = (e: string) => {

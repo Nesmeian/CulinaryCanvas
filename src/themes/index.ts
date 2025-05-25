@@ -21,6 +21,15 @@ const theme = extendTheme({
             fontSize: '100px',
         },
     },
+    styles: {
+        global: {
+            '::-webkit-scrollbar': { display: 'none' },
+            '*': {
+                scrollbarWidth: 'none',
+                '-ms-overflow-style': 'none',
+            },
+        },
+    },
     colors: {
         customgreen: {
             500: '#b1ff2e',
