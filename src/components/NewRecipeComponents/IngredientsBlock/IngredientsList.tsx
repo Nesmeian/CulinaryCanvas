@@ -14,7 +14,7 @@ export const IngredientsList = ({ ingredients, setIngredient }: IngredientsListP
         setIngredient((prev) =>
             prev.map((item, i) =>
                 i === idx
-                    ? { ...item, [field]: field === 'amount' ? Number(value) : String(value) }
+                    ? { ...item, [field]: field === 'count' ? Number(value) : String(value) }
                     : item,
             ),
         );
@@ -23,22 +23,22 @@ export const IngredientsList = ({ ingredients, setIngredient }: IngredientsListP
         <HStack key={idx} spacing='12px' w='100%'>
             <Input
                 placeholder='Ингредиент'
-                value={item.ingredient}
-                onChange={(e) => updateItem(idx, 'ingredient', e.target.value)}
+                value={item.title}
+                onChange={(e) => updateItem(idx, 'title', e.target.value)}
                 w={{ lg: '295px', md: '241px', base: '328px' }}
             />
             <Input
                 placeholder='100'
                 w={{ base: '80px' }}
-                value={item.amount}
+                value={item.count}
                 type='number'
-                onChange={(e) => updateItem(idx, 'amount', e.target.value)}
+                onChange={(e) => updateItem(idx, 'count', e.target.value)}
             />
             <ChooseMeasure
-                value={item.measurement}
+                value={item.measureUnit}
                 onChange={(val) => {
-                    const newMeasurement = typeof val === 'string' ? val : val(item.measurement);
-                    updateItem(idx, 'measurement', newMeasurement);
+                    const newMeasurement = typeof val === 'string' ? val : val(item.measureUnit);
+                    updateItem(idx, 'measureUnit', newMeasurement);
                 }}
             />
             <Image

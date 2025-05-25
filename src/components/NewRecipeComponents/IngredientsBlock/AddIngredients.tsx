@@ -23,7 +23,7 @@ export const AddIngredients = ({
         if (!isValid) return;
         setIngredient((prev) => [
             ...prev,
-            { ingredient: name.trim(), amount: Number(quantity), measurement: measure },
+            { title: name.trim(), count: Number(quantity), measureUnit: measure },
         ]);
         setName('');
         setQuantity('');

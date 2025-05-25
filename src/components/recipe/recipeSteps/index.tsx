@@ -2,6 +2,8 @@ import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
 import { IMG_PATH } from '~/constants';
 import { StepsData } from '~/types/recipesData';
+
+import { stepTextStyle } from '../recipeStyles';
 export default function RecipeSteps({ data }: { data: StepsData[] }) {
     return (
         <VStack width='100%' alignItems='flex-start' mt={{ lg: '16px', base: '14px' }}>
@@ -40,14 +42,7 @@ export default function RecipeSteps({ data }: { data: StepsData[] }) {
                             p={{ lg: '20px 24px', base: '8px' }}
                         >
                             <VStack alignItems='flex-start' gap={{ lg: '14px', base: '10px' }}>
-                                <Text
-                                    p='2px 8px'
-                                    borderRadius='4px'
-                                    background='rgba(0, 0, 0, 0.06)'
-                                    fontSize={{ base: '14px' }}
-                                    letterSpacing='0.5px'
-                                    lineHeight='20px'
-                                >{`Шаг ${stepNumber}`}</Text>
+                                <Text {...stepTextStyle}>{`Шаг ${stepNumber}`}</Text>
                                 <Text fontSize={{ base: '14px' }} letterSpacing='0.5px'>
                                     {description}
                                 </Text>
