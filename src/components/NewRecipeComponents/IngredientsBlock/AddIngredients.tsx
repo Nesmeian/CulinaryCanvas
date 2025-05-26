@@ -1,25 +1,27 @@
 import { FormControl, Image, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { IngredientsType } from '~/types/NewRecipesTypes';
+import { AddIngredientProps } from '~/types/NewRecipesTypes';
 
 import * as AddIcon from '../../../assets/addIcon/index';
 import { ChooseMeasure } from './ChooseMeasure';
 export const AddIngredients = ({
     setIngredient,
-}: {
-    setIngredient: React.Dispatch<React.SetStateAction<IngredientsType>>;
-}) => {
+    isInvalidArray,
+    clearErrors,
+}: AddIngredientProps) => {
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('');
     const [measure, setMeasure] = useState('');
-    const [isTouched, setIsTouched] = useState(false);
     const isNameValid = name.trim().length > 0 && name.trim().length <= 50;
     const isValid =
         isNameValid && !isNaN(Number(quantity)) && Number(quantity) > 0 && measure !== '';
-
+    const resetArrayError = () => {
+        if (clearErrors && isInvalidArray) {
+            clearErrors('ingredients');
+        }
+    };
     const handleAdd = () => {
-        setIsTouched(true);
         if (!isValid) return;
         setIngredient((prev) => [
             ...prev,
@@ -28,18 +30,17 @@ export const AddIngredients = ({
         setName('');
         setQuantity('');
         setMeasure('');
-        setIsTouched(false);
     };
-
     return (
-        <FormControl gap='12px' display='flex'>
+        <FormControl gap='12px' display='flex' isInvalid={isInvalidArray}>
             <Input
                 placeholder='Ингредиент'
                 value={name}
                 type='text'
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                    resetArrayError(), setName(e.target.value);
+                }}
                 w={{ lg: '295px', md: '241px', base: '328px' }}
-                isInvalid={isTouched && !isNameValid}
                 errorBorderColor='red.300'
             />
             <Input
@@ -47,14 +48,16 @@ export const AddIngredients = ({
                 w={{ base: '80px' }}
                 value={quantity}
                 type='number'
-                onChange={(e) => setQuantity(e.target.value)}
-                isInvalid={isTouched && (Number(quantity) <= 0 || isNaN(Number(quantity)))}
+                onChange={(e) => {
+                    resetArrayError(), setQuantity(e.target.value);
+                }}
                 errorBorderColor='red.300'
             />
             <ChooseMeasure
                 value={measure}
                 onChange={setMeasure}
-                isInvalid={isTouched && measure === ''}
+                isInvalid={isInvalidArray}
+                resetArrayError={resetArrayError}
             />
             <Image src={AddIcon.WhiteCenter} alt='add icon' onClick={handleAdd} cursor='pointer' />
         </FormControl>

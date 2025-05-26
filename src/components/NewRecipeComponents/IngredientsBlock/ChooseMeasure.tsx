@@ -1,5 +1,8 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Button, Checkbox, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { useEffect } from 'react';
+
+import { ChooseMeasureProps } from '~/types/NewRecipesTypes';
 
 import { chooseMeasureMenuStyle } from '../componentStyles';
 
@@ -7,14 +10,24 @@ export const ChooseMeasure = ({
     value,
     onChange,
     isInvalid,
-}: {
-    value: string;
-    onChange: React.Dispatch<React.SetStateAction<string>>;
-    isInvalid?: boolean;
-}) => {
+    setValue,
+    index,
+    resetArrayError,
+}: ChooseMeasureProps) => {
     const measures = ['грамм', 'мл', 'литр'];
+    useEffect(() => {
+        if (setValue && index !== undefined && value) {
+            setValue(`ingredients.${index}.measureUnit`, value, { shouldValidate: true });
+        }
+    }, [value, index, setValue]);
     const SelectHandler = (e: string) => {
         onChange(e);
+        if (setValue && index !== undefined) {
+            setValue(`ingredients.${index}.measureUnit`, e, { shouldValidate: true });
+        }
+        if (resetArrayError) {
+            resetArrayError();
+        }
     };
 
     return (
@@ -32,7 +45,9 @@ export const ChooseMeasure = ({
                 {measures.map((e) => (
                     <MenuItem key={e} px={0}>
                         <Checkbox
-                            onChange={() => SelectHandler(e)}
+                            onChange={() => {
+                                SelectHandler(e);
+                            }}
                             isChecked={value.includes(e)}
                             borderColor='#D7FF94'
                             colorScheme='customgreen'
