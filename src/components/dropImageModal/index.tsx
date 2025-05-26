@@ -9,22 +9,30 @@ export const DropImageModal = ({
     onClose,
     initImage,
     setRecipeImage,
+    setFormImage,
 }: {
     isOpen: boolean;
     onClose: () => void;
     initImage: string;
     setRecipeImage: React.Dispatch<React.SetStateAction<string>>;
+    setFormImage: (file: File) => void;
 }) => {
     const [preview, setPreview] = useState<string>(initImage);
-
+    const [file, setFile] = useState<File | null>(null);
     const { getRootProps, getInputProps } = useDropzone({
         accept: { 'image/*': [] },
         multiple: false,
-        onDrop: ([file]) => setPreview(URL.createObjectURL(file)),
+        onDrop: ([file]) => {
+            setPreview(URL.createObjectURL(file));
+            setFile(file);
+        },
     });
     const saveImageHandler = () => {
-        setRecipeImage(preview);
-        onClose();
+        if (file) {
+            setFormImage(file);
+            setRecipeImage(preview);
+            onClose();
+        }
     };
     if (!isOpen) return null;
 

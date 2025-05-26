@@ -16,3 +16,8 @@ export type newRecipeStepsListType = {
     steps: newRecipeStepsType;
     setSteps: React.Dispatch<React.SetStateAction<newRecipeStepsType>>;
 };
+export type RecipeFields = {
+    title: string;
+    description: string;
+    image: File;
+};
