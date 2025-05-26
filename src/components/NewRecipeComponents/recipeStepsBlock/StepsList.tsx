@@ -18,7 +18,6 @@ export const StepsList = ({ steps, setSteps }: newRecipeStepsListType) => {
             }));
         });
     };
-    console.log(steps);
     return steps.map(({ step, description, image }, i) => (
         <HStack
             key={step}

@@ -1,3 +1,5 @@
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+
 export type IngredientsType = {
     title: string;
     count: number;
@@ -20,4 +22,25 @@ export type RecipeFields = {
     title: string;
     description: string;
     image: File;
+    portions: number;
+    time: number;
+};
+export type RecipeFormBasicProps = {
+    register: UseFormRegister<RecipeFields>;
+    errors: FieldErrors<RecipeFields>;
+};
+export type RecipeFormHelpers = {
+    errors: FieldErrors<RecipeFields>;
+    setValue: UseFormSetValue<RecipeFields>;
+};
+export type RecipeFormProps = {
+    register: UseFormRegister<RecipeFields>;
+    errors: FieldErrors<RecipeFields>;
+    setValue: UseFormSetValue<RecipeFields>;
+};
+export type NumberInputType = {
+    name: keyof RecipeFields;
+    value: number;
+    setValue: UseFormSetValue<RecipeFields>;
+    errors: FieldErrors<RecipeFields>;
 };

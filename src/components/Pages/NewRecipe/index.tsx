@@ -1,5 +1,6 @@
 import { HStack, Image, useDisclosure } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -8,6 +9,7 @@ import { RecipeBuilder } from '~/components/NewRecipeComponents/RecipeBuilder';
 import { RecipeMainInf } from '~/components/NewRecipeComponents/RecipeMainInf';
 import MainStyled from '~/components/styledComponents/Main';
 import { RecipeFields } from '~/types/NewRecipesTypes';
+import { newRecipeScheme } from '~/utils/validationRules/newRecipeScheme';
 
 import emptyImg from '../../../assets/emptyImage.png';
 import { RecipeImgStyles } from './styles';
@@ -15,12 +17,20 @@ import { RecipeImgStyles } from './styles';
 export const NewRecipe = () => {
     const { isOpen, onClose, onOpen } = useDisclosure();
     const [recipeImg, setRecipeImage] = useState(emptyImg);
-    const { handleSubmit, setValue } = useForm<RecipeFields>({ mode: 'onChange' });
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+    } = useForm<RecipeFields>({
+        mode: 'onChange',
+        resolver: yupResolver(newRecipeScheme),
+    });
     const onSubmit: SubmitHandler<RecipeFields> = (data) => {
         console.log(data, 'data');
     };
     const handleImageSave = (file: File) => {
-        setValue('image', file);
+        setValue('image', file, { shouldValidate: true });
     };
     return (
         <MainStyled as='main'>
@@ -34,8 +44,14 @@ export const NewRecipe = () => {
                     alignItems='center'
                 >
                     <HStack alignItems='flex-start' gap={5} h='410px' w='100%'>
-                        <Image {...RecipeImgStyles} src={recipeImg} onClick={onOpen} />
-                        <RecipeMainInf />
+                        <Image
+                            {...RecipeImgStyles}
+                            border={errors.image ? '1px solid' : 'none'}
+                            borderColor='red.500'
+                            src={recipeImg}
+                            onClick={onOpen}
+                        />
+                        <RecipeMainInf register={register} errors={errors} setValue={setValue} />
                     </HStack>
                     <RecipeBuilder />
                 </chakra.form>
