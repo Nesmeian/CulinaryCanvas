@@ -21,10 +21,15 @@ export const NewRecipe = () => {
         register,
         handleSubmit,
         setValue,
+        clearErrors,
         formState: { errors },
     } = useForm<RecipeFields>({
         mode: 'onChange',
         resolver: yupResolver(newRecipeScheme),
+        defaultValues: {
+            time: 30,
+            portions: 4,
+        },
     });
     const onSubmit: SubmitHandler<RecipeFields> = (data) => {
         console.log(data, 'data');
@@ -53,7 +58,12 @@ export const NewRecipe = () => {
                         />
                         <RecipeMainInf register={register} errors={errors} setValue={setValue} />
                     </HStack>
-                    <RecipeBuilder />
+                    <RecipeBuilder
+                        register={register}
+                        errors={errors}
+                        setValue={setValue}
+                        clearErrors={clearErrors}
+                    />
                 </chakra.form>
             </HStack>
             <DropImageModal

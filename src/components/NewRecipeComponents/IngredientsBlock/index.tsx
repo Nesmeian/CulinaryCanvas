@@ -1,7 +1,7 @@
 import { Heading, HStack, Image, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { IngredientsType } from '~/types/NewRecipesTypes';
+import { IngredientsType, RecipeFormProps } from '~/types/NewRecipesTypes';
 
 import * as AddIcon from '../../../assets/addIcon/index';
 import { newRecipeHeadingStyle } from '../componentStyles';
@@ -9,7 +9,7 @@ import { AddIngredients } from './AddIngredients';
 import { IngredientsDescription } from './ingredientsDescription';
 import { IngredientsList } from './IngredientsList';
 
-export const IngredientsBlock = () => {
+export const IngredientsBlock = ({ register, errors, setValue, clearErrors }: RecipeFormProps) => {
     const [ingredients, setIngredient] = useState<IngredientsType>([]);
 
     return (
@@ -21,9 +21,19 @@ export const IngredientsBlock = () => {
             <VStack w='100%' alignItems='flex-start'>
                 <IngredientsDescription />
                 {ingredients && (
-                    <IngredientsList ingredients={ingredients} setIngredient={setIngredient} />
+                    <IngredientsList
+                        ingredients={ingredients}
+                        setIngredient={setIngredient}
+                        register={register}
+                        errors={errors}
+                        setValue={setValue}
+                    />
                 )}
-                <AddIngredients setIngredient={setIngredient} />
+                <AddIngredients
+                    setIngredient={setIngredient}
+                    isInvalidArray={ingredients.length === 0 ? !!errors.ingredients : undefined}
+                    clearErrors={ingredients.length === 0 ? clearErrors : undefined}
+                />
             </VStack>
         </VStack>
     );

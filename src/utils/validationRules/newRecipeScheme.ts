@@ -1,5 +1,9 @@
 import * as Yup from 'yup';
-
+const ingredientSchema = Yup.object({
+    title: Yup.string().required().max(50),
+    count: Yup.number().required().positive(),
+    measureUnit: Yup.string(),
+});
 export const newRecipeScheme = Yup.object({
     image: Yup.mixed<File>()
         .required('Изображение обязательно')
@@ -15,4 +19,8 @@ export const newRecipeScheme = Yup.object({
         .positive('Число должно быть положительным')
         .integer('Число должно быть целым')
         .max(10000),
+    ingredients: Yup.array()
+        .of(ingredientSchema)
+        .min(1, 'Добавьте хотя бы один ингредиент')
+        .required('Ингредиенты обязательны'),
 });
