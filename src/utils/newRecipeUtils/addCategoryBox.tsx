@@ -3,14 +3,9 @@ import { useCallback, useEffect, useState } from 'react';
 import useMeasure from 'react-use-measure';
 
 import { hiddenStyles, tagStyles } from '~/components/NewRecipeComponents/componentStyles';
+import { addCategoryToNewRecipeProps } from '~/types/NewRecipesTypes';
 
-export const AddCategory = ({
-    selectCategory,
-    width,
-}: {
-    selectCategory: string[];
-    width: number;
-}) => {
+export const AddCategory = ({ selectCategory, width }: addCategoryToNewRecipeProps) => {
     const [itemWidths, setItemWidths] = useState<Record<string, number>>({});
     const handleResize = useCallback((key: string, w: number) => {
         setItemWidths((prev) =>

@@ -23,4 +23,5 @@ export const newRecipeScheme = Yup.object({
         .of(ingredientSchema)
         .min(1, 'Добавьте хотя бы один ингредиент')
         .required('Ингредиенты обязательны'),
+    categoriesIds: Yup.array().min(3).required(),
 });

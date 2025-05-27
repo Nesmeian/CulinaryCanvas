@@ -9,6 +9,11 @@ type measureType = {
     _id: string;
     name: string;
 };
+export type addCategoryToNewRecipeProps = {
+    selectCategory: string[];
+    width: number;
+    setValue: UseFormSetValue<RecipeFields>;
+};
 export type AddIngredientProps = {
     setIngredient: React.Dispatch<React.SetStateAction<Ingredient[]>>;
     measure?: measureType[];
@@ -30,6 +35,7 @@ export type RecipeFields = {
     image: File;
     portions: number;
     time: number;
+    categoriesIds: string[];
     ingredients: Ingredient[];
 };
 export type Ingredient = {
