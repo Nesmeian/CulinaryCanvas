@@ -9,27 +9,21 @@ export const AddIngredients = ({
     setIngredient,
     isInvalidArray,
     clearErrors,
+    measure,
 }: AddIngredientProps) => {
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('');
-    const [measure, setMeasure] = useState('');
-    const isNameValid = name.trim().length > 0 && name.trim().length <= 50;
-    const isValid =
-        isNameValid && !isNaN(Number(quantity)) && Number(quantity) > 0 && measure !== '';
+    const [measureState, setMeasureState] = useState('');
     const resetArrayError = () => {
         if (clearErrors && isInvalidArray) {
             clearErrors('ingredients');
         }
     };
     const handleAdd = () => {
-        if (!isValid) return;
         setIngredient((prev) => [
             ...prev,
-            { title: name.trim(), count: Number(quantity), measureUnit: measure },
+            { title: name.trim(), count: Number(quantity), measureUnit: measureState },
         ]);
-        setName('');
-        setQuantity('');
-        setMeasure('');
     };
     return (
         <FormControl gap='12px' display='flex' isInvalid={isInvalidArray}>
@@ -54,10 +48,11 @@ export const AddIngredients = ({
                 errorBorderColor='red.300'
             />
             <ChooseMeasure
-                value={measure}
-                onChange={setMeasure}
+                value={measureState}
+                onChange={setMeasureState}
                 isInvalid={isInvalidArray}
                 resetArrayError={resetArrayError}
+                measure={measure}
             />
             <Image src={AddIcon.WhiteCenter} alt='add icon' onClick={handleAdd} cursor='pointer' />
         </FormControl>

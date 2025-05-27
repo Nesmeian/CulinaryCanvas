@@ -1,16 +1,17 @@
 import { FieldErrors, UseFormClearErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
-export type IngredientsType = {
-    title: string;
-    count: number;
-    measureUnit: string;
-}[];
 export type IngredientsListProps = RecipeFormProps & {
-    ingredients: IngredientsType;
-    setIngredient: React.Dispatch<React.SetStateAction<IngredientsType>>;
+    ingredients: Ingredient[];
+    measure?: measureType[];
+    setIngredient: React.Dispatch<React.SetStateAction<Ingredient[]>>;
+};
+type measureType = {
+    _id: string;
+    name: string;
 };
 export type AddIngredientProps = {
-    setIngredient: React.Dispatch<React.SetStateAction<IngredientsType>>;
+    setIngredient: React.Dispatch<React.SetStateAction<Ingredient[]>>;
+    measure?: measureType[];
     isInvalidArray?: boolean;
     clearErrors?: UseFormClearErrors<RecipeFields>;
 };
@@ -33,7 +34,7 @@ export type RecipeFields = {
 };
 export type Ingredient = {
     title: string;
-    count: string;
+    count: number;
     measureUnit: string;
 };
 export type RecipeFormBasicProps = {
@@ -62,5 +63,6 @@ export type ChooseMeasureProps = {
     isInvalid?: boolean;
     setValue?: UseFormSetValue<RecipeFields>;
     index?: number;
+    measure?: measureType[];
     resetArrayError?: () => void;
 };

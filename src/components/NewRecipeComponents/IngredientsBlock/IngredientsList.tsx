@@ -1,6 +1,6 @@
 import { FormControl, HStack, Image, Input } from '@chakra-ui/react';
 
-import { IngredientsListProps, IngredientsType } from '~/types/NewRecipesTypes';
+import { Ingredient, IngredientsListProps } from '~/types/NewRecipesTypes';
 
 import deleteIcon from '../../../assets/deleteIcon.svg';
 import { ChooseMeasure } from './ChooseMeasure';
@@ -11,12 +11,9 @@ export const IngredientsList = ({
     register,
     errors,
     setValue,
+    measure,
 }: IngredientsListProps) => {
-    const updateItem = (
-        idx: number,
-        field: keyof IngredientsType[number],
-        value: string | number,
-    ) => {
+    const updateItem = (idx: number, field: keyof Ingredient[number], value: string | number) => {
         setIngredient((prev) =>
             prev.map((item, i) =>
                 i === idx
@@ -25,6 +22,7 @@ export const IngredientsList = ({
             ),
         );
     };
+
     return ingredients.map((item, idx) => (
         <HStack key={idx} spacing='12px' w='100%'>
             <FormControl isInvalid={!!errors.ingredients?.[idx]?.title}>
@@ -55,6 +53,7 @@ export const IngredientsList = ({
                 isInvalid={!!errors.ingredients?.[idx]?.measureUnit}
                 setValue={setValue}
                 index={idx}
+                measure={measure}
             />
             {ingredients.length !== 1 && (
                 <Image

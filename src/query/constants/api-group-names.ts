@@ -7,4 +7,5 @@ export enum ApiGroupNames {
     RECIPES = 'recipes',
     CATEGORY = 'category',
     AUTH_TOKEN = 'auth-token',
+    MEASURE_UNIT = 'measure-unit',
 }

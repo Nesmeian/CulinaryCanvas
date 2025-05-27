@@ -9,4 +9,5 @@ export enum ApiEndpoints {
     RECIPES = '/recipe',
     CATEGORY = '/category',
     RECIPES_CATEGORY = 'recipe/category',
+    MEASURE_UNIT = '/measure-units',
 }
