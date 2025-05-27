@@ -19,13 +19,22 @@ import { AddCategory } from '~/utils/newRecipeUtils/addCategoryBox';
 
 import { menuText, newRecipeHeadingStyle } from '../componentStyles';
 
-export const SelectCategory = ({ errors }: RecipeFormHelpers) => {
+export const SelectCategory = ({ errors, setValue }: RecipeFormHelpers) => {
     const subCategories = useGetFilteredCategories(true).data;
     const [selectCategory, setSelectCategory] = useState<string[]>([]);
     const setSelectCategoryHandler = (e: string) => {
-        setSelectCategory((prev) =>
-            prev.includes(e) ? prev.filter((item) => item !== e) : [...prev, e],
-        );
+        setSelectCategory((prev) => {
+            const newCategories = prev.includes(e)
+                ? prev.filter((item) => item !== e)
+                : [...prev, e];
+
+            setValue('categoriesIds', newCategories, {
+                shouldValidate: true,
+                shouldDirty: true,
+            });
+
+            return newCategories;
+        });
     };
     return (
         <HStack w='100%' gap={{ lg: '84px', base: '16px' }} mb='6px'>
@@ -36,8 +45,8 @@ export const SelectCategory = ({ errors }: RecipeFormHelpers) => {
                 <MenuButton
                     as={Button}
                     w={{ lg: '350px', md: '232px', base: '196px' }}
-                    background='white'
-                    border={errors.image ? '1px solid rgba(0,0,0,0.08)' : '1px solid red.500'}
+                    border='1px solid'
+                    borderColor={errors.categoriesIds ? 'red.500' : 'rgba(0,0,0,0.08)'}
                     display='flex'
                     _active={{
                         background: 'white',
@@ -58,7 +67,11 @@ export const SelectCategory = ({ errors }: RecipeFormHelpers) => {
                     {selectCategory.length === 0 ? (
                         <Text {...menuText}>Выберите из списка...</Text>
                     ) : (
-                        <AddCategory selectCategory={selectCategory} width={350} />
+                        <AddCategory
+                            selectCategory={selectCategory}
+                            width={350}
+                            setValue={setValue}
+                        />
                     )}
                     <ChevronDownIcon transition='transform 0.1s' />
                 </MenuButton>

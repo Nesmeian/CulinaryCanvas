@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Loader } from '~/components/loader';
 import { useGetMeasureUnitQuery } from '~/query/services/get/getMeasureUnits';
-import { RecipeFormProps } from '~/types/NewRecipesTypes';
+import { Ingredient, RecipeFormProps } from '~/types/NewRecipesTypes';
 
 import * as AddIcon from '../../../assets/addIcon/index';
 import { newRecipeHeadingStyle } from '../componentStyles';
@@ -12,7 +12,7 @@ import { IngredientsDescription } from './ingredientsDescription';
 import { IngredientsList } from './IngredientsList';
 
 export const IngredientsBlock = ({ register, errors, setValue, clearErrors }: RecipeFormProps) => {
-    const [ingredients, setIngredient] = useState<IngredientsType>([]);
+    const [ingredients, setIngredient] = useState<Ingredient[]>([]);
     const { data, isLoading } = useGetMeasureUnitQuery();
     console.log(data);
     return (
