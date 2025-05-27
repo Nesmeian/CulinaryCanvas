@@ -1,7 +1,9 @@
 import { Heading, HStack, Image, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { IngredientsType, RecipeFormProps } from '~/types/NewRecipesTypes';
+import { Loader } from '~/components/loader';
+import { useGetMeasureUnitQuery } from '~/query/services/get/getMeasureUnits';
+import { RecipeFormProps } from '~/types/NewRecipesTypes';
 
 import * as AddIcon from '../../../assets/addIcon/index';
 import { newRecipeHeadingStyle } from '../componentStyles';
@@ -11,7 +13,8 @@ import { IngredientsList } from './IngredientsList';
 
 export const IngredientsBlock = ({ register, errors, setValue, clearErrors }: RecipeFormProps) => {
     const [ingredients, setIngredient] = useState<IngredientsType>([]);
-
+    const { data, isLoading } = useGetMeasureUnitQuery();
+    console.log(data);
     return (
         <VStack w='100%'>
             <HStack alignItems='flex-start' w='100%'>
@@ -22,6 +25,7 @@ export const IngredientsBlock = ({ register, errors, setValue, clearErrors }: Re
                 <IngredientsDescription />
                 {ingredients && (
                     <IngredientsList
+                        measure={data ? data : undefined}
                         ingredients={ingredients}
                         setIngredient={setIngredient}
                         register={register}
@@ -31,10 +35,12 @@ export const IngredientsBlock = ({ register, errors, setValue, clearErrors }: Re
                 )}
                 <AddIngredients
                     setIngredient={setIngredient}
+                    measure={data ? data : undefined}
                     isInvalidArray={ingredients.length === 0 ? !!errors.ingredients : undefined}
                     clearErrors={ingredients.length === 0 ? clearErrors : undefined}
                 />
             </VStack>
+            {isLoading && <Loader />}
         </VStack>
     );
 };

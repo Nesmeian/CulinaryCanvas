@@ -14,11 +14,12 @@ import {
 import { useState } from 'react';
 
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { RecipeFormHelpers } from '~/types/NewRecipesTypes';
 import { AddCategory } from '~/utils/newRecipeUtils/addCategoryBox';
 
 import { menuText, newRecipeHeadingStyle } from '../componentStyles';
 
-export const SelectCategory = () => {
+export const SelectCategory = ({ errors }: RecipeFormHelpers) => {
     const subCategories = useGetFilteredCategories(true).data;
     const [selectCategory, setSelectCategory] = useState<string[]>([]);
     const setSelectCategoryHandler = (e: string) => {
@@ -36,7 +37,7 @@ export const SelectCategory = () => {
                     as={Button}
                     w={{ lg: '350px', md: '232px', base: '196px' }}
                     background='white'
-                    border='1px solid rgba(0,0,0,0.08)'
+                    border={errors.image ? '1px solid rgba(0,0,0,0.08)' : '1px solid red.500'}
                     display='flex'
                     _active={{
                         background: 'white',

@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 const ingredientSchema = Yup.object({
     title: Yup.string().required().max(50),
     count: Yup.number().required().positive(),
-    measureUnit: Yup.string(),
+    measureUnit: Yup.string().required(),
 });
 export const newRecipeScheme = Yup.object({
     image: Yup.mixed<File>()

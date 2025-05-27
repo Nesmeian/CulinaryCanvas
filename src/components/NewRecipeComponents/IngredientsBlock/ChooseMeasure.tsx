@@ -12,9 +12,9 @@ export const ChooseMeasure = ({
     isInvalid,
     setValue,
     index,
+    measure,
     resetArrayError,
 }: ChooseMeasureProps) => {
-    const measures = ['грамм', 'мл', 'литр'];
     useEffect(() => {
         if (setValue && index !== undefined && value) {
             setValue(`ingredients.${index}.measureUnit`, value, { shouldValidate: true });
@@ -42,22 +42,23 @@ export const ChooseMeasure = ({
                 {value ? value : 'Единица измерения'}
             </MenuButton>
             <MenuList width='100%' zIndex={30}>
-                {measures.map((e) => (
-                    <MenuItem key={e} px={0}>
-                        <Checkbox
-                            onChange={() => {
-                                SelectHandler(e);
-                            }}
-                            isChecked={value.includes(e)}
-                            borderColor='#D7FF94'
-                            colorScheme='customgreen'
-                            width='100%'
-                            pl='16px'
-                        >
-                            {e}
-                        </Checkbox>
-                    </MenuItem>
-                ))}
+                {measure &&
+                    measure.map(({ name }) => (
+                        <MenuItem key={name} px={0}>
+                            <Checkbox
+                                onChange={() => {
+                                    SelectHandler(name);
+                                }}
+                                isChecked={value.includes(name)}
+                                borderColor='#D7FF94'
+                                colorScheme='customgreen'
+                                width='100%'
+                                pl='16px'
+                            >
+                                {name}
+                            </Checkbox>
+                        </MenuItem>
+                    ))}
             </MenuList>
         </Menu>
     );
