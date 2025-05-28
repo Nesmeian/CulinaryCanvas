@@ -11,31 +11,39 @@ import {
     MenuList,
     Text,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
-import { RecipeFormHelpers } from '~/types/NewRecipesTypes';
+import { RecipeFields } from '~/types/NewRecipesTypes';
 import { AddCategory } from '~/utils/newRecipeUtils/addCategoryBox';
 
 import { menuText, newRecipeHeadingStyle } from '../componentStyles';
 
-export const SelectCategory = ({ errors, setValue }: RecipeFormHelpers) => {
-    const subCategories = useGetFilteredCategories(true).data;
-    const [selectCategory, setSelectCategory] = useState<string[]>([]);
-    const setSelectCategoryHandler = (e: string) => {
-        setSelectCategory((prev) => {
-            const newCategories = prev.includes(e)
-                ? prev.filter((item) => item !== e)
-                : [...prev, e];
+export const SelectCategory = () => {
+    const {
+        setValue,
+        watch,
+        formState: { errors },
+    } = useFormContext<RecipeFields>();
+    const selectedIds = watch('categoriesIds') ?? [];
+    const subCategories = useGetFilteredCategories(true).data ?? [];
+    const selectedNames = useMemo(
+        () => subCategories.filter((cat) => selectedIds.includes(cat._id)).map((cat) => cat.title),
+        [selectedIds, subCategories],
+    );
 
-            setValue('categoriesIds', newCategories, {
-                shouldValidate: true,
-                shouldDirty: true,
-            });
+    const toggleCategory = (id: string) => {
+        const newIds = selectedIds.includes(id)
+            ? selectedIds.filter((i) => i !== id)
+            : [...selectedIds, id];
 
-            return newCategories;
+        setValue('categoriesIds', newIds, {
+            shouldValidate: true,
+            shouldDirty: true,
         });
     };
+
     return (
         <HStack w='100%' gap={{ lg: '84px', base: '16px' }} mb='6px'>
             <Heading as='h3' size='h3' {...newRecipeHeadingStyle}>
@@ -64,11 +72,11 @@ export const SelectCategory = ({ errors, setValue }: RecipeFormHelpers) => {
                         },
                     }}
                 >
-                    {selectCategory.length === 0 ? (
+                    {selectedNames.length === 0 ? (
                         <Text {...menuText}>Выберите из списка...</Text>
                     ) : (
                         <AddCategory
-                            selectCategory={selectCategory}
+                            selectCategory={selectedNames}
                             width={350}
                             setValue={setValue}
                         />
@@ -81,7 +89,7 @@ export const SelectCategory = ({ errors, setValue }: RecipeFormHelpers) => {
                     h='300px'
                     overflowY='scroll'
                 >
-                    {subCategories.map(({ title }, i) => (
+                    {subCategories.map(({ title, _id }, i) => (
                         <MenuItem
                             key={`${title}+${i}`}
                             background={i % 2 == 0 ? 'rgba(0, 0, 0, 0.06);' : 'white'}
@@ -90,7 +98,7 @@ export const SelectCategory = ({ errors, setValue }: RecipeFormHelpers) => {
                                 width='100%'
                                 borderColor='#b1ff2e'
                                 colorScheme='customgreen'
-                                onChange={() => setSelectCategoryHandler(title)}
+                                onChange={() => toggleCategory(_id)}
                                 icon={
                                     <CheckboxIcon
                                         sx={{

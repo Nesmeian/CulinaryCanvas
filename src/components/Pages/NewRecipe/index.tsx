@@ -2,7 +2,7 @@ import { HStack, Image, useDisclosure } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { DropImageModal } from '~/components/dropImageModal';
 import { RecipeBuilder } from '~/components/NewRecipeComponents/RecipeBuilder';
@@ -17,62 +17,70 @@ import { RecipeImgStyles } from './styles';
 export const NewRecipe = () => {
     const { isOpen, onClose, onOpen } = useDisclosure();
     const [recipeImg, setRecipeImage] = useState(emptyImg);
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        clearErrors,
-        formState: { errors },
-    } = useForm<RecipeFields>({
+    const methods = useForm<RecipeFields>({
         mode: 'onChange',
         resolver: yupResolver(newRecipeScheme),
         defaultValues: {
             time: 30,
             portions: 4,
+            steps: [
+                {
+                    stepNumber: 1,
+                    description: '',
+                    image: undefined,
+                },
+            ],
         },
     });
     const onSubmit: SubmitHandler<RecipeFields> = (data) => {
         console.log(data, 'data');
     };
-    const handleImageSave = (file: File) => {
-        setValue('image', file, { shouldValidate: true });
+    const {
+        handleSubmit,
+        formState: { errors },
+        setValue,
+    } = methods;
+    const handleImageSave = (preview: string, file: File) => {
+        setRecipeImage(preview);
+        setValue('image', file, {
+            shouldValidate: true,
+            shouldDirty: true,
+        });
+        onClose();
     };
+
     return (
         <MainStyled as='main'>
-            <HStack mt='56px' w='100%'>
-                <chakra.form
-                    onSubmit={handleSubmit(onSubmit)}
-                    w='calc(100% - 256px)'
-                    display='flex'
-                    flexDir='column'
-                    justifyContent='center'
-                    alignItems='center'
-                >
-                    <HStack alignItems='flex-start' gap={5} h='410px' w='100%'>
-                        <Image
-                            {...RecipeImgStyles}
-                            border={errors.image ? '1px solid' : 'none'}
-                            borderColor='red.500'
-                            src={recipeImg}
-                            onClick={onOpen}
-                        />
-                        <RecipeMainInf register={register} errors={errors} setValue={setValue} />
-                    </HStack>
-                    <RecipeBuilder
-                        register={register}
-                        errors={errors}
-                        setValue={setValue}
-                        clearErrors={clearErrors}
-                    />
-                </chakra.form>
-            </HStack>
-            <DropImageModal
-                isOpen={isOpen}
-                initImage={recipeImg}
-                onClose={onClose}
-                setRecipeImage={setRecipeImage}
-                setFormImage={handleImageSave}
-            />
+            <FormProvider {...methods}>
+                <HStack mt='56px' w='100%'>
+                    <chakra.form
+                        onSubmit={handleSubmit(onSubmit)}
+                        w='calc(100% - 256px)'
+                        display='flex'
+                        flexDir='column'
+                        justifyContent='center'
+                        alignItems='center'
+                    >
+                        <HStack alignItems='flex-start' gap={5} h='410px' w='100%'>
+                            <Image
+                                {...RecipeImgStyles}
+                                border={errors.image ? '1px solid' : 'none'}
+                                borderColor='red.500'
+                                src={recipeImg}
+                                onClick={onOpen}
+                            />
+                            <RecipeMainInf />
+                        </HStack>
+                        <RecipeBuilder />
+                    </chakra.form>
+                </HStack>
+                <DropImageModal
+                    isOpen={isOpen}
+                    initImage={recipeImg}
+                    onClose={onClose}
+                    onSave={handleImageSave}
+                />
+            </FormProvider>
         </MainStyled>
     );
 };

@@ -1,9 +1,19 @@
-import { FieldErrors, UseFormClearErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import {
+    FieldArrayWithId,
+    FieldErrors,
+    UseFieldArrayAppend,
+    UseFieldArrayRemove,
+    UseFieldArrayUpdate,
+    UseFormClearErrors,
+    UseFormRegister,
+    UseFormSetValue,
+} from 'react-hook-form';
 
-export type IngredientsListProps = RecipeFormProps & {
-    ingredients: Ingredient[];
-    measure?: measureType[];
-    setIngredient: React.Dispatch<React.SetStateAction<Ingredient[]>>;
+export type IngredientsListProps = {
+    measure: { _id: string; name: string }[];
+    fields: FieldArrayWithId<RecipeFields, 'ingredients', 'id'>[];
+    remove: UseFieldArrayRemove;
+    update: UseFieldArrayUpdate<RecipeFields, 'ingredients'>;
 };
 type measureType = {
     _id: string;
@@ -14,20 +24,22 @@ export type addCategoryToNewRecipeProps = {
     width: number;
     setValue: UseFormSetValue<RecipeFields>;
 };
-export type AddIngredientProps = {
-    setIngredient: React.Dispatch<React.SetStateAction<Ingredient[]>>;
+export type AddIngredientsProps = {
     measure?: measureType[];
-    isInvalidArray?: boolean;
-    clearErrors?: UseFormClearErrors<RecipeFields>;
+    append: UseFieldArrayAppend<RecipeFields, 'ingredients'>;
+    clearErrors: UseFormClearErrors<RecipeFields>;
+    hasError?: boolean;
 };
 export type newRecipeStepsType = {
-    step: number;
-    image: string;
+    stepNumber: number;
+    image: string | undefined;
     description: string;
 }[];
 export type newRecipeStepsListType = {
-    steps: newRecipeStepsType;
-    setSteps: React.Dispatch<React.SetStateAction<newRecipeStepsType>>;
+    steps: FieldArrayWithId<RecipeFields, 'steps', 'id'>[];
+    remove: UseFieldArrayRemove;
+    update: UseFieldArrayUpdate<RecipeFields, 'steps'>;
+    errors: FieldErrors<RecipeFields>;
 };
 export type RecipeFields = {
     title: string;
@@ -37,6 +49,7 @@ export type RecipeFields = {
     time: number;
     categoriesIds: string[];
     ingredients: Ingredient[];
+    steps: newRecipeStepsType;
 };
 export type Ingredient = {
     title: string;

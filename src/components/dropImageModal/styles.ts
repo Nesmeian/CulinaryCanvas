@@ -16,3 +16,10 @@ export const dropImageModalHeader = {
     textAlign: 'center',
     letterSpacing: '0.5px',
 } as const;
+export const dropImageModalContentStyles = {
+    background: 'white',
+    borderRadius: '16px',
+    p: '32px',
+    gap: '24px',
+    position: 'relative',
+} as const;

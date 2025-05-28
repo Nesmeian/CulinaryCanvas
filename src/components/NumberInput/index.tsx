@@ -7,14 +7,14 @@ import {
     NumberInputStepper,
 } from '@chakra-ui/react';
 
-import { NumberInputType } from '~/types/NewRecipesTypes';
-export const NumberInput = ({ name, value, setValue, errors }: NumberInputType) => (
-    <FormControl isInvalid={!!errors[name]}>
-        <NumberInputComponent
-            w='90px'
-            defaultValue={value}
-            onChange={(valueString) => setValue(name, valueString, { shouldValidate: true })}
-        >
+type Props = {
+    value: number;
+    onChange: (val: string) => void;
+    error?: string;
+};
+export const NumberInput = ({ value, onChange, error }: Props) => (
+    <FormControl isInvalid={!!error}>
+        <NumberInputComponent w='90px' value={value} onChange={onChange}>
             <NumberInputField />
             <NumberInputStepper>
                 <NumberIncrementStepper />
