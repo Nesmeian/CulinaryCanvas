@@ -1,9 +1,9 @@
 import { Heading, HStack, Image, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { Loader } from '~/components/loader';
 import { useGetMeasureUnitQuery } from '~/query/services/get/getMeasureUnits';
-import { Ingredient, RecipeFormProps } from '~/types/NewRecipesTypes';
+import { RecipeFields } from '~/types/NewRecipesTypes';
 
 import * as AddIcon from '../../../assets/addIcon/index';
 import { newRecipeHeadingStyle } from '../componentStyles';
@@ -11,33 +11,46 @@ import { AddIngredients } from './AddIngredients';
 import { IngredientsDescription } from './ingredientsDescription';
 import { IngredientsList } from './IngredientsList';
 
-export const IngredientsBlock = ({ register, errors, setValue, clearErrors }: RecipeFormProps) => {
-    const [ingredients, setIngredient] = useState<Ingredient[]>([]);
-    const { data, isLoading } = useGetMeasureUnitQuery();
-    console.log(data);
+export const IngredientsBlock = () => {
+    const {
+        control,
+        clearErrors,
+        formState: { errors },
+    } = useFormContext<RecipeFields>();
+
+    const { fields, append, remove, update } = useFieldArray({
+        name: 'ingredients',
+        control,
+    });
+    const { data: measureUnits, isLoading } = useGetMeasureUnitQuery();
+    const mockMeasureUnits = [
+        {
+            _id: '67df368460039e390e3546da',
+            name: 'грамм',
+        },
+    ];
+
     return (
         <VStack w='100%'>
             <HStack alignItems='flex-start' w='100%'>
                 <Heading {...newRecipeHeadingStyle}>Добавьте ингредиенты рецепта, нажав на</Heading>
                 <Image src={AddIcon.Black} alt='add ingredient' />
             </HStack>
+
             <VStack w='100%' alignItems='flex-start'>
                 <IngredientsDescription />
-                {ingredients && (
-                    <IngredientsList
-                        measure={data ? data : undefined}
-                        ingredients={ingredients}
-                        setIngredient={setIngredient}
-                        register={register}
-                        errors={errors}
-                        setValue={setValue}
-                    />
-                )}
+                <IngredientsList
+                    measure={measureUnits ?? mockMeasureUnits}
+                    fields={fields}
+                    remove={remove}
+                    update={update}
+                />
+
                 <AddIngredients
-                    setIngredient={setIngredient}
-                    measure={data ? data : undefined}
-                    isInvalidArray={ingredients.length === 0 ? !!errors.ingredients : undefined}
-                    clearErrors={ingredients.length === 0 ? clearErrors : undefined}
+                    measure={measureUnits ?? mockMeasureUnits}
+                    append={append}
+                    clearErrors={clearErrors}
+                    hasError={fields.length === 0 ? !!errors.ingredients : undefined}
                 />
             </VStack>
             {isLoading && <Loader />}

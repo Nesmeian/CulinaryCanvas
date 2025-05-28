@@ -1,67 +1,66 @@
 import { FormControl, HStack, Image, Input } from '@chakra-ui/react';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import { Ingredient, IngredientsListProps } from '~/types/NewRecipesTypes';
+import { IngredientsListProps, RecipeFields } from '~/types/NewRecipesTypes';
 
 import deleteIcon from '../../../assets/deleteIcon.svg';
 import { ChooseMeasure } from './ChooseMeasure';
+export const IngredientsList = ({ measure, fields, remove, update }: IngredientsListProps) => {
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext<RecipeFields>();
 
-export const IngredientsList = ({
-    ingredients,
-    setIngredient,
-    register,
-    errors,
-    setValue,
-    measure,
-}: IngredientsListProps) => {
-    const updateItem = (idx: number, field: keyof Ingredient[number], value: string | number) => {
-        setIngredient((prev) =>
-            prev.map((item, i) =>
-                i === idx
-                    ? { ...item, [field]: field === 'count' ? Number(value) : String(value) }
-                    : item,
-            ),
-        );
-    };
+    return (
+        <>
+            {fields.map((field, idx) => (
+                <HStack key={field.id || idx} spacing='12px' w='100%'>
+                    <FormControl
+                        isInvalid={!!errors.ingredients?.[idx]?.title}
+                        w={{ lg: '295px', md: '241px', base: '328px' }}
+                    >
+                        <Controller
+                            name={`ingredients.${idx}.title`}
+                            control={control}
+                            defaultValue={field.title}
+                            render={({ field }) => <Input {...field} placeholder='Ингредиент' />}
+                        />
+                    </FormControl>
 
-    return ingredients.map((item, idx) => (
-        <HStack key={idx} spacing='12px' w='100%'>
-            <FormControl isInvalid={!!errors.ingredients?.[idx]?.title}>
-                <Input
-                    {...register(`ingredients.${idx}.title`)}
-                    placeholder='Ингредиент'
-                    value={item.title}
-                    onChange={(e) => updateItem(idx, 'title', e.target.value)}
-                    w={{ lg: '295px', md: '241px', base: '328px' }}
-                />
-            </FormControl>
-            <FormControl isInvalid={!!errors.ingredients?.[idx]?.count}>
-                <Input
-                    {...register(`ingredients.${idx}.count`)}
-                    placeholder='100'
-                    w={{ base: '80px' }}
-                    value={item.count}
-                    type='number'
-                    onChange={(e) => updateItem(idx, 'count', e.target.value)}
-                />
-            </FormControl>
-            <ChooseMeasure
-                value={item.measureUnit}
-                onChange={(val) => {
-                    const newMeasurement = typeof val === 'string' ? val : val(item.measureUnit);
-                    updateItem(idx, 'measureUnit', newMeasurement);
-                }}
-                isInvalid={!!errors.ingredients?.[idx]?.measureUnit}
-                setValue={setValue}
-                index={idx}
-                measure={measure}
-            />
-            {ingredients.length !== 1 && (
-                <Image
-                    src={deleteIcon}
-                    alt='delete ingredient icon'
-                    onClick={() => setIngredient((prev) => prev.filter((_, i) => i !== idx))}
-                />
-            )}
-        </HStack>
-    ));
+                    <FormControl
+                        isInvalid={!!errors.ingredients?.[idx]?.count}
+                        w={{ base: '80px' }}
+                    >
+                        <Controller
+                            name={`ingredients.${idx}.count`}
+                            control={control}
+                            defaultValue={field.count}
+                            render={({ field }) => (
+                                <Input {...field} type='number' placeholder='100' />
+                            )}
+                        />
+                    </FormControl>
+
+                    <ChooseMeasure
+                        value={field.measureUnit}
+                        onChange={(val) => {
+                            const newUnit = typeof val === 'string' ? val : val(field.measureUnit);
+                            update(idx, { ...field, measureUnit: newUnit });
+                        }}
+                        isInvalid={!!errors.ingredients?.[idx]?.measureUnit}
+                        measure={measure}
+                    />
+
+                    {fields.length > 1 && (
+                        <Image
+                            src={deleteIcon}
+                            alt='удалить ингредиент'
+                            cursor='pointer'
+                            onClick={() => remove(idx)}
+                        />
+                    )}
+                </HStack>
+            ))}
+        </>
+    );
 };

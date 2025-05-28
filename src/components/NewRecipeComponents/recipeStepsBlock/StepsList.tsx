@@ -1,54 +1,149 @@
-import { Heading, HStack, Image, Textarea, VStack } from '@chakra-ui/react';
+import {
+    Button,
+    FormControl,
+    Heading,
+    HStack,
+    Image,
+    Textarea,
+    useDisclosure,
+    VStack,
+} from '@chakra-ui/react';
+import { useRef, useState } from 'react';
+import { Controller, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 
+import { DropImageModal } from '~/components/dropImageModal';
 import { stepTextStyle } from '~/components/recipe/recipeStyles';
-import { newRecipeStepsListType } from '~/types/NewRecipesTypes';
+import { RecipeFields } from '~/types/NewRecipesTypes';
 
+import * as AddIcons from '../../../assets/addIcon/index';
 import deleteIcon from '../../../assets/deleteIcon.svg';
 import emptyImg from '../../../assets/emptyImage.png';
-export const StepsList = ({ steps, setSteps }: newRecipeStepsListType) => {
-    const handleDescriptionChange = (index: number, value: string) => {
-        setSteps((prev) => prev.map((s, i) => (i === index ? { ...s, description: value } : s)));
+
+export const StepsList = () => {
+    const {
+        control,
+        formState: { errors },
+        setValue,
+    } = useFormContext<RecipeFields>();
+    const { fields, append, remove } = useFieldArray({
+        name: 'steps',
+        control,
+    });
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const imageOnChangeMap = useRef<Record<number, (val: string) => void>>({});
+    const watchedSteps = useWatch({ control, name: 'steps' });
+    const openForStep = (idx: number) => {
+        setActiveIndex(idx);
+        onOpen();
     };
+
     const handleDelete = (index: number) => {
-        setSteps((prev) => {
-            const filtered = prev.filter((_, i) => i !== index);
-            return filtered.map((stepObj, i) => ({
-                ...stepObj,
-                step: i + 1,
-            }));
+        remove(index);
+
+        setActiveIndex((prev) => {
+            if (prev === index) return null;
+            if (prev !== null && prev > index) return prev - 1;
+            return prev;
         });
     };
-    return steps.map(({ step, description, image }, i) => (
-        <HStack
-            key={step}
-            height='160px'
-            w='100%'
-            gap='0'
-            borderRadius='8px'
-            border='1px solid rgba(0, 0, 0, 0.08);'
-            overflowY='scroll'
-        >
-            <Image
-                src={image ? image : emptyImg}
-                alt='new step img'
-                height='100%'
-                width={{ base: '328px', md: '346px' }}
-                objectFit='cover'
-                borderRadius='8px'
-            />
-            <VStack alignItems='flex-start' p='20px' w={{ base: '322px' }}>
-                <HStack justifyContent='space-between' w='100%'>
-                    <Heading {...stepTextStyle}>{`Шаг ${step}`}</Heading>
-                    {steps.length - 1 !== i && (
-                        <Image src={deleteIcon} alt='delete icon' onClick={() => handleDelete(i)} />
-                    )}
+    const saveImageHandler = (newPreview: string) => {
+        if (activeIndex == null) return;
+        imageOnChangeMap.current[activeIndex]?.(newPreview);
+        setValue(`steps.${activeIndex}.image`, newPreview, {
+            shouldDirty: true,
+            shouldValidate: true,
+        });
+        onClose();
+    };
+    return (
+        <VStack w='100%' spacing='16px'>
+            {fields.map((field, i) => (
+                <HStack
+                    key={field.id}
+                    height='160px'
+                    w='100%'
+                    gap='0'
+                    borderRadius='8px'
+                    border='1px solid rgba(0, 0, 0, 0.08)'
+                    overflowY='scroll'
+                >
+                    <Controller
+                        name={`steps.${i}.image`}
+                        control={control}
+                        defaultValue={field.image}
+                        render={({ field: { value, onChange } }) => {
+                            imageOnChangeMap.current[i] = onChange;
+                            return (
+                                <Image
+                                    src={value || emptyImg}
+                                    alt={`Шаг ${field.stepNumber}`}
+                                    height='100%'
+                                    width={{ base: '328px', md: '346px' }}
+                                    objectFit='cover'
+                                    borderRadius='8px'
+                                    cursor='pointer'
+                                    onClick={() => openForStep(i)}
+                                />
+                            );
+                        }}
+                    />
+                    <VStack alignItems='flex-start' p='20px' w={{ base: '322px' }} spacing='8px'>
+                        <HStack justifyContent='space-between' w='100%'>
+                            <Heading {...stepTextStyle}>Шаг {field.stepNumber}</Heading>
+                            {fields.length > 1 && (
+                                <Image
+                                    src={deleteIcon}
+                                    alt='delete icon'
+                                    cursor='pointer'
+                                    onClick={() => handleDelete(i)}
+                                />
+                            )}
+                        </HStack>
+
+                        <FormControl isInvalid={!!errors.steps?.[i]?.description}>
+                            <Controller
+                                name={`steps.${i}.description`}
+                                control={control}
+                                defaultValue={field.description}
+                                render={({ field }) => (
+                                    <Textarea
+                                        {...field}
+                                        placeholder='Описание шага'
+                                        resize='none'
+                                    />
+                                )}
+                            />
+                        </FormControl>
+                    </VStack>
                 </HStack>
-                <Textarea
-                    onChange={(e) => handleDescriptionChange(i, e.target.value)}
-                    placeholder='Шаг'
-                    value={description}
-                />
-            </VStack>
-        </HStack>
-    ));
+            ))}
+
+            <Button
+                alignSelf='flex-end'
+                variant='plain'
+                rightIcon={<Image src={AddIcons.WhiteCenter} alt='add icon' boxSize='14px' />}
+                border='1px solid rgba(0, 0, 0, 0.48)'
+                onClick={() =>
+                    append({
+                        stepNumber: fields.length + 1,
+                        description: '',
+                        image: undefined,
+                    })
+                }
+            >
+                Новый шаг
+            </Button>
+
+            <DropImageModal
+                isOpen={isOpen}
+                onClose={onClose}
+                initImage={
+                    activeIndex != null ? watchedSteps?.[activeIndex]?.image || emptyImg : emptyImg
+                }
+                onSave={saveImageHandler}
+            />
+        </VStack>
+    );
 };

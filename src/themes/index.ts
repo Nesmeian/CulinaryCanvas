@@ -23,10 +23,12 @@ const theme = extendTheme({
     },
     styles: {
         global: {
-            '::-webkit-scrollbar': { display: 'none' },
+            '::-webkit-scrollbar': {
+                display: 'none',
+            },
             '*': {
                 scrollbarWidth: 'none',
-                '-ms-overflow-style': 'none',
+                msOverflowStyle: 'none',
             },
         },
     },
