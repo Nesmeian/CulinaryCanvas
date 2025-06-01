@@ -88,6 +88,13 @@ const AppRoutes = () => {
                             </Route>
                         );
                     })}
+                    <Route path='edit-recipe'>
+                        <Route path=':category'>
+                            <Route path=':subcategory'>
+                                <Route path=':id' element={<NewRecipe />} />
+                            </Route>
+                        </Route>
+                    </Route>
                 </Route>
 
                 <Route path='/login' element={<Login />} />

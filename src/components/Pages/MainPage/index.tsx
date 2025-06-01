@@ -11,14 +11,14 @@ import GetCurrentPath from '~/utils/getCurrentPath';
 export const MainPage = () => {
     const { isTablet } = useBreakpoints();
     const currentPath = GetCurrentPath();
-    const newRecipePath = currentPath[0] === 'new-recipe';
+    const isRecipeEditPath = currentPath[0] === 'new-recipe' || currentPath[0] === 'edit-recipe';
     return (
         <Stack gap='0px'>
             <Header />
             <HStack className='app' alignItems='flex-start' gap='12px' justify='space-between'>
                 {!isTablet && <NavMenu />}
                 <Outlet />
-                {!isTablet && !newRecipePath && <Sidebar />}
+                {!isTablet && !isRecipeEditPath && <Sidebar />}
             </HStack>
             <Footer />
         </Stack>
