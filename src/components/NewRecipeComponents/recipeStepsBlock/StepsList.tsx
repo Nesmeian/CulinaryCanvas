@@ -20,6 +20,7 @@ import deleteIcon from '../../../assets/deleteIcon.svg';
 import emptyImg from '../../../assets/emptyImage.png';
 
 export const StepsList = () => {
+    const API_BASE = 'https://training-api.clevertec.ru';
     const {
         control,
         formState: { errors },
@@ -51,14 +52,15 @@ export const StepsList = () => {
     const saveImageHandler = (uploaded: UploadedFile) => {
         if (activeIndex == null) return;
 
-        const API_BASE = 'https://training-api.clevertec.ru';
         const fullUrl = uploaded.url.startsWith('http')
             ? uploaded.url
             : `${API_BASE}${uploaded.url}`;
 
+        const relativeUrl = fullUrl.replace(API_BASE, '');
+
         imageOnChangeMap.current[activeIndex]?.(fullUrl);
-        console.log(fullUrl);
-        setValue(`steps.${activeIndex}.image`, fullUrl, {
+
+        setValue(`steps.${activeIndex}.image`, relativeUrl, {
             shouldDirty: true,
             shouldValidate: true,
         });
@@ -85,7 +87,7 @@ export const StepsList = () => {
                             imageOnChangeMap.current[i] = onChange;
                             return (
                                 <Image
-                                    src={value || emptyImg}
+                                    src={`${API_BASE}${value}` || emptyImg}
                                     alt={`Шаг ${i}`}
                                     height='100%'
                                     width={{ base: '328px', md: '346px' }}

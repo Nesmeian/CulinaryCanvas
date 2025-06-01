@@ -16,6 +16,10 @@ import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
 import { IMG_PATH } from '~/constants';
 import { useDeleteRecipeMutation } from '~/query/services/delete/deleteRecipe';
+import {
+    useBookmarkRecipeMutation,
+    useLikeRecipeMutation,
+} from '~/query/services/post/userActions';
 import { ComingRecipeData } from '~/types/comingData';
 import AddNotifications from '~/utils/addNotifications';
 import AddTags from '~/utils/addTags';
@@ -32,15 +36,29 @@ export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeDat
     const { title, _id, description, categoriesIds, image, bookmarks, likes, time } = recipeData;
     const userData = decodeToken(localStorage.getItem('accessToken'));
     const isUserRecipe = userData.userId === recipeData?.authorId;
-    const [deleteRecipe, { isLoading, isSuccess, isError }] = useDeleteRecipeMutation();
-    const deleteRecipeHandle = () => {
+    const [
+        deleteRecipe,
+        { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError },
+    ] = useDeleteRecipeMutation();
+    const [bookmarkRecipe, { isLoading: bookmarkLoading, isError: bookmarkError }] =
+        useBookmarkRecipeMutation();
+    const [likeRecipe, { isLoading: likeLoading, isError: likeError }] = useLikeRecipeMutation();
+    const deleteRecipeHandler = () => {
         deleteRecipe(recipeData._id);
     };
+    const bookmarkRecipeHandler = () => {
+        bookmarkRecipe(recipeData._id);
+    };
+    const likeRecipeHandler = () => {
+        likeRecipe(recipeData._id);
+    };
     useEffect(() => {
-        if (isSuccess) {
+        if (deleteSuccess) {
             navigate('/');
         }
-    }, [isSuccess, navigate]);
+    }, [deleteSuccess, navigate]);
+    const isLoading = deleteLoading || bookmarkLoading || likeLoading;
+    const isError = deleteError || bookmarkError || likeError;
     return (
         <Grid
             as='section'
@@ -118,6 +136,7 @@ export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeDat
                         <ButtonGroup gap={{ xl: '10px', md: '4px' }}>
                             <Button
                                 {...commonRecipeBtnStyles}
+                                onClick={likeRecipeHandler}
                                 leftIcon={
                                     <Image
                                         boxSize={{ xl: '16px', lg: '14px', sm: '12px' }}
@@ -130,6 +149,7 @@ export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeDat
                             </Button>
                             <Button
                                 {...greenRecipeBtnStyles}
+                                onClick={bookmarkRecipeHandler}
                                 leftIcon={
                                     <Image
                                         boxSize={{ xl: '16px', lg: '14px', sm: '12px' }}
@@ -151,7 +171,7 @@ export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeDat
                             <Button
                                 {...commonRecipeBtnStyles}
                                 border='none'
-                                onClick={deleteRecipeHandle}
+                                onClick={deleteRecipeHandler}
                             >
                                 <Image src={deleteRecipeIcon} alt='Delete recipe' />
                             </Button>
@@ -167,7 +187,7 @@ export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeDat
                 </HStack>
             </VStack>
             {isLoading && <Loader />}
-            {isSuccess && <Alert successMessage='YEEEE' isSuccessCheck />}
+            {deleteSuccess && <Alert successMessage='YEEEE' isSuccessCheck />}
             {isError && <Alert />}
         </Grid>
     );

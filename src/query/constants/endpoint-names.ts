@@ -1,6 +1,7 @@
 export enum EndpointNames {
     AUTH_TOKEN = 'authToke',
     FILE = 'file',
+    USER_ACTIONS = 'userActions',
     LOGIN = 'login',
     FORGOT_PASSWORD = 'forgotPassword',
     VERIFY_OTP = 'verifyOtp',
