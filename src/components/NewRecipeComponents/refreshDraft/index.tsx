@@ -1,17 +1,19 @@
 import { useEffect, useRef } from 'react';
-import { useBlocker } from 'react-router-dom';
+import { useBlocker, useNavigate } from 'react-router-dom';
 
-import { SaveRecipeDraft } from '~/components/buttons/saveRecipeDraft';
 import { useBlockNavigationProps } from '~/types/NewRecipesTypes';
+
+import { UnsavedChangesModal } from '../modal';
 
 export const useBlockNavigation = ({
     isFormDirty,
     open,
     values,
     isSavedSuccessfully,
+    close,
 }: useBlockNavigationProps) => {
+    const navigate = useNavigate();
     const savedSuccessfullyRef = useRef(false);
-
     useEffect(() => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
             if (isFormDirty && !savedSuccessfullyRef.current && !isSavedSuccessfully) {
@@ -32,12 +34,13 @@ export const useBlockNavigation = ({
         const navigatingAway = currentLocation.pathname !== nextLocation.pathname;
 
         if (isFormDirty && navigatingAway) {
-            const currentValues = values();
             open(
-                <SaveRecipeDraft
-                    values={currentValues}
+                <UnsavedChangesModal
+                    values={values}
                     onSaveSuccess={() => {
                         savedSuccessfullyRef.current = true;
+                        navigate(nextLocation.pathname);
+                        close();
                     }}
                 />,
             );
