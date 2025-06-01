@@ -99,6 +99,7 @@ export type UploadedFile = {
 export type useBlockNavigationProps = {
     isFormDirty: boolean;
     open: (node: ReactNode) => void;
+    close: () => void;
     values: UseFormGetValues<FieldValues>;
     isSavedSuccessfully: boolean;
 };

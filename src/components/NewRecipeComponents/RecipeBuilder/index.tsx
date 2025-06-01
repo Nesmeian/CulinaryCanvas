@@ -6,7 +6,11 @@ import { SaveRecipeDraft } from '~/components/buttons/saveRecipeDraft';
 import { IngredientsBlock } from '../IngredientsBlock';
 import { RecipeStepsBlock } from '../recipeStepsBlock';
 
-export const RecipeBuilder = () => {
+export const RecipeBuilder = ({
+    setSavedSuccessfully,
+}: {
+    setSavedSuccessfully: (value: React.SetStateAction<boolean>) => void;
+}) => {
     const { getValues } = useFormContext();
     return (
         <VStack w={{ lg: '658px', md: '604px', base: '328px' }} mt={{ base: '44px' }}>
@@ -18,7 +22,7 @@ export const RecipeBuilder = () => {
                 justifyContent='center'
                 gap='20px'
             >
-                <SaveRecipeDraft values={getValues} />
+                <SaveRecipeDraft values={getValues} setSavedSuccessfully={setSavedSuccessfully} />
                 <Button w='246px' type='submit' variant='commonLoginBtn'>
                     Опубликовать рецепт
                 </Button>

@@ -8,16 +8,9 @@ import { Login } from '~/components/Pages/Login';
 import { MainPage } from '~/components/Pages/MainPage';
 import { NewRecipe } from '~/components/Pages/NewRecipe';
 import Recipe from '~/components/recipe';
-import { useAppSelector } from '~/store/hooks';
 import { ComingCategoryData } from '~/types/comingData';
 
-const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
-    const isAuth = useAppSelector((state) => state.app.isAuth);
-    if (!isAuth) {
-        return <Navigate to='/login' replace />;
-    }
-    return children;
-};
+import { ProtectedRoute } from './protectedRoute';
 
 export function makeRouter(
     categoriesData: ComingCategoryData[],

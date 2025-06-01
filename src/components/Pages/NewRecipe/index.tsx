@@ -112,6 +112,7 @@ export const NewRecipe = () => {
     useBlockNavigation({
         isFormDirty: isDirty,
         open,
+        close,
         values: getValues,
         isSavedSuccessfully: savedSuccessfully,
     });
@@ -146,7 +147,7 @@ export const NewRecipe = () => {
                             />
                             <RecipeMainInf />
                         </HStack>
-                        <RecipeBuilder />
+                        <RecipeBuilder setSavedSuccessfully={setSavedSuccessfully} />
                     </chakra.form>
                 </HStack>
                 <DropImageModal
