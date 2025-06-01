@@ -1,19 +1,50 @@
-import { Button, ButtonGroup, Heading, HStack, Image, Stack, Text, VStack } from '@chakra-ui/react';
+import {
+    Button,
+    ButtonGroup,
+    Grid,
+    Heading,
+    HStack,
+    Image,
+    Stack,
+    Text,
+    VStack,
+} from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
+import { Alert } from '~/components/alert';
+import { Loader } from '~/components/loader';
 import { IMG_PATH } from '~/constants';
+import { useDeleteRecipeMutation } from '~/query/services/delete/deleteRecipe';
 import { ComingRecipeData } from '~/types/comingData';
 import AddNotifications from '~/utils/addNotifications';
 import AddTags from '~/utils/addTags';
+import { decodeToken } from '~/utils/decodeToken';
 
 import alarmImg from '../../../assets/alarm.svg';
+import deleteRecipeIcon from '../../../assets/deleteRecipeIcon.svg';
+import editRecipeIcon from '../../../assets/editRecipeIcon.svg';
 import * as socialIcons from '../../../assets/socialIcons/index';
+import { commonRecipeBtnStyles, greenRecipeBtnStyles } from '../recipeStyles';
 
 export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeData }) {
+    const navigate = useNavigate();
     const { title, _id, description, categoriesIds, image, bookmarks, likes, time } = recipeData;
+    const userData = decodeToken(localStorage.getItem('accessToken'));
+    const isUserRecipe = userData.userId === recipeData?.authorId;
+    const [deleteRecipe, { isLoading, isSuccess, isError }] = useDeleteRecipeMutation();
+    const deleteRecipeHandle = () => {
+        deleteRecipe(recipeData._id);
+    };
+    useEffect(() => {
+        if (isSuccess) {
+            navigate('/');
+        }
+    }, [isSuccess, navigate]);
     return (
-        <Stack
+        <Grid
             as='section'
-            flexDir={{ md: 'row', sm: 'column' }}
+            templateColumns={{ lg: 'repeat(2, 1fr)', base: '1fr' }}
             mt={{ lg: '56px', sm: '4px' }}
             width='100%'
             key={_id}
@@ -24,16 +55,11 @@ export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeDat
             }}
             gap={{ lg: '24px', md: '10px' }}
         >
-            <HStack
-                minWidth={{ xl: '553px', lg: '353px', md: '232px', base: '328px' }}
-                overflow='hidden'
-                borderRadius='8px'
-            >
-                <Image height='100%' width='100%' src={`${IMG_PATH}${image}`} alt={image} />
-            </HStack>
+            <Image w='100%' h='100%' src={`${IMG_PATH}${image}`} alt={image} />
+
             <VStack
                 alignSelf='flex-start'
-                height={{ lg: '410px', md: 'auto' }}
+                h='100%'
                 align='flex-start'
                 rowGap='10px'
                 justify='space-between'
@@ -85,56 +111,64 @@ export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeDat
                     <HStack background='rgba(0, 0, 0, 0.06)' borderRadius='4px' pl='10px' pr='24px'>
                         <Image src={alarmImg} alt='alarm image' />
                         <Text whiteSpace='nowrap' fontSize='14px'>
-                            {time}
+                            {`${time} минут`}
                         </Text>
                     </HStack>
-                    <ButtonGroup gap={{ xl: '10px', md: '4px' }}>
-                        <Button
-                            fontSize={{ xl: '18px', lg: '14', sm: '12px' }}
-                            letterSpacing='0.5px'
-                            className='card__btn-save'
-                            border='1px solid rgba(0, 0, 0, 0.48)'
-                            backgroundColor='white'
-                            p={{ xl: '14px 24px', lg: '0 12px', sm: '0 6px' }}
-                            size={{
-                                base: 'xs',
-                                lg: 'sm',
-                                xl: 'xl',
-                            }}
-                            leftIcon={
-                                <Image
-                                    boxSize={{ xl: '16px', lg: '14px', sm: '12px' }}
-                                    src={socialIcons.likes}
-                                    alt='likes img'
-                                />
-                            }
-                        >
-                            Оценить рецепт
-                        </Button>
-                        <Button
-                            fontSize={{ xl: '18px', lg: '14px', sm: '12px' }}
-                            letterSpacing='0.5px'
-                            p={{ xl: '14px 24px', lg: '0 12px', sm: '0 6px' }}
-                            className='card__btn-cook'
-                            background='#B1FF2E'
-                            leftIcon={
-                                <Image
-                                    boxSize={{ xl: '16px', lg: '14px', sm: '12px' }}
-                                    src={socialIcons.shares}
-                                    alt='shares image'
-                                />
-                            }
-                            size={{
-                                base: 'xs',
-                                lg: 'sm',
-                                xl: 'xl',
-                            }}
-                        >
-                            Сохранить в закладки
-                        </Button>
-                    </ButtonGroup>
+                    {!isUserRecipe ? (
+                        <ButtonGroup gap={{ xl: '10px', md: '4px' }}>
+                            <Button
+                                {...commonRecipeBtnStyles}
+                                leftIcon={
+                                    <Image
+                                        boxSize={{ xl: '16px', lg: '14px', sm: '12px' }}
+                                        src={socialIcons.likes}
+                                        alt='likes img'
+                                    />
+                                }
+                            >
+                                Оценить рецепт
+                            </Button>
+                            <Button
+                                {...greenRecipeBtnStyles}
+                                leftIcon={
+                                    <Image
+                                        boxSize={{ xl: '16px', lg: '14px', sm: '12px' }}
+                                        src={socialIcons.shares}
+                                        alt='shares image'
+                                    />
+                                }
+                                size={{
+                                    base: 'xs',
+                                    lg: 'sm',
+                                    xl: 'xl',
+                                }}
+                            >
+                                Сохранить в закладки
+                            </Button>
+                        </ButtonGroup>
+                    ) : (
+                        <ButtonGroup gap='16px'>
+                            <Button
+                                {...commonRecipeBtnStyles}
+                                border='none'
+                                onClick={deleteRecipeHandle}
+                            >
+                                <Image src={deleteRecipeIcon} alt='Delete recipe' />
+                            </Button>
+                            <Button
+                                {...commonRecipeBtnStyles}
+                                variant='plain'
+                                rightIcon={<Image src={editRecipeIcon} alt='edit recipe' />}
+                            >
+                                Редактировать рецепт
+                            </Button>
+                        </ButtonGroup>
+                    )}
                 </HStack>
             </VStack>
-        </Stack>
+            {isLoading && <Loader />}
+            {isSuccess && <Alert successMessage='YEEEE' isSuccessCheck />}
+            {isError && <Alert />}
+        </Grid>
     );
 }
