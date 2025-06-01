@@ -91,6 +91,7 @@ export default function Categories({ category, subcategory }: CategoriesProps) {
     const isLoadingCheck =
         subcatLoading || loading || juiciestLoading || isDataLoading || isFetchingRecipes;
     const isErrorCheck = isError || Error || searchError;
+
     return (
         <MainStyled as='main' ref={mainRef}>
             <VStack

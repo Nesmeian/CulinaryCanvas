@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 
 import { useGetRecipeByIdQuery } from '~/query/services/get';
 import { NutritionValueData } from '~/types/recipesData/index.ts';
+import { decodeToken } from '~/utils/decodeToken';
 import GetCurrentPath from '~/utils/getCurrentPath';
 
 import { Loader } from '../loader';
@@ -37,6 +38,8 @@ export default function Recipe() {
             views: 125,
         },
     };
+    console.log(recipeItem);
+    console.log(decodeToken(localStorage.getItem('accessToken')));
     return (
         <MainStyled
             as='main'

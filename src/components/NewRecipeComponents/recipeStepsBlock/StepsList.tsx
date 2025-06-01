@@ -13,7 +13,7 @@ import { Controller, useFieldArray, useFormContext, useWatch } from 'react-hook-
 
 import { DropImageModal } from '~/components/dropImageModal';
 import { stepTextStyle } from '~/components/recipe/recipeStyles';
-import { RecipeFields } from '~/types/NewRecipesTypes';
+import { RecipeFields, UploadedFile } from '~/types/NewRecipesTypes';
 
 import * as AddIcons from '../../../assets/addIcon/index';
 import deleteIcon from '../../../assets/deleteIcon.svg';
@@ -48,13 +48,21 @@ export const StepsList = () => {
             return prev;
         });
     };
-    const saveImageHandler = (newPreview: string) => {
+    const saveImageHandler = (uploaded: UploadedFile) => {
         if (activeIndex == null) return;
-        imageOnChangeMap.current[activeIndex]?.(newPreview);
-        setValue(`steps.${activeIndex}.image`, newPreview, {
+
+        const API_BASE = 'https://training-api.clevertec.ru';
+        const fullUrl = uploaded.url.startsWith('http')
+            ? uploaded.url
+            : `${API_BASE}${uploaded.url}`;
+
+        imageOnChangeMap.current[activeIndex]?.(fullUrl);
+        console.log(fullUrl);
+        setValue(`steps.${activeIndex}.image`, fullUrl, {
             shouldDirty: true,
             shouldValidate: true,
         });
+
         onClose();
     };
     return (
@@ -128,7 +136,7 @@ export const StepsList = () => {
                 onClick={() =>
                     append({
                         description: '',
-                        image: undefined,
+                        image: '',
                     })
                 }
             >
