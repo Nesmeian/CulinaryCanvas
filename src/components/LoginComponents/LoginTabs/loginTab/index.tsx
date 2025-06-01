@@ -9,9 +9,9 @@ import {
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
@@ -53,12 +53,16 @@ export const LoginTab = () => {
         try {
             await postAuthLogin(data).unwrap();
             await refetch();
-            navigate('/', { replace: true });
             setSendData([]);
         } catch (err) {
             console.error('Login failed:', err);
         }
     };
+    useEffect(() => {
+        if (isSuccess) {
+            navigate('/', { replace: true });
+        }
+    }, [isSuccess, navigate]);
     return (
         <VStack>
             <form onSubmit={handleSubmit(onSubmit)} data-test-id={TEST_IDS.SING_IN}>

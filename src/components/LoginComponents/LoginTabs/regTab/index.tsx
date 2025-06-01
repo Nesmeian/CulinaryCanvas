@@ -14,7 +14,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import type { Swiper as SwiperType } from 'swiper';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';

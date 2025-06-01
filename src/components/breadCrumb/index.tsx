@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { TEST_IDS } from '~/constants/testsIds';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
@@ -39,26 +39,28 @@ export default function BreadCrumb({ isOpen, onClose }: BreadCrumbsTypes) {
                 </BreadcrumbLink>
             </BreadcrumbItem>
 
-            {pathSegments.map((segment, index) => {
-                const { routeTo, isLast } = breadCrumbPath({
-                    segment: segment,
-                    index: index,
-                    data: data,
-                    pathSegments: pathSegments,
-                });
-                return (
-                    <BreadcrumbItem key={index} isCurrentPage={isLast}>
-                        <BreadcrumbLink
-                            onClick={onClose}
-                            as={Link}
-                            to={routeTo}
-                            color={isLast ? 'black' : 'rgba(0, 0, 0, 0.64)'}
-                        >
-                            <TranslatePathSegment segment={segment} />
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                );
-            })}
+            {pathSegments
+                .filter((segment) => segment !== 'edit-recipe')
+                .map((segment, index) => {
+                    const { routeTo, isLast } = breadCrumbPath({
+                        segment: segment,
+                        index: index,
+                        data: data,
+                        pathSegments: pathSegments,
+                    });
+                    return (
+                        <BreadcrumbItem key={index} isCurrentPage={isLast}>
+                            <BreadcrumbLink
+                                onClick={onClose}
+                                as={Link}
+                                to={routeTo}
+                                color={isLast ? 'black' : 'rgba(0, 0, 0, 0.64)'}
+                            >
+                                <TranslatePathSegment segment={segment} />
+                            </BreadcrumbLink>
+                        </BreadcrumbItem>
+                    );
+                })}
         </Breadcrumb>
     );
 }

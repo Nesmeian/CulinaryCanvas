@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, Heading, HStack, Image, Stack, Text, VStack } from '@chakra-ui/react';
 import { memo } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { IMG_PATH } from '~/constants';
 import { TEST_IDS } from '~/constants/testsIds';

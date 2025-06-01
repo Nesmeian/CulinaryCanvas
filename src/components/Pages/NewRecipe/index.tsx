@@ -4,14 +4,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Alert } from '~/components/alert';
 import { DropImageModal } from '~/components/dropImageModal';
 import { Loader } from '~/components/loader';
 import { RecipeBuilder } from '~/components/NewRecipeComponents/RecipeBuilder';
 import { RecipeMainInf } from '~/components/NewRecipeComponents/RecipeMainInf';
+import { useBlockNavigation } from '~/components/NewRecipeComponents/refreshDraft';
 import MainStyled from '~/components/styledComponents/Main';
+import { useModal } from '~/context/mainContext/useContext';
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
 import { useGetRecipeByIdQuery } from '~/query/services/get';
 import { useCreateNewRecipeMutation } from '~/query/services/post/newRecipe';
@@ -35,6 +37,7 @@ export const NewRecipe = () => {
     const [createdRecipeId, setCreatedRecipeId] = useState<string | null>(null);
     const [categoryId, setCategoryId] = useState<string | null>(null);
     const { subCategoryData, category } = useGetCategoryId(categoryId || undefined);
+    const [savedSuccessfully, setSavedSuccessfully] = useState(false);
     const methods = useForm<RecipeFields>({
         mode: 'onChange',
         resolver: yupResolver(newRecipeScheme),
@@ -77,7 +80,7 @@ export const NewRecipe = () => {
 
         try {
             const result = await createNewRecipe(payload).unwrap();
-
+            setSavedSuccessfully(true);
             setCreatedRecipeId(result._id);
             setCategoryId(result.categoriesIds[0]);
         } catch (err) {
@@ -87,7 +90,8 @@ export const NewRecipe = () => {
     const {
         handleSubmit,
         watch,
-        formState: { errors },
+        formState: { errors, isDirty },
+        getValues,
         setValue,
     } = methods;
     const handleImageSave = (uploaded: UploadedFile) => {
@@ -104,6 +108,13 @@ export const NewRecipe = () => {
 
         onClose();
     };
+    const { open } = useModal();
+    useBlockNavigation({
+        isFormDirty: isDirty,
+        open,
+        values: getValues,
+        isSavedSuccessfully: savedSuccessfully,
+    });
     const imageValue = watch('image');
     return (
         <MainStyled as='main'>

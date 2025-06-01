@@ -1,4 +1,5 @@
 export enum ApiEndpoints {
+    SAVE_DRAFT = '/recipe/draft',
     SIGNUP = '/auth/signup',
     UPLOAD_FILE = '/file/upload',
     RECOMMEND_RECIPE = '/recipe/recommend',

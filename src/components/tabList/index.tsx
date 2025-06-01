@@ -1,7 +1,7 @@
 import { Tab, TabList, Tabs } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { TEST_IDS } from '~/constants/testsIds';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';

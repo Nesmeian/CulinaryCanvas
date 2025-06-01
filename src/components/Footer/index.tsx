@@ -2,7 +2,7 @@ import './style.css';
 
 import { Box, Button, HStack, Image, Text } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { TEST_IDS } from '~/constants/testsIds';
 

@@ -1,7 +1,7 @@
 import '../style.css';
 
 import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { Loader } from '~/components/loader';
 import { IMG_PATH } from '~/constants';

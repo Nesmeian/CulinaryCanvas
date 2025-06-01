@@ -1,9 +1,6 @@
-import { JSX } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
+import { createBrowserRouter, createRoutesFromElements, Navigate, Route } from 'react-router-dom';
 
-import { Alert } from '~/components/alert';
 import Categories from '~/components/categories';
-import { Loader } from '~/components/loader';
 import { VerificationRedirect } from '~/components/LoginComponents/veritificationRedirect';
 import Main from '~/components/Main';
 import { NotFoundPage } from '~/components/notFoundPage';
@@ -11,9 +8,9 @@ import { Login } from '~/components/Pages/Login';
 import { MainPage } from '~/components/Pages/MainPage';
 import { NewRecipe } from '~/components/Pages/NewRecipe';
 import Recipe from '~/components/recipe';
-import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
-import { useCheckAuthTokenQuery } from '~/query/services/get/getAuthToken';
 import { useAppSelector } from '~/store/hooks';
+import { ComingCategoryData } from '~/types/comingData';
+
 const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
     const isAuth = useAppSelector((state) => state.app.isAuth);
     if (!isAuth) {
@@ -21,26 +18,14 @@ const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
     }
     return children;
 };
-const AppRoutes = () => {
-    const { isLoading: isCheckAuhtLoading } = useCheckAuthTokenQuery();
-    const { data, isLoading: isCategoriesLoading, isError } = useGetFilteredCategories();
 
-    if (isError) return <Alert />;
-    if (isCheckAuhtLoading || isCategoriesLoading) return <Loader />;
-    const subcategories = data.reduce<Record<string, { id: string; category: string }[]>>(
-        (acc, { category, subCategories }) => {
-            acc[category] = subCategories.map(({ _id: id, category: sub }) => ({
-                id,
-                category: sub,
-            }));
-            return acc;
-        },
-        {},
-    );
-
-    return (
-        <BrowserRouter>
-            <Routes>
+export function makeRouter(
+    categoriesData: ComingCategoryData[],
+    subcategories: Record<string, { id: string; category: string }[]>,
+) {
+    return createBrowserRouter(
+        createRoutesFromElements(
+            <>
                 <Route
                     path='/'
                     element={
@@ -48,6 +33,7 @@ const AppRoutes = () => {
                             <MainPage />
                         </ProtectedRoute>
                     }
+                    errorElement={<NotFoundPage />}
                 >
                     <Route index element={<Main />} />
                     <Route path='new-recipe' element={<NewRecipe />} />
@@ -57,7 +43,7 @@ const AppRoutes = () => {
                     </Route>
                     <Route path=':id' element={<Recipe />} />
 
-                    {data.map(({ category }) => {
+                    {categoriesData.map(({ category }) => {
                         const subs = subcategories[category]!;
                         const firstSub = subs[0]!;
                         return (
@@ -88,6 +74,7 @@ const AppRoutes = () => {
                             </Route>
                         );
                     })}
+
                     <Route path='edit-recipe'>
                         <Route path=':category'>
                             <Route path=':subcategory'>
@@ -102,8 +89,7 @@ const AppRoutes = () => {
                 <Route path='/verification' element={<VerificationRedirect />} />
                 <Route path='not-found' element={<NotFoundPage />} />
                 <Route path='*' element={<Navigate to='/not-found' replace />} />
-            </Routes>
-        </BrowserRouter>
+            </>,
+        ),
     );
-};
-export default AppRoutes;
+}

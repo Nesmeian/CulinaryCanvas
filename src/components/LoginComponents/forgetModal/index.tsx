@@ -66,7 +66,6 @@ export const ForgetModal = ({
         setVerEmail('');
         reset();
     };
-    console.log();
     return isOpen ? (
         <Center {...loginModalWrapperStyles} data-test-id={TEST_IDS.SEND_EMAIL_MODAL}>
             <VStack w={{ lg: '332px', base: '316px' }} {...loginModalContentStyles}>

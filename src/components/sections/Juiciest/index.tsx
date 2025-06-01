@@ -1,7 +1,7 @@
 import './style.css';
 
 import { Heading, HStack, Link, VStack } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { Loader } from '~/components/loader';
 import { TEST_IDS } from '~/constants/testsIds';
