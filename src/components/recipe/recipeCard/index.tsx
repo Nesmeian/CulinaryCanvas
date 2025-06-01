@@ -10,7 +10,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
@@ -35,7 +35,6 @@ import { commonRecipeBtnStyles, greenRecipeBtnStyles } from '../recipeStyles';
 export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeData }) {
     const navigate = useNavigate();
     const currentPath = GetCurrentPath();
-    console.log(currentPath);
     const { title, _id, description, categoriesIds, image, bookmarks, likes, time } = recipeData;
     const userData = decodeToken(localStorage.getItem('accessToken'));
     const isUserRecipe = userData.userId === recipeData?.authorId;

@@ -1,5 +1,5 @@
 import { VStack } from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import { useGetRecipeByIdQuery } from '~/query/services/get';
 import { NutritionValueData } from '~/types/recipesData/index.ts';

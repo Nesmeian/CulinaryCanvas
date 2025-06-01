@@ -1,10 +1,13 @@
+import { ReactNode } from 'react';
 import {
     FieldArrayWithId,
     FieldErrors,
+    FieldValues,
     UseFieldArrayAppend,
     UseFieldArrayRemove,
     UseFieldArrayUpdate,
     UseFormClearErrors,
+    UseFormGetValues,
     UseFormRegister,
     UseFormSetValue,
 } from 'react-hook-form';
@@ -92,4 +95,10 @@ export type UploadedFile = {
     _id: string;
     name: string;
     url: string;
+};
+export type useBlockNavigationProps = {
+    isFormDirty: boolean;
+    open: (node: ReactNode) => void;
+    values: UseFormGetValues<FieldValues>;
+    isSavedSuccessfully: boolean;
 };

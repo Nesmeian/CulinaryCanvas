@@ -10,7 +10,7 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { IMG_PATH } from '~/constants';
 import { TEST_IDS } from '~/constants/testsIds';

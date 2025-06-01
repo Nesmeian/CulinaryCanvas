@@ -1,6 +1,6 @@
 import { Button, Center, Heading, Image, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';

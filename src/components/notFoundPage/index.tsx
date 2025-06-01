@@ -1,5 +1,5 @@
 import { Center, Heading, Image, Text, VStack } from '@chakra-ui/react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { TEST_IDS } from '~/constants/testsIds';
 

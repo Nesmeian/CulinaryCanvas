@@ -1,5 +1,5 @@
 import { Center, Heading, Image, Text, useDisclosure, VStack } from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import {
     LoginCheckTextStyles,

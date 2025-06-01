@@ -1,7 +1,7 @@
 import './index.css';
 
 import { Image, Text, VStack } from '@chakra-ui/react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import writeRecipe from '../../assets/writeRecipe.svg';
 
