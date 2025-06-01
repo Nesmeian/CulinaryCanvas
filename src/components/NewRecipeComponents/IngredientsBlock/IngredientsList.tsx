@@ -5,7 +5,7 @@ import { IngredientsListProps, RecipeFields } from '~/types/NewRecipesTypes';
 
 import deleteIcon from '../../../assets/deleteIcon.svg';
 import { ChooseMeasure } from './ChooseMeasure';
-export const IngredientsList = ({ measure, fields, remove, update }: IngredientsListProps) => {
+export const IngredientsList = ({ measure, fields, remove }: IngredientsListProps) => {
     const {
         control,
         formState: { errors },
@@ -41,15 +41,26 @@ export const IngredientsList = ({ measure, fields, remove, update }: Ingredients
                         />
                     </FormControl>
 
-                    <ChooseMeasure
-                        value={field.measureUnit}
-                        onChange={(val) => {
-                            const newUnit = typeof val === 'string' ? val : val(field.measureUnit);
-                            update(idx, { ...field, measureUnit: newUnit });
-                        }}
+                    <FormControl
                         isInvalid={!!errors.ingredients?.[idx]?.measureUnit}
-                        measure={measure}
-                    />
+                        width={{ md: '215px', base: '192px' }}
+                    >
+                        <Controller
+                            name={`ingredients.${idx}.measureUnit`}
+                            control={control}
+                            defaultValue={field.measureUnit}
+                            render={({ field: { value, onChange } }) => (
+                                <ChooseMeasure
+                                    value={value}
+                                    onChange={(val) => {
+                                        const newUnit = typeof val === 'string' ? val : val(value);
+                                        onChange(newUnit);
+                                    }}
+                                    measure={measure}
+                                />
+                            )}
+                        />
+                    </FormControl>
 
                     {fields.length > 1 && (
                         <Image

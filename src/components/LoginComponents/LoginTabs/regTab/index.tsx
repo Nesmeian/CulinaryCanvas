@@ -27,7 +27,7 @@ import {
     LoginInputStyles,
 } from '~/components/Pages/Login/styles';
 import { TEST_IDS } from '~/constants/testsIds';
-import { usePostAuthSignUpMutation } from '~/query/services/post';
+import { usePostAuthSignUpMutation } from '~/query/services/post/regLog';
 import { RegFields } from '~/types/LoginTypes';
 import { handleTrimBlur } from '~/utils/LoginPageUtils/handleTrimBlur';
 import { registrationProgress } from '~/utils/LoginPageUtils/RegistationProgress';

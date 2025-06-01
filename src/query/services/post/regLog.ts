@@ -7,7 +7,7 @@ import { setIsAuth } from '~/store/app-slice';
 import { ResetPasswordType } from '~/types/LoginTypes';
 import { forgotPassword, PostAuthRegType, PostLoginType, VerifyOTP } from '~/types/postData';
 
-export const postsApiSlice = apiSlice
+export const postsRegLoginSlice = apiSlice
     .enhanceEndpoints({
         addTagTypes: [Tags.POSTS, Tags.AUTH_TOKEN, Tags.LOGIN],
     })
@@ -80,4 +80,4 @@ export const {
     useForgotPasswordMutation,
     useVerifyOtkMutation,
     useResetPasswordMutation,
-} = postsApiSlice;
+} = postsRegLoginSlice;

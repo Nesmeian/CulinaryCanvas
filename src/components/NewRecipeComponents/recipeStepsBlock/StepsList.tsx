@@ -78,7 +78,7 @@ export const StepsList = () => {
                             return (
                                 <Image
                                     src={value || emptyImg}
-                                    alt={`Шаг ${field.stepNumber}`}
+                                    alt={`Шаг ${i}`}
                                     height='100%'
                                     width={{ base: '328px', md: '346px' }}
                                     objectFit='cover'
@@ -91,7 +91,7 @@ export const StepsList = () => {
                     />
                     <VStack alignItems='flex-start' p='20px' w={{ base: '322px' }} spacing='8px'>
                         <HStack justifyContent='space-between' w='100%'>
-                            <Heading {...stepTextStyle}>Шаг {field.stepNumber}</Heading>
+                            <Heading {...stepTextStyle}>Шаг {i + 1}</Heading>
                             {fields.length > 1 && (
                                 <Image
                                     src={deleteIcon}
@@ -127,7 +127,6 @@ export const StepsList = () => {
                 border='1px solid rgba(0, 0, 0, 0.48)'
                 onClick={() =>
                     append({
-                        stepNumber: fields.length + 1,
                         description: '',
                         image: undefined,
                     })

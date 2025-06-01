@@ -25,7 +25,6 @@ export const NewRecipe = () => {
             portions: 4,
             steps: [
                 {
-                    stepNumber: 1,
                     description: '',
                     image: undefined,
                 },
@@ -33,7 +32,15 @@ export const NewRecipe = () => {
         },
     });
     const onSubmit: SubmitHandler<RecipeFields> = (data) => {
-        console.log(data, 'data');
+        const payload = {
+            ...data,
+            steps: data.steps.map((step, idx) => ({
+                stepNumber: idx + 1,
+                description: step.description,
+                image: step.image,
+            })),
+        };
+        console.log(payload);
     };
     const {
         handleSubmit,

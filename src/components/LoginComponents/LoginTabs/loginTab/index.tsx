@@ -18,7 +18,7 @@ import { Loader } from '~/components/loader';
 import { LoginFormLabel, LoginInputStyles } from '~/components/Pages/Login/styles';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useCheckAuthTokenQuery } from '~/query/services/get/getAuthToken';
-import { usePostAuthLoginMutation } from '~/query/services/post';
+import { usePostAuthLoginMutation } from '~/query/services/post/regLog';
 import { LoginFields } from '~/types/LoginTypes';
 import { handleTrimBlur } from '~/utils/LoginPageUtils/handleTrimBlur';
 import { loginSchema } from '~/utils/validationRules/yupSheme';

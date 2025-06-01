@@ -31,7 +31,6 @@ export type AddIngredientsProps = {
     hasError?: boolean;
 };
 export type newRecipeStepsType = {
-    stepNumber: number;
     image: string | undefined;
     description: string;
 }[];

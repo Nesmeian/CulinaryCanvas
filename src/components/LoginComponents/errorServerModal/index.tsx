@@ -11,7 +11,7 @@ import {
     loginModalWrapperStyles,
 } from '~/components/Pages/Login/styles';
 import { TEST_IDS } from '~/constants/testsIds';
-import { usePostAuthLoginMutation } from '~/query/services/post';
+import { usePostAuthLoginMutation } from '~/query/services/post/regLog';
 import { LoginFields } from '~/types/LoginTypes';
 
 import * as loginImgs from '../../../assets/LoginImg/index';
