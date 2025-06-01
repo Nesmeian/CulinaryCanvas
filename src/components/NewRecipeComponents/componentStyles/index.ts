@@ -37,7 +37,7 @@ export const IngredientsDescriptionStyles = {
     letterSpacing: '0',
 };
 export const chooseMeasureMenuStyle = {
-    w: { md: '215px', base: '192px' },
+    width: '100%',
     height: '40px',
     textAlign: 'left',
     background: 'white',

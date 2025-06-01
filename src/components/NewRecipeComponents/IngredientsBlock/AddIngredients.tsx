@@ -1,4 +1,4 @@
-import { FormControl, HStack, Image, Input } from '@chakra-ui/react';
+import { Box, FormControl, HStack, Image, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { AddIngredientsProps } from '~/types/NewRecipesTypes';
@@ -46,17 +46,19 @@ export const AddIngredients = ({ measure, append, clearErrors, hasError }: AddIn
                     }}
                     w={{ base: '80px' }}
                 />
-                <ChooseMeasure
-                    value={measureState}
-                    onChange={(val) => {
-                        resetArrayError();
-                        const newUnit = typeof val === 'string' ? val : val(measureState);
-                        setMeasureState(newUnit);
-                    }}
-                    isInvalid={hasError}
-                    measure={measure}
-                    resetArrayError={resetArrayError}
-                />
+                <Box width={{ md: '215px', base: '192px' }}>
+                    <ChooseMeasure
+                        value={measureState}
+                        onChange={(val) => {
+                            resetArrayError();
+                            const newUnit = typeof val === 'string' ? val : val(measureState);
+                            setMeasureState(newUnit);
+                        }}
+                        isInvalid={hasError}
+                        measure={measure}
+                        resetArrayError={resetArrayError}
+                    />
+                </Box>
                 <Image
                     src={AddIcon.WhiteCenter}
                     alt='add icon'

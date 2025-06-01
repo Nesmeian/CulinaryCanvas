@@ -12,7 +12,7 @@ import {
 } from '~/components/Pages/Login/styles';
 import { errorSendForgetCodeMessage } from '~/constants/LoginTextModals/errorTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
-import { useVerifyOtkMutation } from '~/query/services/post';
+import { useVerifyOtkMutation } from '~/query/services/post/regLog';
 import { verifyCode } from '~/types/LoginTypes';
 
 import closeBtn from '../../../assets/closeSvg.svg';

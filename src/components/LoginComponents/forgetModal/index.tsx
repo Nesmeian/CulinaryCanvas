@@ -25,7 +25,7 @@ import {
 import { ForgetModalTexts } from '~/constants/LoginTextModals';
 import { errorForgetModalMessage } from '~/constants/LoginTextModals/errorTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
-import { useForgotPasswordMutation } from '~/query/services/post';
+import { useForgotPasswordMutation } from '~/query/services/post/regLog';
 import { VerifyField } from '~/types/LoginTypes';
 import { verifySchema } from '~/utils/validationRules/yupSheme';
 
@@ -66,7 +66,7 @@ export const ForgetModal = ({
         setVerEmail('');
         reset();
     };
-
+    console.log();
     return isOpen ? (
         <Center {...loginModalWrapperStyles} data-test-id={TEST_IDS.SEND_EMAIL_MODAL}>
             <VStack w={{ lg: '332px', base: '316px' }} {...loginModalContentStyles}>

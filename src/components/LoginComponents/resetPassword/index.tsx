@@ -23,7 +23,7 @@ import {
 } from '~/components/Pages/Login/styles';
 import { errorResetPasswordMessage } from '~/constants/LoginTextModals/errorTextModals';
 import { TEST_IDS } from '~/constants/testsIds';
-import { useResetPasswordMutation } from '~/query/services/post';
+import { useResetPasswordMutation } from '~/query/services/post/regLog';
 import { ResetPasswordType } from '~/types/LoginTypes';
 import { resetPasswordSchema } from '~/utils/validationRules/yupSheme';
 

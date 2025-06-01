@@ -1,10 +1,7 @@
-import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Button, Checkbox, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { Select } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
 import { ChooseMeasureProps } from '~/types/NewRecipesTypes';
-
-import { chooseMeasureMenuStyle } from '../componentStyles';
 
 export const ChooseMeasure = ({
     value,
@@ -20,10 +17,11 @@ export const ChooseMeasure = ({
             setValue(`ingredients.${index}.measureUnit`, value, { shouldValidate: true });
         }
     }, [value, index, setValue]);
-    const SelectHandler = (e: string) => {
-        onChange(e);
+
+    const SelectHandler = (newValue: string) => {
+        onChange(newValue);
         if (setValue && index !== undefined) {
-            setValue(`ingredients.${index}.measureUnit`, e, { shouldValidate: true });
+            setValue(`ingredients.${index}.measureUnit`, newValue, { shouldValidate: true });
         }
         if (resetArrayError) {
             resetArrayError();
@@ -31,35 +29,18 @@ export const ChooseMeasure = ({
     };
 
     return (
-        <Menu>
-            <MenuButton
-                as={Button}
-                {...chooseMeasureMenuStyle}
-                rightIcon={<ChevronDownIcon transition='transform 0.1s' />}
-                border={isInvalid ? '1.667px solid' : '1px solid'}
-                borderColor={isInvalid ? '#FC8181' : 'rgba(0, 0, 0, 0.08)'}
-            >
-                {value ? value : 'Единица измерения'}
-            </MenuButton>
-            <MenuList width='100%' zIndex={30}>
-                {measure &&
-                    measure.map(({ name }) => (
-                        <MenuItem key={name} px={0}>
-                            <Checkbox
-                                onChange={() => {
-                                    SelectHandler(name);
-                                }}
-                                isChecked={value.includes(name)}
-                                borderColor='#D7FF94'
-                                colorScheme='customgreen'
-                                width='100%'
-                                pl='16px'
-                            >
-                                {name}
-                            </Checkbox>
-                        </MenuItem>
-                    ))}
-            </MenuList>
-        </Menu>
+        <Select
+            placeholder='Единица измерения'
+            value={value || ''}
+            onChange={(e) => SelectHandler(e.target.value)}
+            isInvalid={isInvalid}
+        >
+            {measure &&
+                measure.map(({ name }) => (
+                    <option key={name} value={name}>
+                        {name}
+                    </option>
+                ))}
+        </Select>
     );
 };
