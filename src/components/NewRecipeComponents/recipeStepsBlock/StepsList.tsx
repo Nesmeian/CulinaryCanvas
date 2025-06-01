@@ -87,7 +87,7 @@ export const StepsList = () => {
                             imageOnChangeMap.current[i] = onChange;
                             return (
                                 <Image
-                                    src={`${API_BASE}${value}` || emptyImg}
+                                    src={value ? `${API_BASE}${value}` : emptyImg}
                                     alt={`Шаг ${i}`}
                                     height='100%'
                                     width={{ base: '328px', md: '346px' }}

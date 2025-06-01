@@ -10,7 +10,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
@@ -24,6 +24,7 @@ import { ComingRecipeData } from '~/types/comingData';
 import AddNotifications from '~/utils/addNotifications';
 import AddTags from '~/utils/addTags';
 import { decodeToken } from '~/utils/decodeToken';
+import GetCurrentPath from '~/utils/getCurrentPath';
 
 import alarmImg from '../../../assets/alarm.svg';
 import deleteRecipeIcon from '../../../assets/deleteRecipeIcon.svg';
@@ -33,6 +34,8 @@ import { commonRecipeBtnStyles, greenRecipeBtnStyles } from '../recipeStyles';
 
 export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeData }) {
     const navigate = useNavigate();
+    const currentPath = GetCurrentPath();
+    console.log(currentPath);
     const { title, _id, description, categoriesIds, image, bookmarks, likes, time } = recipeData;
     const userData = decodeToken(localStorage.getItem('accessToken'));
     const isUserRecipe = userData.userId === recipeData?.authorId;
@@ -176,6 +179,8 @@ export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeDat
                                 <Image src={deleteRecipeIcon} alt='Delete recipe' />
                             </Button>
                             <Button
+                                as={Link}
+                                to={`/edit-recipe/${currentPath.join('/')}`}
                                 {...commonRecipeBtnStyles}
                                 variant='plain'
                                 rightIcon={<Image src={editRecipeIcon} alt='edit recipe' />}

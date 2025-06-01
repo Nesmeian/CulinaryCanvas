@@ -56,7 +56,7 @@ export interface Step {
 }
 export type Ingredient = {
     title: string;
-    count: number;
+    count: string;
     measureUnit: string;
 };
 export type RecipeFormBasicProps = {
