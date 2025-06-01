@@ -1,5 +1,6 @@
 export enum ApiGroupNames {
     AUTH = 'auth',
+    FILE = 'file',
     LOGIN = 'login',
     RESET_PASSWORD = 'reset_password',
     FORGOT_PASSWORD = 'forgot-password',

@@ -43,13 +43,17 @@ export type newRecipeStepsListType = {
 export type RecipeFields = {
     title: string;
     description: string;
-    image: File;
+    image: string;
     portions: number;
     time: number;
     categoriesIds: string[];
     ingredients: Ingredient[];
-    steps: newRecipeStepsType;
+    steps: Step[];
 };
+export interface Step {
+    description: string;
+    image: string;
+}
 export type Ingredient = {
     title: string;
     count: number;
@@ -83,4 +87,9 @@ export type ChooseMeasureProps = {
     index?: number;
     measure?: measureType[];
     resetArrayError?: () => void;
+};
+export type UploadedFile = {
+    _id: string;
+    name: string;
+    url: string;
 };
