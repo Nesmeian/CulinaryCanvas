@@ -1,6 +1,7 @@
 export enum ApiEndpoints {
     SIGNUP = '/auth/signup',
     UPLOAD_FILE = '/file/upload',
+    RECOMMEND_RECIPE = '/recipe/recommend',
     LOGIN = '/auth/login',
     FORGOT_PASSWORD = '/auth/forgot-password',
     VERIFY_OTP = '/auth/verify-otp',

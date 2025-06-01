@@ -17,7 +17,7 @@ export const deleteRecipeApi = apiSlice
                     apiGroupName: ApiGroupNames.RECIPES,
                     name: EndpointNames.GET_RECIPES,
                 }),
-                invalidatesTags: [Tags.AUTH_TOKEN],
+                invalidatesTags: [Tags.RECIPES],
             }),
         }),
     });
