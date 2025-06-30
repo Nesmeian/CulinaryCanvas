@@ -21,12 +21,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
-import {
-    helperTextStyles,
-    LoginFormLabel,
-    LoginInputStyles,
-} from '~/components/Pages/Login/styles';
 import { TEST_IDS } from '~/constants/testsIds';
+import { helperTextStyles, LoginFormLabel, LoginInputStyles } from '~/Pages/Login/styles';
 import { usePostAuthSignUpMutation } from '~/query/services/post/regLog';
 import { RegFields } from '~/types/LoginTypes';
 import { handleTrimBlur } from '~/utils/LoginPageUtils/handleTrimBlur';

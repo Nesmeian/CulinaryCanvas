@@ -2,7 +2,7 @@ import { Button, Heading, Image, Text, VStack } from '@chakra-ui/react';
 import { FieldValues, UseFormGetValues } from 'react-hook-form';
 
 import { SaveRecipeDraft } from '~/components/buttons/saveRecipeDraft';
-import { LoginCheckTextStyles, LoginModalHeader } from '~/components/Pages/Login/styles';
+import { LoginCheckTextStyles, LoginModalHeader } from '~/Pages/Login/styles';
 
 import * as img from '../../../assets/LoginImg/index';
 export const UnsavedChangesModal = ({

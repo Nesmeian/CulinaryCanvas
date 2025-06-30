@@ -4,8 +4,8 @@ import { LoginTabs } from '~/components/LoginComponents/LoginTabs';
 import { LoginImageText, LoginProtectedText } from '~/constants/LoginTextModals';
 import useBreakpoints from '~/themes/chakraBreakPoints';
 
-import LoginImg from '../../../assets/loginImg.png';
-import * as logoImg from '../../../assets/loginLogs/index';
+import LoginImg from '../../assets/loginImg.png';
+import * as logoImg from '../../assets/loginLogs/index';
 import { loginImageText, loginProtectedTextStyles } from './styles';
 export const Login = () => {
     const { isTablet } = useBreakpoints();

@@ -15,16 +15,16 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
+import { ForgetModalTexts } from '~/constants/LoginTextModals';
+import { errorForgetModalMessage } from '~/constants/LoginTextModals/errorTextModals';
+import { TEST_IDS } from '~/constants/testsIds';
 import {
     LoginCheckTextStyles,
     LoginDescriptionStyles,
     LoginInputStyles,
     loginModalContentStyles,
     loginModalWrapperStyles,
-} from '~/components/Pages/Login/styles';
-import { ForgetModalTexts } from '~/constants/LoginTextModals';
-import { errorForgetModalMessage } from '~/constants/LoginTextModals/errorTextModals';
-import { TEST_IDS } from '~/constants/testsIds';
+} from '~/Pages/Login/styles';
 import { useForgotPasswordMutation } from '~/query/services/post/regLog';
 import { VerifyField } from '~/types/LoginTypes';
 import { verifySchema } from '~/utils/validationRules/yupSheme';
