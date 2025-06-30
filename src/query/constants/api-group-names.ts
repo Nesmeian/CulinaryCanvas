@@ -1,5 +1,6 @@
 export enum ApiGroupNames {
     DRAFT = 'draft',
+    BLOGS = 'blogs',
     USER_ACTIONS = 'user-actions',
     AUTH = 'auth',
     FILE = 'file',

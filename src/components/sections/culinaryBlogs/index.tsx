@@ -2,12 +2,24 @@ import './style.css';
 
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Button, Grid, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+
+import { Alert } from '~/components/alert';
+import { Loader } from '~/components/loader';
+import { useGetBlogsQuery } from '~/Pages/BlogsPage/model/slice';
 
 import CardAvatar from '../../../components/CardAvatar';
-import DB from '../../../data/db.json';
 import useBreakpoints from '../../../themes/chakraBreakPoints';
 export default function CulinaryBlogs() {
     const { isTablet } = useBreakpoints();
+    const { data, isLoading, isError } = useGetBlogsQuery();
+    if (isLoading) {
+        return <Loader />;
+    }
+    if (isError) {
+        return <Alert />;
+    }
+    console.log(data);
     return (
         <VStack as='section' className='culinary-blogs' alignSelf='baseline'>
             <HStack width='100%' justifyContent='space-between'>
@@ -16,6 +28,8 @@ export default function CulinaryBlogs() {
                 </Heading>
                 {!isTablet && (
                     <Button
+                        as={Link}
+                        to='blogs'
                         variant='plain'
                         className='culinary-blogs__btn-all-authors'
                         size='lg'
@@ -31,9 +45,9 @@ export default function CulinaryBlogs() {
                 className='culinary-blogs__list'
                 width='100%'
             >
-                {DB.culinaryBlogData.map(({ id, img, user, email, description }) => (
+                {data?.others.map(({ _id, photoLink, firstName, login, notes }) => (
                     <VStack
-                        key={id}
+                        key={_id}
                         _hover={{
                             boxShadow:
                                 '0 2px 4px -1px rgba(32, 126, 0, 0.06), 0 4px 6px -1px rgba(32, 126, 0, 0.1)',
@@ -42,13 +56,13 @@ export default function CulinaryBlogs() {
                         alignItems='flex-start'
                         gap={{ xl: '24px', sm: '13px' }}
                     >
-                        <CardAvatar userData={{ user, email, img }} />
+                        <CardAvatar userData={{ user: firstName, email: login, img: photoLink }} />
                         <Text
                             noOfLines={3}
                             variant='culinaryTextStyles'
                             className='culinary-blogs__item-description'
                         >
-                            {description}
+                            {notes[0]?.text || 'Кулинария это полезное занятие'}
                         </Text>
                     </VStack>
                 ))}

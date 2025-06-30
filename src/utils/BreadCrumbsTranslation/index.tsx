@@ -33,18 +33,21 @@ export default function TranslatePathSegment({ segment }: { segment: string }) {
         {} as Record<string, string>,
     );
     const newRecipe = { 'new-recipe': 'Новый рецепт' };
-    const juiciest = { 'the-juiciest': 'Самое сочное' } as Record<string, string>;
-    const notFound = { 'not-found': 'Страница не найдена' } as Record<string, string>;
+    const pages = {
+        'new-recipe': 'Новый рецепт',
+        'the-juiciest': 'Самое сочное',
+        'not-found': 'Страница не найдена',
+        blogs: 'Блоги',
+    };
     const recipeKey =
         recipeData?._id && recipeData?.title ? { [recipeData._id]: recipeData.title } : {};
-    const mergedTranslations = {
+    const mergedTranslations: Record<string, string> = {
         ...newRecipe,
         ...subcategories,
         ...categories,
         ...dishes,
-        ...juiciest,
         ...recipeKey,
-        ...notFound,
+        ...pages,
     };
     return <Text>{mergedTranslations[segment] || segment}</Text>;
 }
