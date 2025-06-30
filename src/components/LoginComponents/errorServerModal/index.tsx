@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
+import { TEST_IDS } from '~/constants/testsIds';
 import {
     LoginCheckTextStyles,
     loginModalContentStyles,
     LoginModalHeader,
     loginModalWrapperStyles,
-} from '~/components/Pages/Login/styles';
-import { TEST_IDS } from '~/constants/testsIds';
+} from '~/Pages/Login/styles';
 import { usePostAuthLoginMutation } from '~/query/services/post/regLog';
 import { LoginFields } from '~/types/LoginTypes';
 

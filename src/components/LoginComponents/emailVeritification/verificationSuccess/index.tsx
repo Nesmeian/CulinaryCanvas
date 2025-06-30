@@ -1,14 +1,14 @@
 import { Center, Heading, Image, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
+import { TEST_IDS } from '~/constants/testsIds';
 import {
     LoginCheckTextStyles,
     LoginDescriptionStyles,
     loginModalContentStyles,
     LoginModalHeader,
     loginModalWrapperStyles,
-} from '~/components/Pages/Login/styles';
-import { TEST_IDS } from '~/constants/testsIds';
+} from '~/Pages/Login/styles';
 
 import * as loginImgs from '../../../../assets/LoginImg/index';
 import closeBtn from '../../../../assets/verificationCloseImg.svg';

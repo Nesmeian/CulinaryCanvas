@@ -20,7 +20,7 @@ import { useCreateNewRecipeMutation } from '~/query/services/post/newRecipe';
 import { RecipeFields, UploadedFile } from '~/types/NewRecipesTypes';
 import { newRecipeScheme } from '~/utils/validationRules/newRecipeScheme';
 
-import emptyImg from '../../../assets/emptyImage.png';
+import emptyImg from '../../assets/emptyImage.png';
 import { RecipeImgStyles } from './styles';
 
 export const NewRecipe = () => {

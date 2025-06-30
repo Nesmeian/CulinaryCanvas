@@ -4,14 +4,14 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
+import { errorSendForgetCodeMessage } from '~/constants/LoginTextModals/errorTextModals';
+import { TEST_IDS } from '~/constants/testsIds';
 import {
     LoginCheckTextStyles,
     LoginDescriptionStyles,
     loginModalContentStyles,
     loginModalWrapperStyles,
-} from '~/components/Pages/Login/styles';
-import { errorSendForgetCodeMessage } from '~/constants/LoginTextModals/errorTextModals';
-import { TEST_IDS } from '~/constants/testsIds';
+} from '~/Pages/Login/styles';
 import { useVerifyOtkMutation } from '~/query/services/post/regLog';
 import { verifyCode } from '~/types/LoginTypes';
 

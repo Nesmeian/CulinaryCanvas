@@ -11,12 +11,8 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import {
-    helperTextStyles,
-    LoginFormLabel,
-    LoginInputStyles,
-} from '~/components/Pages/Login/styles';
 import { TEST_IDS } from '~/constants/testsIds';
+import { helperTextStyles, LoginFormLabel, LoginInputStyles } from '~/Pages/Login/styles';
 import { passwordInputType } from '~/types/LoginTypes';
 
 import * as passwordIcons from '../../../../assets/passwordIcons/index';

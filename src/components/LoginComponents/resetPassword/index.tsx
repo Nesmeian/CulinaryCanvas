@@ -15,14 +15,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
+import { errorResetPasswordMessage } from '~/constants/LoginTextModals/errorTextModals';
+import { TEST_IDS } from '~/constants/testsIds';
 import {
     LoginInputStyles,
     loginModalContentStyles,
     LoginModalHeader,
     loginModalWrapperStyles,
-} from '~/components/Pages/Login/styles';
-import { errorResetPasswordMessage } from '~/constants/LoginTextModals/errorTextModals';
-import { TEST_IDS } from '~/constants/testsIds';
+} from '~/Pages/Login/styles';
 import { useResetPasswordMutation } from '~/query/services/post/regLog';
 import { ResetPasswordType } from '~/types/LoginTypes';
 import { resetPasswordSchema } from '~/utils/validationRules/yupSheme';

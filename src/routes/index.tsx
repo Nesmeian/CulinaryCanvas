@@ -4,10 +4,10 @@ import Categories from '~/components/categories';
 import { VerificationRedirect } from '~/components/LoginComponents/veritificationRedirect';
 import Main from '~/components/Main';
 import { NotFoundPage } from '~/components/notFoundPage';
-import { Login } from '~/components/Pages/Login';
-import { MainPage } from '~/components/Pages/MainPage';
-import { NewRecipe } from '~/components/Pages/NewRecipe';
 import Recipe from '~/components/recipe';
+import { Login } from '~/Pages/Login';
+import { MainPage } from '~/Pages/MainPage';
+import { NewRecipe } from '~/Pages/NewRecipe';
 import { ComingCategoryData } from '~/types/comingData';
 
 import { ProtectedRoute } from './protectedRoute';
