@@ -54,3 +54,9 @@ export type greenButtonType = {
     text: string;
     onClick?: () => void;
 };
+export type NotificationTypes = {
+    isRecipe?: boolean;
+    likes?: number;
+    bookmarks?: number;
+    subscribes?: number;
+};

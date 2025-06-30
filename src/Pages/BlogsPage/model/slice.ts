@@ -4,15 +4,16 @@ import { EndpointNames } from '~/query/constants/endpoint-names';
 import { Tags } from '~/query/constants/tags';
 import { apiSlice } from '~/query/create-api';
 
-import { BloggerParams } from './types';
+import { BloggerParams, GetBlogsArgs } from './types';
 
 export const BlogsSlice = apiSlice.enhanceEndpoints({ addTagTypes: [Tags.BLOGS] }).injectEndpoints({
     endpoints: (builder) => ({
-        getBlogs: builder.query<BloggerParams, void>({
-            query: () => ({
+        getBlogs: builder.query<BloggerParams, GetBlogsArgs>({
+            query: ({ limit = 9 } = {}) => ({
                 url: ApiEndpoints.BLOGS,
                 method: 'GET',
                 params: {
+                    limit: limit,
                     currentUserId: localStorage.getItem('accessToken'),
                 },
                 apiGroupName: ApiGroupNames.BLOGS,
