@@ -19,7 +19,6 @@ export default function CulinaryBlogs() {
     if (isError) {
         return <Alert />;
     }
-    console.log(data);
     return (
         <VStack as='section' className='culinary-blogs' alignSelf='baseline'>
             <HStack width='100%' justifyContent='space-between'>

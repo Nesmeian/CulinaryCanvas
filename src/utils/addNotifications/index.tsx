@@ -1,9 +1,15 @@
 import { HStack, Image, Text } from '@chakra-ui/react';
 
-import * as socialIcons from '../../assets/socialIcons/index';
-import { addNotificationsProps } from '../../types/utilsTypes';
+import { NotificationTypes } from '~/types/utilsTypes';
 
-export default function AddNotifications({ bookmarks, likes, isRecipe }: addNotificationsProps) {
+import * as socialIcons from '../../assets/socialIcons/index';
+
+export default function AddNotifications({
+    bookmarks,
+    likes,
+    subscribes,
+    isRecipe,
+}: NotificationTypes) {
     const gap = isRecipe ? '30px' : '17px';
     const textVariant = isRecipe ? 'addRecipeNotification' : 'addNotification';
     const boxSize = isRecipe ? '14px' : '12px';
@@ -19,6 +25,12 @@ export default function AddNotifications({ bookmarks, likes, isRecipe }: addNoti
                 <HStack gap='5px'>
                     <Image src={socialIcons.likes} boxSize={boxSize} />
                     <Text variant={textVariant}>{likes}</Text>
+                </HStack>
+            )}
+            {subscribes && (
+                <HStack gap='5px'>
+                    <Image src={socialIcons.views} boxSize={boxSize} />
+                    <Text variant={textVariant}>{subscribes}</Text>
                 </HStack>
             )}
         </HStack>

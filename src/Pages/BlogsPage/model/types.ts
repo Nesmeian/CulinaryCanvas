@@ -20,3 +20,6 @@ export type BloggerParams = {
     favorites: Blogger[];
     others: Blogger[];
 };
+export type GetBlogsArgs = {
+    limit?: number;
+};
