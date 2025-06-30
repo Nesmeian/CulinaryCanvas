@@ -1,4 +1,5 @@
 export enum ApiEndpoints {
+    TOGGLE_SUBSCRIPTION = '/users/toggle-subscription',
     BLOGS = '/bloggers',
     SAVE_DRAFT = '/recipe/draft',
     SIGNUP = '/auth/signup',

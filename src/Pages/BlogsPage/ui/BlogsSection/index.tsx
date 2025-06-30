@@ -8,14 +8,16 @@ import CardAvatar from '~/components/CardAvatar';
 import { Loader } from '~/components/loader';
 import AddNotifications from '~/utils/addNotifications';
 
-import { useGetBlogsQuery } from '../../model/slice';
+import { useGetBlogsQuery, useToggleSubscriptionMutation } from '../../model/slice';
 import { BtnReadStyles } from '../../shared/styles/components';
 import { AllAuthorsBtn } from './AllAuthorsBtn';
-import { BlogGridItemStyles, BlogGridStyles, BlogWrapper } from './style';
+import { BlogGridItemStyles, BlogGridStyles, BlogWrapperStyles } from './style';
 export const BlogsSection = () => {
-    const [limit, setLimit] = useState<number | string>(9);
     const navigate = useNavigate();
+    const [limit, setLimit] = useState<number | string>(9);
+    const [activeId, setActiveId] = useState<string | null>(null);
     const { data, isLoading, isError, isFetching } = useGetBlogsQuery({ limit: limit });
+    const [toggleSubscription, { isLoading: toggleLoading }] = useToggleSubscriptionMutation();
     useEffect(() => {
         if (isError) {
             navigate('/');
@@ -27,8 +29,12 @@ export const BlogsSection = () => {
     if (isError) {
         return <Alert />;
     }
+    const toggleSubscriptionHandler = (id: string) => {
+        setActiveId(id);
+        toggleSubscription(id);
+    };
     return (
-        <VStack {...BlogWrapper}>
+        <VStack {...BlogWrapperStyles}>
             <Grid {...BlogGridStyles}>
                 {data?.others.map(
                     ({
@@ -57,25 +63,24 @@ export const BlogsSection = () => {
                                     </Text>
                                 </VStack>
                                 <HStack w='100%' justifyContent='space-between'>
-                                    <HStack>
-                                        <Button
-                                            background='black'
-                                            color='white'
-                                            h='24px '
-                                            p='4px 8px'
-                                            fontSize='12px'
-                                            fontWeight='600'
-                                            leftIcon={
-                                                <Image
-                                                    src={socialIcons.followIcon}
-                                                    alt='follow icon'
-                                                />
-                                            }
-                                        >
-                                            Подписаться
-                                        </Button>
-                                        <Button {...BtnReadStyles}>Читать</Button>
-                                    </HStack>
+                                    {toggleLoading && activeId === _id ? (
+                                        <Spinner />
+                                    ) : (
+                                        <HStack>
+                                            <Button
+                                                onClick={() => toggleSubscriptionHandler(_id)}
+                                                leftIcon={
+                                                    <Image
+                                                        src={socialIcons.followIcon}
+                                                        alt='follow icon'
+                                                    />
+                                                }
+                                            >
+                                                Подписаться
+                                            </Button>
+                                            <Button {...BtnReadStyles}>Читать</Button>
+                                        </HStack>
+                                    )}
                                     <AddNotifications
                                         bookmarks={bookmarksCount}
                                         subscribes={subscribersCount}
@@ -86,7 +91,7 @@ export const BlogsSection = () => {
                     ),
                 )}
             </Grid>
-            {!isFetching ? <AllAuthorsBtn limit={limit} setLimit={setLimit} /> : <Spinner />}
+            <AllAuthorsBtn limit={limit} setLimit={setLimit} isFetching={isFetching} />
         </VStack>
     );
 };

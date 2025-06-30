@@ -24,6 +24,7 @@ export type GetBlogsArgs = {
     limit?: number | string;
 };
 export type AllAuthorBtnParams = {
+    isFetching: boolean;
     limit: number | string;
     setLimit: React.Dispatch<React.SetStateAction<string | number>>;
 };
