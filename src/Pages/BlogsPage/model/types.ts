@@ -21,5 +21,9 @@ export type BloggerParams = {
     others: Blogger[];
 };
 export type GetBlogsArgs = {
-    limit?: number;
+    limit?: number | string;
+};
+export type AllAuthorBtnParams = {
+    limit: number | string;
+    setLimit: React.Dispatch<React.SetStateAction<string | number>>;
 };
