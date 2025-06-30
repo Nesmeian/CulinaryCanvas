@@ -1,5 +1,6 @@
 export enum EndpointNames {
     DRAFT = 'draft',
+    BLOGS = 'blogs',
     AUTH_TOKEN = 'authToke',
     FILE = 'file',
     USER_ACTIONS = 'userActions',

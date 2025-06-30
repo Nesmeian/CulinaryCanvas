@@ -1,5 +1,6 @@
 export enum Tags {
     AUTH_TOKEN = 'auth-token',
+    BLOGS = 'blogs',
     LOGIN = 'login',
     VERIFY = 'verify',
     POSTS = 'posts',
