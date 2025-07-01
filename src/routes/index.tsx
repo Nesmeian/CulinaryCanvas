@@ -5,6 +5,7 @@ import { VerificationRedirect } from '~/components/LoginComponents/veritificatio
 import Main from '~/components/Main';
 import { NotFoundPage } from '~/components/notFoundPage';
 import Recipe from '~/components/recipe';
+import { BlogPage } from '~/Pages/BlogPage';
 import { BlogsPage } from '~/Pages/BlogsPage';
 import { Login } from '~/Pages/Login';
 import { MainPage } from '~/Pages/MainPage';
@@ -31,7 +32,10 @@ export function makeRouter(
                 >
                     <Route index element={<Main />} />
                     <Route path='new-recipe' element={<NewRecipe />} />
-                    <Route path='blogs' element={<BlogsPage />} />
+                    <Route path='blogs'>
+                        <Route index element={<BlogsPage />} />
+                        <Route path=':id' element={<BlogPage />} />
+                    </Route>
                     <Route path='the-juiciest'>
                         <Route index element={<Categories />} />
                         <Route path=':id' element={<Recipe />} />

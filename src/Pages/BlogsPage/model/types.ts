@@ -4,7 +4,7 @@ export type Note = {
     _id: string;
 };
 
-type Blogger = {
+export type Blogger = {
     _id: string;
     firstName: string;
     lastName: string;
