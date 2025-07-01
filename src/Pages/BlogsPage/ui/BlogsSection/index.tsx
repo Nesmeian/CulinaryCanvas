@@ -11,7 +11,7 @@ import AddNotifications from '~/utils/addNotifications';
 import { useGetBlogsQuery, useToggleSubscriptionMutation } from '../../model/slice';
 import { BtnReadStyles } from '../../shared/styles/components';
 import { AllAuthorsBtn } from './AllAuthorsBtn';
-import { BlogGridItemStyles, BlogGridStyles, BlogWrapperStyles } from './style';
+import { BlogGridItemStyles, BlogGridStyles, BlogWrapperStyles, FollowBtnStyles } from './style';
 export const BlogsSection = () => {
     const navigate = useNavigate();
     const [limit, setLimit] = useState<number | string>(9);
@@ -36,60 +36,51 @@ export const BlogsSection = () => {
     return (
         <VStack {...BlogWrapperStyles}>
             <Grid {...BlogGridStyles}>
-                {data?.others.map(
-                    ({
-                        _id,
-                        photoLink,
-                        firstName,
-                        login,
-                        notes,
-                        bookmarksCount,
-                        subscribersCount,
-                    }) => (
-                        <GridItem key={_id}>
-                            <VStack {...BlogGridItemStyles}>
-                                <VStack gap='12px '>
-                                    <HStack w='100%' justifyContent='space-between'>
-                                        <CardAvatar
-                                            userData={{
-                                                img: photoLink,
-                                                user: firstName,
-                                                email: login,
-                                            }}
-                                        />
-                                    </HStack>
-                                    <Text noOfLines={3}>
-                                        {notes[0]?.text || 'Кулинария это очень полезное занятие'}
-                                    </Text>
-                                </VStack>
+                {data?.others.map((blog) => (
+                    <GridItem key={blog._id}>
+                        <VStack {...BlogGridItemStyles}>
+                            <VStack gap='12px '>
                                 <HStack w='100%' justifyContent='space-between'>
-                                    {toggleLoading && activeId === _id ? (
-                                        <Spinner />
-                                    ) : (
-                                        <HStack>
-                                            <Button
-                                                onClick={() => toggleSubscriptionHandler(_id)}
-                                                leftIcon={
-                                                    <Image
-                                                        src={socialIcons.followIcon}
-                                                        alt='follow icon'
-                                                    />
-                                                }
-                                            >
-                                                Подписаться
-                                            </Button>
-                                            <Button {...BtnReadStyles}>Читать</Button>
-                                        </HStack>
-                                    )}
-                                    <AddNotifications
-                                        bookmarks={bookmarksCount}
-                                        subscribes={subscribersCount}
+                                    <CardAvatar
+                                        userData={{
+                                            img: blog.photoLink,
+                                            user: blog.firstName,
+                                            email: blog.login,
+                                        }}
                                     />
                                 </HStack>
+                                <Text noOfLines={3}>
+                                    {blog.notes[0]?.text || 'Кулинария это очень полезное занятие'}
+                                </Text>
                             </VStack>
-                        </GridItem>
-                    ),
-                )}
+                            <HStack w='100%' justifyContent='space-between'>
+                                {toggleLoading && activeId === blog._id ? (
+                                    <Spinner />
+                                ) : (
+                                    <HStack>
+                                        <Button
+                                            {...FollowBtnStyles}
+                                            onClick={() => toggleSubscriptionHandler(blog._id)}
+                                            leftIcon={
+                                                <Image
+                                                    src={socialIcons.followIcon}
+                                                    alt='follow icon'
+                                                />
+                                            }
+                                        >
+                                            Подписаться
+                                        </Button>
+                                        <Button {...BtnReadStyles}>Читать</Button>
+                                    </HStack>
+                                )}
+                                <AddNotifications
+                                    bookmarks={blog.bookmarksCount}
+                                    subscribes={blog.subscribersCount}
+                                />
+                            </HStack>
+                        </VStack>
+                    </GridItem>
+                ))}
             </Grid>
             <AllAuthorsBtn limit={limit} setLimit={setLimit} isFetching={isFetching} />
         </VStack>

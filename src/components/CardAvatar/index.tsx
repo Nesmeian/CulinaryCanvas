@@ -26,8 +26,12 @@ export default function CardAvatar({ userData, isLogo }: UserProps) {
                     <Text noOfLines={1} variant='avatarFullName'>
                         {user}
                     </Text>
-                    <Text variant='avatarEmail' fontSize={{ lg: '14px', sm: '12px' }}>
-                        {email}
+                    <Text
+                        variant='avatarEmail'
+                        fontSize={{ lg: '14px', sm: '12px' }}
+                        color='rgba(0, 0, 0, 0.64);'
+                    >
+                        {`@${email}`}
                     </Text>
                 </Stack>
             ) : (
