@@ -5,11 +5,11 @@ import { Tags } from '~/query/constants/tags';
 import { apiSlice } from '~/query/create-api';
 import { decodeToken } from '~/utils/decodeToken';
 
-import { BloggerParams, GetBlogsArgs } from './types';
+import { BloggerQueryParams, GetBlogsArgs } from './types';
 const userId = decodeToken(localStorage.getItem('accessToken')).userId;
 export const BlogsSlice = apiSlice.enhanceEndpoints({ addTagTypes: [Tags.BLOGS] }).injectEndpoints({
     endpoints: (builder) => ({
-        getBlogs: builder.query<BloggerParams, GetBlogsArgs>({
+        getBlogs: builder.query<BloggerQueryParams, GetBlogsArgs>({
             query: ({ limit = 3 } = {}) => ({
                 url: ApiEndpoints.BLOGS,
                 method: 'GET',

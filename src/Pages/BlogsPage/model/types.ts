@@ -4,7 +4,7 @@ export type Note = {
     _id: string;
 };
 
-export type Blogger = {
+type Blogger = {
     _id: string;
     firstName: string;
     lastName: string;
@@ -17,12 +17,16 @@ export type Blogger = {
     isFavorite: boolean;
 };
 export type BloggerParams = {
+    blog: Blogger;
+};
+export type BloggerQueryParams = {
     favorites: Blogger[];
     others: Blogger[];
 };
 export type GetBlogsArgs = {
     limit?: number | string;
-};
+} | void;
+
 export type AllAuthorBtnParams = {
     isFetching: boolean;
     limit: number | string;
