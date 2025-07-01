@@ -1,6 +1,6 @@
 import { Button, Grid, GridItem, HStack, Image, Spinner, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import * as socialIcons from '~/assets/socialIcons/index';
 import { Alert } from '~/components/alert';
@@ -70,7 +70,9 @@ export const BlogsSection = () => {
                                         >
                                             Подписаться
                                         </Button>
-                                        <Button {...BtnReadStyles}>Читать</Button>
+                                        <Button as={Link} to={blog._id} {...BtnReadStyles}>
+                                            Читать
+                                        </Button>
                                     </HStack>
                                 )}
                                 <AddNotifications

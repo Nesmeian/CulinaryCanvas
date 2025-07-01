@@ -1,6 +1,7 @@
 export enum EndpointNames {
     DRAFT = 'draft',
     BLOGS = 'blogs',
+    BLOG_ID = 'blogId',
     AUTH_TOKEN = 'authToke',
     FILE = 'file',
     USER_ACTIONS = 'userActions',
@@ -11,5 +12,6 @@ export enum EndpointNames {
     POST_AUTH = 'postAuth',
     GET_RECIPES = 'getRecipes',
     GET_CATEGORY = 'getCategory',
+    RECIPE_BLOGS = 'recipeBlogs',
     MEASURE_UNIT = 'measureUnit',
 }

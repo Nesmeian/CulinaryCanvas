@@ -1,4 +1,5 @@
 import { Button, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 import CardAvatar from '~/components/CardAvatar';
 import AddNotifications from '~/utils/addNotifications';
@@ -9,7 +10,8 @@ import { NewRecipeCount } from './newRecipeCount';
 import { favoriteSectionItemStl } from './style';
 
 export const FavoriteItem = ({ blog }: BloggerParams) => {
-    const { firstName, login, photoLink, bookmarksCount, subscribersCount, newRecipesCount } = blog;
+    const { _id, firstName, login, photoLink, bookmarksCount, subscribersCount, newRecipesCount } =
+        blog;
     return (
         <GridItem>
             <VStack {...favoriteSectionItemStl}>
@@ -19,10 +21,19 @@ export const FavoriteItem = ({ blog }: BloggerParams) => {
                 </VStack>
                 <HStack w='100%' justify='space-between'>
                     <HStack>
-                        <Button background=' #b1ff2e' color='black' h='24px' p='0 12px'>
+                        <Button
+                            as={Link}
+                            to={_id}
+                            background=' #b1ff2e'
+                            color='black'
+                            h='24px'
+                            p='0 12px'
+                        >
                             Рецепты
                         </Button>
-                        <Button {...BtnReadStyles}>Читать</Button>
+                        <Button as={Link} to={_id} {...BtnReadStyles}>
+                            Читать
+                        </Button>
                     </HStack>
                     <AddNotifications bookmarks={bookmarksCount} subscribes={subscribersCount} />
                 </HStack>
