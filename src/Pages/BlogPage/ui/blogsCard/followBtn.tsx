@@ -21,6 +21,7 @@ export const FollowBtn = ({
             border='1px solid rgba(0, 0, 0, 0.48)'
             color={isFavorite ? 'black' : 'white'}
             background={isFavorite ? 'white' : 'black'}
+            _hover={{ bg: 'inherit', color: 'inherit' }}
             leftIcon={
                 <Image src={isFavorite ? SocialIcons.followingIcon : SocialIcons.followIcon} />
             }
