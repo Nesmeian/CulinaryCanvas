@@ -6,7 +6,7 @@ import { formatDateRU } from '~/shared/lib';
 import { noteSectionItemStl } from './styles';
 
 export const NotesList = ({ notes }: { notes: Note[] }) => (
-    <Grid templateColumns='repeat(3, 1fr)' gap='16px'>
+    <Grid templateColumns='repeat(3, 1fr)' gap='16px' width='100%'>
         {notes.map(({ date, text, _id }) => (
             <GridItem key={_id}>
                 <VStack {...noteSectionItemStl} h='100%'>

@@ -9,7 +9,11 @@ export const AllAuthorsBtn = ({ limit, setLimit, isFetching }: AllAuthorBtnParam
     const [click, setClick] = useState(false);
     const setLimitHandel = () => {
         setClick(true);
-        typeof limit === 'number' ? setLimit('all') : setLimit(9);
+        if (limit === 'all') {
+            setLimit(9);
+        } else {
+            setLimit('all');
+        }
     };
     useEffect(() => {
         if (!isFetching) {
