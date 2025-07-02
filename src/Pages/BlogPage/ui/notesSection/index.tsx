@@ -13,6 +13,7 @@ export const NotesSection = () => {
     const notes = data?.notes.slice(0, visibleCount) ?? [];
     const totalCount = data?.recipes.length;
     const showLoadMoreBtn = visibleCount < totalCount!;
+    console.log(showLoadMoreBtn);
     const loadMoreHandle = () => {
         setVisibleCount((prev) => prev + 3);
     };

@@ -1,20 +1,17 @@
-import { Button, Grid, GridItem, HStack, Image, Spinner, Text, VStack } from '@chakra-ui/react';
+import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import * as socialIcons from '~/assets/socialIcons/index';
 import { Alert } from '~/components/alert';
-import CardAvatar from '~/components/CardAvatar';
 import { Loader } from '~/components/loader';
-import AddNotifications from '~/utils/addNotifications';
+import { BlogCard } from '~/entries/blog/ui/BlogCard';
 
 import { useGetBlogsQuery, useToggleSubscriptionMutation } from '../../model/slice';
-import { BtnReadStyles } from '../../shared/styles/components';
 import { AllAuthorsBtn } from './AllAuthorsBtn';
-import { BlogGridItemStyles, BlogGridStyles, BlogWrapperStyles, FollowBtnStyles } from './style';
+import { BlogGridStyles, BlogWrapperStyles } from './style';
 export const BlogsSection = () => {
     const navigate = useNavigate();
-    const [limit, setLimit] = useState<number | string>(9);
+    const [limit, setLimit] = useState<number | 'all'>(9);
     const [activeId, setActiveId] = useState<string | null>(null);
     const { data, isLoading, isError, isFetching } = useGetBlogsQuery({ limit: limit });
     const [toggleSubscription, { isLoading: toggleLoading }] = useToggleSubscriptionMutation();
@@ -33,58 +30,28 @@ export const BlogsSection = () => {
         setActiveId(id);
         toggleSubscription(id);
     };
+    console.log(limit);
     return (
         <VStack {...BlogWrapperStyles}>
-            <Grid {...BlogGridStyles}>
-                {data?.others.map((blog) => (
-                    <GridItem key={blog._id}>
-                        <VStack {...BlogGridItemStyles}>
-                            <VStack gap='12px '>
-                                <HStack w='100%' justifyContent='space-between'>
-                                    <CardAvatar
-                                        userData={{
-                                            img: blog.photoLink,
-                                            user: blog.firstName,
-                                            email: blog.login,
-                                        }}
-                                    />
-                                </HStack>
-                                <Text noOfLines={3}>
-                                    {blog.notes[0]?.text || 'Кулинария это очень полезное занятие'}
-                                </Text>
-                            </VStack>
-                            <HStack w='100%' justifyContent='space-between'>
-                                {toggleLoading && activeId === blog._id ? (
-                                    <Spinner />
-                                ) : (
-                                    <HStack>
-                                        <Button
-                                            {...FollowBtnStyles}
-                                            onClick={() => toggleSubscriptionHandler(blog._id)}
-                                            leftIcon={
-                                                <Image
-                                                    src={socialIcons.followIcon}
-                                                    alt='follow icon'
-                                                />
-                                            }
-                                        >
-                                            Подписаться
-                                        </Button>
-                                        <Button as={Link} to={blog._id} {...BtnReadStyles}>
-                                            Читать
-                                        </Button>
-                                    </HStack>
-                                )}
-                                <AddNotifications
-                                    bookmarks={blog.bookmarksCount}
-                                    subscribes={blog.subscribersCount}
-                                />
-                            </HStack>
-                        </VStack>
-                    </GridItem>
-                ))}
-            </Grid>
-            <AllAuthorsBtn limit={limit} setLimit={setLimit} isFetching={isFetching} />
+            {data && data.others.length > 0 && (
+                <Grid {...BlogGridStyles}>
+                    {data.others.map((blog) => (
+                        <GridItem key={blog._id}>
+                            <BlogCard
+                                blog={blog}
+                                isLoading={toggleLoading}
+                                activeId={activeId}
+                                onToggleSubscription={toggleSubscriptionHandler}
+                            />
+                        </GridItem>
+                    ))}
+                </Grid>
+            )}
+            <AllAuthorsBtn
+                limit={limit}
+                setLimit={(value) => setLimit(value)}
+                isFetching={isFetching}
+            />
         </VStack>
     );
 };

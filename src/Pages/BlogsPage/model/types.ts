@@ -30,5 +30,5 @@ export type GetBlogsArgs = {
 export type AllAuthorBtnParams = {
     isFetching: boolean;
     limit: number | string;
-    setLimit: React.Dispatch<React.SetStateAction<string | number>>;
+    setLimit: React.Dispatch<React.SetStateAction<'all' | number>>;
 };
