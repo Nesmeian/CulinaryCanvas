@@ -19,28 +19,26 @@ export const BlogUserCard = () => {
     const { firstName, photoLink, login } = data!.bloggerInfo;
     const { isFavorite } = data!;
     return (
-        <VStack mt='16px' position='relative'>
-            <HStack>
-                <Avatar size='2xl' name={firstName} src={photoLink} />
-                <VStack alignItems='flex-start'>
-                    <Heading as='h1' size='h1'>
-                        {firstName}
-                    </Heading>
-                    <Text color='rgba(0, 0, 0, 0.64)'> {`@${login}`}</Text>
-                    <HStack justify='space-between' w='100%'>
-                        <FollowBtn
-                            setIsToggleLoading={setIsToggleLoading}
-                            isFavorite={isFavorite}
-                            userId={id!}
-                        />
-                        <AddNotifications
-                            bookmarks={data?.totalBookmarks}
-                            subscribes={data?.totalSubscribers}
-                        />
-                    </HStack>
-                </VStack>
-            </HStack>
+        <HStack mt='16px' position='relative' gap='24px'>
+            <Avatar size='2xl' name={firstName} src={photoLink} />
+            <VStack alignItems='flex-start'>
+                <Heading as='h1' size='h1'>
+                    {firstName}
+                </Heading>
+                <Text color='rgba(0, 0, 0, 0.64)'> {`@${login}`}</Text>
+                <HStack justify='space-between' w='100%'>
+                    <FollowBtn
+                        setIsToggleLoading={setIsToggleLoading}
+                        isFavorite={isFavorite}
+                        userId={id!}
+                    />
+                    <AddNotifications
+                        bookmarks={data?.totalBookmarks}
+                        subscribes={data?.totalSubscribers}
+                    />
+                </HStack>
+            </VStack>
             {isToggleLoading && <SpinnerOverlay />}
-        </VStack>
+        </HStack>
     );
 };
