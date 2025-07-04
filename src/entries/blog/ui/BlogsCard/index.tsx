@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom';
 
 import CardAvatar from '~/components/CardAvatar';
 import { BtnReadStyles } from '~/Pages/BlogsPage/shared/styles/components';
-import { BlogGridItemStyles, FollowBtnStyles } from '~/Pages/BlogsPage/ui/BlogsSection/style';
+import { FollowBtnStyles } from '~/Pages/BlogsPage/ui/BlogsSection/style';
 import AddNotifications from '~/utils/addNotifications';
 
-import * as SocialIcons from '../../../assets/socialIcons/index';
-import { BlogCardProps } from '../modle/types';
+import * as SocialIcons from '../../../../assets/socialIcons/index';
+import { BlogCardProps } from '../../module/types';
+import { BlogCardStyles } from './style';
 
 export const BlogCard = ({ blog, isLoading, activeId, onToggleSubscription }: BlogCardProps) => (
-    <VStack {...BlogGridItemStyles}>
+    <VStack {...BlogCardStyles}>
         <VStack gap='12px'>
             <HStack w='100%' justifyContent='space-between'>
                 <CardAvatar

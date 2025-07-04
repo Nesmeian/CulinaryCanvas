@@ -1,12 +1,12 @@
 import { Avatar, Stack, Text } from '@chakra-ui/react';
 
-import * as usersImg from '../../assets/users/commonImg';
 import { UserProps } from '../../types/userTypes';
 
 export default function CardAvatar({ userData, isLogo }: UserProps) {
     const { img, user, email } = userData;
     const direction = isLogo ? 'column' : 'row';
     const size = isLogo ? '100%' : 'auto';
+    const imgSource = ' https://training-api.clevertec.ru';
     return (
         <Stack
             width={size}
@@ -16,11 +16,7 @@ export default function CardAvatar({ userData, isLogo }: UserProps) {
             align='center'
             direction={direction}
         >
-            <Avatar
-                name={user}
-                src={usersImg[img as keyof typeof usersImg]}
-                boxSize={{ lg: '48px', sm: '40px' }}
-            />
+            <Avatar name={user} src={`${imgSource}/${img}`} boxSize={{ lg: '48px', sm: '40px' }} />
             {!isLogo ? (
                 <Stack gap='0'>
                     <Text noOfLines={1} variant='avatarFullName'>

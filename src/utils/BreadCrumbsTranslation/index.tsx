@@ -2,13 +2,23 @@ import { Text } from '@chakra-ui/react';
 import { skipToken } from '@reduxjs/toolkit/query';
 
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { useGetRecipesBlogByIdQuery } from '~/Pages/BlogPage/model/slice.ts';
 import { useGetRecipeByIdQuery } from '~/query/services/get';
 
 import DB from '../../data/db.json';
+import GetCurrentPath from '../getCurrentPath/index.ts';
 import { isObjectId } from '../isObjectId.ts';
 export default function TranslatePathSegment({ segment }: { segment: string }) {
+    const currentPath = GetCurrentPath();
+    const isBlog = currentPath.includes('blogs');
     const shouldFetchRecipe = isObjectId(segment);
-    const { data: recipeData } = useGetRecipeByIdQuery(shouldFetchRecipe ? segment : skipToken);
+    const { data: recipeData } = useGetRecipeByIdQuery(
+        shouldFetchRecipe && !isBlog ? segment : skipToken,
+    );
+    const { data: BlogData } = useGetRecipesBlogByIdQuery(
+        shouldFetchRecipe && isBlog ? segment : skipToken,
+    );
+    console.log(BlogData);
     const { data: categoriesData } = useGetFilteredCategories();
     const { data: subCategoriesData } = useGetFilteredCategories(true);
     const subcategories = subCategoriesData.reduce(
