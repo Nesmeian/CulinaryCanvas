@@ -7,15 +7,21 @@ import { NotesList } from './noteList';
 import { noteSectionWrapperStl } from './styles';
 
 export const NotesSection = () => {
+    const nativeCount = 3;
     const { id } = useParams();
     const { data } = useGetRecipesBlogByIdQuery(id!);
-    const [visibleCount, setVisibleCount] = useState(3);
+    const [visibleCount, setVisibleCount] = useState(nativeCount);
     const notes = data?.notes.slice(0, visibleCount) ?? [];
-    const totalCount = data?.recipes.length;
-    const showLoadMoreBtn = visibleCount < totalCount!;
-    console.log(showLoadMoreBtn);
+    const [expanded, setExpanded] = useState(false);
+    if (!data) return null;
+    const isNoNeedToLoadMore = nativeCount <= data?.notes.length;
     const loadMoreHandle = () => {
-        setVisibleCount((prev) => prev + 3);
+        if (!expanded) {
+            setVisibleCount(data?.notes.length ?? 0);
+        } else {
+            setVisibleCount(3);
+        }
+        setExpanded(!expanded);
     };
     if (!notes?.length) {
         return null;
@@ -25,13 +31,14 @@ export const NotesSection = () => {
             <Heading as='h3' size='h3' alignSelf='start'>
                 Заметки{' '}
                 <Text as='span' fontSize='36' color=' rgba(0, 0, 0, 0.48)'>
-                    ({notes?.length})
+                    ({data?.notes.length})
                 </Text>
             </Heading>
             <NotesList notes={notes} />
-            {showLoadMoreBtn && (
+
+            {isNoNeedToLoadMore && (
                 <Button variant='plain' onClick={loadMoreHandle}>
-                    Показать больше
+                    {expanded ? 'Показать больше' : 'Свернуть'}
                 </Button>
             )}
         </VStack>

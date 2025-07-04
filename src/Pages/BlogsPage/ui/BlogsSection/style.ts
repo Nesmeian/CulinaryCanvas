@@ -11,6 +11,7 @@ export const BlogGridItemStyles = {
     gap: '12px',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    border: '1px solid rgba(0, 0, 0, 0.08)',
 };
 export const BlogWrapperStyles = {
     width: '100%',
