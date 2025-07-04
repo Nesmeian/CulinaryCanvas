@@ -8,6 +8,7 @@ import MainStyled from '~/components/styledComponents/Main';
 import { useGetRecipesBlogByIdQuery } from './model/slice';
 import { BlogUserCard } from './ui/blogsCard';
 import { NotesSection } from './ui/notesSection';
+import { OthersBloggersSection } from './ui/othersBloggersSection';
 
 export const BlogPage = () => {
     const { id } = useParams();
@@ -29,6 +30,7 @@ export const BlogPage = () => {
                 />
             )}
             <NotesSection />
+            <OthersBloggersSection />
         </MainStyled>
     );
 };
