@@ -27,7 +27,7 @@ export const BigCardItem = memo(
         const { isTablet } = useBreakpoints();
 
         return (
-            <GridItem>
+            <GridItem h={{ base: '128px', lg: '244px' }}>
                 <HStack
                     h='100%    '
                     data-test-id={`${TEST_IDS.FOOD_CARD}${i}`}

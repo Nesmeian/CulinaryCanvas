@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Loader } from '~/components/loader';
-import { BlogCard } from '~/entries/blog/ui/BlogCard';
+import { BlogCard } from '~/entries/blog/ui/BlogsCard';
 import { useGetBlogsQuery, useToggleSubscriptionMutation } from '~/Pages/BlogsPage/model/slice';
 import { BlogGridStyles } from '~/Pages/BlogsPage/ui/BlogsSection/style';
 

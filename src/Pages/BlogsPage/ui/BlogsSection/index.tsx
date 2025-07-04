@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
-import { BlogCard } from '~/entries/blog/ui/BlogCard';
+import { BlogCard } from '~/entries/blog/ui/BlogsCard';
 
 import { useGetBlogsQuery, useToggleSubscriptionMutation } from '../../model/slice';
 import { AllAuthorsBtn } from './AllAuthorsBtn';
@@ -26,10 +26,12 @@ export const BlogsSection = () => {
     if (isError) {
         return <Alert />;
     }
+
     const toggleSubscriptionHandler = (id: string) => {
         setActiveId(id);
         toggleSubscription(id);
     };
+    console.log(data);
     return (
         <VStack {...BlogWrapperStyles}>
             {data && data.others.length > 0 && (
