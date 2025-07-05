@@ -31,7 +31,6 @@ export const BlogsSection = () => {
         setActiveId(id);
         toggleSubscription(id);
     };
-    console.log(data);
     return (
         <VStack {...BlogWrapperStyles}>
             {data && data.others.length > 0 && (
