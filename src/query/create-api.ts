@@ -22,7 +22,7 @@ const baseFetch = fetchBaseQuery({
 const baseQueryWithReauth = async (args: string | FetchArgs, api, extraOptions) => {
     let result = await baseFetch(args, api, extraOptions);
 
-    if ((result.error as FetchBaseQueryError)?.status === 401) {
+    if ((result.error as FetchBaseQueryError)?.status === 403) {
         const refreshResult = await baseFetch(
             {
                 url: '/auth/refresh',
