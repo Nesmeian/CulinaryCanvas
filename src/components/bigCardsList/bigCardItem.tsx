@@ -12,8 +12,9 @@ import {
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { IMG_PATH } from '~/constants';
 import { TEST_IDS } from '~/constants/testsIds';
+import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
+import { IMG_PATH } from '~/shared/config/api';
 import useBreakpoints from '~/themes/chakraBreakPoints';
 import { ComingRecipeData } from '~/types/comingData';
 import AddNotifications from '~/utils/addNotifications';
@@ -21,11 +22,16 @@ import AddTags from '~/utils/addTags';
 import { renderColoredHeading } from '~/utils/coloriseText';
 
 import * as socialIcons from '../../assets/socialIcons/index';
+import { Loader } from '../loader';
 export const BigCardItem = memo(
     ({ recipe, i, searchStr }: { recipe: ComingRecipeData; i: number; searchStr: number }) => {
-        const { _id, image, title, description, categoriesIds, bookmarks, likes } = recipe;
-        const { isTablet } = useBreakpoints();
+        const { image, title, description, categoriesIds, bookmarks, likes } = recipe;
+        const { subCategoryData, category, loading } = useGetCategoryId(categoriesIds[0]);
 
+        const { isTablet } = useBreakpoints();
+        if (loading) {
+            return <Loader />;
+        }
         return (
             <GridItem h={{ base: '128px', lg: '244px' }}>
                 <HStack
@@ -111,7 +117,7 @@ export const BigCardItem = memo(
                             </Button>
                             <Button
                                 as={Link}
-                                to={_id}
+                                to={`/${category?.category || 'snacks'}/${subCategoryData?.category || 'meat-snacks'}/${recipe._id}`}
                                 fontSize={{ md: '15px', sm: '12px' }}
                                 className='card__btn-cook'
                                 size={{ lg: 'sm', sm: 'xs' }}

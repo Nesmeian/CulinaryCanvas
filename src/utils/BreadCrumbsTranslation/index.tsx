@@ -2,7 +2,7 @@ import { Text } from '@chakra-ui/react';
 import { skipToken } from '@reduxjs/toolkit/query';
 
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
-import { useGetRecipesBlogByIdQuery } from '~/Pages/BlogPage/model/slice.ts';
+import { useGetBlogByIdQuery, useGetRecipesBlogByIdQuery } from '~/Pages/BlogPage/model/slice.ts';
 import { useGetRecipeByIdQuery } from '~/query/services/get';
 
 import DB from '../../data/db.json';
@@ -18,7 +18,8 @@ export default function TranslatePathSegment({ segment }: { segment: string }) {
     const { data: BlogData } = useGetRecipesBlogByIdQuery(
         shouldFetchRecipe && isBlog ? segment : skipToken,
     );
-    console.log(BlogData);
+    const { data: userData } = useGetBlogByIdQuery(BlogData?.userId);
+    const userCrumb = `${userData?.bloggerInfo.firstName} ${userData?.bloggerInfo.lastName} (@${userData?.bloggerInfo.login})`;
     const { data: categoriesData } = useGetFilteredCategories();
     const { data: subCategoriesData } = useGetFilteredCategories(true);
     const subcategories = subCategoriesData.reduce(
@@ -49,6 +50,8 @@ export default function TranslatePathSegment({ segment }: { segment: string }) {
         'not-found': 'Страница не найдена',
         blogs: 'Блоги',
     };
+    const userKey = shouldFetchRecipe && isBlog && userData ? { [segment]: userCrumb } : {};
+
     const recipeKey =
         recipeData?._id && recipeData?.title ? { [recipeData._id]: recipeData.title } : {};
     const mergedTranslations: Record<string, string> = {
@@ -58,6 +61,7 @@ export default function TranslatePathSegment({ segment }: { segment: string }) {
         ...dishes,
         ...recipeKey,
         ...pages,
+        ...userKey,
     };
     return <Text>{mergedTranslations[segment] || segment}</Text>;
 }

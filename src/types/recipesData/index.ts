@@ -1,11 +1,15 @@
-import { CardItem, NotificationBase } from '../dataTypes';
+import { CardItem } from '../dataTypes';
 
 export interface AuthorData {
     name: string;
     email: string;
     imgUrl: string;
-    notifications: NotificationBase;
+    notifications: AuthorNoticafiton;
 }
+type AuthorNoticafiton = {
+    bookmarks: number;
+    subscribe: number;
+};
 interface IngredientsData {
     title: string;
     count: string;

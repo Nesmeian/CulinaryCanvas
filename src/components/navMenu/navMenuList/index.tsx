@@ -12,9 +12,9 @@ import {
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { IMG_PATH } from '~/constants';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useGetFilteredCategories } from '~/Hooks/useGetFilteredCategories';
+import { IMG_PATH } from '~/shared/config/api';
 
 import DB from '../../../data/db.json';
 import GetCurrentPath from '../../../utils/getCurrentPath';

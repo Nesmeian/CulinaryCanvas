@@ -14,12 +14,12 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { Alert } from '~/components/alert';
 import { Loader } from '~/components/loader';
-import { IMG_PATH } from '~/constants';
 import { useDeleteRecipeMutation } from '~/query/services/delete/deleteRecipe';
 import {
     useBookmarkRecipeMutation,
     useLikeRecipeMutation,
 } from '~/query/services/post/userActions';
+import { IMG_PATH } from '~/shared/config/api';
 import { ComingRecipeData } from '~/types/comingData';
 import AddNotifications from '~/utils/addNotifications';
 import AddTags from '~/utils/addTags';

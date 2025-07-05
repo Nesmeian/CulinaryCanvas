@@ -1,6 +1,6 @@
 import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
-import { IMG_PATH } from '~/constants';
+import { IMG_PATH } from '~/shared/config/api';
 import { StepsData } from '~/types/recipesData';
 
 import { stepTextStyle } from '../recipeStyles';
