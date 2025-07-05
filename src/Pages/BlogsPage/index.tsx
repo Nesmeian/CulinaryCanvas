@@ -4,7 +4,7 @@ import Slider from '~/components/slider';
 import MainStyled from '~/components/styledComponents/Main';
 
 import { BlogsSection } from './ui/BlogsSection';
-import { FavoriteSection } from './ui/FavotiteSection.tsx';
+import { FavoriteSection } from './ui/FavoriteSection.tsx';
 
 const BlogsPage = () => (
     <MainStyled>
