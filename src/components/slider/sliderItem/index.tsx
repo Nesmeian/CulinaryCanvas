@@ -4,9 +4,9 @@ import { Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 import { Loader } from '~/components/loader';
-import { IMG_PATH } from '~/constants';
 import { TEST_IDS } from '~/constants/testsIds';
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
+import { IMG_PATH } from '~/shared/config/api';
 import useBreakpoints from '~/themes/chakraBreakPoints';
 import { ComingRecipeData } from '~/types/comingData';
 import AddNotifications from '~/utils/addNotifications';

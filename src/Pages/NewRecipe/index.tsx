@@ -17,6 +17,7 @@ import { useModal } from '~/context/mainContext/useContext';
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
 import { useGetRecipeByIdQuery } from '~/query/services/get';
 import { useCreateNewRecipeMutation } from '~/query/services/post/newRecipe';
+import { IMG_PATH } from '~/shared/config/api';
 import { RecipeFields, UploadedFile } from '~/types/NewRecipesTypes';
 import { newRecipeScheme } from '~/utils/validationRules/newRecipeScheme';
 
@@ -95,12 +96,11 @@ export const NewRecipe = () => {
         setValue,
     } = methods;
     const handleImageSave = (uploaded: UploadedFile) => {
-        const API_BASE = 'https://training-api.clevertec.ru';
         const fullUrl = uploaded.url.startsWith('http')
             ? uploaded.url
-            : `${API_BASE}${uploaded.url}`;
+            : `${IMG_PATH}${uploaded.url}`;
 
-        const relativeUrl = fullUrl.replace(API_BASE, '');
+        const relativeUrl = fullUrl.replace(IMG_PATH, '');
         setValue('image', relativeUrl, {
             shouldValidate: true,
             shouldDirty: true,
@@ -137,7 +137,7 @@ export const NewRecipe = () => {
                                 src={
                                     imageValue
                                         ? imageValue.startsWith('/')
-                                            ? `https://training-api.clevertec.ru${imageValue}`
+                                            ? `${IMG_PATH}${imageValue}`
                                             : imageValue
                                         : emptyImg
                                 }
@@ -152,9 +152,7 @@ export const NewRecipe = () => {
                 </HStack>
                 <DropImageModal
                     isOpen={isOpen}
-                    initImage={
-                        imageValue ? `https://training-api.clevertec.ru${imageValue}` : emptyImg
-                    }
+                    initImage={imageValue ? `${IMG_PATH}${imageValue}` : emptyImg}
                     onClose={onClose}
                     onSave={handleImageSave}
                 />

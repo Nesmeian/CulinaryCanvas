@@ -1,10 +1,10 @@
 import { Avatar, Button, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
+import { IMG_PATH } from '~/shared/config/api';
 import { AuthorData } from '~/types/recipesData';
+import AddNotifications from '~/utils/addNotifications';
 
 import followImg from '../../../assets/follow.svg';
-import * as socialIcons from '../../../assets/socialIcons/index';
-import * as usersImg from '../../../assets/users/commonImg/index';
 export default function RecipeAuthor({ data }: { data: AuthorData }) {
     const { email, imgUrl, name, notifications } = data;
     return (
@@ -18,7 +18,7 @@ export default function RecipeAuthor({ data }: { data: AuthorData }) {
             justify='space-between'
         >
             <HStack gap='16px'>
-                <Avatar boxSize='96px' src={usersImg[imgUrl as keyof typeof usersImg]}></Avatar>
+                <Avatar boxSize='96px' src={`${IMG_PATH}${imgUrl}`}></Avatar>
                 <VStack alignItems='flex-start'>
                     <Heading
                         size='h4'
@@ -26,7 +26,7 @@ export default function RecipeAuthor({ data }: { data: AuthorData }) {
                         fontSize={{ md: '24px', base: '18px' }}
                         fontWeight='700'
                     >
-                        {name}
+                        {name || ''}
                     </Heading>
                     <Text fontSize={{ base: '14px' }}>{email}</Text>
                     <Button
@@ -51,17 +51,10 @@ export default function RecipeAuthor({ data }: { data: AuthorData }) {
             >
                 <Text fontSize={{ md: '14px', base: '12px' }}>Автор Рецепта</Text>
                 <HStack>
-                    {Object.entries(notifications).map(([key, value]) => (
-                        <HStack key={key}>
-                            <Image
-                                src={socialIcons[(key + 'Trans') as keyof typeof socialIcons]}
-                                alt='social icon'
-                            />
-                            <Text fontSize='12px' color='#2db100' fontWeight='600'>
-                                {value}
-                            </Text>
-                        </HStack>
-                    ))}
+                    <AddNotifications
+                        bookmarks={notifications.bookmarks}
+                        subscribes={notifications.subscribe}
+                    />
                 </HStack>
             </VStack>
         </HStack>

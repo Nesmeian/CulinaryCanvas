@@ -2,8 +2,8 @@ import './style.css';
 
 import { HStack, Image, Stack, Text } from '@chakra-ui/react';
 
-import { IMG_PATH } from '~/constants';
 import { useGetCategoryId } from '~/Hooks/useGetCategoryAndSubCategoryId';
+import { IMG_PATH } from '~/shared/config/api';
 
 import TagsProps from '../../types/utilsTypes';
 

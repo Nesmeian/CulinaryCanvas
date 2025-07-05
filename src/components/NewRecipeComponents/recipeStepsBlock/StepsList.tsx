@@ -13,6 +13,7 @@ import { Controller, useFieldArray, useFormContext, useWatch } from 'react-hook-
 
 import { DropImageModal } from '~/components/dropImageModal';
 import { stepTextStyle } from '~/components/recipe/recipeStyles';
+import { IMG_PATH } from '~/shared/config/api';
 import { RecipeFields, UploadedFile } from '~/types/NewRecipesTypes';
 
 import * as AddIcons from '../../../assets/addIcon/index';
@@ -20,7 +21,6 @@ import deleteIcon from '../../../assets/deleteIcon.svg';
 import emptyImg from '../../../assets/emptyImage.png';
 
 export const StepsList = () => {
-    const API_BASE = 'https://training-api.clevertec.ru';
     const {
         control,
         formState: { errors },
@@ -54,9 +54,9 @@ export const StepsList = () => {
 
         const fullUrl = uploaded.url.startsWith('http')
             ? uploaded.url
-            : `${API_BASE}${uploaded.url}`;
+            : `${IMG_PATH}${uploaded.url}`;
 
-        const relativeUrl = fullUrl.replace(API_BASE, '');
+        const relativeUrl = fullUrl.replace(IMG_PATH, '');
 
         imageOnChangeMap.current[activeIndex]?.(fullUrl);
 
@@ -87,7 +87,7 @@ export const StepsList = () => {
                             imageOnChangeMap.current[i] = onChange;
                             return (
                                 <Image
-                                    src={value ? `${API_BASE}${value}` : emptyImg}
+                                    src={value ? `${IMG_PATH}${value}` : emptyImg}
                                     alt={`Шаг ${i}`}
                                     height='100%'
                                     width={{ base: '328px', md: '346px' }}

@@ -1,9 +1,9 @@
 import { VStack } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { useGetBlogByIdQuery } from '~/Pages/BlogPage/model/slice';
 import { useGetRecipeByIdQuery } from '~/query/services/get';
 import { NutritionValueData } from '~/types/recipesData/index.ts';
-import GetCurrentPath from '~/utils/getCurrentPath';
 
 import { Loader } from '../loader';
 import Slider from '../slider';
@@ -15,9 +15,10 @@ import RecipeNutritionValue from './recipenutrition';
 import RecipeSteps from './recipeSteps';
 
 export default function Recipe() {
-    const path = GetCurrentPath();
     const navigate = useNavigate();
-    const { data: recipeItem, isLoading, isError } = useGetRecipeByIdQuery(path[path.length - 1]);
+    const { id } = useParams();
+    const { data: recipeItem, isLoading, isError } = useGetRecipeByIdQuery(id);
+    const { data: authorData } = useGetBlogByIdQuery(recipeItem?.authorId);
     if (isLoading) {
         return <Loader />;
     }
@@ -30,11 +31,12 @@ export default function Recipe() {
     const recipeStepsData = recipeItem?.steps ?? [];
     const recipePortions = recipeItem?.portions ?? 1;
     const author = {
-        name: 'Сергей Разумов',
-        email: '@serge25',
-        imgUrl: 'sergeyRazumov',
+        name: `${authorData?.bloggerInfo.firstName} ${authorData?.bloggerInfo.lastName}`,
+        email: authorData?.bloggerInfo.photoLink,
+        imgUrl: authorData?.bloggerInfo.photoLink,
         notifications: {
-            views: 125,
+            subscribe: authorData?.bloggerInfo.subscribersCount,
+            bookmarks: authorData?.bloggerInfo.bookmarksCount,
         },
     };
 
