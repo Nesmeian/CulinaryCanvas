@@ -18,7 +18,7 @@ export default function TranslatePathSegment({ segment }: { segment: string }) {
     const { data: BlogData } = useGetRecipesBlogByIdQuery(
         shouldFetchRecipe && isBlog ? segment : skipToken,
     );
-    const { data: userData } = useGetBlogByIdQuery(BlogData?.userId);
+    const { data: userData } = useGetBlogByIdQuery(BlogData ? BlogData?.userId : skipToken);
     const userCrumb = `${userData?.bloggerInfo.firstName} ${userData?.bloggerInfo.lastName} (@${userData?.bloggerInfo.login})`;
     const { data: categoriesData } = useGetFilteredCategories();
     const { data: subCategoriesData } = useGetFilteredCategories(true);

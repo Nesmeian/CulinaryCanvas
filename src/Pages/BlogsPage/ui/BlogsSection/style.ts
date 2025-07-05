@@ -1,5 +1,5 @@
 export const BlogGridStyles = {
-    templateColumns: 'repeat(3, 1fr)',
+    templateColumns: { xl: 'repeat(3, 1fr)', md: 'repeat(2, 1fr)', base: '1fr' },
     gap: '16px',
 };
 
