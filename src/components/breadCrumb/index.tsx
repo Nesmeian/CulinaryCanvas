@@ -17,6 +17,7 @@ export default function BreadCrumb({ isOpen, onClose }: BreadCrumbsTypes) {
     if (isLoading) {
         return <Loader />;
     }
+    console.log('check');
     return (
         <Breadcrumb
             pt='16px'
