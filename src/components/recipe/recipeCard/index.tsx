@@ -36,8 +36,9 @@ export default function RecipeCard({ recipeData }: { recipeData: ComingRecipeDat
     const navigate = useNavigate();
     const currentPath = GetCurrentPath();
     const { title, _id, description, categoriesIds, image, bookmarks, likes, time } = recipeData;
-    const userData = decodeToken(localStorage.getItem('accessToken'));
-    const isUserRecipe = userData.userId === recipeData?.authorId;
+    const rawToken = localStorage.getItem('accessToken');
+    const { userId: currentUserId } = decodeToken(rawToken) ?? {};
+    const isUserRecipe = currentUserId === recipeData.authorId;
     const [
         deleteRecipe,
         { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError },

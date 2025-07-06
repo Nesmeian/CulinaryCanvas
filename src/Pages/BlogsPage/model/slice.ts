@@ -6,7 +6,7 @@ import { apiSlice } from '~/query/create-api';
 import { decodeToken } from '~/utils/decodeToken';
 
 import { BloggerQueryParams, GetBlogsArgs } from './types';
-const userId = decodeToken(localStorage.getItem('accessToken')).userId;
+const userId = decodeToken(localStorage.getItem('accessToken'))?.userId;
 export const BlogsSlice = apiSlice.enhanceEndpoints({ addTagTypes: [Tags.BLOGS] }).injectEndpoints({
     endpoints: (builder) => ({
         getBlogs: builder.query<BloggerQueryParams, GetBlogsArgs>({
