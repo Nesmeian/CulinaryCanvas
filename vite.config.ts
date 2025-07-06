@@ -5,12 +5,12 @@ import { defineConfig } from 'vite';
 export default defineConfig(() => ({
     base: '/CulinaryCanvas/',
     plugins: [react()],
-    build: {
-        outDir: 'build',
-    },
     server: {
         host: true,
         port: 3000,
+    },
+    build: {
+        outDir: 'dist',
     },
     resolve: {
         alias: {
