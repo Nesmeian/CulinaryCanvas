@@ -6,31 +6,44 @@ import { apiSlice } from '~/query/create-api';
 import { decodeToken } from '~/utils/decodeToken';
 
 import { BloggerInfoType, UserBlogData } from './types';
-const userId = decodeToken(localStorage.getItem('accessToken')).userId;
 const BlogSlice = apiSlice.enhanceEndpoints({ addTagTypes: [Tags.BLOGS] }).injectEndpoints({
     endpoints: (builder) => ({
         getBlogById: builder.query<BloggerInfoType, string>({
-            query: (id) => ({
-                url: `${ApiEndpoints.BLOGS}/${id}`,
-                method: 'GET',
-                params: {
-                    currentUserId: userId,
-                },
-                apiGroupName: ApiGroupNames.BLOGS,
-                name: EndpointNames.BLOG_ID,
-            }),
+            query: (id) => {
+                const token = localStorage.getItem('accessToken');
+                let userId: string | undefined;
+                try {
+                    userId = token ? decodeToken(token)?.userId : undefined;
+                } catch {
+                    userId = undefined;
+                }
+                return {
+                    url: `${ApiEndpoints.BLOGS}/${id}`,
+                    method: 'GET',
+                    params: { currentUserId: userId },
+                    apiGroupName: ApiGroupNames.BLOGS,
+                    name: EndpointNames.BLOG_ID,
+                };
+            },
             providesTags: [Tags.BLOGS],
         }),
         getRecipesBlogById: builder.query<UserBlogData, string>({
-            query: (id) => ({
-                url: `${ApiEndpoints.RECIPE_BLOGS}/${id}`,
-                method: 'GET',
-                params: {
-                    currentUserId: userId,
-                },
-                apiGroupName: ApiGroupNames.BLOGS,
-                name: EndpointNames.RECIPE_BLOGS,
-            }),
+            query: (id) => {
+                const token = localStorage.getItem('accessToken');
+                let userId: string | undefined;
+                try {
+                    userId = token ? decodeToken(token)?.userId : undefined;
+                } catch {
+                    userId = undefined;
+                }
+                return {
+                    url: `${ApiEndpoints.RECIPE_BLOGS}/${id}`,
+                    method: 'GET',
+                    params: { currentUserId: userId },
+                    apiGroupName: ApiGroupNames.BLOGS,
+                    name: EndpointNames.RECIPE_BLOGS,
+                };
+            },
             providesTags: [Tags.BLOGS],
         }),
     }),

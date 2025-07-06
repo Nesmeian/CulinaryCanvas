@@ -90,5 +90,8 @@ export function makeRouter(
                 <Route path='*' element={<Navigate to='/not-found' replace />} />
             </>,
         ),
+        {
+            basename: import.meta.env.BASE_URL,
+        },
     );
 }
